@@ -1,0 +1,9 @@
+{
+  "extends": ["../tslint.json"],
+  "rules": {
+    "no-any": false,
+    "no-unsafe-any": false,
+    "no-require-imports": false,
+    "typedef": false
+  }
+}

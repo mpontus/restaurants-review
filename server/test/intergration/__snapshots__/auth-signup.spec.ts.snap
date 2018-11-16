@@ -1,0 +1,128 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Signup when details are valid should succeed 1`] = `
+Object {
+  "token": Any<String>,
+  "user": Any<Object>,
+}
+`;
+
+exports[`Signup when details are valid should succeed 2`] = `
+Object {
+  "email": "polo@peswop.dm",
+  "id": Any<String>,
+  "roles": Array [
+    "user",
+  ],
+}
+`;
+
+exports[`Signup when email is empty should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "isEmail": "email must be an email",
+      },
+      "property": "email",
+      "target": Object {
+        "email": "",
+        "name": "Lawrence Ford",
+        "password": "ngbA1CVl!H",
+      },
+      "value": "",
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`Signup when email is invalid should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "isEmail": "email must be an email",
+      },
+      "property": "email",
+      "target": Object {
+        "email": "123456",
+        "name": "Lawrence Ford",
+        "password": "ngbA1CVl!H",
+      },
+      "value": "123456",
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`Signup when name is empty should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "isNotEmpty": "name should not be empty",
+      },
+      "property": "name",
+      "target": Object {
+        "email": "polo@peswop.dm",
+        "name": "",
+        "password": "ngbA1CVl!H",
+      },
+      "value": "",
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`Signup when password is empty should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "minLength": "password must be longer than or equal to 6 characters",
+      },
+      "property": "password",
+      "target": Object {
+        "email": "polo@peswop.dm",
+        "name": "Lawrence Ford",
+        "password": "",
+      },
+      "value": "",
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`Signup when password is too short should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "minLength": "password must be longer than or equal to 6 characters",
+      },
+      "property": "password",
+      "target": Object {
+        "email": "polo@peswop.dm",
+        "name": "Lawrence Ford",
+        "password": "123",
+      },
+      "value": "123",
+    },
+  ],
+  "statusCode": 400,
+}
+`;

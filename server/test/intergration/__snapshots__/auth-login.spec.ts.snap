@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login when credentials are correct should succeed 1`] = `
+Object {
+  "token": Any<String>,
+  "user": Any<Object>,
+}
+`;
+
+exports[`Login when credentials are correct should succeed 2`] = `
+Object {
+  "email": "uwezepgis@aku.cm",
+  "id": Any<String>,
+  "roles": Array [
+    "user",
+  ],
+}
+`;
+
+exports[`Login when email is invalid should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": "Bad credentials",
+  "statusCode": 400,
+}
+`;
+
+exports[`Login when password is invalid should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": "Bad credentials",
+  "statusCode": 400,
+}
+`;
