@@ -1,0 +1,16 @@
+# NodeJS dependencies
+node_modules/
+
+# Environment variables
+server/.env
+
+# Churn
+npm-debug.log
+yarn-error.log
+lerna-debug.log
+.idea/
+coverage/
+
+# Build artifacts
+server/dist/
+client/dist/
