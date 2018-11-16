@@ -1,0 +1,35 @@
+version: "3"
+services:
+  server:
+    image: node:8
+    volumes:
+      - .:/usr/src
+    working_dir: /usr/src/server
+    command: yarn start
+    networks:
+      - backend
+    ports:
+      - "8080:8080"
+    environment:
+      PORT: 8080
+      JWT_SECRET: "secret"
+      DATABASE_URL: "postgresql://postgres@db:5432/postgres"
+      REDIS_URL: "redis://redis:6379"
+
+  db:
+    image: postgres:9.4
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  redis:
+    image: redis:alpine
+    networks:
+      - backend
+
+networks:
+  backend:
+
+volumes:
+  db-data:
