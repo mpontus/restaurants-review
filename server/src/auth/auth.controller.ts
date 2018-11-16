@@ -10,6 +10,7 @@ import {
 import { ApiOkResponse } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { LoginDto } from './model/login-dto.model';
+import { RefreshDto } from './model/refresh-dto';
 import { Session } from './model/session.model';
 import { SignupDto } from './model/signup-dto.model';
 
@@ -40,5 +41,14 @@ export class AuthController {
   @ApiOkResponse({ type: Session })
   public async signup(@Body() data: SignupDto): Promise<Session> {
     return this.authService.signup(data);
+  }
+
+  /**
+   * Handle token refresh
+   */
+  @Post('refresh')
+  @ApiOkResponse({ type: Session })
+  public async refresh(@Body() data: RefreshDto): Promise<Session> {
+    return this.authService.refresh(data);
   }
 }

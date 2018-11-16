@@ -5,6 +5,7 @@ import { validateSchema } from 'common/utils/validate-schema';
 import * as t from 'io-ts';
 import { User } from 'user/model/user.model';
 import { Session } from './model/session.model';
+import { RefreshTokenService } from './refresh-token.service';
 
 const tokenPayloadSchema = t.type({
   sub: t.string,
@@ -18,7 +19,10 @@ const tokenPayloadSchema = t.type({
  */
 @Injectable()
 export class SessionService {
-  constructor(private readonly jwtService: JwtService) {}
+  constructor(
+    private readonly jwtService: JwtService,
+    private readonly refreshTokenService: RefreshTokenService,
+  ) {}
 
   /**
    * Extract Principal from authorization token
@@ -27,23 +31,22 @@ export class SessionService {
     const decoded = await this.jwtService.decode(token);
     const payload = await validateSchema(tokenPayloadSchema, decoded);
 
-    return Object.assign(new Principal(), {
-      id: payload.sub,
-      roles: payload.roles,
-    });
+    return new Principal(payload.sub, payload.roles);
   }
 
   /**
    * Create new session for the given user
    */
   public async createForUser(user: User): Promise<Session> {
-    const token = await this.jwtService.encode({
+    const refreshToken = await this.refreshTokenService.createForUser(user);
+    const accessToken = await this.jwtService.encode({
       sub: user.id,
       roles: user.roles,
     });
 
-    return Object.assign(new Session(), {
-      token,
+    return new Session({
+      accessToken,
+      refreshToken,
       user,
     });
   }

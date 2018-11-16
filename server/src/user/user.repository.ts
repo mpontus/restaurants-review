@@ -13,6 +13,26 @@ export class UserRepository {
   constructor(@InjectEntityManager() private readonly manager: EntityManager) {}
 
   /**
+   * Find single user by id
+   *
+   * Return undefined when user with given email does not exist
+   */
+  public async findById(id: string): Promise<User | undefined> {
+    const userEntity = await this.manager.findOne(UserEntity, { id });
+
+    if (userEntity === undefined) {
+      return undefined;
+    }
+
+    return new User({
+      id: userEntity.id,
+      email: userEntity.email || undefined,
+      passwordHash: userEntity.passwordHash || undefined,
+      roles: userEntity.roles,
+    });
+  }
+
+  /**
    * Find single user by email
    *
    * Return undefined when user with given email does not exist

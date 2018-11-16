@@ -11,4 +11,12 @@ export class Principal {
    * User roles
    */
   public roles: string[];
+
+  /**
+   * Constructor
+   */
+  constructor(id: string, roles: string[]) {
+    this.id = id;
+    this.roles = roles;
+  }
 }

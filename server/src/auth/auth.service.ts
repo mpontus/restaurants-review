@@ -7,8 +7,10 @@ import { CryptoService } from 'common/crypto.service';
 import { User } from 'user/model/user.model';
 import { UserRepository } from 'user/user.repository';
 import { LoginDto } from './model/login-dto.model';
+import { RefreshDto } from './model/refresh-dto';
 import { Session } from './model/session.model';
 import { SignupDto } from './model/signup-dto.model';
+import { RefreshTokenService } from './refresh-token.service';
 import { SessionService } from './session.service';
 
 /**
@@ -22,6 +24,7 @@ export class AuthService {
     private readonly userRepository: UserRepository,
     private readonly cryptoService: CryptoService,
     private readonly sessionService: SessionService,
+    private readonly refreshTokenService: RefreshTokenService,
   ) {}
 
   /**
@@ -57,6 +60,16 @@ export class AuthService {
     });
 
     await this.userRepository.create(user);
+
+    return this.sessionService.createForUser(user);
+  }
+
+  public async refresh(data: RefreshDto): Promise<Session> {
+    const user = await this.refreshTokenService.findUser(data.token);
+
+    if (user === undefined) {
+      throw new BadRequestException('Invalid refresh token');
+    }
 
     return this.sessionService.createForUser(user);
   }

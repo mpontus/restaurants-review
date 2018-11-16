@@ -2,7 +2,8 @@
 
 exports[`Signup when details are valid should succeed 1`] = `
 Object {
-  "token": Any<String>,
+  "accessToken": Any<String>,
+  "refreshToken": Any<String>,
   "user": Any<Object>,
 }
 `;

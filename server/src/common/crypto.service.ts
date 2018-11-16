@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+import crypto from 'crypto';
 import { ConfigService } from 'nestjs-config';
 
 /**
@@ -10,6 +11,13 @@ import { ConfigService } from 'nestjs-config';
 @Injectable()
 export class CryptoService {
   constructor(private readonly configSerivce: ConfigService) {}
+
+  /**
+   * Generate random secure token
+   */
+  public secureRandom(): string {
+    return crypto.randomBytes(32).toString('HEX');
+  }
 
   /**
    * Hash password

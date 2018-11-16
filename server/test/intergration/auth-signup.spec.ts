@@ -25,7 +25,8 @@ describe('Signup', () => {
         .expect(201);
 
       expect(response.body).toMatchSnapshot({
-        token: expect.any(String),
+        accessToken: expect.any(String),
+        refreshToken: expect.any(String),
         user: expect.any(Object),
       });
 
@@ -113,7 +114,7 @@ describe('Signup', () => {
   describe.skip('when user with given email already exists', () => {
     const seed = require('../seed/regular-user');
 
-    beforeEach(() => seed.run());
+    beforeEach(() => seed.run(nestApp));
 
     it('should fail', async () => {
       const response = await supertest(nestApp.getHttpServer())
