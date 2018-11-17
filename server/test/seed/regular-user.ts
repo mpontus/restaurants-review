@@ -6,6 +6,7 @@ import { Connection } from 'typeorm';
 import { UserEntity } from 'user/entity/user.entity';
 
 export const id = 'fc085146-a648-50e4-b3dc-9a4133e738fe';
+export const name = 'Ryan Gallagher';
 export const email = 'uwezepgis@aku.cm';
 export const password = '#(i9Z3OyGW';
 export const passwordHash = bcrypt.hashSync(password, 6);
@@ -32,7 +33,7 @@ export const run = async (nestApp: NestApplication) => {
       .createQueryBuilder()
       .insert()
       .into(UserEntity)
-      .values([{ id, email, passwordHash, roles: ['user'] }])
+      .values([{ id, name, email, passwordHash, roles: ['user'] }])
       .execute(),
     nestApp.get(Redis).hmset(`access_tokens:${accessToken}`, sessionData),
     nestApp.get(Redis).hmset(`refresh_tokens:${refreshToken}`, sessionData),

@@ -12,6 +12,7 @@ exports[`Login when credentials are correct should succeed 2`] = `
 Object {
   "email": "uwezepgis@aku.cm",
   "id": Any<String>,
+  "name": "Ryan Gallagher",
   "roles": Array [
     "user",
   ],

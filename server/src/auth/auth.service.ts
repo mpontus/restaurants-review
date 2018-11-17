@@ -66,6 +66,7 @@ export class AuthService {
    */
   public async signup(data: SignupDto): Promise<Session> {
     const user = new User({
+      name: data.name,
       email: data.email,
       passwordHash: await this.cryptoService.hashPassword(data.password),
       roles: ['user'],

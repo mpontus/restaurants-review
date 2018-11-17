@@ -12,6 +12,7 @@ exports[`Signup when details are valid should succeed 2`] = `
 Object {
   "email": "polo@peswop.dm",
   "id": Any<String>,
+  "name": "Lawrence Ford",
   "roles": Array [
     "user",
   ],

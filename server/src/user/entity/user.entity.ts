@@ -14,6 +14,12 @@ export class UserEntity {
   public id!: string;
 
   /**
+   * Display name
+   */
+  @Column()
+  public name!: string;
+
+  /**
    * Email
    *
    * Not all users may have an email.

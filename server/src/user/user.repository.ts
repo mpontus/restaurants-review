@@ -56,6 +56,7 @@ export class UserRepository {
   public async create(user: User): Promise<User> {
     const userEntity = this.manager.create(UserEntity, {
       id: uuid(),
+      name: user.name,
       email: user.email,
       passwordHash: user.passwordHash,
       roles: user.roles,
@@ -74,6 +75,7 @@ export class UserRepository {
    */
   public async update(user: User): Promise<User> {
     await this.manager.update(UserEntity, user.id, {
+      name: user.name,
       email: user.email,
       passwordHash: user.passwordHash,
       roles: user.roles,
@@ -110,6 +112,7 @@ export class UserRepository {
   private transformEntity(userEntity: UserEntity): User {
     return new User({
       id: userEntity.id,
+      name: userEntity.name,
       email: userEntity.email || undefined,
       passwordHash: userEntity.passwordHash || undefined,
       roles: userEntity.roles,
