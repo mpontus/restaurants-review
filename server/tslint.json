@@ -2,11 +2,15 @@
   "defaultSeverity": "error",
   "extends": [
     "tslint:recommended",
+    "tslint-consistent-codestyle",
     "tslint-clean-code/recommended_ruleset",
     "tslint-config-prettier"
   ],
   "rulesDirectory": ["node_modules/tslint-clean-code/dist/src"],
   "rules": {
+    // Using this instead of compiler error
+    "no-unused-variable": true,
+
     // Allow bypassing unused parameters using underscore
     "variable-name": [true, "allow-leading-underscore"],
 

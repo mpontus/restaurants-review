@@ -2,16 +2,13 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Get,
-  Injectable,
   Query,
-  UseGuards,
   UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
-  ApiImplicitQuery,
   ApiOkResponse,
 } from '@nestjs/swagger';
 import { ListUsersCriteria } from './model/list-users-criteria.model';

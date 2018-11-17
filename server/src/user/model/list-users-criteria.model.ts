@@ -1,6 +1,6 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { IsNotEmpty, IsOptional, IsString, Max, Min } from 'class-validator';
+import { Max, Min } from 'class-validator';
 
 /**
  * Criteria for user listing

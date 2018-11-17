@@ -5,7 +5,6 @@ import {
 } from '@nestjs/common';
 import { CryptoService } from 'common/crypto.service';
 import { Principal } from 'common/model/principal.model';
-import { validateSchema } from 'common/utils/validate-schema';
 import { User } from 'user/model/user.model';
 import { UserRepository } from 'user/user.repository';
 import { LoginDto } from './model/login-dto.model';
