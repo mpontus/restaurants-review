@@ -5,17 +5,14 @@
   "repository": "https://github.com/mpontus/restaurants-review",
   "author": "Michael Pontus",
   "license": "MIT",
-  "private": true,
   "scripts": {
+    "postinstall": "lerna bootstrap",
     "start": "lerna run start --parallel",
     "build": "lerna run build",
     "lint": "lerna run lint",
     "heroku-postbuild": "npm run build --scope server"
   },
   "devDependencies": {
-    "lerna": "^3.4.3"
-  },
-  "workspaces": [
-    "server"
-  ]
+    "lerna": "^2.11.0"
+  }
 }
