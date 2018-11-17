@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
+import { Principal } from 'common/model/principal.model';
 import { CreatePlaceDto } from './model/create-place-dto.model';
 import { ListPlacesCriteria } from './model/list-places-criteria.model';
 import { PlaceList } from './model/place-list.model';
@@ -41,25 +46,35 @@ export class PlaceService {
   /**
    * Create new place
    */
-  public async createPlace(data: CreatePlaceDto): Promise<Place> {
+  public async createPlace(
+    actor: Principal,
+    data: CreatePlaceDto,
+  ): Promise<Place> {
     const place = new Place({
+      ownerId: actor.id,
       title: data.title,
       address: data.address,
     });
 
-    await this.placeRepository.create(place);
-
-    return place;
+    return this.placeRepository.create(place);
   }
 
   /**
    * Update place details
    */
-  public async updatePlace(id: string, update: UpdatePlaceDto): Promise<Place> {
+  public async updatePlace(
+    actor: Principal,
+    id: string,
+    update: UpdatePlaceDto,
+  ): Promise<Place> {
     const place = await this.placeRepository.findById(id);
 
     if (place === undefined) {
       throw new NotFoundException();
+    }
+
+    if (place.ownerId !== actor.id && !actor.roles.includes('admin')) {
+      throw new ForbiddenException();
     }
 
     Object.assign(place, {
@@ -73,11 +88,15 @@ export class PlaceService {
   /**
    * Delete place by id
    */
-  public async deletePlace(id: string): Promise<void> {
+  public async deletePlace(actor: Principal, id: string): Promise<void> {
     const place = await this.placeRepository.findById(id);
 
     if (place === undefined) {
       throw new NotFoundException();
+    }
+
+    if (place.ownerId !== actor.id && !actor.roles.includes('admin')) {
+      throw new ForbiddenException();
     }
 
     await this.placeRepository.remove(place);

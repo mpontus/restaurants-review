@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Delete Place when user does not own the place should fail 1`] = `
+Object {
+  "error": "Forbidden",
+  "statusCode": 403,
+}
+`;
+
+exports[`Delete Place when user is admin should succeed 1`] = `Object {}`;
+
+exports[`Delete Place when user owns the place should succeed 1`] = `Object {}`;

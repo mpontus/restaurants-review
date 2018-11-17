@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Update place when address is empty should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "isNotEmpty": "address should not be empty",
+      },
+      "property": "address",
+      "target": Object {
+        "address": "",
+      },
+      "value": "",
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`Update place when title is empty should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "isNotEmpty": "title should not be empty",
+      },
+      "property": "title",
+      "target": Object {
+        "title": "",
+      },
+      "value": "",
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`Update place when user is admin should succeed 1`] = `
+Object {
+  "address": "069 Murphy Union",
+  "id": "d3973942-133b-55e4-920e-7b0033ab9d38",
+  "rating": 0,
+  "title": "The Noodle Farmer",
+}
+`;
+
+exports[`Update place when user is owner when place belongs to the user should succeed 1`] = `
+Object {
+  "address": "069 Murphy Union",
+  "id": "05bd7b00-f274-5b91-9c48-08bfa24cb9bd",
+  "rating": 0,
+  "title": "Nicolas - Satterfield",
+}
+`;
+
+exports[`Update place when user is owner when place does not belong to the user should fail 1`] = `
+Object {
+  "error": "Forbidden",
+  "statusCode": 403,
+}
+`;

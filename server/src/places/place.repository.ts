@@ -53,6 +53,7 @@ export class PlaceRepository {
   public async create(place: Place): Promise<Place> {
     const placeEntity = this.manager.create(PlaceEntity, {
       id: uuid(),
+      ownerId: place.ownerId,
       title: place.title,
       address: place.address,
     });

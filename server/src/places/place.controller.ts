@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   UseGuards,
   UseInterceptors,
   UsePipes,
@@ -16,6 +17,7 @@ import {
 import { ApiBearerAuth, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'auth/guards/auth.guard';
 import { RolesGuard } from 'auth/guards/roles.guard';
+import { IAuthRequest } from 'common/interfaces/auth-request.interface';
 import { CreatePlaceDto } from './model/create-place-dto.model';
 import { ListPlacesCriteria } from './model/list-places-criteria.model';
 import { PlaceList } from './model/place-list.model';
@@ -35,6 +37,15 @@ export class PlaceController {
   constructor(private readonly placeService: PlaceService) {}
 
   /**
+   * Retrieve single place
+   */
+  @Get(':id')
+  @ApiOkResponse({ type: Place })
+  public async getPlace(@Param('id') id: string): Promise<Place> {
+    return this.placeService.getPlace(id);
+  }
+
+  /**
    * List existing places
    */
   @Get()
@@ -49,48 +60,42 @@ export class PlaceController {
    * Create new place
    */
   @Post()
-  @UseGuards(AuthGuard)
-  @UseGuards(new RolesGuard(['owner', 'admin']))
+  @UseGuards(AuthGuard, new RolesGuard(['owner', 'admin']))
   @ApiBearerAuth()
   @ApiResponse({ status: 201, type: Place })
-  public async createPlace(@Body() data: CreatePlaceDto): Promise<Place> {
-    return this.placeService.createPlace(data);
-  }
-
-  /**
-   * Retrieve single place
-   */
-  @Get(':id')
-  @ApiBearerAuth()
-  @ApiOkResponse({ type: PlaceList })
-  public async getPlace(@Param(':id') id: string): Promise<Place> {
-    return this.placeService.getPlace(id);
+  public async createPlace(
+    @Req() req: IAuthRequest,
+    @Body() data: CreatePlaceDto,
+  ): Promise<Place> {
+    return this.placeService.createPlace(req.user, data);
   }
 
   /**
    * Update place
    */
   @Patch(':id')
-  @UseGuards(AuthGuard)
-  @UseGuards(new RolesGuard(['owner', 'admin']))
+  @UseGuards(AuthGuard, new RolesGuard(['owner', 'admin']))
   @ApiBearerAuth()
   @ApiOkResponse({ type: Place })
   public async updatePlace(
+    @Req() req: IAuthRequest,
     @Param('id') id: string,
     @Body() data: UpdatePlaceDto,
   ): Promise<Place> {
-    return this.placeService.updatePlace(id, data);
+    return this.placeService.updatePlace(req.user, id, data);
   }
 
   /**
    * Update place
    */
   @Delete(':id')
-  @UseGuards(AuthGuard)
-  @UseGuards(new RolesGuard(['owner', 'admin']))
+  @UseGuards(AuthGuard, new RolesGuard(['owner', 'admin']))
   @ApiBearerAuth()
   @ApiResponse({ status: 204, type: Place })
-  public async deletePlace(@Param('id') id: string): Promise<void> {
-    return this.placeService.deletePlace(id);
+  public async deletePlace(
+    @Req() req: IAuthRequest,
+    @Param('id') id: string,
+  ): Promise<void> {
+    return this.placeService.deletePlace(req.user, id);
   }
 }
