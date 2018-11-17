@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logout when user is authenticated should succeed 1`] = `Object {}`;

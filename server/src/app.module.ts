@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AppController } from 'app.controller';
+import { AuthModule } from 'auth/auth.module';
 import { ConfigModule } from 'nestjs-config';
 import * as path from 'path';
+import { RedisModule } from 'redis/redis.module';
+import { UserModule } from 'user/user.module';
 
 /**
  * Application Module
@@ -10,8 +12,10 @@ import * as path from 'path';
  * Responsible for bootstrapping the application
  */
 @Module({
-  controllers: [AppController],
   imports: [
+    AuthModule,
+    UserModule,
+    RedisModule.forRoot(process.env.REDIS_URL || undefined),
     TypeOrmModule.forRoot(),
     ConfigModule.load(path.resolve(__dirname, 'config/**/*.{ts,js}')),
   ],

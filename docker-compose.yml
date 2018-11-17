@@ -28,6 +28,22 @@ services:
     networks:
       - backend
 
+  # Postgres GUI
+  pgadmin:
+    image: fenglc/pgadmin4
+    ports:
+      - "5050:5050"
+    networks:
+      - backend
+
+  # Redis GUI
+  rebrow:
+    image: marian/rebrow
+    ports:
+      - "5001:5001"
+    networks:
+      - backend
+
 networks:
   backend:
 

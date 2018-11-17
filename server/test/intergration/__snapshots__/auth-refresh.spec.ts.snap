@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`session refresh when refresh token is invalid should fail 1`] = `
+Object {
+  "error": "Unauthorized",
+  "statusCode": 401,
+}
+`;
+
+exports[`session refresh when refresh token is valid should succeed 1`] = `
+Object {
+  "accessToken": Any<String>,
+  "refreshToken": Any<String>,
+  "user": Any<Object>,
+}
+`;
+
+exports[`session refresh when refresh token is valid should succeed 2`] = `
+Object {
+  "email": "uwezepgis@aku.cm",
+  "id": Any<String>,
+  "roles": Array [
+    "user",
+  ],
+}
+`;
