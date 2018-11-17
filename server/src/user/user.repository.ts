@@ -83,6 +83,13 @@ export class UserRepository {
   }
 
   /**
+   * Delete user from the database
+   */
+  public async remove(user: User): Promise<void> {
+    await this.manager.delete(User, user.id);
+  }
+
+  /**
    * Find a single user by specified criteria
    */
   private async lookupSingle(

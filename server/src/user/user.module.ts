@@ -6,6 +6,7 @@ import { UserController } from './user.controller';
 import { UserRepository } from './user.repository';
 import { UserService } from './user.service';
 import { IsEmailUnique } from './validator/is-email-unique.validator';
+import { CryptoService } from 'common/crypto.service';
 
 /**
  * User Module
@@ -14,7 +15,7 @@ import { IsEmailUnique } from './validator/is-email-unique.validator';
  */
 @Module({
   controllers: [UserController],
-  providers: [UserService, UserRepository, IsEmailUnique],
+  providers: [UserService, UserRepository, IsEmailUnique, CryptoService],
   imports: [
     // AuthService, needed for AuthGuard, depends on UserService,
     // which creates a circular dependency that we bypass here
