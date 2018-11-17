@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from '../../src/app.module';
 import { useContainer } from 'class-validator';
+import { AppModule } from '../../src/app.module';
 
 export const initApp = async () => {
   const nestApp = await NestFactory.create(AppModule, { logger: false });
