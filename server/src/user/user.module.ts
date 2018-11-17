@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './entity/user.entity';
 import { UserRepository } from './user.repository';
+import { IsEmailUnique } from './validator/is-email-unique.validator';
 
 /**
  * User Module
@@ -9,7 +10,7 @@ import { UserRepository } from './user.repository';
  * Responsible for access to user records.
  */
 @Module({
-  providers: [UserRepository],
+  providers: [UserRepository, IsEmailUnique],
   imports: [TypeOrmModule.forFeature([UserEntity])],
   exports: [UserRepository],
 })

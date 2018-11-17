@@ -1,5 +1,12 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import { IsEmail, IsNotEmpty, IsString, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  MinLength,
+  Validate,
+} from 'class-validator';
+import { IsEmailUnique } from 'user/validator/is-email-unique.validator';
 
 /**
  * Signup Details
@@ -18,6 +25,7 @@ export class SignupDto {
    */
   @ApiModelProperty()
   @IsEmail()
+  @Validate(IsEmailUnique)
   public email: string;
 
   /**

@@ -111,7 +111,7 @@ describe('Signup', () => {
     });
   });
 
-  describe.skip('when user with given email already exists', () => {
+  describe('when user with this email already exists', () => {
     const seed = require('../seed/regular-user');
 
     beforeEach(() => seed.run(nestApp));

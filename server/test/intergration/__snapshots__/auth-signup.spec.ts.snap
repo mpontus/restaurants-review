@@ -127,3 +127,25 @@ Object {
   "statusCode": 400,
 }
 `;
+
+exports[`Signup when user with this email already exists should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "isEmailUnique": "User with this email already exists.",
+      },
+      "property": "email",
+      "target": Object {
+        "email": "uwezepgis@aku.cm",
+        "name": "Lawrence Ford",
+        "password": "ngbA1CVl!H",
+      },
+      "value": "uwezepgis@aku.cm",
+    },
+  ],
+  "statusCode": 400,
+}
+`;
