@@ -10,7 +10,7 @@ beforeAll(async () => {
 
 afterAll(() => nestApp.close());
 
-beforeEach(resetDb);
+beforeEach(() => resetDb(nestApp));
 
 describe('Login', () => {
   const seed = require('../seed/regular-user');

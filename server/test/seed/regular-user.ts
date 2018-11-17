@@ -20,13 +20,21 @@ export const refreshToken =
   '234b9a346d2369d08cabb15721a782dc5b3044729f2850454c777067ed4faf64';
 
 export const run = async (nestApp: NestApplication) => {
-  await nestApp
-    .get(Connection)
-    .createQueryBuilder()
-    .insert()
-    .into(UserEntity)
-    .values([{ id, email, passwordHash, roles: ['user'] }])
-    .execute();
+  const sessionData = {
+    accessToken,
+    refreshToken,
+    userId: id,
+  };
 
-  await nestApp.get(Redis).set(`refresh_tokens:${refreshToken}`, id);
+  await Promise.all([
+    nestApp
+      .get(Connection)
+      .createQueryBuilder()
+      .insert()
+      .into(UserEntity)
+      .values([{ id, email, passwordHash, roles: ['user'] }])
+      .execute(),
+    nestApp.get(Redis).hmset(`access_tokens:${accessToken}`, sessionData),
+    nestApp.get(Redis).hmset(`refresh_tokens:${refreshToken}`, sessionData),
+  ]);
 };

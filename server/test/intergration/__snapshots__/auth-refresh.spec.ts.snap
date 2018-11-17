@@ -2,9 +2,8 @@
 
 exports[`session refresh when refresh token is invalid should fail 1`] = `
 Object {
-  "error": "Bad Request",
-  "message": "Invalid refresh token",
-  "statusCode": 400,
+  "error": "Unauthorized",
+  "statusCode": 401,
 }
 `;
 

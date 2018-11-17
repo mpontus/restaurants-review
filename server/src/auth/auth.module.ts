@@ -4,8 +4,7 @@ import { JwtService } from 'common/jwt.service';
 import { UserModule } from 'user/user.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { RefreshTokenService } from './refresh-token.service';
-import { SessionService } from './session.service';
+import { SessionRepository } from './session.repository';
 
 /**
  * Auth Module
@@ -14,14 +13,7 @@ import { SessionService } from './session.service';
  */
 @Module({
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    SessionService,
-    RefreshTokenService,
-    JwtService,
-    CryptoService,
-  ],
-  exports: [SessionService],
+  providers: [AuthService, SessionRepository, JwtService, CryptoService],
   imports: [UserModule],
 })
 export class AuthModule {}

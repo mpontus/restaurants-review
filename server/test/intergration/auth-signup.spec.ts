@@ -10,7 +10,7 @@ beforeAll(async () => {
 
 afterAll(() => nestApp.close());
 
-beforeEach(resetDb);
+beforeEach(() => resetDb(nestApp));
 
 describe('Signup', () => {
   describe('when details are valid', () => {

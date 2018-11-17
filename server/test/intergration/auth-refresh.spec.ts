@@ -10,7 +10,7 @@ beforeAll(async () => {
 
 afterAll(() => nestApp.close());
 
-beforeEach(resetDb);
+beforeEach(() => resetDb(nestApp));
 
 describe('session refresh', () => {
   describe('when refresh token is valid', () => {
@@ -45,7 +45,7 @@ describe('session refresh', () => {
         .send({
           token: 'kvg4#MXl)(',
         })
-        .expect(400);
+        .expect(401);
 
       expect(response.body).toMatchSnapshot();
     });

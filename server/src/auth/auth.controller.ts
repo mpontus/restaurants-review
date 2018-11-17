@@ -2,13 +2,22 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
+  Headers,
+  HttpCode,
   Post,
+  Req,
+  UseGuards,
   UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiOkResponse } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiResponse,
+} from '@nestjs/swagger';
 import { AuthService } from './auth.service';
+import { AuthGuard } from './guards/auth.guard';
 import { LoginDto } from './model/login-dto.model';
 import { RefreshDto } from './model/refresh-dto';
 import { Session } from './model/session.model';
@@ -29,7 +38,7 @@ export class AuthController {
    * Handle login
    */
   @Post('login')
-  @ApiOkResponse({ type: Session })
+  @ApiCreatedResponse({ type: Session })
   public async login(@Body() data: LoginDto): Promise<Session> {
     return this.authService.login(data);
   }
@@ -38,17 +47,32 @@ export class AuthController {
    * Handle signup
    */
   @Post('signup')
-  @ApiOkResponse({ type: Session })
+  @ApiCreatedResponse({ type: Session })
   public async signup(@Body() data: SignupDto): Promise<Session> {
     return this.authService.signup(data);
   }
 
   /**
-   * Handle token refresh
+   * Handle session refresh
    */
   @Post('refresh')
-  @ApiOkResponse({ type: Session })
+  @ApiCreatedResponse({ type: Session })
   public async refresh(@Body() data: RefreshDto): Promise<Session> {
     return this.authService.refresh(data);
+  }
+
+  /**
+   * Handle logout
+   */
+  @Post('logout')
+  @UseGuards(AuthGuard)
+  @HttpCode(204)
+  @ApiResponse({ status: 204 })
+  public async logout(
+    @Headers('authorization') authorization: string,
+  ): Promise<void> {
+    const [schema, credentials, ...rest] = authorization.split(' ');
+
+    await this.authService.logout(credentials);
   }
 }

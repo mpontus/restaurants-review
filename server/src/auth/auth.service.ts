@@ -4,14 +4,15 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { CryptoService } from 'common/crypto.service';
+import { Principal } from 'common/model/principal.model';
+import { validateSchema } from 'common/utils/validate-schema';
 import { User } from 'user/model/user.model';
 import { UserRepository } from 'user/user.repository';
 import { LoginDto } from './model/login-dto.model';
 import { RefreshDto } from './model/refresh-dto';
 import { Session } from './model/session.model';
 import { SignupDto } from './model/signup-dto.model';
-import { RefreshTokenService } from './refresh-token.service';
-import { SessionService } from './session.service';
+import { SessionRepository } from './session.repository';
 
 /**
  * Auth Service
@@ -22,10 +23,19 @@ import { SessionService } from './session.service';
 export class AuthService {
   constructor(
     private readonly userRepository: UserRepository,
+    private readonly sessionRepository: SessionRepository,
     private readonly cryptoService: CryptoService,
-    private readonly sessionService: SessionService,
-    private readonly refreshTokenService: RefreshTokenService,
   ) {}
+
+  public async authenticate(accessToken: string): Promise<Principal> {
+    const principal = await this.sessionRepository.getPrincipal(accessToken);
+
+    if (principal === undefined) {
+      throw new UnauthorizedException();
+    }
+
+    return principal;
+  }
 
   /**
    * Create session for the user with the given email and password
@@ -46,7 +56,7 @@ export class AuthService {
       throw new BadRequestException('Bad credentials');
     }
 
-    return this.sessionService.createForUser(user);
+    return this.sessionRepository.createForUser(user);
   }
 
   /**
@@ -61,16 +71,34 @@ export class AuthService {
 
     await this.userRepository.create(user);
 
-    return this.sessionService.createForUser(user);
+    return this.sessionRepository.createForUser(user);
   }
 
+  /**
+   * Refresh session
+   */
   public async refresh(data: RefreshDto): Promise<Session> {
-    const user = await this.refreshTokenService.findUser(data.token);
+    const session = await this.sessionRepository.findByRefreshToken(data.token);
 
-    if (user === undefined) {
-      throw new BadRequestException('Invalid refresh token');
+    if (session === undefined) {
+      throw new UnauthorizedException();
     }
 
-    return this.sessionService.createForUser(user);
+    await this.sessionRepository.invalidateRefreshToken(session);
+
+    return this.sessionRepository.createForUser(session.user);
+  }
+
+  /**
+   * Invalidate refresh token
+   */
+  public async logout(accessToken: string): Promise<void> {
+    const session = await this.sessionRepository.findByAccessToken(accessToken);
+
+    if (session === undefined) {
+      throw new UnauthorizedException();
+    }
+
+    await this.sessionRepository.invalidateRefreshToken(session);
   }
 }
