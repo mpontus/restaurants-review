@@ -1,5 +1,5 @@
 import { InjectEntityManager } from '@nestjs/typeorm';
-import { EntityManager } from 'typeorm';
+import { EntityManager, FindConditions } from 'typeorm';
 import uuid from 'uuid';
 import { UserEntity } from './entity/user.entity';
 import { User } from './model/user.model';
@@ -18,18 +18,7 @@ export class UserRepository {
    * Return undefined when user with given email does not exist
    */
   public async findById(id: string): Promise<User | undefined> {
-    const userEntity = await this.manager.findOne(UserEntity, { id });
-
-    if (userEntity === undefined) {
-      return undefined;
-    }
-
-    return new User({
-      id: userEntity.id,
-      email: userEntity.email || undefined,
-      passwordHash: userEntity.passwordHash || undefined,
-      roles: userEntity.roles,
-    });
+    return this.lookupSingle({ id });
   }
 
   /**
@@ -38,18 +27,7 @@ export class UserRepository {
    * Return undefined when user with given email does not exist
    */
   public async findByEmail(email: string): Promise<User | undefined> {
-    const userEntity = await this.manager.findOne(UserEntity, { email });
-
-    if (userEntity === undefined) {
-      return undefined;
-    }
-
-    return new User({
-      id: userEntity.id,
-      email: userEntity.email || undefined,
-      passwordHash: userEntity.passwordHash || undefined,
-      roles: userEntity.roles,
-    });
+    return this.lookupSingle({ email });
   }
 
   /**
@@ -82,5 +60,25 @@ export class UserRepository {
     });
 
     return user;
+  }
+
+  /**
+   * Find a single user by specified criteria
+   */
+  private async lookupSingle(
+    conditions: FindConditions<UserEntity>,
+  ): Promise<User | undefined> {
+    const userEntity = await this.manager.findOne(UserEntity, conditions);
+
+    if (userEntity === undefined) {
+      return undefined;
+    }
+
+    return new User({
+      id: userEntity.id,
+      email: userEntity.email || undefined,
+      passwordHash: userEntity.passwordHash || undefined,
+      roles: userEntity.roles,
+    });
   }
 }
