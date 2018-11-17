@@ -27,6 +27,9 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  /**
+   * List existing users
+   */
   @Get()
   @UseGuards(new RolesGuard(['admin']))
   @ApiBearerAuth()

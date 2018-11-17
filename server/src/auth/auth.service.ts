@@ -26,6 +26,9 @@ export class AuthService {
     private readonly cryptoService: CryptoService,
   ) {}
 
+  /**
+   * Return authorization details for specified access token
+   */
   public async authenticate(accessToken: string): Promise<Principal> {
     const principal = await this.sessionRepository.getPrincipal(accessToken);
 
