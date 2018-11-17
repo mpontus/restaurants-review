@@ -1,0 +1,53 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  build:
+    environment:
+      CC_TEST_REPORTER_ID: 57d500130d244e2c5cc7eaf9cd695e2999c2867a605629ab5a8069f98f749db9
+    docker:
+      - image: circleci/node:8.11
+        environment:
+          JWT_SECRET: secret
+          DATABASE_URL: postgresql://root@localhost/circle_test
+          REDIS_URL: redis://localhost
+      - image: circleci/postgres:9.6.5-alpine-ram
+      - image: circleci/redis:5.0.1-alpine
+
+    working_directory: ~/repo/server
+    steps: 
+      - checkout:
+          path: ~/repo
+
+      - run:
+          name: Install dependencies
+          command: yarn
+
+      - run:
+          name: Download Code Climate reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+
+      - run:
+          name: Notify Code Climate of pending test
+          command: ./cc-test-reporter before-build
+
+      - run:
+          name: Run E2E tests
+          command: yarn test:e2e --coverage
+
+      - run:
+          name: Upload test report to Code Climate
+          command: ./cc-test-reporter after-build --coverage-input-type lcov --exit-code $?
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: /^pull\/.*$/
