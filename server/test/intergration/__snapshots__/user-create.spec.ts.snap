@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Create User when user is admin should succeed 1`] = `
+Object {
+  "email": "milabgog@iz.ro",
+  "id": Any<String>,
+  "name": "Theodore Roberson",
+  "roles": Array [
+    "user",
+  ],
+}
+`;
+
+exports[`Create User when user is admin when email is already taken should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "isEmailUnique": "User with this email already exists.",
+      },
+      "property": "email",
+      "target": Object {
+        "email": "uwezepgis@aku.cm",
+        "name": "Theodore Roberson",
+        "password": "#(i9Z3OyGW",
+      },
+      "value": "uwezepgis@aku.cm",
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`Create User when user is admin when email is invalid should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "isEmail": "email must be an email",
+      },
+      "property": "email",
+      "target": Object {
+        "email": "foobar",
+        "name": "Theodore Roberson",
+        "password": "#(i9Z3OyGW",
+      },
+      "value": "foobar",
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`Create User when user is admin when name is empty should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "isNotEmpty": "name should not be empty",
+      },
+      "property": "name",
+      "target": Object {
+        "email": "milabgog@iz.ro",
+        "name": "",
+        "password": "#(i9Z3OyGW",
+      },
+      "value": "",
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`Create User when user is admin when password is too short should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "minLength": "password must be longer than or equal to 6 characters",
+      },
+      "property": "password",
+      "target": Object {
+        "email": "milabgog@iz.ro",
+        "name": "Theodore Roberson",
+        "password": "foo",
+      },
+      "value": "foo",
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`Create User when user is not an admin should fail 1`] = `
+Object {
+  "error": "Forbidden",
+  "message": "Forbidden resource",
+  "statusCode": 403,
+}
+`;
