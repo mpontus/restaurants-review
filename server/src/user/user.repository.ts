@@ -73,7 +73,7 @@ export class UserRepository {
    * Persist given user in the database
    */
   public async update(user: User): Promise<User> {
-    await this.manager.update(User, user.id, {
+    await this.manager.update(UserEntity, user.id, {
       email: user.email,
       passwordHash: user.passwordHash,
       roles: user.roles,
@@ -86,7 +86,7 @@ export class UserRepository {
    * Delete user from the database
    */
   public async remove(user: User): Promise<void> {
-    await this.manager.delete(User, user.id);
+    await this.manager.delete(UserEntity, user.id);
   }
 
   /**

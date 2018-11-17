@@ -71,7 +71,7 @@ export class UserController {
   @Patch(':id')
   @UseGuards(new RolesGuard(['admin']))
   @ApiBearerAuth()
-  @ApiResponse({ status: 202, type: User })
+  @ApiOkResponse({ type: User })
   public async updateUser(
     @Param('id') id: string,
     @Body() data: UpdateUserDto,
