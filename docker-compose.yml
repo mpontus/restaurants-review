@@ -28,6 +28,14 @@ services:
     networks:
       - backend
 
+  # Redis GUI
+  rebrow:
+    image: marian/rebrow
+    ports:
+      - "5001:5001"
+    networks:
+      - backend
+
 networks:
   backend:
 
