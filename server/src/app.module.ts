@@ -5,6 +5,7 @@ import { ConfigModule } from 'nestjs-config';
 import * as path from 'path';
 import { RedisModule } from 'redis/redis.module';
 import { UserModule } from 'user/user.module';
+import { PlaceModule } from 'places/place.module';
 
 /**
  * Application Module
@@ -15,6 +16,7 @@ import { UserModule } from 'user/user.module';
   imports: [
     AuthModule,
     UserModule,
+    PlaceModule,
     RedisModule.forRoot(process.env.REDIS_URL || undefined),
     TypeOrmModule.forRoot(),
     ConfigModule.load(path.resolve(__dirname, 'config/**/*.{ts,js}')),
