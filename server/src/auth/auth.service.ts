@@ -5,7 +5,6 @@ import {
 } from '@nestjs/common';
 import { CryptoService } from 'common/crypto.service';
 import { Principal } from 'common/model/principal.model';
-import { validateSchema } from 'common/utils/validate-schema';
 import { User } from 'user/model/user.model';
 import { UserRepository } from 'user/user.repository';
 import { LoginDto } from './model/login-dto.model';
@@ -27,6 +26,9 @@ export class AuthService {
     private readonly cryptoService: CryptoService,
   ) {}
 
+  /**
+   * Return authorization details for specified access token
+   */
   public async authenticate(accessToken: string): Promise<Principal> {
     const principal = await this.sessionRepository.getPrincipal(accessToken);
 

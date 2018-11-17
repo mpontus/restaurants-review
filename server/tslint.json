@@ -2,13 +2,20 @@
   "defaultSeverity": "error",
   "extends": [
     "tslint:recommended",
+    "tslint-consistent-codestyle",
     "tslint-clean-code/recommended_ruleset",
     "tslint-config-prettier"
   ],
   "rulesDirectory": ["node_modules/tslint-clean-code/dist/src"],
   "rules": {
+    // Equivalent compiler option is too annoying
+    "no-unused-variable": true,
+
     // Allow bypassing unused parameters using underscore
     "variable-name": [true, "allow-leading-underscore"],
+
+    // Enforce all documentation to maintain consistent flow
+    "completed-docs": true,
 
     // Force those typedefs which enhance documentation
     "typedef": [

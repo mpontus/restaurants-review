@@ -5,17 +5,12 @@ import {
   Headers,
   HttpCode,
   Post,
-  Req,
   UseGuards,
   UseInterceptors,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import {
-  ApiCreatedResponse,
-  ApiOkResponse,
-  ApiResponse,
-} from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './guards/auth.guard';
 import { LoginDto } from './model/login-dto.model';
@@ -71,7 +66,7 @@ export class AuthController {
   public async logout(
     @Headers('authorization') authorization: string,
   ): Promise<void> {
-    const [schema, credentials, ...rest] = authorization.split(' ');
+    const { 1: credentials } = authorization.split(' ');
 
     await this.authService.logout(credentials);
   }

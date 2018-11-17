@@ -15,5 +15,6 @@ import { SessionRepository } from './session.repository';
   controllers: [AuthController],
   providers: [AuthService, SessionRepository, JwtService, CryptoService],
   imports: [UserModule],
+  exports: [AuthService],
 })
 export class AuthModule {}

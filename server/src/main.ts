@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { useContainer } from 'class-validator';
 import cors from 'cors';
 import { AppModule } from './app.module';
-import { useContainer } from 'class-validator';
 
 /**
  * Entyr point to the applicaiton.

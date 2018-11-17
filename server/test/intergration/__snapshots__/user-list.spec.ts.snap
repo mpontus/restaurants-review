@@ -1,0 +1,230 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List Users when user is admin should succeed 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "email": "ban@muhe.kw",
+      "id": "7a0b3665-4ad8-5ace-b3d3-02258764cbd6",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "ket@vavojis.ax",
+      "id": "56a8809b-3fc0-5400-8bbd-512e242cc91d",
+      "roles": Array [
+        "admin",
+      ],
+    },
+  ],
+  "total": 12,
+}
+`;
+
+exports[`List Users when user is admin when limit is negative should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "min": "take must not be less than 0",
+      },
+      "property": "take",
+      "target": Object {
+        "skip": 10,
+        "take": -1,
+      },
+      "value": -1,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List Users when user is admin when limit is not a number should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "max": "take must not be greater than 50",
+        "min": "take must not be less than 0",
+      },
+      "property": "take",
+      "target": Object {
+        "skip": 10,
+        "take": null,
+      },
+      "value": null,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List Users when user is admin when limit is provided should succeed 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "email": "ban@muhe.kw",
+      "id": "7a0b3665-4ad8-5ace-b3d3-02258764cbd6",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "ket@vavojis.ax",
+      "id": "56a8809b-3fc0-5400-8bbd-512e242cc91d",
+      "roles": Array [
+        "admin",
+      ],
+    },
+  ],
+  "total": 12,
+}
+`;
+
+exports[`List Users when user is admin when limit is too large should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "max": "take must not be greater than 50",
+      },
+      "property": "take",
+      "target": Object {
+        "skip": 10,
+        "take": 9000,
+      },
+      "value": 9000,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List Users when user is admin when offset is negative should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "min": "skip must not be less than 0",
+      },
+      "property": "skip",
+      "target": Object {
+        "skip": -1,
+        "take": 10,
+      },
+      "value": -1,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List Users when user is admin when offset is not a number should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "min": "skip must not be less than 0",
+      },
+      "property": "skip",
+      "target": Object {
+        "skip": null,
+        "take": 10,
+      },
+      "value": null,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List Users when user is admin when offset is provided should succeed 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "email": "sotputu@ezev.hm",
+      "id": "9d636843-0d39-58f3-be26-e500aa3c5134",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "ewsod@diato.pa",
+      "id": "649a1a68-e236-5bd4-af1d-5312127650f3",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "bavva@kihusmo.nf",
+      "id": "ff4c62f5-c4f9-5984-a34b-f26d5229480b",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "potsa@lo.sv",
+      "id": "454da2fe-bada-5f2e-81a8-64dd43469f27",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "nehkih@wamfuga.sx",
+      "id": "92f3bdce-8f07-5645-96b9-b63feffe241e",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "betano@jur.gt",
+      "id": "92d3c50e-bfaa-5dd2-a076-14b8111e2914",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "ficfem@ti.ng",
+      "id": "7859b162-1226-5b8e-82af-2f22a95fc264",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "ban@muhe.kw",
+      "id": "7a0b3665-4ad8-5ace-b3d3-02258764cbd6",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "ket@vavojis.ax",
+      "id": "56a8809b-3fc0-5400-8bbd-512e242cc91d",
+      "roles": Array [
+        "admin",
+      ],
+    },
+  ],
+  "total": 12,
+}
+`;
+
+exports[`List Users when user is not an admin should fail 1`] = `
+Object {
+  "error": "Forbidden",
+  "message": "Forbidden resource",
+  "statusCode": 403,
+}
+`;

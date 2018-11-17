@@ -1,5 +1,4 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import { Transform } from 'class-transformer';
 import { User } from 'user/model/user.model';
 
 /**
