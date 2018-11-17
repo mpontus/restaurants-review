@@ -1,0 +1,31 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/node:8.11
+        environment:
+          DATABASE_URL: postgresql://root@localhost/circle_test
+          REDIS_URL: redis://localhost
+      - image: circleci/postgres:9.6.5-alpine-ram
+      - image: circleci/redis:5.0.1-alpine
+      - image: redis:alpine
+    working_directory: ~/repo/server
+    steps: 
+      - checkout:
+          path: ~/repo
+      - run:
+          name: Install dependencies
+          cmd: yarn
+      - run:
+          name: Run E2E tests
+          cmd: yarn test:e2e --coverage
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - test
