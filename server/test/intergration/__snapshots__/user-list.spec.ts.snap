@@ -4,17 +4,73 @@ exports[`List Users when user is admin should succeed 1`] = `
 Object {
   "items": Array [
     Object {
-      "email": "ban@muhe.kw",
-      "id": "7a0b3665-4ad8-5ace-b3d3-02258764cbd6",
+      "email": "taneg@nosmo.tw",
+      "id": "41a5bad8-9cb4-5881-b296-2eb316df862c",
       "roles": Array [
         "user",
       ],
     },
     Object {
-      "email": "ket@vavojis.ax",
-      "id": "56a8809b-3fc0-5400-8bbd-512e242cc91d",
+      "email": "huhur@cverkob.cy",
+      "id": "38103bba-3208-5171-b3e7-d88c8cad95de",
       "roles": Array [
-        "admin",
+        "user",
+      ],
+    },
+    Object {
+      "email": "iloracwur@jom.ag",
+      "id": "ec96adce-52f1-5090-ab6e-c362f97336fd",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "sotputu@ezev.hm",
+      "id": "9d636843-0d39-58f3-be26-e500aa3c5134",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "ewsod@diato.pa",
+      "id": "649a1a68-e236-5bd4-af1d-5312127650f3",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "bavva@kihusmo.nf",
+      "id": "ff4c62f5-c4f9-5984-a34b-f26d5229480b",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "potsa@lo.sv",
+      "id": "454da2fe-bada-5f2e-81a8-64dd43469f27",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "nehkih@wamfuga.sx",
+      "id": "92f3bdce-8f07-5645-96b9-b63feffe241e",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "betano@jur.gt",
+      "id": "92d3c50e-bfaa-5dd2-a076-14b8111e2914",
+      "roles": Array [
+        "user",
+      ],
+    },
+    Object {
+      "email": "ficfem@ti.ng",
+      "id": "7859b162-1226-5b8e-82af-2f22a95fc264",
+      "roles": Array [
+        "user",
       ],
     },
   ],
@@ -33,7 +89,7 @@ Object {
       },
       "property": "take",
       "target": Object {
-        "skip": 10,
+        "skip": 0,
         "take": -1,
       },
       "value": -1,
@@ -55,7 +111,7 @@ Object {
       },
       "property": "take",
       "target": Object {
-        "skip": 10,
+        "skip": 0,
         "take": null,
       },
       "value": null,
@@ -69,17 +125,17 @@ exports[`List Users when user is admin when limit is provided should succeed 1`]
 Object {
   "items": Array [
     Object {
-      "email": "ban@muhe.kw",
-      "id": "7a0b3665-4ad8-5ace-b3d3-02258764cbd6",
+      "email": "taneg@nosmo.tw",
+      "id": "41a5bad8-9cb4-5881-b296-2eb316df862c",
       "roles": Array [
         "user",
       ],
     },
     Object {
-      "email": "ket@vavojis.ax",
-      "id": "56a8809b-3fc0-5400-8bbd-512e242cc91d",
+      "email": "huhur@cverkob.cy",
+      "id": "38103bba-3208-5171-b3e7-d88c8cad95de",
       "roles": Array [
-        "admin",
+        "user",
       ],
     },
   ],
@@ -98,7 +154,7 @@ Object {
       },
       "property": "take",
       "target": Object {
-        "skip": 10,
+        "skip": 0,
         "take": 9000,
       },
       "value": 9000,

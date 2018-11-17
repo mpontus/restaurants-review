@@ -12,9 +12,7 @@ export class ListUsersCriteria {
   @ApiModelProperty()
   @Min(0)
   @Max(50)
-  @Transform((val: string) => {
-    return parseInt(val, 10);
-  })
+  @Transform((val: string) => parseInt(val, 10))
   public take: number = 10;
 
   /**
@@ -23,5 +21,5 @@ export class ListUsersCriteria {
   @ApiModelProperty()
   @Min(0)
   @Transform((val: string) => parseInt(val, 10))
-  public skip: number = 10;
+  public skip: number = 0;
 }
