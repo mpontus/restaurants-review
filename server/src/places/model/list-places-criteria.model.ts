@@ -1,6 +1,6 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
-import { Max, Min, IsOptional } from 'class-validator';
+import { Max, Min } from 'class-validator';
 
 /**
  * Place listing criteria

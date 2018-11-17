@@ -1,16 +1,24 @@
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreatePlaceDto } from './model/create-place-dto.model';
 import { ListPlacesCriteria } from './model/list-places-criteria.model';
 import { PlaceList } from './model/place-list.model';
-import { CreatePlaceDto } from './model/create-place-dto.model';
-import { UpdatePlaceDto } from './model/update-place-dto.model';
-import { NotFoundException, Injectable } from '@nestjs/common';
 import { Place } from './model/place.model';
+import { UpdatePlaceDto } from './model/update-place-dto.model';
 import { PlaceRepository } from './place.repository';
 
+/**
+ * Place Service
+ *
+ * Describes common use-case scenarios with place objects.
+ */
 @Injectable()
 export class PlaceService {
   constructor(private readonly placeRepository: PlaceRepository) {}
 
-  async getPlace(id: string): Promise<Place> {
+  /**
+   * Retrieve single place by its ID
+   */
+  public async getPlace(id: string): Promise<Place> {
     const place = await this.placeRepository.findById(id);
 
     if (place === undefined) {
@@ -20,14 +28,20 @@ export class PlaceService {
     return place;
   }
 
-  async listPlaces(criteria: ListPlacesCriteria): Promise<PlaceList> {
+  /**
+   * List places
+   */
+  public async listPlaces(criteria: ListPlacesCriteria): Promise<PlaceList> {
     const total = await this.placeRepository.count(criteria);
     const items = await this.placeRepository.findAll(criteria);
 
     return new PlaceList(total, items);
   }
 
-  async createPlace(data: CreatePlaceDto): Promise<Place> {
+  /**
+   * Create new place
+   */
+  public async createPlace(data: CreatePlaceDto): Promise<Place> {
     const place = new Place({
       title: data.title,
       address: data.address,
@@ -38,7 +52,10 @@ export class PlaceService {
     return place;
   }
 
-  async updatePlace(id: string, update: UpdatePlaceDto): Promise<Place> {
+  /**
+   * Update place details
+   */
+  public async updatePlace(id: string, update: UpdatePlaceDto): Promise<Place> {
     const place = await this.placeRepository.findById(id);
 
     if (place === undefined) {
@@ -53,7 +70,10 @@ export class PlaceService {
     return place;
   }
 
-  async deletePlace(id: string): Promise<void> {
+  /**
+   * Delete place by id
+   */
+  public async deletePlace(id: string): Promise<void> {
     const place = await this.placeRepository.findById(id);
 
     if (place === undefined) {

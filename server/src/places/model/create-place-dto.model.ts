@@ -1,5 +1,5 @@
-import { ApiRequestTimeoutResponse, ApiModelProperty } from '@nestjs/swagger';
-import { IsString, MinLength, IsNotEmpty, MaxLength } from 'class-validator';
+import { ApiModelProperty } from '@nestjs/swagger';
+import { IsNotEmpty, IsString, MaxLength } from 'class-validator';
 
 /**
  * Describes request body for restaurant creation

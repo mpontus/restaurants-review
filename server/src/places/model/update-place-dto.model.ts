@@ -1,10 +1,9 @@
-import { ApiRequestTimeoutResponse, ApiModelProperty } from '@nestjs/swagger';
+import { ApiModelProperty } from '@nestjs/swagger';
 import {
-  IsString,
-  MinLength,
   IsNotEmpty,
-  MaxLength,
   IsOptional,
+  IsString,
+  MaxLength,
 } from 'class-validator';
 
 /**

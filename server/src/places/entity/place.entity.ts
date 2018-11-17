@@ -3,9 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   Index,
-  ManyToOne,
   PrimaryColumn,
-  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 /**

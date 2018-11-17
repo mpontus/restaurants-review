@@ -1,7 +1,6 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from 'auth/auth.module';
-import { CryptoService } from 'common/crypto.service';
 import { PlaceEntity } from './entity/place.entity';
 import { PlaceController } from './place.controller';
 import { PlaceRepository } from './place.repository';
