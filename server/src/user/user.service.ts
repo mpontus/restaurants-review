@@ -1,11 +1,11 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ListUsersCriteria } from './model/list-users-criteria.model';
-import { UserList } from './model/user-list.model';
-import { UserRepository } from './user.repository';
-import { User } from './model/user.model';
 import { CryptoService } from 'common/crypto.service';
-import { UpdateUserDto } from './model/update-user-dto';
 import { CreateUserDto } from './model/create-user-dto';
+import { ListUsersCriteria } from './model/list-users-criteria.model';
+import { UpdateUserDto } from './model/update-user-dto';
+import { UserList } from './model/user-list.model';
+import { User } from './model/user.model';
+import { UserRepository } from './user.repository';
 
 /**
  * User Service
@@ -52,7 +52,7 @@ export class UserService {
   /**
    * Update user
    */
-  public async updateUser(id: string, data: UpdateUserDto): Promise<User> {
+  public async updateUser(id: string, update: UpdateUserDto): Promise<User> {
     const user = await this.userRepository.findById(id);
 
     if (user === undefined) {
@@ -60,12 +60,12 @@ export class UserService {
     }
 
     Object.assign(user, {
-      name: data.name || user.name,
-      email: data.email || user.email,
-      passwordHash: data.password
-        ? await this.cryptoService.hashPassword(data.password)
+      name: update.name || user.name,
+      email: update.email || user.email,
+      passwordHash: update.password
+        ? await this.cryptoService.hashPassword(update.password)
         : user.passwordHash,
-      roles: this.updateRoles(user.roles, data.isOwner, data.isAdmin),
+      roles: this.updateRoles(user, update),
     });
 
     await this.userRepository.update(user);
@@ -76,7 +76,7 @@ export class UserService {
   /**
    * Delete user
    */
-  public async deleteUser(id: string) {
+  public async deleteUser(id: string): Promise<void> {
     const user = await this.userRepository.findById(id);
 
     if (user === undefined) {
@@ -89,9 +89,15 @@ export class UserService {
   /**
    * Helper function to recocile existing user roles with update
    */
-  private updateRoles(roles: string[], isOwner?: boolean, isAdmin?: boolean) {
-    const hasOwner = isOwner === undefined ? roles.includes('owner') : isOwner;
-    const hasAdmin = isAdmin === undefined ? roles.includes('admin') : isAdmin;
+  private updateRoles(user: User, update: UpdateUserDto): string[] {
+    const hasOwner =
+      update.isOwner === undefined
+        ? user.roles.includes('owner')
+        : update.isOwner;
+    const hasAdmin =
+      update.isAdmin === undefined
+        ? user.roles.includes('admin')
+        : update.isAdmin;
 
     return [
       'user',

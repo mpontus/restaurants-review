@@ -1,15 +1,14 @@
+import { ApiModelProperty } from '@nestjs/swagger';
 import {
-  IsString,
-  IsNotEmpty,
-  IsEmail,
-  MinLength,
-  IsArray,
-  IsOptional,
   IsBoolean,
+  IsEmail,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+  MinLength,
   Validate,
 } from 'class-validator';
 import { IsEmailUnique } from 'user/validator/is-email-unique.validator';
-import { ApiModelProperty } from '@nestjs/swagger';
 
 /**
  * Describes request body for user creation

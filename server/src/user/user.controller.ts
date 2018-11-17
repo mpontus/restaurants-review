@@ -1,33 +1,31 @@
 import {
+  Body,
   ClassSerializerInterceptor,
   Controller,
-  Get,
   Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
   Query,
   UseGuards,
   UseInterceptors,
   UsePipes,
   ValidationPipe,
-  Body,
-  Param,
-  Patch,
-  HttpCode,
-  Post,
 } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOkResponse,
-  ApiCreatedResponse,
   ApiResponse,
 } from '@nestjs/swagger';
 import { AuthGuard } from 'auth/guards/auth.guard';
 import { RolesGuard } from 'auth/guards/roles.guard';
-import { ListUsersCriteria } from './model/list-users-criteria.model';
-import { UserList } from './model/user-list.model';
-import { UserService } from './user.service';
-import { User } from './model/user.model';
 import { CreateUserDto } from './model/create-user-dto';
+import { ListUsersCriteria } from './model/list-users-criteria.model';
 import { UpdateUserDto } from './model/update-user-dto';
+import { UserList } from './model/user-list.model';
+import { User } from './model/user.model';
+import { UserService } from './user.service';
 
 /**
  * Users Controller
