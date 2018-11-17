@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CryptoService } from 'common/crypto.service';
-import { CreateUserDto } from './model/create-user-dto';
+import { CreateUserDto } from './model/create-user-dto.model';
 import { ListUsersCriteria } from './model/list-users-criteria.model';
-import { UpdateUserDto } from './model/update-user-dto';
+import { UpdateUserDto } from './model/update-user-dto.model';
 import { UserList } from './model/user-list.model';
 import { User } from './model/user.model';
 import { UserRepository } from './user.repository';

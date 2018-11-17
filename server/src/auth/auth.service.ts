@@ -8,7 +8,7 @@ import { Principal } from 'common/model/principal.model';
 import { User } from 'user/model/user.model';
 import { UserRepository } from 'user/user.repository';
 import { LoginDto } from './model/login-dto.model';
-import { RefreshDto } from './model/refresh-dto';
+import { RefreshDto } from './model/refresh-dto.model';
 import { Session } from './model/session.model';
 import { SignupDto } from './model/signup-dto.model';
 import { SessionRepository } from './session.repository';
