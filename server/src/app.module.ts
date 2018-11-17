@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from 'auth/auth.module';
 import { ConfigModule } from 'nestjs-config';
 import * as path from 'path';
+import { PlaceModule } from 'places/place.module';
 import { RedisModule } from 'redis/redis.module';
 import { UserModule } from 'user/user.module';
 
@@ -15,6 +16,7 @@ import { UserModule } from 'user/user.module';
   imports: [
     AuthModule,
     UserModule,
+    PlaceModule,
     RedisModule.forRoot(process.env.REDIS_URL || undefined),
     TypeOrmModule.forRoot(),
     ConfigModule.load(path.resolve(__dirname, 'config/**/*.{ts,js}')),

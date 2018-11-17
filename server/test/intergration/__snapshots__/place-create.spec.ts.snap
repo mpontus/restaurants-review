@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Create place when user is not owner should succeed 1`] = `
+Object {
+  "error": "Forbidden",
+  "message": "Forbidden resource",
+  "statusCode": 403,
+}
+`;
+
+exports[`Create place when user is owner should succeed 1`] = `
+Object {
+  "address": "907 Wolff Mountain",
+  "id": Any<String>,
+  "rating": 0,
+  "title": "Armstrong, Jacobs and Murray",
+}
+`;
+
+exports[`Create place when user is owner when address is empty should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "isNotEmpty": "address should not be empty",
+      },
+      "property": "address",
+      "target": Object {
+        "address": "",
+        "title": "Armstrong, Jacobs and Murray",
+      },
+      "value": "",
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`Create place when user is owner when title is empty should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "isNotEmpty": "title should not be empty",
+      },
+      "property": "title",
+      "target": Object {
+        "address": "907 Wolff Mountain",
+        "title": "",
+      },
+      "value": "",
+    },
+  ],
+  "statusCode": 400,
+}
+`;
