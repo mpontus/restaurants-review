@@ -64,10 +64,7 @@ export class UserRepository {
 
     await this.manager.save(userEntity);
 
-    // Transfer generated user id to domain object
-    user.id = userEntity.id;
-
-    return user;
+    return this.transformEntity(userEntity);
   }
 
   /**

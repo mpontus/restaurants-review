@@ -44,9 +44,7 @@ export class UserService {
       ],
     });
 
-    await this.userRepository.create(user);
-
-    return user;
+    return this.userRepository.create(user);
   }
 
   /**

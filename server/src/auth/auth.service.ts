@@ -65,14 +65,14 @@ export class AuthService {
    * Create a session for a new user
    */
   public async signup(data: SignupDto): Promise<Session> {
-    const user = new User({
-      name: data.name,
-      email: data.email,
-      passwordHash: await this.cryptoService.hashPassword(data.password),
-      roles: ['user'],
-    });
-
-    await this.userRepository.create(user);
+    const user = await this.userRepository.create(
+      new User({
+        name: data.name,
+        email: data.email,
+        passwordHash: await this.cryptoService.hashPassword(data.password),
+        roles: ['user'],
+      }),
+    );
 
     return this.sessionRepository.createForUser(user);
   }
