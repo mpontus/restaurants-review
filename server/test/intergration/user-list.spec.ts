@@ -25,7 +25,7 @@ describe('List Users', () => {
     it('should succeed', async () => {
       const response = await supertest(nestApp.getHttpServer())
         .get(`/users`)
-        .set('Authorization', `Bearer ${seed.authSeed}`)
+        .set('Authorization', `Bearer ${authSeed.accessToken}`)
         .expect(200);
 
       expect(response.body).toMatchSnapshot();
@@ -35,7 +35,7 @@ describe('List Users', () => {
       it('should succeed', async () => {
         const response = await supertest(nestApp.getHttpServer())
           .get(`/users?take=2`)
-          .set('Authorization', `Bearer ${seed.authSeed}`)
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
           .expect(200);
 
         expect(response.body).toMatchSnapshot();
@@ -46,7 +46,7 @@ describe('List Users', () => {
       it('should succeed', async () => {
         const response = await supertest(nestApp.getHttpServer())
           .get(`/users?skip=3`)
-          .set('Authorization', `Bearer ${seed.authSeed}`)
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
           .expect(200);
 
         expect(response.body).toMatchSnapshot();
@@ -57,7 +57,7 @@ describe('List Users', () => {
       it('should fail', async () => {
         const response = await supertest(nestApp.getHttpServer())
           .get(`/users?take=foo`)
-          .set('Authorization', `Bearer ${seed.authSeed}`)
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
           .expect(400);
 
         expect(response.body).toMatchSnapshot();
@@ -68,7 +68,7 @@ describe('List Users', () => {
       it('should fail', async () => {
         const response = await supertest(nestApp.getHttpServer())
           .get(`/users?take=-1`)
-          .set('Authorization', `Bearer ${seed.authSeed}`)
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
           .expect(400);
 
         expect(response.body).toMatchSnapshot();
@@ -79,7 +79,7 @@ describe('List Users', () => {
       it('should fail', async () => {
         const response = await supertest(nestApp.getHttpServer())
           .get(`/users?take=9000`)
-          .set('Authorization', `Bearer ${seed.authSeed}`)
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
           .expect(400);
 
         expect(response.body).toMatchSnapshot();
@@ -90,7 +90,7 @@ describe('List Users', () => {
       it('should fail', async () => {
         const response = await supertest(nestApp.getHttpServer())
           .get(`/users?skip=foo`)
-          .set('Authorization', `Bearer ${seed.authSeed}`)
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
           .expect(400);
 
         expect(response.body).toMatchSnapshot();
@@ -101,7 +101,7 @@ describe('List Users', () => {
       it('should fail', async () => {
         const response = await supertest(nestApp.getHttpServer())
           .get(`/users?skip=-1`)
-          .set('Authorization', `Bearer ${seed.authSeed}`)
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
           .expect(400);
 
         expect(response.body).toMatchSnapshot();
@@ -109,7 +109,7 @@ describe('List Users', () => {
     });
   });
 
-  describe.skip('when user is not an admin', () => {
+  describe('when user is not an admin', () => {
     const authSeed = require('../seed/regular-user');
 
     beforeEach(() => authSeed.run(nestApp));
@@ -117,8 +117,8 @@ describe('List Users', () => {
     it('should fail', async () => {
       const response = await supertest(nestApp.getHttpServer())
         .get(`/users?skip=9000`)
-        .set('Authorization', `Bearer ${seed.authSeed}`)
-        .expect(401);
+        .set('Authorization', `Bearer ${authSeed.accessToken}`)
+        .expect(403);
 
       expect(response.body).toMatchSnapshot();
     });

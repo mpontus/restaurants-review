@@ -220,3 +220,11 @@ Object {
   "total": 12,
 }
 `;
+
+exports[`List Users when user is not an admin should fail 1`] = `
+Object {
+  "error": "Forbidden",
+  "message": "Forbidden resource",
+  "statusCode": 403,
+}
+`;

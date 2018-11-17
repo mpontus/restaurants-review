@@ -1,5 +1,6 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from 'auth/auth.module';
 import { UserEntity } from './entity/user.entity';
 import { UserController } from './user.controller';
 import { UserRepository } from './user.repository';
@@ -14,7 +15,12 @@ import { IsEmailUnique } from './validator/is-email-unique.validator';
 @Module({
   controllers: [UserController],
   providers: [UserService, UserRepository, IsEmailUnique],
-  imports: [TypeOrmModule.forFeature([UserEntity])],
+  imports: [
+    // AuthService, needed for AuthGuard, depends on UserService,
+    // which creates a circular dependency that we bypass here
+    forwardRef(() => AuthModule),
+    TypeOrmModule.forFeature([UserEntity]),
+  ],
   exports: [UserRepository],
 })
 export class UserModule {}
