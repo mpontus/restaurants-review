@@ -19,7 +19,8 @@ import { AuthGuard } from 'auth/guards/auth.guard';
 import { RolesGuard } from 'auth/guards/roles.guard';
 import { IAuthRequest } from 'common/interfaces/auth-request.interface';
 import { CreatePlaceDto } from './model/create-place-dto.model';
-import { ListPlacesCriteria } from './model/list-places-criteria.model';
+import { FindPlacesCriteria } from './model/find-places-criteria.model';
+import { ListPublicPlacesCriteria } from './model/list-public-places-criteria';
 import { PlaceList } from './model/place-list.model';
 import { Place } from './model/place.model';
 import { UpdatePlaceDto } from './model/update-place-dto.model';
@@ -51,9 +52,9 @@ export class PlaceController {
   @Get()
   @ApiOkResponse({ type: PlaceList })
   public async listPlaces(
-    @Query() criteria: ListPlacesCriteria,
+    @Query() criteria: ListPublicPlacesCriteria,
   ): Promise<PlaceList> {
-    return this.placeService.listPlaces(criteria);
+    return this.placeService.listPlaces(new FindPlacesCriteria(criteria));
   }
 
   /**

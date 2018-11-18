@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
-import { EntityManager } from 'typeorm';
+import { Between, EntityManager, FindConditions } from 'typeorm';
 import uuid from 'uuid';
 import { PlaceEntity } from './entity/place.entity';
-import { ListPlacesCriteria } from './model/list-places-criteria.model';
+import { FindPlacesCriteria } from './model/find-places-criteria.model';
 import { Place } from './model/place.model';
 
 /**
@@ -18,15 +18,18 @@ export class PlaceRepository {
   /**
    * Count all existing places matching criteria
    */
-  public async count(criteria: ListPlacesCriteria): Promise<number> {
-    return this.manager.count(PlaceEntity);
+  public async count(criteria: FindPlacesCriteria): Promise<number> {
+    return this.manager.count(PlaceEntity, {
+      where: this.createWhereClause(criteria),
+    });
   }
 
   /**
    * Return places matching criteria
    */
-  public async findAll(criteria: ListPlacesCriteria): Promise<Place[]> {
+  public async findAll(criteria: FindPlacesCriteria): Promise<Place[]> {
     const items = await this.manager.find(PlaceEntity, {
+      where: this.createWhereClause(criteria),
       take: criteria.take,
       skip: criteria.skip,
     });
@@ -80,6 +83,25 @@ export class PlaceRepository {
    */
   public async remove(place: Place): Promise<void> {
     await this.manager.delete(PlaceEntity, place.id);
+  }
+
+  /**
+   * Create WHERE clause according to listing criteria
+   */
+  private createWhereClause(
+    criteria: FindPlacesCriteria,
+  ): FindConditions<PlaceEntity> {
+    const where: FindConditions<PlaceEntity> = {};
+
+    if (criteria.rating !== undefined) {
+      where.rating = Between(criteria.minRating(), criteria.maxRating());
+    }
+
+    if (criteria.ownerId !== undefined) {
+      where.ownerId = criteria.ownerId;
+    }
+
+    return where;
   }
 
   /**

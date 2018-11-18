@@ -27,6 +27,16 @@ describe('List Places', () => {
     });
   });
 
+  describe('when rating is provided', () => {
+    it('should succeed', async () => {
+      const response = await supertest(nestApp.getHttpServer())
+        .get(`/places?rating=3`)
+        .expect(200);
+
+      expect(response.body).toMatchSnapshot();
+    });
+  });
+
   describe('when limit is provided', () => {
     it('should succeed', async () => {
       const response = await supertest(nestApp.getHttpServer())
