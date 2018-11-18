@@ -18,7 +18,7 @@ import { User } from 'user/model/user.model';
  */
 @Entity()
 @Index(['pendingFor', 'createdAt']) // Index for retrieving pending reviews
-@Index(['placeId', 'createdAt']) // Index for retrieving place reviews
+@Index(['place', 'createdAt']) // Index for retrieving place reviews
 export class ReviewEntity {
   /**
    * Review id
