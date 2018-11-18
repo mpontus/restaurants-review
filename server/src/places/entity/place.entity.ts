@@ -1,10 +1,13 @@
+import { Place } from 'places/model/place.model';
 import {
   Column,
   CreateDateColumn,
   Entity,
   Index,
+  ManyToOne,
   PrimaryColumn,
 } from 'typeorm';
+import { UserEntity } from 'user/entity/user.entity';
 
 /**
  * Place Entity
@@ -24,8 +27,17 @@ export class PlaceEntity {
   /**
    * Place owner id
    */
-  @Column({ type: 'uuid' })
+  @Column('uuid')
   public ownerId: string;
+
+  /**
+   * Place Owner
+   *
+   * We never need to join user entity, this relation only serves the
+   * purpose for cascade deletion.
+   */
+  @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
+  public owner: UserEntity;
 
   /**
    * Place name
@@ -50,4 +62,17 @@ export class PlaceEntity {
    */
   @CreateDateColumn()
   public createdAt: Date;
+
+  /**
+   * Map database object to domain model
+   */
+  public toModel(): Place {
+    return new Place({
+      id: this.id,
+      ownerId: this.ownerId,
+      title: this.title,
+      address: this.address,
+      rating: this.rating,
+    });
+  }
 }

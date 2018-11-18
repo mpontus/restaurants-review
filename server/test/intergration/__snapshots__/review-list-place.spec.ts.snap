@@ -1,0 +1,438 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List place reviews when place does not exist should fail 1`] = `
+Object {
+  "error": "Not Found",
+  "statusCode": 404,
+}
+`;
+
+exports[`List place reviews when place exists should succeed 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Party environment control quality full less painting.",
+      "dateVisitted": "2012-05-22",
+      "id": "0a931d01-a888-5523-86d1-c89bacc0a22b",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 4.17,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Have heart cover analysis carry.",
+      "dateVisitted": "1996-03-20",
+      "id": "cbf76a7b-14e5-5ba3-9c4f-af96f24cd72d",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 3.45,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Have heart cover analysis carry.",
+      "dateVisitted": "1996-03-20",
+      "id": "58d1832e-b696-5c49-ac55-9a4beced3f9b",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 1.46,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Notice soon as brother.",
+      "dateVisitted": "2012-05-22",
+      "id": "9ea7f963-47d2-5a2d-8b4d-782680d3b1bf",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 2.67,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Before guess college speak.",
+      "dateVisitted": "1979-02-22",
+      "id": "07c76adf-2a28-5914-9128-d10c7d83f36b",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 2.89,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Notice soon as brother.",
+      "dateVisitted": "2009-01-18",
+      "id": "88b4c16c-e3c5-539d-b4b5-b158f4c23667",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 2.06,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Have heart cover analysis carry.",
+      "dateVisitted": "1979-02-22",
+      "id": "6bc794d6-e0fe-5913-9ea7-66219afce965",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 2.25,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Party environment control quality full less painting.",
+      "dateVisitted": "2009-01-18",
+      "id": "613c0e6f-4087-5546-ae99-e2436fd68219",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 3.84,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Have heart cover analysis carry.",
+      "dateVisitted": "1973-11-06",
+      "id": "700650e5-d979-5bfa-92e3-523f73036f9e",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 3.6,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Before guess college speak.",
+      "dateVisitted": "1986-03-12",
+      "id": "231a909a-6ce5-5c65-a053-5d2853d02b52",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 3.35,
+    },
+  ],
+  "total": 11,
+}
+`;
+
+exports[`List place reviews when place exists when limit is negative should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "min": "take must not be less than 0",
+      },
+      "property": "take",
+      "target": Object {
+        "skip": 0,
+        "take": -1,
+      },
+      "value": -1,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List place reviews when place exists when limit is not a number should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "max": "take must not be greater than 50",
+        "min": "take must not be less than 0",
+      },
+      "property": "take",
+      "target": Object {
+        "skip": 0,
+        "take": null,
+      },
+      "value": null,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List place reviews when place exists when limit is provided should succeed 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Party environment control quality full less painting.",
+      "dateVisitted": "2012-05-22",
+      "id": "0a931d01-a888-5523-86d1-c89bacc0a22b",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 4.17,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Before guess college speak.",
+      "dateVisitted": "1979-02-22",
+      "id": "07c76adf-2a28-5914-9128-d10c7d83f36b",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 2.89,
+    },
+  ],
+  "total": 11,
+}
+`;
+
+exports[`List place reviews when place exists when limit is too large should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "max": "take must not be greater than 50",
+      },
+      "property": "take",
+      "target": Object {
+        "skip": 0,
+        "take": 9000,
+      },
+      "value": 9000,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List place reviews when place exists when offset is negative should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "min": "skip must not be less than 0",
+      },
+      "property": "skip",
+      "target": Object {
+        "skip": -1,
+        "take": 10,
+      },
+      "value": -1,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List place reviews when place exists when offset is not a number should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "min": "skip must not be less than 0",
+      },
+      "property": "skip",
+      "target": Object {
+        "skip": null,
+        "take": 10,
+      },
+      "value": null,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List place reviews when place exists when offset is provided should succeed 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Have heart cover analysis carry.",
+      "dateVisitted": "1996-03-20",
+      "id": "cbf76a7b-14e5-5ba3-9c4f-af96f24cd72d",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 3.45,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Have heart cover analysis carry.",
+      "dateVisitted": "1996-03-20",
+      "id": "58d1832e-b696-5c49-ac55-9a4beced3f9b",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 1.46,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Notice soon as brother.",
+      "dateVisitted": "2012-05-22",
+      "id": "9ea7f963-47d2-5a2d-8b4d-782680d3b1bf",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 2.67,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Notice soon as brother.",
+      "dateVisitted": "2009-01-18",
+      "id": "88b4c16c-e3c5-539d-b4b5-b158f4c23667",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 2.06,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Have heart cover analysis carry.",
+      "dateVisitted": "1979-02-22",
+      "id": "6bc794d6-e0fe-5913-9ea7-66219afce965",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 2.25,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Party environment control quality full less painting.",
+      "dateVisitted": "2009-01-18",
+      "id": "613c0e6f-4087-5546-ae99-e2436fd68219",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 3.84,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Serious inside else memory if six.",
+      "dateVisitted": "1973-11-06",
+      "id": "e6336264-dacd-59dc-8a16-f6e06351f47b",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 4.69,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Have heart cover analysis carry.",
+      "dateVisitted": "1973-11-06",
+      "id": "700650e5-d979-5bfa-92e3-523f73036f9e",
+      "place": Object {
+        "address": "261 Alexandre Forks",
+        "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+        "rating": 0,
+        "title": "The Exhibit",
+      },
+      "rating": 3.6,
+    },
+  ],
+  "total": 11,
+}
+`;

@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Replying to review when user is not place owner should fail 1`] = `
+Object {
+  "error": "Forbidden",
+  "statusCode": 403,
+}
+`;
+
+exports[`Replying to review when user is place owner should succeed 1`] = `
+Object {
+  "author": Object {
+    "name": "Lucinda Reid",
+  },
+  "comment": "Party environment control quality full less painting.",
+  "dateVisitted": "2001-07-05",
+  "id": "be543903-6fbc-5df3-bd31-4256624cc898",
+  "place": Object {
+    "address": "262 Franecki Courts",
+    "id": "05bd7b00-f274-5b91-9c48-08bfa24cb9bd",
+    "rating": 0,
+    "title": "Nicolas - Satterfield",
+  },
+  "rating": 2.81,
+  "reply": "Or candidate trouble listen ok.",
+}
+`;
+
+exports[`Replying to review when user is place owner when comment is empty should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "isNotEmpty": "comment should not be empty",
+      },
+      "property": "comment",
+      "target": Object {
+        "comment": "",
+      },
+      "value": "",
+    },
+  ],
+  "statusCode": 400,
+}
+`;

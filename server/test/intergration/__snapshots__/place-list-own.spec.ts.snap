@@ -14,6 +14,133 @@ Object {
 }
 `;
 
+exports[`List Own Places when user is an owner when limit is negative should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "min": "take must not be less than 0",
+      },
+      "property": "take",
+      "target": Object {
+        "skip": 0,
+        "take": -1,
+      },
+      "value": -1,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List Own Places when user is an owner when limit is not a number should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "max": "take must not be greater than 50",
+        "min": "take must not be less than 0",
+      },
+      "property": "take",
+      "target": Object {
+        "skip": 0,
+        "take": null,
+      },
+      "value": null,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List Own Places when user is an owner when limit is provided should succeed 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "address": "262 Franecki Courts",
+      "id": "05bd7b00-f274-5b91-9c48-08bfa24cb9bd",
+      "rating": 0,
+      "title": "Nicolas - Satterfield",
+    },
+  ],
+  "total": 1,
+}
+`;
+
+exports[`List Own Places when user is an owner when limit is too large should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "max": "take must not be greater than 50",
+      },
+      "property": "take",
+      "target": Object {
+        "skip": 0,
+        "take": 9000,
+      },
+      "value": 9000,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List Own Places when user is an owner when offset is negative should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "min": "skip must not be less than 0",
+      },
+      "property": "skip",
+      "target": Object {
+        "skip": -1,
+        "take": 10,
+      },
+      "value": -1,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List Own Places when user is an owner when offset is not a number should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "min": "skip must not be less than 0",
+      },
+      "property": "skip",
+      "target": Object {
+        "skip": null,
+        "take": 10,
+      },
+      "value": null,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List Own Places when user is an owner when offset is provided should succeed 1`] = `
+Object {
+  "items": Array [],
+  "total": 1,
+}
+`;
+
 exports[`List Own Places when user is not an owner should fail 1`] = `
 Object {
   "error": "Forbidden",

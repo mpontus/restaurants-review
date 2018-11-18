@@ -47,7 +47,7 @@ export class UserRepository {
       skip: criteria.skip,
     });
 
-    return items.map(this.transformEntity);
+    return items.map(item => item.toModel());
   }
 
   /**
@@ -64,7 +64,7 @@ export class UserRepository {
 
     await this.manager.save(userEntity);
 
-    return this.transformEntity(userEntity);
+    return userEntity.toModel();
   }
 
   /**
@@ -100,19 +100,6 @@ export class UserRepository {
       return undefined;
     }
 
-    return this.transformEntity(userEntity);
-  }
-
-  /**
-   * Transform user entity to domain model
-   */
-  private transformEntity(userEntity: UserEntity): User {
-    return new User({
-      id: userEntity.id,
-      name: userEntity.name,
-      email: userEntity.email || undefined,
-      passwordHash: userEntity.passwordHash || undefined,
-      roles: userEntity.roles,
-    });
+    return userEntity.toModel();
   }
 }

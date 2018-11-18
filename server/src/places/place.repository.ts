@@ -34,7 +34,7 @@ export class PlaceRepository {
       skip: criteria.skip,
     });
 
-    return items.map(this.transformEntity.bind(this));
+    return items.map(item => item.toModel());
   }
 
   /**
@@ -47,7 +47,7 @@ export class PlaceRepository {
       return undefined;
     }
 
-    return this.transformEntity(placeEntity);
+    return placeEntity.toModel();
   }
 
   /**
@@ -56,14 +56,14 @@ export class PlaceRepository {
   public async create(place: Place): Promise<Place> {
     const placeEntity = this.manager.create(PlaceEntity, {
       id: uuid(),
-      ownerId: place.ownerId,
+      owner: { id: place.ownerId },
       title: place.title,
       address: place.address,
     });
 
     await this.manager.save(PlaceEntity, placeEntity);
 
-    return this.transformEntity(placeEntity);
+    return placeEntity.toModel();
   }
 
   /**
@@ -102,18 +102,5 @@ export class PlaceRepository {
     }
 
     return where;
-  }
-
-  /**
-   * Map database object to domain model
-   */
-  private transformEntity(placeEntity: PlaceEntity): Place {
-    return new Place({
-      id: placeEntity.id,
-      ownerId: placeEntity.ownerId,
-      title: placeEntity.title,
-      address: placeEntity.address,
-      rating: placeEntity.rating,
-    });
   }
 }
