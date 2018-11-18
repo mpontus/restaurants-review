@@ -11,6 +11,7 @@ import { FindReviewsCriteria } from './model/find-reviews-criteria.model';
 import { ListPendingReviewsCriteria } from './model/list-pending-reviews-criteria.model';
 import { ListPlaceReviewsCriteria } from './model/list-place-reviews-criteria.model';
 import { ReplyDto } from './model/reply-dto.model';
+import { ReviewAuthor } from './model/review-author.model';
 import { ReviewList } from './model/review-list.model';
 import { Review } from './model/review.model';
 import { UpdateReviewDto } from './model/update-review-dto.model';
@@ -32,10 +33,7 @@ export class ReviewService {
    * Retrieve single review by id
    */
   public async getReview(id: string): Promise<Review> {
-    const review = await this.reviewRepository.findById(id, {
-      place: true,
-      author: false,
-    });
+    const review = await this.reviewRepository.findById(id);
 
     if (review === undefined) {
       throw new NotFoundException();
@@ -58,10 +56,7 @@ export class ReviewService {
     });
 
     const total = await this.reviewRepository.count(findCriteria);
-    const items = await this.reviewRepository.findAll(findCriteria, {
-      author: true,
-      place: true,
-    });
+    const items = await this.reviewRepository.findAll(findCriteria);
 
     return new ReviewList(total, items);
   }
@@ -79,10 +74,7 @@ export class ReviewService {
       skip: criteria.skip,
     });
     const total = await this.reviewRepository.count(findCriteria);
-    const items = await this.reviewRepository.findAll(findCriteria, {
-      author: true,
-      place: false,
-    });
+    const items = await this.reviewRepository.findAll(findCriteria);
 
     return new ReviewList(total, items);
   }
@@ -103,7 +95,7 @@ export class ReviewService {
 
     const review = new Review({
       place,
-      author: user,
+      author: new ReviewAuthor(user),
       rating: data.rating,
       comment: data.comment,
       dateVisitted: data.dateVisitted,

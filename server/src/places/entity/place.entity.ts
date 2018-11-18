@@ -1,3 +1,4 @@
+import { Place } from 'places/model/place.model';
 import {
   Column,
   CreateDateColumn,
@@ -61,4 +62,17 @@ export class PlaceEntity {
    */
   @CreateDateColumn()
   public createdAt: Date;
+
+  /**
+   * Map database object to domain model
+   */
+  public toModel(): Place {
+    return new Place({
+      id: this.id,
+      ownerId: this.ownerId,
+      title: this.title,
+      address: this.address,
+      rating: this.rating,
+    });
+  }
 }

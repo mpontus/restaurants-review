@@ -1,12 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
-import { Place } from 'places/model/place.model';
 import { EntityManager, FindConditions } from 'typeorm';
 import uuid from 'uuid';
 import { ReviewEntity } from './entity/review.entity';
 import { FindReviewsCriteria } from './model/find-reviews-criteria.model';
-import { ReviewAuthor } from './model/review-author.model';
-import { ReviewProjection } from './model/review-projection.model';
 import { Review } from './model/review.model';
 
 /**
@@ -30,49 +27,42 @@ export class ReviewRepository {
   /**
    * Return reviews matching criteria
    */
-  public async findAll(
-    criteria: FindReviewsCriteria,
-    projection: ReviewProjection,
-  ): Promise<Review[]> {
+  public async findAll(criteria: FindReviewsCriteria): Promise<Review[]> {
     const items = await this.manager.find(ReviewEntity, {
       where: this.createWhereClause(criteria),
-      relations: this.createRelationsClause(projection),
+      relations: ['place', 'author'],
       take: criteria.take,
       skip: criteria.skip,
     });
 
-    return items.map(this.transformEntity.bind(this, projection));
+    return items.map(item => item.toModel());
   }
 
   /**
    * Return single review by id
    */
-  public async findById(
-    id: string,
-    projection: ReviewProjection,
-  ): Promise<Review | undefined> {
+  public async findById(id: string): Promise<Review | undefined> {
     const reviewEntity = await this.manager.findOne(ReviewEntity, id, {
-      relations: this.createRelationsClause(projection),
+      relations: ['place', 'author'],
     });
 
     if (reviewEntity === undefined) {
       return undefined;
     }
 
-    return this.transformEntity(projection, reviewEntity);
+    return reviewEntity.toModel();
   }
 
   /**
    * Create new review
    */
   public async create(review: Review): Promise<Review> {
+    review.id = uuid();
+
     const reviewEntity = this.manager.create(ReviewEntity, {
-      id: uuid(),
-      place: review.place ? { id: review.place.id } : undefined,
-      author: {
-        id: review.author.id,
-        name: review.author.name,
-      },
+      id: review.id,
+      place: { id: review.place.id },
+      author: { id: review.author.id },
       rating: review.rating,
       comment: review.comment,
       dateVisitted: review.dateVisitted,
@@ -81,7 +71,7 @@ export class ReviewRepository {
 
     await this.manager.save(ReviewEntity, reviewEntity);
 
-    return this.transformEntity({ author: true, place: false }, reviewEntity);
+    return review;
   }
 
   /**
@@ -123,44 +113,5 @@ export class ReviewRepository {
     }
 
     return where;
-  }
-
-  /**
-   * Create an array of related entities which must be included in
-   * database query.
-   */
-  private createRelationsClause(projection: ReviewProjection): string[] {
-    return [
-      ...(projection.author ? ['author'] : []),
-      ...(projection.place ? ['place'] : []),
-    ];
-  }
-
-  /**
-   * Map database object to domain model
-   */
-  private transformEntity(
-    projection: ReviewProjection,
-    reviewEntity: ReviewEntity,
-  ): Review {
-    return new Review({
-      id: reviewEntity.id,
-      place: projection.place
-        ? new Place({
-            id: reviewEntity.place.id,
-            title: reviewEntity.place.title,
-          })
-        : undefined,
-      author: projection.author
-        ? new ReviewAuthor({
-            id: reviewEntity.author.id,
-            name: reviewEntity.author.name,
-          })
-        : undefined,
-      rating: reviewEntity.rating,
-      comment: reviewEntity.comment,
-      reply: reviewEntity.reply || undefined,
-      dateVisitted: reviewEntity.dateVisitted,
-    });
   }
 }

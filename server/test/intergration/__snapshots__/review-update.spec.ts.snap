@@ -2,27 +2,54 @@
 
 exports[`Update review when user is an admin should update comment 1`] = `
 Object {
+  "author": Object {
+    "name": "Norma Fisher",
+  },
   "comment": "Serious inside else memory if six.",
   "dateVisitted": "2012-05-22",
   "id": "0a931d01-a888-5523-86d1-c89bacc0a22b",
+  "place": Object {
+    "address": "261 Alexandre Forks",
+    "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+    "rating": 0,
+    "title": "The Exhibit",
+  },
   "rating": 4.17,
 }
 `;
 
 exports[`Update review when user is an admin should update rating 1`] = `
 Object {
+  "author": Object {
+    "name": "Norma Fisher",
+  },
   "comment": "Party environment control quality full less painting.",
   "dateVisitted": "2012-05-22",
   "id": "0a931d01-a888-5523-86d1-c89bacc0a22b",
+  "place": Object {
+    "address": "261 Alexandre Forks",
+    "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+    "rating": 0,
+    "title": "The Exhibit",
+  },
   "rating": 2,
 }
 `;
 
 exports[`Update review when user is an admin should update reply 1`] = `
 Object {
+  "author": Object {
+    "name": "Norma Fisher",
+  },
   "comment": "Party environment control quality full less painting.",
   "dateVisitted": "2012-05-22",
   "id": "0a931d01-a888-5523-86d1-c89bacc0a22b",
+  "place": Object {
+    "address": "261 Alexandre Forks",
+    "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+    "rating": 0,
+    "title": "The Exhibit",
+  },
   "rating": 4.17,
   "reply": "Serious inside else memory if six.",
 }
@@ -30,9 +57,18 @@ Object {
 
 exports[`Update review when user is an admin should update visit date 1`] = `
 Object {
+  "author": Object {
+    "name": "Norma Fisher",
+  },
   "comment": "Party environment control quality full less painting.",
   "dateVisitted": "1986-01-24",
   "id": "0a931d01-a888-5523-86d1-c89bacc0a22b",
+  "place": Object {
+    "address": "261 Alexandre Forks",
+    "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
+    "rating": 0,
+    "title": "The Exhibit",
+  },
   "rating": 4.17,
 }
 `;

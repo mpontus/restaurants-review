@@ -26,7 +26,7 @@ export class ReviewAuthor {
   /**
    * Constructor
    */
-  constructor(values: Partial<ReviewAuthor>) {
-    Object.assign(this, values);
+  constructor({ id, name }: Partial<ReviewAuthor>) {
+    Object.assign(this, { id, name });
   }
 }

@@ -33,7 +33,9 @@ describe('Create review', () => {
         .set('Authorization', `Bearer ${authSeed.accessToken}`)
         .expect(201);
 
-      expect(response.body).toMatchSnapshot();
+      expect(response.body).toMatchSnapshot({
+        id: expect.any(String),
+      });
     });
 
     describe('when rating less than 1', () => {

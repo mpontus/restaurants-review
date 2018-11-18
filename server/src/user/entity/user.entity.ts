@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { User } from 'user/model/user.model';
 
 /**
  * User entity
@@ -40,4 +41,17 @@ export class UserEntity {
    */
   @Column('json')
   public roles: string[] = [];
+
+  /**
+   * Transform entity to domain model
+   */
+  public toModel(): User {
+    return new User({
+      id: this.id,
+      name: this.name,
+      email: this.email || undefined,
+      passwordHash: this.passwordHash || undefined,
+      roles: this.roles,
+    });
+  }
 }

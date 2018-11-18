@@ -1,5 +1,6 @@
 import { PlaceEntity } from 'places/entity/place.entity';
-import { Place } from 'places/model/place.model';
+import { ReviewAuthor } from 'reviews/model/review-author.model';
+import { Review } from 'reviews/model/review.model';
 import {
   Column,
   CreateDateColumn,
@@ -9,7 +10,6 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 import { UserEntity } from 'user/entity/user.entity';
-import { User } from 'user/model/user.model';
 
 /**
  * Review Entity
@@ -30,13 +30,13 @@ export class ReviewEntity {
    * Associated place
    */
   @ManyToOne(() => PlaceEntity, { onDelete: 'CASCADE' })
-  public place: Place;
+  public place: PlaceEntity;
 
   /**
    * Review author
    */
   @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
-  public author: User;
+  public author: UserEntity;
 
   /**
    * Review Rating
@@ -76,4 +76,24 @@ export class ReviewEntity {
    */
   @Column({ type: 'uuid', nullable: true })
   public pendingFor: string | null;
+
+  /**
+   * Transform entity to domain model
+   */
+  public toModel(): Review {
+    return new Review({
+      id: this.id,
+      place: this.place ? this.place.toModel() : undefined,
+      author: this.author
+        ? new ReviewAuthor({
+            id: this.author.id,
+            name: this.author.name,
+          })
+        : undefined,
+      rating: this.rating,
+      comment: this.comment,
+      reply: this.reply || undefined,
+      dateVisitted: this.dateVisitted,
+    });
+  }
 }
