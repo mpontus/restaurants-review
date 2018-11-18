@@ -33,8 +33,8 @@ export class ReviewService {
    */
   public async getReview(id: string): Promise<Review> {
     const review = await this.reviewRepository.findById(id, {
+      place: true,
       author: false,
-      place: false,
     });
 
     if (review === undefined) {

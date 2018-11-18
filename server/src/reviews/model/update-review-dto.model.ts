@@ -2,11 +2,11 @@ import { ApiModelProperty } from '@nestjs/swagger';
 import {
   IsInt,
   IsNotEmpty,
+  IsOptional,
   IsString,
   Max,
   MaxLength,
   Min,
-  IsOptional,
   Validate,
 } from 'class-validator';
 import { IsValidVisitDate } from 'reviews/validator/is-valid-visit-date';

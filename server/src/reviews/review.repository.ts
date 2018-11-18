@@ -51,7 +51,9 @@ export class ReviewRepository {
     id: string,
     projection: ReviewProjection,
   ): Promise<Review | undefined> {
-    const reviewEntity = await this.manager.findOne(ReviewEntity, { id });
+    const reviewEntity = await this.manager.findOne(ReviewEntity, id, {
+      relations: this.createRelationsClause(projection),
+    });
 
     if (reviewEntity === undefined) {
       return undefined;

@@ -1,7 +1,6 @@
-import moment from 'moment';
 import { Injectable } from '@nestjs/common';
 import { ValidationArguments, ValidatorConstraint } from 'class-validator';
-import { UserRepository } from 'user/user.repository';
+import moment from 'moment';
 
 /**
  * Validate date format of a string

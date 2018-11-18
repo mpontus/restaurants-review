@@ -1,7 +1,9 @@
 import {
+  Body,
   ClassSerializerInterceptor,
   Controller,
   Delete,
+  ForbiddenException,
   Get,
   Param,
   Patch,
@@ -12,7 +14,6 @@ import {
   UseInterceptors,
   UsePipes,
   ValidationPipe,
-  Body,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'auth/guards/auth.guard';
@@ -80,6 +81,10 @@ export class ReviewController {
     @Body() data: ReplyDto,
   ): Promise<Review> {
     const review = await this.reviewService.getReview(id);
+
+    if (review.place.ownerId !== req.user.id) {
+      throw new ForbiddenException();
+    }
 
     return this.reviewService.replyToReview(req.user, review, data);
   }

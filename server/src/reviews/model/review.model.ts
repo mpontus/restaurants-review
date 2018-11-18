@@ -14,10 +14,8 @@ export class Review {
 
   /**
    * Place for which the review is made.
-   *
-   * May be ommitted during database request.
    */
-  public place?: Place;
+  public place: Place;
 
   /**
    * Review author
