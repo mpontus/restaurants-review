@@ -20,6 +20,19 @@ export class UserService {
   ) {}
 
   /**
+   * Find single user by id
+   */
+  public async findUser(id: string): Promise<User> {
+    const user = await this.userRepository.findById(id);
+
+    if (user === undefined) {
+      throw new NotFoundException();
+    }
+
+    return user;
+  }
+
+  /**
    * List existing users
    */
   public async listUsers(criteria: ListUsersCriteria): Promise<UserList> {
@@ -50,13 +63,7 @@ export class UserService {
   /**
    * Update user
    */
-  public async updateUser(id: string, update: UpdateUserDto): Promise<User> {
-    const user = await this.userRepository.findById(id);
-
-    if (user === undefined) {
-      throw new NotFoundException();
-    }
-
+  public async updateUser(user: User, update: UpdateUserDto): Promise<User> {
     Object.assign(user, {
       name: update.name || user.name,
       email: update.email || user.email,
@@ -74,13 +81,7 @@ export class UserService {
   /**
    * Delete user
    */
-  public async deleteUser(id: string): Promise<void> {
-    const user = await this.userRepository.findById(id);
-
-    if (user === undefined) {
-      throw new NotFoundException();
-    }
-
+  public async deleteUser(user: User): Promise<void> {
     return this.userRepository.remove(user);
   }
 

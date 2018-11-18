@@ -13,11 +13,7 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiOkResponse,
-  ApiResponse,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'auth/guards/auth.guard';
 import { RolesGuard } from 'auth/guards/roles.guard';
 import { CreateUserDto } from './model/create-user-dto.model';
@@ -74,7 +70,9 @@ export class UserController {
     @Param('id') id: string,
     @Body() data: UpdateUserDto,
   ): Promise<User> {
-    return this.userService.updateUser(id, data);
+    const user = await this.userService.findUser(id);
+
+    return this.userService.updateUser(user, data);
   }
 
   /**
@@ -85,6 +83,8 @@ export class UserController {
   @ApiBearerAuth()
   @ApiResponse({ status: 204, type: User })
   public async deleteUser(@Param('id') id: string): Promise<void> {
-    return this.userService.deleteUser(id);
+    const user = await this.userService.findUser(id);
+
+    return this.userService.deleteUser(user);
   }
 }
