@@ -1,12 +1,9 @@
-import {
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Principal } from 'common/model/principal.model';
 import { CreatePlaceDto } from './model/create-place-dto.model';
 import { FindPlacesCriteria } from './model/find-places-criteria.model';
 import { ListOwnPlacesCriteria } from './model/list-own-places-criteria.model';
-import { ListPublicPlacesCriteria } from './model/list-public-places-criteria';
+import { ListPublicPlacesCriteria } from './model/list-public-places-criteria.model';
 import { PlaceList } from './model/place-list.model';
 import { Place } from './model/place.model';
 import { UpdatePlaceDto } from './model/update-place-dto.model';

@@ -1,8 +1,9 @@
+import { PaginationParams } from 'common/model/pagination-params.model';
 
 /**
  * Describes general place listing criteria
  */
-export class FindPlacesCriteria {
+export class FindPlacesCriteria extends PaginationParams {
   /**
    * Filter places by owner
    */
@@ -14,19 +15,11 @@ export class FindPlacesCriteria {
   public rating?: number;
 
   /**
-   * Pagination limit
-   */
-  public take: number = 10;
-
-  /**
-   * Pagination offset
-   */
-  public skip: number = 0;
-
-  /**
    * Constructor
    */
   constructor(values: Partial<FindPlacesCriteria>) {
+    super();
+
     Object.assign(this, values);
   }
 

@@ -1,7 +1,9 @@
+import { PaginationParams } from 'common/model/pagination-params.model';
+
 /**
  * Describes generic parameters for review listing
  */
-export class FindReviewsCriteria {
+export class FindReviewsCriteria extends PaginationParams {
   /**
    * Filter reviews by place
    */
@@ -13,19 +15,11 @@ export class FindReviewsCriteria {
   public ownerId?: string;
 
   /**
-   * Pagination limit
-   */
-  public take: number;
-
-  /**
-   * Pagination offset
-   */
-  public skip: number;
-
-  /**
    * Constructor
    */
   constructor(values: Partial<FindReviewsCriteria>) {
+    super();
+
     Object.assign(this, values);
   }
 }
