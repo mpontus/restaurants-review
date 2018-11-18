@@ -20,6 +20,7 @@ import { RolesGuard } from 'auth/guards/roles.guard';
 import { IAuthRequest } from 'common/interfaces/auth-request.interface';
 import { CreatePlaceDto } from './model/create-place-dto.model';
 import { FindPlacesCriteria } from './model/find-places-criteria.model';
+import { ListOwnPlacesCriteria } from './model/list-own-places-criteria.model';
 import { ListPublicPlacesCriteria } from './model/list-public-places-criteria';
 import { PlaceList } from './model/place-list.model';
 import { Place } from './model/place.model';
@@ -36,6 +37,21 @@ import { PlaceService } from './place.service';
 @UseInterceptors(ClassSerializerInterceptor)
 export class PlaceController {
   constructor(private readonly placeService: PlaceService) {}
+
+  /**
+   * List places belonging to the user
+   */
+  @Get('/own')
+  @UseGuards(AuthGuard, new RolesGuard(['owner']))
+  @ApiOkResponse({ type: PlaceList })
+  public async listOwnPlaces(
+    @Req() req: IAuthRequest,
+    @Query() { take, skip }: ListOwnPlacesCriteria,
+  ): Promise<PlaceList> {
+    return this.placeService.listPlaces(
+      new FindPlacesCriteria({ ownerId: req.user.id, take, skip }),
+    );
+  }
 
   /**
    * Retrieve single place

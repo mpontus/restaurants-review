@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List Own Places when user is an owner should succeed 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "address": "262 Franecki Courts",
+      "id": "05bd7b00-f274-5b91-9c48-08bfa24cb9bd",
+      "rating": 0,
+      "title": "Nicolas - Satterfield",
+    },
+  ],
+  "total": 1,
+}
+`;
+
+exports[`List Own Places when user is not an owner should fail 1`] = `
+Object {
+  "error": "Forbidden",
+  "message": "Forbidden resource",
+  "statusCode": 403,
+}
+`;
