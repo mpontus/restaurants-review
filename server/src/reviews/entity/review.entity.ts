@@ -75,5 +75,5 @@ export class ReviewEntity {
    * NULL after reply.
    */
   @Column({ type: 'uuid', nullable: true })
-  public pendingFor: string;
+  public pendingFor: string | null;
 }

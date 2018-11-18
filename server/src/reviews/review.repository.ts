@@ -69,6 +69,7 @@ export class ReviewRepository {
       rating: review.rating,
       comment: review.comment,
       dateVisitted: review.dateVisitted,
+      pendingFor: review.place.ownerId,
     });
 
     await this.manager.save(ReviewEntity, reviewEntity);
@@ -85,6 +86,7 @@ export class ReviewRepository {
       comment: review.comment,
       reply: review.reply,
       dateVisitted: review.dateVisitted,
+      ...(review.reply ? { pendingFor: null } : {}),
     });
 
     return review;
