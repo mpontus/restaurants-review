@@ -3,9 +3,9 @@ import { Transform } from 'class-transformer';
 import { Max, Min } from 'class-validator';
 
 /**
- * Place listing criteria
+ * Describes parameters for own places listing
  */
-export class ListPlacesCriteria {
+export class ListOwnPlacesCriteria {
   /**
    * Pagination limit
    */

@@ -5,7 +5,7 @@ import {
 } from '@nestjs/common';
 import { Principal } from 'common/model/principal.model';
 import { CreatePlaceDto } from './model/create-place-dto.model';
-import { ListPlacesCriteria } from './model/list-places-criteria.model';
+import { FindPlacesCriteria } from './model/find-places-criteria.model';
 import { PlaceList } from './model/place-list.model';
 import { Place } from './model/place.model';
 import { UpdatePlaceDto } from './model/update-place-dto.model';
@@ -36,7 +36,7 @@ export class PlaceService {
   /**
    * List places
    */
-  public async listPlaces(criteria: ListPlacesCriteria): Promise<PlaceList> {
+  public async listPlaces(criteria: FindPlacesCriteria): Promise<PlaceList> {
     const total = await this.placeRepository.count(criteria);
     const items = await this.placeRepository.findAll(criteria);
 
