@@ -6,7 +6,10 @@ import {
   Max,
   MaxLength,
   Min,
+  IsOptional,
+  Validate,
 } from 'class-validator';
+import { IsValidVisitDate } from 'reviews/validator/is-valid-visit-date';
 
 /**
  * Describes request body for updating review details
@@ -15,15 +18,22 @@ export class UpdateReviewDto {
   /**
    * Updated review rating
    */
+  @IsOptional()
   @IsInt()
   @Min(1)
   @Max(5)
+  @ApiModelProperty({
+    type: 'number',
+    enum: [1, 2, 3, 4, 5],
+  })
   public rating?: number;
 
   /**
    * Update date of the visit
    */
+  @IsOptional()
   @IsString()
+  @Validate(IsValidVisitDate)
   @ApiModelProperty({
     type: 'string',
     format: 'date',
@@ -33,6 +43,7 @@ export class UpdateReviewDto {
   /**
    * Updated text of the review comment
    */
+  @IsOptional()
   @IsString()
   @IsNotEmpty()
   @MaxLength(400)
@@ -45,6 +56,7 @@ export class UpdateReviewDto {
   /**
    * Updated text of the review reply
    */
+  @IsOptional()
   @IsString()
   @IsNotEmpty()
   @MaxLength(400)

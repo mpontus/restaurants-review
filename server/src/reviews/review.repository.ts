@@ -142,6 +142,7 @@ export class ReviewRepository {
     reviewEntity: ReviewEntity,
   ): Review {
     return new Review({
+      id: reviewEntity.id,
       place: projection.place
         ? new Place({
             id: reviewEntity.place.id,

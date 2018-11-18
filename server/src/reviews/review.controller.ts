@@ -12,6 +12,7 @@ import {
   UseInterceptors,
   UsePipes,
   ValidationPipe,
+  Body,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'auth/guards/auth.guard';
@@ -59,7 +60,7 @@ export class ReviewController {
   public async updateReview(
     @Req() req: IAuthRequest,
     @Param('id') id: string,
-    @Query() data: UpdateReviewDto,
+    @Body() data: UpdateReviewDto,
   ): Promise<Review> {
     const review = await this.reviewService.getReview(id);
 
@@ -76,7 +77,7 @@ export class ReviewController {
   public async replyToReview(
     @Req() req: IAuthRequest,
     @Param('id') id: string,
-    @Query() data: ReplyDto,
+    @Body() data: ReplyDto,
   ): Promise<Review> {
     const review = await this.reviewService.getReview(id);
 

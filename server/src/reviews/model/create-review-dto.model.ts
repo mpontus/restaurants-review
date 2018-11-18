@@ -27,6 +27,17 @@ export class CreateReviewDto {
   public rating: number;
 
   /**
+   * Date of the visit
+   */
+  @IsString()
+  @Validate(IsValidVisitDate)
+  @ApiModelProperty({
+    type: 'string',
+    format: 'date',
+  })
+  public dateVisitted: string;
+
+  /**
    * Review comment
    */
   @IsString()
@@ -37,15 +48,4 @@ export class CreateReviewDto {
     maxLength: 400,
   })
   public comment: string;
-
-  /**
-   * Date of the visit
-   */
-  @IsString()
-  @Validate(IsValidVisitDate)
-  @ApiModelProperty({
-    type: 'string',
-    format: 'date',
-  })
-  public dateVisitted: string;
 }
