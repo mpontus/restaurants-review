@@ -18,6 +18,7 @@ import { AuthGuard } from 'auth/guards/auth.guard';
 import { RolesGuard } from 'auth/guards/roles.guard';
 import { IAuthRequest } from 'common/interfaces/auth-request.interface';
 import { ListPendingReviewsCriteria } from './model/list-pending-reviews-criteria.model';
+import { ReplyDto } from './model/reply-dto.model';
 import { ReviewList } from './model/review-list.model';
 import { Review } from './model/review.model';
 import { UpdateReviewDto } from './model/update-review-dto.model';

@@ -6,17 +6,26 @@ import { CreateReviewDto } from './model/create-review-dto.model';
 import { FindReviewsCriteria } from './model/find-reviews-criteria.model';
 import { ListPendingReviewsCriteria } from './model/list-pending-reviews-criteria.model';
 import { ListPlaceReviewsCriteria } from './model/list-place-reviews-criteria.model';
+import { ReplyDto } from './model/reply-dto.model';
 import { ReviewList } from './model/review-list.model';
 import { Review } from './model/review.model';
 import { UpdateReviewDto } from './model/update-review-dto.model';
 import { ReviewRepository } from './review.repository';
 
+/**
+ * Review Service
+ *
+ * Reponsible for managing place reviews.
+ */
 export class ReviewService {
   constructor(
     private readonly reviewRepository: ReviewRepository,
     private readonly userRepository: UserRepository,
   ) {}
 
+  /**
+   * Retrieve single review by id
+   */
   public async getReview(id: string): Promise<Review> {
     const review = await this.reviewRepository.findById(id);
 
@@ -27,6 +36,9 @@ export class ReviewService {
     return review;
   }
 
+  /**
+   * Return a list of the reviews pending for the user
+   */
   public async listPendingReviews(
     actor: Principal,
     criteria: ListPendingReviewsCriteria,
@@ -43,6 +55,9 @@ export class ReviewService {
     return new ReviewList(total, items);
   }
 
+  /**
+   * Return a list of the reviews for a place
+   */
   public async listPlaceReviews(
     place: Place,
     criteria: ListPlaceReviewsCriteria,
@@ -58,6 +73,9 @@ export class ReviewService {
     return new ReviewList(total, items);
   }
 
+  /**
+   * Create new review
+   */
   public async createReview(
     actor: Principal,
     place: Place,
@@ -80,6 +98,9 @@ export class ReviewService {
     return this.reviewRepository.create(review);
   }
 
+  /**
+   * Update a review
+   */
   public async updateReview(
     actor: Principal,
     review: Review,
@@ -95,6 +116,9 @@ export class ReviewService {
     return this.reviewRepository.update(review);
   }
 
+  /**
+   * Reply to review
+   */
   public async replyToReview(
     actor: Principal,
     review: Review,
@@ -105,6 +129,9 @@ export class ReviewService {
     return this.reviewRepository.update(review);
   }
 
+  /**
+   * Delete a review
+   */
   public async deleteReview(actor: Principal, review: Review): Promise<void> {
     await this.reviewRepository.remove(review);
   }

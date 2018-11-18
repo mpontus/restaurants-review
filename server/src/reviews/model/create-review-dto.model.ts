@@ -1,5 +1,5 @@
+import { ApiModelProperty } from '@nestjs/swagger';
 import {
-  IsDateString,
   IsInt,
   IsNotEmpty,
   IsString,
@@ -18,6 +18,10 @@ export class CreateReviewDto {
   @IsInt()
   @Min(1)
   @Max(5)
+  @ApiModelProperty({
+    type: 'number',
+    enum: [1, 2, 3, 4, 5],
+  })
   public rating: number;
 
   /**
@@ -26,11 +30,19 @@ export class CreateReviewDto {
   @IsString()
   @IsNotEmpty()
   @MaxLength(400)
+  @ApiModelProperty({
+    type: 'string',
+    maxLength: 400,
+  })
   public comment: string;
 
   /**
    * Date of the visit
    */
-  @IsDateString()
+  @IsString()
+  @ApiModelProperty({
+    type: 'string',
+    format: 'date',
+  })
   public dateVisitted: string;
 }
