@@ -18,6 +18,10 @@ import { ApiBearerAuth, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'auth/guards/auth.guard';
 import { RolesGuard } from 'auth/guards/roles.guard';
 import { IAuthRequest } from 'common/interfaces/auth-request.interface';
+import { CreateReviewDto } from 'reviews/model/create-review-dto.model';
+import { ReviewList } from 'reviews/model/review-list.model';
+import { Review } from 'reviews/model/review.model';
+import { ReviewService } from 'reviews/review.service';
 import { CreatePlaceDto } from './model/create-place-dto.model';
 import { FindPlacesCriteria } from './model/find-places-criteria.model';
 import { ListOwnPlacesCriteria } from './model/list-own-places-criteria.model';
@@ -36,7 +40,10 @@ import { PlaceService } from './place.service';
 @UsePipes(new ValidationPipe({ transform: true }))
 @UseInterceptors(ClassSerializerInterceptor)
 export class PlaceController {
-  constructor(private readonly placeService: PlaceService) {}
+  constructor(
+    private readonly placeService: PlaceService,
+    private readonly reviewService: ReviewService,
+  ) {}
 
   /**
    * List places belonging to the user
@@ -114,5 +121,27 @@ export class PlaceController {
     @Param('id') id: string,
   ): Promise<void> {
     return this.placeService.deletePlace(req.user, id);
+  }
+
+  @Get(':id/reviews')
+  @ApiResponse({ status: 200, type: ReviewList })
+  public async getReviews(@Param('id') id: string): Promise<Place> {
+    const place = this.placeService.getPlace(id);
+
+    return this.reviewService.getPlaceReviews(place);
+  }
+
+  @Post(':id/reviews')
+  @UseGuards(AuthGuard, new RolesGuard(['user']))
+  @ApiBearerAuth()
+  @ApiResponse({ status: 201, type: Review })
+  public async createReview(
+    @Req() req: IAuthRequest,
+    @Param('id') id: string,
+    @Body() data: CreateReviewDto,
+  ): Promise<Place> {
+    const place = this.placeService.getPlace(id);
+
+    return this.reviewService.createReview(req.user, place, data);
   }
 }
