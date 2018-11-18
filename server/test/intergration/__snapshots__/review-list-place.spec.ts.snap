@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List place reviews when place does not exist should fail 1`] = `
+Object {
+  "error": "Not Found",
+  "statusCode": 404,
+}
+`;
+
+exports[`List place reviews when place does not exist should succeed 1`] = `
+Object {
+  "error": "Not Found",
+  "statusCode": 404,
+}
+`;
+
+exports[`List place reviews when place exists should succeed 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Party environment control quality full less painting.",
+      "dateVisitted": "2012-05-22",
+      "place": Object {
+        "title": "The Exhibit",
+      },
+      "rating": 4.17,
+      "reply": null,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Have heart cover analysis carry.",
+      "dateVisitted": "1996-03-20",
+      "place": Object {
+        "title": "The Exhibit",
+      },
+      "rating": 1.46,
+      "reply": null,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Before guess college speak.",
+      "dateVisitted": "1979-02-22",
+      "place": Object {
+        "title": "The Exhibit",
+      },
+      "rating": 2.89,
+      "reply": null,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Notice soon as brother.",
+      "dateVisitted": "2009-01-18",
+      "place": Object {
+        "title": "The Exhibit",
+      },
+      "rating": 2.06,
+      "reply": null,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Have heart cover analysis carry.",
+      "dateVisitted": "1979-02-22",
+      "place": Object {
+        "title": "The Exhibit",
+      },
+      "rating": 2.25,
+      "reply": null,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Serious inside else memory if six.",
+      "dateVisitted": "1986-01-24",
+      "place": Object {
+        "title": "The Exhibit",
+      },
+      "rating": 1.46,
+      "reply": null,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Way house answer start behind old.",
+      "dateVisitted": "1986-01-24",
+      "place": Object {
+        "title": "The Exhibit",
+      },
+      "rating": 3.06,
+      "reply": null,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Party environment control quality full less painting.",
+      "dateVisitted": "2009-01-18",
+      "place": Object {
+        "title": "The Exhibit",
+      },
+      "rating": 3.84,
+      "reply": null,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Have heart cover analysis carry.",
+      "dateVisitted": "1973-11-06",
+      "place": Object {
+        "title": "The Exhibit",
+      },
+      "rating": 3.6,
+      "reply": null,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Before guess college speak.",
+      "dateVisitted": "1986-03-12",
+      "place": Object {
+        "title": "The Exhibit",
+      },
+      "rating": 3.35,
+      "reply": null,
+    },
+  ],
+  "total": 16,
+}
+`;

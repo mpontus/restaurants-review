@@ -1,5 +1,5 @@
 import { Place } from 'places/model/place.model';
-import { User } from 'user/model/user.model';
+import { ReviewAuthor } from './review-author.model';
 
 /**
  * Review Model
@@ -13,14 +13,16 @@ export class Review {
   public id: string;
 
   /**
-   * Place for which the review is made
+   * Place for which the review is made.
+   *
+   * May be ommitted during database request.
    */
-  public place: Place;
+  public place?: Place;
 
   /**
    * Review author
    */
-  public author: User;
+  public author: ReviewAuthor;
 
   /**
    * Review rating

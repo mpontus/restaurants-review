@@ -54,7 +54,7 @@ export class ReviewEntity {
    * Reply text
    */
   @Column({ type: 'text', nullable: true })
-  public reply?: string;
+  public reply?: string | null;
 
   /**
    * Date of the visit

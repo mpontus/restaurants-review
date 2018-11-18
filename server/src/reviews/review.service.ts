@@ -1,4 +1,8 @@
-import { NotFoundException, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Principal } from 'common/model/principal.model';
 import { Place } from 'places/model/place.model';
 import { UserRepository } from 'user/user.repository';
@@ -17,6 +21,7 @@ import { ReviewRepository } from './review.repository';
  *
  * Reponsible for managing place reviews.
  */
+@Injectable()
 export class ReviewService {
   constructor(
     private readonly reviewRepository: ReviewRepository,
@@ -27,7 +32,10 @@ export class ReviewService {
    * Retrieve single review by id
    */
   public async getReview(id: string): Promise<Review> {
-    const review = await this.reviewRepository.findById(id);
+    const review = await this.reviewRepository.findById(id, {
+      author: false,
+      place: false,
+    });
 
     if (review === undefined) {
       throw new NotFoundException();
@@ -50,7 +58,10 @@ export class ReviewService {
     });
 
     const total = await this.reviewRepository.count(findCriteria);
-    const items = await this.reviewRepository.findAll(findCriteria);
+    const items = await this.reviewRepository.findAll(findCriteria, {
+      author: true,
+      place: true,
+    });
 
     return new ReviewList(total, items);
   }
@@ -68,7 +79,10 @@ export class ReviewService {
       skip: criteria.skip,
     });
     const total = await this.reviewRepository.count(findCriteria);
-    const items = await this.reviewRepository.findAll(findCriteria);
+    const items = await this.reviewRepository.findAll(findCriteria, {
+      author: true,
+      place: false,
+    });
 
     return new ReviewList(total, items);
   }
