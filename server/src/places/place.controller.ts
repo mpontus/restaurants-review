@@ -19,6 +19,7 @@ import { AuthGuard } from 'auth/guards/auth.guard';
 import { RolesGuard } from 'auth/guards/roles.guard';
 import { IAuthRequest } from 'common/interfaces/auth-request.interface';
 import { CreateReviewDto } from 'reviews/model/create-review-dto.model';
+import { ListPlaceReviewsCriteria } from 'reviews/model/list-place-reviews-criteria.model';
 import { ReviewList } from 'reviews/model/review-list.model';
 import { Review } from 'reviews/model/review.model';
 import { ReviewService } from 'reviews/review.service';
@@ -123,14 +124,23 @@ export class PlaceController {
     return this.placeService.deletePlace(req.user, id);
   }
 
+  /**
+   * Get place reviews
+   */
   @Get(':id/reviews')
   @ApiResponse({ status: 200, type: ReviewList })
-  public async getReviews(@Param('id') id: string): Promise<Place> {
-    const place = this.placeService.getPlace(id);
+  public async getReviews(
+    @Param('id') id: string,
+    @Query() criteria: ListPlaceReviewsCriteria,
+  ): Promise<ReviewList> {
+    const place = await this.placeService.getPlace(id);
 
-    return this.reviewService.getPlaceReviews(place);
+    return this.reviewService.listPlaceReviews(place, criteria);
   }
 
+  /**
+   * Create review for the place
+   */
   @Post(':id/reviews')
   @UseGuards(AuthGuard, new RolesGuard(['user']))
   @ApiBearerAuth()
@@ -139,8 +149,8 @@ export class PlaceController {
     @Req() req: IAuthRequest,
     @Param('id') id: string,
     @Body() data: CreateReviewDto,
-  ): Promise<Place> {
-    const place = this.placeService.getPlace(id);
+  ): Promise<Review> {
+    const place = await this.placeService.getPlace(id);
 
     return this.reviewService.createReview(req.user, place, data);
   }

@@ -15,4 +15,11 @@ export class Review {
   public reply?: string;
 
   public dateVisitted: string;
+
+  /**
+   * Constructor
+   */
+  constructor(values: Partial<Review>) {
+    Object.assign(this, values);
+  }
 }

@@ -48,6 +48,9 @@ export class ReviewController {
     return this.reviewService.listPendingReviews(req.user, criteria);
   }
 
+  /**
+   * Update review details
+   */
   @Patch(':id')
   @UseGuards(AuthGuard, new RolesGuard(['admin']))
   @ApiBearerAuth()
@@ -57,11 +60,14 @@ export class ReviewController {
     @Param('id') id: string,
     @Query() data: UpdateReviewDto,
   ): Promise<Review> {
-    const review = this.reviewService.getReview(id);
+    const review = await this.reviewService.getReview(id);
 
-    return this.reviewService.reply(req.user, review, data);
+    return this.reviewService.updateReview(req.user, review, data);
   }
 
+  /**
+   * Reply to a review
+   */
   @Put(':id/reply')
   @UseGuards(AuthGuard, new RolesGuard(['owner']))
   @ApiBearerAuth()
@@ -71,10 +77,11 @@ export class ReviewController {
     @Param('id') id: string,
     @Query() data: ReplyDto,
   ): Promise<Review> {
-    const review = this.reviewService.getReview(id);
+    const review = await this.reviewService.getReview(id);
 
-    return this.reviewService.reply(req.user, review, data);
+    return this.reviewService.replyToReview(req.user, review, data);
   }
+
   /**
    * Delete review
    */
@@ -86,7 +93,7 @@ export class ReviewController {
     @Req() req: IAuthRequest,
     @Param('id') id: string,
   ): Promise<void> {
-    const review = this.reviewService.getReview(id);
+    const review = await this.reviewService.getReview(id);
 
     return this.reviewService.deleteReview(req.user, review);
   }
