@@ -30,6 +30,7 @@
     "io-ts": "^1.4.0",
     "ioredis": "^4.2.0",
     "jsonwebtoken": "^8.3.0",
+    "moment": "^2.22.2",
     "nestjs-config": "^1.2.5",
     "pg": "^7.4.3",
     "reflect-metadata": "^0.1.12",

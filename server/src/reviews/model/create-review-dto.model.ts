@@ -6,7 +6,9 @@ import {
   Max,
   MaxLength,
   Min,
+  Validate,
 } from 'class-validator';
+import { IsValidVisitDate } from 'reviews/validator/is-valid-visit-date';
 
 /**
  * Describes request body for review creation
@@ -40,6 +42,7 @@ export class CreateReviewDto {
    * Date of the visit
    */
   @IsString()
+  @Validate(IsValidVisitDate)
   @ApiModelProperty({
     type: 'string',
     format: 'date',
