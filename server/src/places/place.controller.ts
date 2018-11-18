@@ -3,6 +3,7 @@ import {
   ClassSerializerInterceptor,
   Controller,
   Delete,
+  ForbiddenException,
   Get,
   Param,
   Patch,
@@ -19,7 +20,6 @@ import { AuthGuard } from 'auth/guards/auth.guard';
 import { RolesGuard } from 'auth/guards/roles.guard';
 import { IAuthRequest } from 'common/interfaces/auth-request.interface';
 import { CreatePlaceDto } from './model/create-place-dto.model';
-import { FindPlacesCriteria } from './model/find-places-criteria.model';
 import { ListOwnPlacesCriteria } from './model/list-own-places-criteria.model';
 import { ListPublicPlacesCriteria } from './model/list-public-places-criteria';
 import { PlaceList } from './model/place-list.model';
@@ -46,11 +46,9 @@ export class PlaceController {
   @ApiOkResponse({ type: PlaceList })
   public async listOwnPlaces(
     @Req() req: IAuthRequest,
-    @Query() { take, skip }: ListOwnPlacesCriteria,
+    @Query() criteria: ListOwnPlacesCriteria,
   ): Promise<PlaceList> {
-    return this.placeService.listPlaces(
-      new FindPlacesCriteria({ ownerId: req.user.id, take, skip }),
-    );
+    return this.placeService.listOwnPlaces(req.user, criteria);
   }
 
   /**
@@ -70,7 +68,7 @@ export class PlaceController {
   public async listPlaces(
     @Query() criteria: ListPublicPlacesCriteria,
   ): Promise<PlaceList> {
-    return this.placeService.listPlaces(new FindPlacesCriteria(criteria));
+    return this.placeService.listPublicPlaces(criteria);
   }
 
   /**
@@ -99,7 +97,13 @@ export class PlaceController {
     @Param('id') id: string,
     @Body() data: UpdatePlaceDto,
   ): Promise<Place> {
-    return this.placeService.updatePlace(req.user, id, data);
+    const place = await this.placeService.getPlace(id);
+
+    if (place.ownerId !== req.user.id && !req.user.roles.includes('admin')) {
+      throw new ForbiddenException();
+    }
+
+    return this.placeService.updatePlace(req.user, place, data);
   }
 
   /**
@@ -113,6 +117,12 @@ export class PlaceController {
     @Req() req: IAuthRequest,
     @Param('id') id: string,
   ): Promise<void> {
-    return this.placeService.deletePlace(req.user, id);
+    const place = await this.placeService.getPlace(id);
+
+    if (place.ownerId !== req.user.id && !req.user.roles.includes('admin')) {
+      throw new ForbiddenException();
+    }
+
+    return this.placeService.deletePlace(req.user, place);
   }
 }

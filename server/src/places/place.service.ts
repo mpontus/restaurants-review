@@ -1,11 +1,12 @@
 import {
-  ForbiddenException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
 import { Principal } from 'common/model/principal.model';
 import { CreatePlaceDto } from './model/create-place-dto.model';
 import { FindPlacesCriteria } from './model/find-places-criteria.model';
+import { ListOwnPlacesCriteria } from './model/list-own-places-criteria.model';
+import { ListPublicPlacesCriteria } from './model/list-public-places-criteria';
 import { PlaceList } from './model/place-list.model';
 import { Place } from './model/place.model';
 import { UpdatePlaceDto } from './model/update-place-dto.model';
@@ -34,9 +35,26 @@ export class PlaceService {
   }
 
   /**
-   * List places
+   * List public places
    */
-  public async listPlaces(criteria: FindPlacesCriteria): Promise<PlaceList> {
+  public async listPublicPlaces(
+    criteria: ListPublicPlacesCriteria,
+  ): Promise<PlaceList> {
+    const findCriteria = new FindPlacesCriteria(criteria);
+    const total = await this.placeRepository.count(findCriteria);
+    const items = await this.placeRepository.findAll(findCriteria);
+
+    return new PlaceList(total, items);
+  }
+
+  /**
+   * List own places
+   */
+  public async listOwnPlaces(
+    actor: Principal,
+    { take, skip }: ListOwnPlacesCriteria,
+  ): Promise<PlaceList> {
+    const criteria = new FindPlacesCriteria({ ownerId: actor.id, take, skip });
     const total = await this.placeRepository.count(criteria);
     const items = await this.placeRepository.findAll(criteria);
 
@@ -64,19 +82,9 @@ export class PlaceService {
    */
   public async updatePlace(
     actor: Principal,
-    id: string,
+    place: Place,
     update: UpdatePlaceDto,
   ): Promise<Place> {
-    const place = await this.placeRepository.findById(id);
-
-    if (place === undefined) {
-      throw new NotFoundException();
-    }
-
-    if (place.ownerId !== actor.id && !actor.roles.includes('admin')) {
-      throw new ForbiddenException();
-    }
-
     Object.assign(place, {
       title: update.title || place.title,
       address: update.address || place.address,
@@ -88,17 +96,7 @@ export class PlaceService {
   /**
    * Delete place by id
    */
-  public async deletePlace(actor: Principal, id: string): Promise<void> {
-    const place = await this.placeRepository.findById(id);
-
-    if (place === undefined) {
-      throw new NotFoundException();
-    }
-
-    if (place.ownerId !== actor.id && !actor.roles.includes('admin')) {
-      throw new ForbiddenException();
-    }
-
+  public async deletePlace(actor: Principal, place: Place): Promise<void> {
     await this.placeRepository.remove(place);
   }
 }
