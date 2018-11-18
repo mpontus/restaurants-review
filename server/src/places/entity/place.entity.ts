@@ -3,8 +3,10 @@ import {
   CreateDateColumn,
   Entity,
   Index,
+  ManyToOne,
   PrimaryColumn,
 } from 'typeorm';
+import { UserEntity } from 'user/entity/user.entity';
 
 /**
  * Place Entity
@@ -24,8 +26,17 @@ export class PlaceEntity {
   /**
    * Place owner id
    */
-  @Column({ type: 'uuid' })
+  @Column('uuid')
   public ownerId: string;
+
+  /**
+   * Place Owner
+   *
+   * We never need to join user entity, this relation only serves the
+   * purpose for cascade deletion.
+   */
+  @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
+  public owner: UserEntity;
 
   /**
    * Place name

@@ -29,13 +29,13 @@ export class ReviewEntity {
   /**
    * Associated place
    */
-  @ManyToOne(() => PlaceEntity)
+  @ManyToOne(() => PlaceEntity, { onDelete: 'CASCADE' })
   public place: Place;
 
   /**
    * Review author
    */
-  @ManyToOne(() => UserEntity)
+  @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
   public author: User;
 
   /**
