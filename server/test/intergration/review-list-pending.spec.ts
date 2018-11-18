@@ -12,15 +12,16 @@ afterAll(() => nestApp.close());
 
 beforeEach(() => resetDb(nestApp));
 
-describe('List place reviews', () => {
-  describe('when place exists', () => {
-    const seed = require('../seed/multiple-reviews');
+describe('List pending reviews', () => {
+  describe('when user is owner', () => {
+    const authSeed = require('../seed/owner-user');
 
-    beforeEach(() => seed.run(nestApp));
+    beforeEach(() => authSeed.run(nestApp));
 
     it('should succeed', async () => {
       const response = await supertest(nestApp.getHttpServer())
-        .get(`/places/${seed.place.id}/reviews`)
+        .get(`/reviews/pending`)
+        .set('Authorization', `Bearer ${authSeed.accessToken}`)
         .expect(200);
 
       expect(response.body).toMatchSnapshot();
@@ -29,7 +30,8 @@ describe('List place reviews', () => {
     describe('when limit is provided', () => {
       it('should succeed', async () => {
         const response = await supertest(nestApp.getHttpServer())
-          .get(`/places/${seed.place.id}/reviews?take=2`)
+          .get(`/reviews/pending?take=1`)
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
           .expect(200);
 
         expect(response.body).toMatchSnapshot();
@@ -39,7 +41,8 @@ describe('List place reviews', () => {
     describe('when offset is provided', () => {
       it('should succeed', async () => {
         const response = await supertest(nestApp.getHttpServer())
-          .get(`/places/${seed.place.id}/reviews?skip=3`)
+          .get(`/reviews/pending?skip=1`)
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
           .expect(200);
 
         expect(response.body).toMatchSnapshot();
@@ -49,7 +52,8 @@ describe('List place reviews', () => {
     describe('when limit is not a number', () => {
       it('should fail', async () => {
         const response = await supertest(nestApp.getHttpServer())
-          .get(`/places/${seed.place.id}/reviews?take=foo`)
+          .get(`/reviews/pending?take=foo`)
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
           .expect(400);
 
         expect(response.body).toMatchSnapshot();
@@ -59,7 +63,8 @@ describe('List place reviews', () => {
     describe('when limit is negative', () => {
       it('should fail', async () => {
         const response = await supertest(nestApp.getHttpServer())
-          .get(`/places/${seed.place.id}/reviews?take=-1`)
+          .get(`/reviews/pending?take=-1`)
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
           .expect(400);
 
         expect(response.body).toMatchSnapshot();
@@ -69,7 +74,8 @@ describe('List place reviews', () => {
     describe('when limit is too large', () => {
       it('should fail', async () => {
         const response = await supertest(nestApp.getHttpServer())
-          .get(`/places/${seed.place.id}/reviews?take=9000`)
+          .get(`/reviews/pending?take=9000`)
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
           .expect(400);
 
         expect(response.body).toMatchSnapshot();
@@ -79,7 +85,8 @@ describe('List place reviews', () => {
     describe('when offset is not a number', () => {
       it('should fail', async () => {
         const response = await supertest(nestApp.getHttpServer())
-          .get(`/places/${seed.place.id}/reviews?skip=foo`)
+          .get(`/reviews/pending?skip=foo`)
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
           .expect(400);
 
         expect(response.body).toMatchSnapshot();
@@ -89,7 +96,8 @@ describe('List place reviews', () => {
     describe('when offset is negative', () => {
       it('should fail', async () => {
         const response = await supertest(nestApp.getHttpServer())
-          .get(`/places/${seed.place.id}/reviews?skip=-1`)
+          .get(`/reviews/pending?skip=-1`)
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
           .expect(400);
 
         expect(response.body).toMatchSnapshot();
@@ -97,11 +105,16 @@ describe('List place reviews', () => {
     });
   });
 
-  describe('when place does not exist', () => {
+  describe('when user is not an owner', () => {
+    const authSeed = require('../seed/regular-user');
+
+    beforeEach(() => authSeed.run(nestApp));
+
     it('should fail', async () => {
       const response = await supertest(nestApp.getHttpServer())
-        .get(`/places/25bd64b1-c768-5fa1-b4f5-3bacc700f3b9/reviews`)
-        .expect(404);
+        .get(`/reviews/pending`)
+        .set('Authorization', `Bearer ${authSeed.accessToken}`)
+        .expect(403);
 
       expect(response.body).toMatchSnapshot();
     });

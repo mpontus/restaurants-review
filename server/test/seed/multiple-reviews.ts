@@ -1,9 +1,9 @@
-import * as bcrypt from 'bcrypt';
 import { NestApplication } from '@nestjs/core';
-import { Connection } from 'typeorm';
-import { UserEntity } from 'user/entity/user.entity';
+import * as bcrypt from 'bcrypt';
 import { PlaceEntity } from 'places/entity/place.entity';
 import { ReviewEntity } from 'reviews/entity/review.entity';
+import { Connection } from 'typeorm';
+import { UserEntity } from 'user/entity/user.entity';
 
 export const owner = {
   id: '7904bc6b-5cc4-5f6d-86e0-51477a7ebd9d',
@@ -69,36 +69,6 @@ export const reviews = [
     2.25,
     '1979-02-22',
     'Have heart cover analysis carry.',
-  ],
-  [
-    'd8320717-05e2-5fd0-83ee-0c36d13b55e1',
-    4.6,
-    '2012-05-22',
-    'Field return long bed after.',
-  ],
-  [
-    'be543903-6fbc-5df3-bd31-4256624cc898',
-    2.81,
-    '2001-07-05',
-    'Party environment control quality full less painting.',
-  ],
-  [
-    '93aa6df2-8c47-54b1-8445-4152fe33ab41',
-    1.46,
-    '1986-01-24',
-    'Serious inside else memory if six.',
-  ],
-  [
-    'a414e5ec-e52b-597a-9b1d-527895a781fb',
-    1.06,
-    '1973-11-06',
-    'State machine energy a production like service.',
-  ],
-  [
-    '1fc8006f-22b9-5b20-8b48-0c31861c4558',
-    3.06,
-    '1986-01-24',
-    'Way house answer start behind old.',
   ],
   [
     '613c0e6f-4087-5546-ae99-e2436fd68219',

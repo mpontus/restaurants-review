@@ -1,8 +1,8 @@
-import * as bcrypt from 'bcrypt';
 import { NestApplication } from '@nestjs/core';
+import * as bcrypt from 'bcrypt';
+import { PlaceEntity } from 'places/entity/place.entity';
 import { Connection } from 'typeorm';
 import { UserEntity } from 'user/entity/user.entity';
-import { PlaceEntity } from 'places/entity/place.entity';
 
 export const owner = {
   id: '19847462-80b4-5542-8ae4-3d89e7ee4967',
@@ -116,7 +116,7 @@ export const places = [
 }));
 
 export const run = async (nestApp: NestApplication) => {
-  nestApp
+  await nestApp
     .get(Connection)
     .createQueryBuilder()
     .insert()

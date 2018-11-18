@@ -7,13 +7,6 @@ Object {
 }
 `;
 
-exports[`List place reviews when place does not exist should succeed 1`] = `
-Object {
-  "error": "Not Found",
-  "statusCode": 404,
-}
-`;
-
 exports[`List place reviews when place exists should succeed 1`] = `
 Object {
   "items": Array [
@@ -23,11 +16,7 @@ Object {
       },
       "comment": "Party environment control quality full less painting.",
       "dateVisitted": "2012-05-22",
-      "place": Object {
-        "title": "The Exhibit",
-      },
       "rating": 4.17,
-      "reply": null,
     },
     Object {
       "author": Object {
@@ -35,11 +24,23 @@ Object {
       },
       "comment": "Have heart cover analysis carry.",
       "dateVisitted": "1996-03-20",
-      "place": Object {
-        "title": "The Exhibit",
+      "rating": 3.45,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
       },
+      "comment": "Have heart cover analysis carry.",
+      "dateVisitted": "1996-03-20",
       "rating": 1.46,
-      "reply": null,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Notice soon as brother.",
+      "dateVisitted": "2012-05-22",
+      "rating": 2.67,
     },
     Object {
       "author": Object {
@@ -47,11 +48,7 @@ Object {
       },
       "comment": "Before guess college speak.",
       "dateVisitted": "1979-02-22",
-      "place": Object {
-        "title": "The Exhibit",
-      },
       "rating": 2.89,
-      "reply": null,
     },
     Object {
       "author": Object {
@@ -59,11 +56,7 @@ Object {
       },
       "comment": "Notice soon as brother.",
       "dateVisitted": "2009-01-18",
-      "place": Object {
-        "title": "The Exhibit",
-      },
       "rating": 2.06,
-      "reply": null,
     },
     Object {
       "author": Object {
@@ -71,35 +64,7 @@ Object {
       },
       "comment": "Have heart cover analysis carry.",
       "dateVisitted": "1979-02-22",
-      "place": Object {
-        "title": "The Exhibit",
-      },
       "rating": 2.25,
-      "reply": null,
-    },
-    Object {
-      "author": Object {
-        "name": "Norma Fisher",
-      },
-      "comment": "Serious inside else memory if six.",
-      "dateVisitted": "1986-01-24",
-      "place": Object {
-        "title": "The Exhibit",
-      },
-      "rating": 1.46,
-      "reply": null,
-    },
-    Object {
-      "author": Object {
-        "name": "Norma Fisher",
-      },
-      "comment": "Way house answer start behind old.",
-      "dateVisitted": "1986-01-24",
-      "place": Object {
-        "title": "The Exhibit",
-      },
-      "rating": 3.06,
-      "reply": null,
     },
     Object {
       "author": Object {
@@ -107,11 +72,7 @@ Object {
       },
       "comment": "Party environment control quality full less painting.",
       "dateVisitted": "2009-01-18",
-      "place": Object {
-        "title": "The Exhibit",
-      },
       "rating": 3.84,
-      "reply": null,
     },
     Object {
       "author": Object {
@@ -119,11 +80,7 @@ Object {
       },
       "comment": "Have heart cover analysis carry.",
       "dateVisitted": "1973-11-06",
-      "place": Object {
-        "title": "The Exhibit",
-      },
       "rating": 3.6,
-      "reply": null,
     },
     Object {
       "author": Object {
@@ -131,13 +88,211 @@ Object {
       },
       "comment": "Before guess college speak.",
       "dateVisitted": "1986-03-12",
-      "place": Object {
-        "title": "The Exhibit",
-      },
       "rating": 3.35,
-      "reply": null,
     },
   ],
-  "total": 16,
+  "total": 11,
+}
+`;
+
+exports[`List place reviews when place exists when limit is negative should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "min": "take must not be less than 0",
+      },
+      "property": "take",
+      "target": Object {
+        "skip": 0,
+        "take": -1,
+      },
+      "value": -1,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List place reviews when place exists when limit is not a number should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "max": "take must not be greater than 50",
+        "min": "take must not be less than 0",
+      },
+      "property": "take",
+      "target": Object {
+        "skip": 0,
+        "take": null,
+      },
+      "value": null,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List place reviews when place exists when limit is provided should succeed 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Party environment control quality full less painting.",
+      "dateVisitted": "2012-05-22",
+      "rating": 4.17,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Before guess college speak.",
+      "dateVisitted": "1979-02-22",
+      "rating": 2.89,
+    },
+  ],
+  "total": 11,
+}
+`;
+
+exports[`List place reviews when place exists when limit is too large should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "max": "take must not be greater than 50",
+      },
+      "property": "take",
+      "target": Object {
+        "skip": 0,
+        "take": 9000,
+      },
+      "value": 9000,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List place reviews when place exists when offset is negative should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "min": "skip must not be less than 0",
+      },
+      "property": "skip",
+      "target": Object {
+        "skip": -1,
+        "take": 10,
+      },
+      "value": -1,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List place reviews when place exists when offset is not a number should fail 1`] = `
+Object {
+  "error": "Bad Request",
+  "message": Array [
+    Object {
+      "children": Array [],
+      "constraints": Object {
+        "min": "skip must not be less than 0",
+      },
+      "property": "skip",
+      "target": Object {
+        "skip": null,
+        "take": 10,
+      },
+      "value": null,
+    },
+  ],
+  "statusCode": 400,
+}
+`;
+
+exports[`List place reviews when place exists when offset is provided should succeed 1`] = `
+Object {
+  "items": Array [
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Have heart cover analysis carry.",
+      "dateVisitted": "1996-03-20",
+      "rating": 3.45,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Have heart cover analysis carry.",
+      "dateVisitted": "1996-03-20",
+      "rating": 1.46,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Notice soon as brother.",
+      "dateVisitted": "2012-05-22",
+      "rating": 2.67,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Notice soon as brother.",
+      "dateVisitted": "2009-01-18",
+      "rating": 2.06,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Have heart cover analysis carry.",
+      "dateVisitted": "1979-02-22",
+      "rating": 2.25,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Party environment control quality full less painting.",
+      "dateVisitted": "2009-01-18",
+      "rating": 3.84,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Serious inside else memory if six.",
+      "dateVisitted": "1973-11-06",
+      "rating": 4.69,
+    },
+    Object {
+      "author": Object {
+        "name": "Norma Fisher",
+      },
+      "comment": "Have heart cover analysis carry.",
+      "dateVisitted": "1973-11-06",
+      "rating": 3.6,
+    },
+  ],
+  "total": 11,
 }
 `;
