@@ -4,7 +4,6 @@
     "tslint:recommended",
     "tslint-consistent-codestyle",
     "tslint-clean-code/recommended_ruleset",
-    "tslint-react",
     "tslint-config-prettier"
   ],
   "rulesDirectory": ["node_modules/tslint-clean-code/dist/src"],
