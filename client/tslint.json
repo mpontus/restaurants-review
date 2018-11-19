@@ -2,7 +2,6 @@
   "defaultSeverity": "error",
   "extends": [
     "tslint:recommended",
-    "tslint-consistent-codestyle",
     "tslint-clean-code/recommended_ruleset",
     "tslint-react",
     "tslint-config-prettier"
@@ -26,29 +25,16 @@
       "member-variable-declaration"
     ],
 
-    // Allow sensible ordering of object parameters
-    "object-literal-sort-keys": false,
+    // Conflicts with stateless components
+    "variable-name": false,
 
-    // Allow shorthand parameter initialization
-    "no-parameter-properties": false,
-
-    // Allow non-descriptive names for generic type arguments
-    "id-length": false,
-
-    // Conflicts with nestjs-config
-    "no-default-export": false,
-    "no-invalid-this": false,
-
-    // Confclits with external modules
+    // Conflicts with asset imports
     "match-default-export-name": false,
 
-    // Conflicts with member-ordering
-    "newspaper-order": false,
+    // Conflicts with JSX
+    "id-length": false,
 
-    // Disable idalistic rules
-    "strict-boolean-expressions": false,
-    "min-class-cohesion": false,
-    "no-feature-envy": false,
-    "no-unsafe-any": false
+    // Necessary for polyfills and CSS files
+    "no-import-side-effect": false
   }
 }
