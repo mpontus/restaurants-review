@@ -1,5 +1,19 @@
 version: "3"
 services:
+  client:
+    image: node:8
+    volumes:
+      - .:/usr/src
+    working_dir: /usr/src/client
+    command: yarn start
+    networks:
+      - frontend
+    ports:
+      - "3000:3000"
+    environment:
+      PUBLIC_URL: "http://localhost:3000"
+      REACT_APP_API_URL: "http://localhost:8080"
+
   server:
     image: node:8
     volumes:
@@ -7,6 +21,7 @@ services:
     working_dir: /usr/src/server
     command: yarn start
     networks:
+      - frontend
       - backend
     ports:
       - "8080:8080"
@@ -29,6 +44,7 @@ services:
       - backend
 
 networks:
+  frontend:
   backend:
 
 volumes:
