@@ -1,7 +1,9 @@
-import { NestFactory } from '@nestjs/core';
+import { NestApplication, NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { useContainer } from 'class-validator';
 import cors from 'cors';
+import { seedMiddleware } from 'middleware/seedMiddleware';
+import * as path from 'path';
 import { AppModule } from './app.module';
 
 /**
@@ -11,8 +13,19 @@ import { AppModule } from './app.module';
  */
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
-
   app.use(cors());
+
+  // Seed controller is used to provide API endpoints for UI tests and
+  // is activated using a special environment variable.
+  if (process.env.SEED_MODULE) {
+    app.use(
+      '/seed',
+      seedMiddleware(
+        app as NestApplication,
+        path.resolve(__dirname, '../test/seed/*.ts'),
+      ),
+    );
+  }
 
   // Link DI container to class-validator
   useContainer(app.select(AppModule), { fallbackOnErrors: true });

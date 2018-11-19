@@ -23,3 +23,13 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+import "cypress-testing-library/add-commands";
+
+Cypress.Commands.add("seed", (...seeds) => {
+  const apiUrl = Cypress.env("API_URL");
+
+  return cy
+    .request(`${apiUrl}/seed?seeds=${seeds.join(",")}`)
+    .then(({ body }) => body);
+});

@@ -1,15 +1,10 @@
 {
   "defaultSeverity": "error",
-  "extends": [
-    "tslint:recommended",
-    "tslint-clean-code/recommended_ruleset",
-    "tslint-react",
-    "tslint-config-prettier"
-  ],
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
   "rulesDirectory": ["node_modules/tslint-clean-code/dist/src"],
   "rules": {
     // Equivalent compiler option is too annoying
-    "no-unused-variable": true,
+    "no-unused-variable": [true, { "ignore-pattern": "^_" }],
 
     // Allow bypassing unused parameters using underscore
     "variable-name": [true, "allow-leading-underscore"],
@@ -18,12 +13,13 @@
     "completed-docs": true,
 
     // Force those typedefs which enhance documentation
-    "typedef": [
-      true,
-      "call-signature",
-      "property-declaration",
-      "member-variable-declaration"
-    ],
+    "typedef": [true, "property-declaration", "member-variable-declaration"],
+
+    // Prefixed interface names looks awkward for props
+    "interface-name": false,
+
+    // Allow sensible ordering of object parameters
+    "object-literal-sort-keys": false,
 
     // Conflicts with stateless components
     "variable-name": false,
@@ -35,6 +31,9 @@
     "id-length": false,
 
     // Necessary for polyfills and CSS files
-    "no-import-side-effect": false
+    "no-import-side-effect": false,
+
+    // Too annoying with react
+    "no-void-expression": false
   }
 }
