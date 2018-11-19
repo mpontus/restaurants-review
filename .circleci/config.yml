@@ -34,6 +34,7 @@ jobs:
           paths:
             - node_modules
             - server/node_modules
+            - client/node_modules
           key: node-modules-{{ arch }}-{{ .Branch }}-{{ checksum "package.json" }}
       - persist_to_workspace:
           root: .
