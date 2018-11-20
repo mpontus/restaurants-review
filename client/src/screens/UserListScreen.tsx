@@ -1,21 +1,21 @@
-import React, { useState, useCallback, useRef } from "react";
 import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText,
   ListItemSecondaryAction,
-  IconButton,
+  ListItemText,
   MenuItem
 } from "@material-ui/core";
 import {
-  Edit as EditIcon,
   Delete as DeleteIcon,
+  Edit as EditIcon,
   MoreVert as MoreVertIcon
 } from "@material-ui/icons";
+import React from "react";
+import { ConfirmModal } from "../components/ConfirmModal";
 import { IconMenu } from "../components/IconMenu";
 import { useModal } from "../components/ModalRoot";
-import { ConfirmModal } from "../components/ConfirmModal";
+import { UserFormModal } from "../components/UserFormModal";
 
 // prettier-ignore
 export const users = [
@@ -32,8 +32,6 @@ export const users = [
   ['7a0b3665-4ad8-5ace-b3d3-02258764cbd6', 'Emily Herrera', 'ban@muhe.kw', ['user']],
 ].map(([id, name, email, roles]) => ({ id: id as string, name: name as string, email: email as string, roles: roles as string[] }));
 
-const UserFormModal = (props: any) => <div>Edit user</div>;
-
 export const UserListItem = ({ user, onDelete }: any) => {
   const [showConfirmModal, hideConfirmModal] = useModal(() => (
     <ConfirmModal
@@ -46,10 +44,26 @@ export const UserListItem = ({ user, onDelete }: any) => {
     </ConfirmModal>
   ));
 
+  const initialValues = {
+    name: user.name,
+    email: user.email,
+    password: "",
+    isUser: user.roles.includes("user"),
+    isOwner: user.roles.includes("owner"),
+    isAdmin: user.roles.includes("admin")
+  };
+
   const [showEditModal, hideEditModal] = useModal(() => (
     <UserFormModal
-      user={user}
-      onSuccess={hideConfirmModal}
+      title="Update User"
+      subtitle={
+        <>
+          Change <strong>{user.name}</strong> account details
+        </>
+      }
+      initialValues={initialValues}
+      submitLabel="Save User"
+      onSubmit={hideConfirmModal}
       onCancel={hideEditModal}
     />
   ));
@@ -63,13 +77,13 @@ export const UserListItem = ({ user, onDelete }: any) => {
             <ListItemIcon>
               <EditIcon />
             </ListItemIcon>
-            <ListItemText inset primary="Edit" />
+            <ListItemText inset={true} primary="Edit" />
           </MenuItem>
           <MenuItem onClick={showConfirmModal}>
             <ListItemIcon>
               <DeleteIcon />
             </ListItemIcon>
-            <ListItemText inset primary="Delete" />
+            <ListItemText inset={true} primary="Delete" />
           </MenuItem>
         </IconMenu>
       </ListItemSecondaryAction>

@@ -13,7 +13,13 @@ type GenericChangeHandler = React.ChangeEventHandler<
   HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
 >;
 
-export const Input = ({
+/**
+ * Input Component
+ *
+ * Extends Material-UI's TextField with some defaults and provides
+ * Field-compatible interface.
+ */
+export const Input: React.SFC<Props> = ({
   label,
   defaultValue,
   error = null,
@@ -23,6 +29,7 @@ export const Input = ({
   return (
     <TextField
       fullWidth={true}
+      margin="normal"
       label={label}
       defaultValue={Array.isArray(defaultValue) ? undefined : defaultValue}
       error={error !== null}
