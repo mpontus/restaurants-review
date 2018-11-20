@@ -3,7 +3,7 @@ services:
   client:
     image: node:8
     volumes:
-      - .:/usr/src
+      - .:/usr/src:ro
       - /usr/src/client/node_modules/.cache
     working_dir: /usr/src/client
     command: yarn start
