@@ -7,12 +7,14 @@ import {
   MenuItem
 } from "@material-ui/core";
 import {
+  Add as AddIcon,
   Delete as DeleteIcon,
   Edit as EditIcon,
   MoreVert as MoreVertIcon
 } from "@material-ui/icons";
 import React from "react";
 import { ConfirmModal } from "../components/ConfirmModal";
+import { FloatingActionButton } from "../components/FloatingActionButton";
 import { IconMenu } from "../components/IconMenu";
 import { useModal } from "../components/ModalRoot";
 import { UserFormModal } from "../components/UserFormModal";
@@ -92,11 +94,28 @@ export const UserListItem = ({ user, onDelete }: any) => {
 };
 
 export const UserListScreen = () => {
+  const [showCreateModal, hideCreateModal] = useModal(() => (
+    <UserFormModal
+      title="Create New User"
+      subtitle={<>Enter new user details.</>}
+      submitLabel="Save User"
+      onSubmit={hideCreateModal}
+      onCancel={hideCreateModal}
+    />
+  ));
+
   return (
-    <List>
-      {users.map(user => (
-        <UserListItem key={user.id} user={user} />
-      ))}
-    </List>
+    <React.Fragment>
+      <List>
+        {users.map(user => (
+          <UserListItem key={user.id} user={user} />
+        ))}
+      </List>
+      <FloatingActionButton
+        icon={<AddIcon />}
+        aria-label="Add"
+        onClick={showCreateModal}
+      />
+    </React.Fragment>
   );
 };
