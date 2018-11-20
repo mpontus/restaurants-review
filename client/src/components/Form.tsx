@@ -5,7 +5,7 @@ import { Schema } from "yup";
 /**
  * Outter props
  */
-interface Props<V> {
+export interface FormProps<V> {
   /**
    * Initial values
    */
@@ -38,7 +38,7 @@ interface Props<V> {
  * Extends Formik with ability to set external errors and normalize
  * values before passing them to onSubmit callback.
  */
-export class Form<T> extends React.Component<Props<T>> {
+export class Form<T> extends React.Component<FormProps<T>> {
   /**
    * Reference to Formik component instance
    */
@@ -56,7 +56,7 @@ export class Form<T> extends React.Component<Props<T>> {
   /**
    * Pass external errors to Formik instance
    */
-  public componentDidUpdate(prevProps: Props<T>) {
+  public componentDidUpdate(prevProps: FormProps<T>) {
     if (this.formikRef.current && prevProps.errors !== this.props.errors) {
       this.formikRef.current.setErrors(this.props.errors || {});
     }

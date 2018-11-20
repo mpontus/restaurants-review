@@ -2,12 +2,11 @@ import { TextField } from "@material-ui/core";
 import * as React from "react";
 
 /**
- * Input Props
+ * Textarea Props
  */
 interface Props {
   id: string;
   label: string;
-  type: string;
   name: string;
   value: any;
   error?: string | null;
@@ -16,11 +15,10 @@ interface Props {
 }
 
 /**
- * Input Component
+ * Textarea Component
  */
-export const Input: React.SFC<Props> = ({
+export const Textarea: React.SFC<Props> = ({
   id,
-  type,
   label,
   name,
   value,
@@ -30,11 +28,12 @@ export const Input: React.SFC<Props> = ({
 }: Props) => {
   return (
     <TextField
-      type={type}
+      multiline={true}
       fullWidth={true}
+      rowsMax="4"
       margin="normal"
-      id={id}
       label={label}
+      id={id}
       name={name}
       value={value}
       error={error !== null}

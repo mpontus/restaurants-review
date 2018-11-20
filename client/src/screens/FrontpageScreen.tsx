@@ -25,7 +25,7 @@ const items = [
     "381424b3-ba66-5444-8d7a-a452071dc3b3",
     "The Bitter Window",
     "1253 Pusi Road",
-    1.29
+    0.29
   ]
 ].map(([id, title, address, rating]) => ({
   id,

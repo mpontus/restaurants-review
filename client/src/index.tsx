@@ -1,4 +1,5 @@
 import { CssBaseline } from "@material-ui/core";
+import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter } from "react-router-dom";
@@ -6,13 +7,21 @@ import { ModalProvider, ModalRoot } from "./components/ModalRoot";
 import { RootScreen } from "./screens/RootScreen";
 import * as serviceWorker from "./serviceWorker";
 
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true
+  }
+});
+
 ReactDOM.render(
   <BrowserRouter>
-    <ModalProvider>
-      <ModalRoot />
-      <CssBaseline />
-      <RootScreen />
-    </ModalProvider>
+    <MuiThemeProvider theme={theme}>
+      <ModalProvider>
+        <ModalRoot />
+        <CssBaseline />
+        <RootScreen />
+      </ModalProvider>
+    </MuiThemeProvider>
   </BrowserRouter>,
   document.getElementById("root")
 );

@@ -4,10 +4,7 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
-  FormControl,
-  FormGroup,
-  FormLabel
+  DialogTitle
 } from "@material-ui/core";
 import React from "react";
 import * as yup from "yup";
@@ -15,7 +12,6 @@ import { SavePlaceDto } from "../models/SavePlaceDto";
 import { Field } from "./Field";
 import { Form } from "./Form";
 import { Input } from "./Input";
-import { Switch } from "./Switch";
 
 /**
  * Place Form Modal Props

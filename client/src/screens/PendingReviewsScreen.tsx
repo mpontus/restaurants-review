@@ -1,6 +1,5 @@
 import React from "react";
-import { Review } from "../components/Review";
-import { useModal } from "../components/ModalRoot";
+import { ReviewContainer } from "../containers/ReviewContainer";
 
 const reviews = [
   [
@@ -39,19 +38,6 @@ const reviews = [
   comment: comment as string,
   reply: reply as string
 }));
-
-export const ReviewContainer = ({ review }: any) => {
-  return (
-    <Review
-      canEdit={true}
-      date={review.dateVisitted}
-      author={review.author.name}
-      rating={review.rating}
-      comment={review.comment}
-      reply={review.reply}
-    />
-  );
-};
 
 export const PendingReviewsScreen = () => {
   return (
