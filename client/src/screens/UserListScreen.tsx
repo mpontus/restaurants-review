@@ -96,6 +96,7 @@ export const UserListItem = ({ user, onDelete }: any) => {
 export const UserListScreen = () => {
   const [showCreateModal, hideCreateModal] = useModal(() => (
     <UserFormModal
+      autoFocus={true}
       title="Create New User"
       subtitle={<>Enter new user details.</>}
       submitLabel="Save User"
