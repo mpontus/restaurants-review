@@ -1,13 +1,27 @@
 import { IconButton, Menu } from "@material-ui/core";
 import React from "react";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
+import { useGlobalId } from "../hooks/useGlobalId";
+
+/**
+ * Icon menu props
+ */
+interface Props {
+  /**
+   * Icon to toggle the menu open
+   */
+  icon: React.ReactNode;
+}
 
 /**
  * Icon Menu
  *
  * Displays the popup menu when icon is clicked.
+ *
+ * Should contain several MenuItem elements.
  */
-export const IconMenu = ({ icon, children }: any) => {
+export const IconMenu: React.SFC<Props> = ({ icon, children, ...rest }) => {
+  const id = useGlobalId();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const toggle = useCallback((e: React.MouseEvent) => {
     const el = e.target as HTMLElement;
@@ -18,20 +32,19 @@ export const IconMenu = ({ icon, children }: any) => {
   return (
     <React.Fragment>
       <IconButton
-        aria-label="More"
-        aria-owns={open ? "long-menu" : undefined}
+        {...rest}
+        aria-owns={anchorEl ? id : undefined}
         aria-haspopup="true"
         onClick={toggle}
       >
         {icon}
       </IconButton>
       <Menu
-        id="long-menu"
+        id={id}
         anchorEl={anchorEl}
         open={anchorEl !== null}
         onClick={toggle}
         PaperProps={{
-          // TODO: refactor
           style: {
             width: 200
           }

@@ -1,15 +1,7 @@
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import ReactDOM from "react-dom";
-
-/**
- * Generate unique modal id
- */
-const generateId = (() => {
-  let counter = 0;
-
-  return () => counter++;
-})();
+import { useGlobalId } from "../hooks/useGlobalId";
 
 /**
  * Modal Type
@@ -92,7 +84,7 @@ export const ModalRoot = () => {
  * React hook to use modals in stateless components
  */
 export const useModal = (Component: React.ComponentType<any>) => {
-  const key = useMemo(generateId, []);
+  const key = useGlobalId();
   const [shown, setShown] = useState(false);
   const { showModal, hideModal } = useContext(ModalContext);
 
