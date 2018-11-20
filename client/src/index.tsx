@@ -9,9 +9,9 @@ import * as serviceWorker from "./serviceWorker";
 ReactDOM.render(
   <BrowserRouter>
     <ModalProvider>
+      <ModalRoot />
       <CssBaseline />
       <RootScreen />
-      <ModalRoot />
     </ModalProvider>
   </BrowserRouter>,
   document.getElementById("root")
