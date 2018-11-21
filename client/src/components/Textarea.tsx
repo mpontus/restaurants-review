@@ -5,6 +5,7 @@ import * as React from "react";
  * Textarea Props
  */
 interface Props {
+  autoFocus: boolean;
   id: string;
   label: string;
   name: string;
@@ -18,6 +19,7 @@ interface Props {
  * Textarea Component
  */
 export const Textarea: React.SFC<Props> = ({
+  autoFocus,
   id,
   label,
   name,
@@ -32,6 +34,7 @@ export const Textarea: React.SFC<Props> = ({
       fullWidth={true}
       rowsMax="4"
       margin="normal"
+      autoFocus={autoFocus}
       label={label}
       id={id}
       name={name}

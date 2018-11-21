@@ -1,19 +1,19 @@
 /**
  * Describes an update to a review
  */
-export class UpdateReviewDto {
+export interface UpdateReviewDto {
   /**
    * Updated review rating
    */
-  public rating?: number;
+  rating?: number;
 
   /**
    * Updated comment
    */
-  public comment?: string;
+  comment?: string;
 
   /**
    * Updated reply
    */
-  public reply?: string;
+  reply?: string;
 }

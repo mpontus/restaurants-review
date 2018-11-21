@@ -3,15 +3,14 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogTitle,
-  FormControlLabel
+  DialogContentText,
+  DialogTitle
 } from "@material-ui/core";
 import React from "react";
 import * as yup from "yup";
-import { CreateReviewDto } from "../models/CreateReviewDto";
+import { ReplyDto } from "../models/ReplyDto";
 import { Field } from "./Field";
 import { Form } from "./Form";
-import { Rating } from "./Rating";
 import { Textarea } from "./Textarea";
 
 /**
@@ -24,19 +23,24 @@ interface Props {
   autoFocus?: boolean;
 
   /**
+   * Modal Subtitle
+   */
+  subtitle: React.ReactNode;
+
+  /**
    * Form initial values
    */
-  initialValues?: CreateReviewDto;
+  initialValues?: ReplyDto;
 
   /**
    * Form errors
    */
-  errors?: { [key in keyof CreateReviewDto]?: string };
+  errors?: { [key in keyof ReplyDto]?: string };
 
   /**
    * Callback invoked on successful form submission
    */
-  onSubmit: (values: CreateReviewDto) => void;
+  onSubmit: (values: ReplyDto) => void;
 
   /**
    * Callback invoked on modal dismissal
@@ -47,12 +51,7 @@ interface Props {
 /**
  * Review form validation schema
  */
-const validationSchema = yup.object<CreateReviewDto>().shape({
-  rating: yup
-    .number()
-    .min(1)
-    .max(5)
-    .required(),
+const validationSchema = yup.object<ReplyDto>().shape({
   comment: yup.string().required()
 });
 
@@ -60,18 +59,18 @@ const validationSchema = yup.object<CreateReviewDto>().shape({
  * Initial review form values
  */
 const defaultValues = {
-  rating: 0,
-  comment: "",
-  reply: ""
+  comment: ""
 };
 
 /**
- * Create Review Modal
+ * Reply Form Modal
  *
- * Displays a dialog for creating new review
+ * Displays a dialog for replying to a review
  */
-export const CreateReviewModal: React.SFC<Props> = ({
+
+export const ReplyModal: React.SFC<Props> = ({
   autoFocus = false,
+  subtitle,
   initialValues = defaultValues,
   errors = {},
   onSubmit,
@@ -85,25 +84,21 @@ export const CreateReviewModal: React.SFC<Props> = ({
         validationSchema={validationSchema}
         errors={errors}
       >
-        <DialogTitle id="form-dialog-title">Submit New Review</DialogTitle>
+        <DialogTitle id="form-dialog-title">Reply to a review</DialogTitle>
         <DialogContent>
-          <FormControlLabel
-            label="Rating"
-            labelPlacement="end"
-            control={<Field component={Rating} name="rating" />}
-          />
+          <DialogContentText>{subtitle}</DialogContentText>
           <Field
-            component={Textarea}
             autoFocus={autoFocus}
+            component={Textarea}
             id="comment"
             name="comment"
-            label="Comment"
+            label="Your Reply"
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={onCancel}>Cancel</Button>
           <Button type="submit" color="primary">
-            Submit Review
+            Reply to a review
           </Button>
         </DialogActions>
       </Form>

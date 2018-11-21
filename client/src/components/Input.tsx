@@ -5,6 +5,7 @@ import * as React from "react";
  * Input Props
  */
 interface Props {
+  autoFocus: boolean;
   id: string;
   label: string;
   type: string;
@@ -19,6 +20,7 @@ interface Props {
  * Input Component
  */
 export const Input: React.SFC<Props> = ({
+  autoFocus,
   id,
   type,
   label,
@@ -33,6 +35,7 @@ export const Input: React.SFC<Props> = ({
       type={type}
       fullWidth={true}
       margin="normal"
+      autoFocus={autoFocus}
       id={id}
       label={label}
       name={name}

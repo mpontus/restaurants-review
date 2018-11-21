@@ -1,9 +1,9 @@
 /**
- * Describes an update to a review
+ * Describes a reply to a review
  */
-export class ReplyDto {
+export interface ReplyDto {
   /**
    * Reply text
    */
-  public rating?: number;
+  comment: string;
 }

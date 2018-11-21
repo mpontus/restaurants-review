@@ -1,14 +1,14 @@
 /**
  * Describes details specified during review creation
  */
-export class CreateReviewDto {
+export interface CreateReviewDto {
   /**
    * Review Rating
    */
-  public rating?: number;
+  rating: number;
 
   /**
    * Comment
    */
-  public comment?: string;
+  comment: string;
 }
