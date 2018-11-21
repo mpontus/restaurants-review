@@ -121,6 +121,5 @@ export const PlaceFormModal: React.SFC<Props> = ({
         </Button>
       </DialogActions>
     </Form>
-    >
   </Dialog>
 );

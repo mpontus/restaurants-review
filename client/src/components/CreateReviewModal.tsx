@@ -61,8 +61,7 @@ const validationSchema = yup.object<CreateReviewDto>().shape({
  */
 const defaultValues = {
   rating: 0,
-  comment: "",
-  reply: ""
+  comment: ""
 };
 
 /**
@@ -107,7 +106,6 @@ export const CreateReviewModal: React.SFC<Props> = ({
           </Button>
         </DialogActions>
       </Form>
-      >
     </Dialog>
   );
 };

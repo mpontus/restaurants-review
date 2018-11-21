@@ -54,7 +54,7 @@ const validationSchema = yup.object<UpdateReviewDto>().shape({
     .max(5)
     .required(),
   comment: yup.string().required(),
-  reply: yup.string().required()
+  reply: yup.string()
 });
 
 /**
@@ -109,7 +109,6 @@ export const ReviewFormModal: React.SFC<Props> = ({
           </Button>
         </DialogActions>
       </Form>
-      >
     </Dialog>
   );
 };

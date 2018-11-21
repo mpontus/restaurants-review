@@ -161,6 +161,5 @@ export const UserFormModal: React.SFC<Props> = ({
         </Button>
       </DialogActions>
     </Form>
-    >
   </Dialog>
 );

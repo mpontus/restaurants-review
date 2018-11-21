@@ -102,7 +102,6 @@ export const ReplyModal: React.SFC<Props> = ({
           </Button>
         </DialogActions>
       </Form>
-      >
     </Dialog>
   );
 };
