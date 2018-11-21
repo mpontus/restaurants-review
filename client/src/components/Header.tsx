@@ -7,11 +7,14 @@ import {
   withStyles
 } from "@material-ui/core";
 import React from "react";
+import { Link } from "react-router-dom";
+import * as routes from "../routes";
 
-interface Props extends WithStyles<"grow"> {}
+interface Props extends WithStyles<"title"> {}
 
 const enhance = withStyles({
-  grow: {
+  title: {
+    textDecoration: "none",
     flexGrow: 1
   }
 });
@@ -19,7 +22,14 @@ const enhance = withStyles({
 export const Header = enhance(({ classes }: Props) => (
   <AppBar position="static">
     <Toolbar>
-      <Typography variant="h6" color="inherit" className={classes.grow}>
+      <Typography
+        component={({ innerRef, ...rest }) => (
+          <Link to={routes.HOME} {...rest} />
+        )}
+        variant="h6"
+        color="inherit"
+        className={classes.title}
+      >
         Restaurant Reviews
       </Typography>
       <Button color="inherit">Login</Button>
