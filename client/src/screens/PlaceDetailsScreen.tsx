@@ -95,7 +95,7 @@ export const PlaceDetailsScreen = () => {
   const [showReviewModal, hideReviewModal] = useModal(() => (
     <CreateReviewModal
       autoFocus={true}
-      onSubmit={hideReviewModal}
+      onSubmit={console.log}
       onCancel={hideReviewModal}
     />
   ));

@@ -65,7 +65,7 @@ export const UserListItem = ({ user, onDelete }: any) => {
       }
       initialValues={initialValues}
       submitLabel="Save User"
-      onSubmit={hideEditModal}
+      onSubmit={console.log}
       onCancel={hideEditModal}
     />
   ));
@@ -100,7 +100,7 @@ export const UserListScreen = () => {
       title="Create New User"
       subtitle={<>Enter new user details.</>}
       submitLabel="Save User"
-      onSubmit={hideCreateModal}
+      onSubmit={console.log}
       onCancel={hideCreateModal}
     />
   ));

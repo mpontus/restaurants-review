@@ -31,7 +31,7 @@ export const ReviewContainer = ({ review }: Props) => {
         comment: review.comment,
         reply: review.reply
       }}
-      onSubmit={hideEditModal}
+      onSubmit={console.log}
       onCancel={hideEditModal}
     />
   ));
@@ -47,7 +47,7 @@ export const ReviewContainer = ({ review }: Props) => {
           <Typography component="span">{review.comment}</Typography>
         </>
       }
-      onSubmit={hideReplyModal}
+      onSubmit={console.log}
       onCancel={hideReplyModal}
     />
   ));

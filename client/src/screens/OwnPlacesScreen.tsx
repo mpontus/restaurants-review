@@ -49,15 +49,15 @@ export const PlaceListItem = ({ place, onDelete }: any) => {
 
   const [showEditModal, hideEditModal] = useModal(() => (
     <PlaceFormModal
-      title="Update Place"
+      title="Edit Restaurant"
       subtitle={
         <>
           Change <strong>{place.title}</strong> details.
         </>
       }
       initialValues={initialValues}
-      submitLabel="Save Place"
-      onSubmit={hideEditModal}
+      submitLabel="Save Restaurant"
+      onSubmit={console.log}
       onCancel={hideEditModal}
     />
   ));
@@ -100,7 +100,7 @@ export const OwnPlacesScreen = () => {
       title="Add Restaurant"
       subtitle={<>Enter new place details.</>}
       submitLabel="Save Place"
-      onSubmit={hideCreateModal}
+      onSubmit={console.log}
       onCancel={hideCreateModal}
     />
   ));
