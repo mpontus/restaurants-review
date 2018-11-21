@@ -4,5 +4,5 @@ export interface Review {
   rating: number;
   dateVisitted: string;
   comment: string;
-  reply: string;
+  reply?: string;
 }

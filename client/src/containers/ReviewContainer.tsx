@@ -40,9 +40,6 @@ export const ReviewContainer = ({ review }: Props) => {
 
   return (
     <ReviewComponent
-      canEdit={true}
-      canReply={true}
-      canDelete={true}
       date={review.dateVisitted}
       author={review.author.name}
       rating={review.rating}

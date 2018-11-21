@@ -9,10 +9,10 @@ import { Header } from "../components/Header";
 import { MobileNavigation } from "../components/MobileNavigation";
 import { MobileNavigationLink } from "../components/MobileNavigationLink";
 import * as routes from "../routes";
-import { DetailsScreen } from "./DetailsScreen";
 import { FrontpageScreen } from "./FrontpageScreen";
 import { OwnPlacesScreen } from "./OwnPlacesScreen";
 import { PendingReviewsScreen } from "./PendingReviewsScreen";
+import { PlaceDetailsScreen } from "./PlaceDetailsScreen";
 import { UserListScreen } from "./UserListScreen";
 
 export const RootScreen = () => (
@@ -20,7 +20,7 @@ export const RootScreen = () => (
     <Header />
     <Switch>
       <Route exact={true} path={routes.HOME} component={FrontpageScreen} />
-      <Route path={routes.PLACE_DETAILS} component={DetailsScreen} />
+      <Route path={routes.PLACE_DETAILS} component={PlaceDetailsScreen} />
       <Route path={routes.PLACES_OWN} component={OwnPlacesScreen} />
       <Route path={routes.REVIEWS_PENDING} component={PendingReviewsScreen} />
       <Route path={routes.USERS} component={UserListScreen} />

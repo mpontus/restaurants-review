@@ -29,7 +29,7 @@ interface Props extends WithStyles<ClassKey> {
   author: string;
   rating: number;
   comment: string;
-  reply: string;
+  reply?: string;
   onReply?: () => void;
   onEdit?: () => void;
   onDelete?: () => void;
