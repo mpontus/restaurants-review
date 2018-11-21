@@ -1,29 +1,54 @@
-import * as yup from "yup";
 import {
   Button,
-  Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
-  Tabs,
-  Tab
+  Tab,
+  Tabs
 } from "@material-ui/core";
-import { Form } from "./Form";
-import { Field } from "./Field";
-import { Input } from "./Input";
-import React, { useState, useCallback } from "react";
+import React, { useCallback, useState } from "react";
+import SwipeableViews from "react-swipeable-views";
+import * as yup from "yup";
 import { LoginDto } from "../models/LoginDto";
 import { SignupDto } from "../models/SignupDto";
-import SwipeableViews from "react-swipeable-views";
+import { AdaptiveModal } from "./AdaptiveModal";
+import { Field } from "./Field";
+import { Form } from "./Form";
+import { Input } from "./Input";
 
+/**
+ * Auth Modal Props
+ */
 interface Props {
-  error?: string;
+  /**
+   * Login error
+   */
+  loginError?: string;
+
+  /**
+   * Signup error
+   */
+  signupError?: string;
+
+  /**
+   * Login callback
+   */
   onLogin: (values: LoginDto) => void;
+
+  /**
+   * Signup callback
+   */
   onSignup: (values: SignupDto) => void;
+
+  /**
+   * Cancel callback
+   */
   onCancel: () => void;
 }
 
+/**
+ * Validation schema for login form
+ */
 const loginSchema = yup.object<LoginDto>().shape({
   email: yup.string().required(),
   password: yup
@@ -32,6 +57,9 @@ const loginSchema = yup.object<LoginDto>().shape({
     .required()
 });
 
+/**
+ * Validation schema for signup form
+ */
 const signupSchema = yup.object<SignupDto>().shape({
   email: yup.string().required(),
   password: yup
@@ -58,7 +86,7 @@ export const AuthModal: React.SFC<Props> = ({
   );
 
   return (
-    <Dialog open={true} onClose={onCancel} fullScreen={true}>
+    <AdaptiveModal open={true} onClose={onCancel}>
       <Tabs
         fullWidth={true}
         indicatorColor="primary"
@@ -129,6 +157,6 @@ export const AuthModal: React.SFC<Props> = ({
           </DialogActions>
         </Form>
       </SwipeableViews>
-    </Dialog>
+    </AdaptiveModal>
   );
 };

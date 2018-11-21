@@ -1,6 +1,5 @@
 import {
   Button,
-  Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
@@ -9,6 +8,7 @@ import {
 import React from "react";
 import * as yup from "yup";
 import { CreateReviewDto } from "../models/CreateReviewDto";
+import { AdaptiveModal } from "./AdaptiveModal";
 import { Field } from "./Field";
 import { Form } from "./Form";
 import { Rating } from "./Rating";
@@ -70,14 +70,14 @@ const defaultValues = {
  * Displays a dialog for creating new review
  */
 export const CreateReviewModal: React.SFC<Props> = ({
-  autoFocus = false,
-  initialValues = defaultValues,
-  errors = {},
+  autoFocus,
   onSubmit,
-  onCancel
+  onCancel,
+  initialValues = defaultValues,
+  errors = {}
 }) => {
   return (
-    <Dialog open={true} fullScreen={true} onClose={onCancel}>
+    <AdaptiveModal open={true} onClose={onCancel}>
       <Form
         onSubmit={onSubmit}
         initialValues={initialValues}
@@ -106,6 +106,6 @@ export const CreateReviewModal: React.SFC<Props> = ({
           </Button>
         </DialogActions>
       </Form>
-    </Dialog>
+    </AdaptiveModal>
   );
 };

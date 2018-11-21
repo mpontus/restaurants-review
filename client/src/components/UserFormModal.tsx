@@ -1,6 +1,5 @@
 import {
   Button,
-  Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -12,6 +11,7 @@ import {
 import React from "react";
 import * as yup from "yup";
 import { SaveUserDto } from "../models/SaveUserDto";
+import { AdaptiveModal } from "./AdaptiveModal";
 import { Field } from "./Field";
 import { Form } from "./Form";
 import { Input } from "./Input";
@@ -95,16 +95,16 @@ const defaultValues = {
  * Displays a dialog for creating or editing a user.
  */
 export const UserFormModal: React.SFC<Props> = ({
-  autoFocus = false,
+  autoFocus,
   title,
   subtitle,
   submitLabel,
-  initialValues = defaultValues,
-  errors = {},
+  errors,
   onSubmit,
-  onCancel
+  onCancel,
+  initialValues = defaultValues
 }) => (
-  <Dialog open={true} fullScreen={true} onClose={onCancel}>
+  <AdaptiveModal open={true} onClose={onCancel}>
     <Form
       onSubmit={onSubmit}
       initialValues={initialValues}
@@ -161,5 +161,5 @@ export const UserFormModal: React.SFC<Props> = ({
         </Button>
       </DialogActions>
     </Form>
-  </Dialog>
+  </AdaptiveModal>
 );

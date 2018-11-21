@@ -1,6 +1,5 @@
 import {
   Button,
-  Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -9,6 +8,7 @@ import {
 import React from "react";
 import * as yup from "yup";
 import { SavePlaceDto } from "../models/SavePlaceDto";
+import { AdaptiveModal } from "./AdaptiveModal";
 import { Field } from "./Field";
 import { Form } from "./Form";
 import { Input } from "./Input";
@@ -80,16 +80,16 @@ const defaultValues = {
  * Displays a dialog for creating or editing a place.
  */
 export const PlaceFormModal: React.SFC<Props> = ({
-  autoFocus = false,
+  autoFocus,
+  errors,
   title,
   subtitle,
   submitLabel,
-  initialValues = defaultValues,
-  errors = {},
   onSubmit,
-  onCancel
+  onCancel,
+  initialValues = defaultValues
 }) => (
-  <Dialog open={true} fullScreen={true} onClose={onCancel}>
+  <AdaptiveModal open={true} onClose={onCancel}>
     <Form
       onSubmit={onSubmit}
       initialValues={initialValues}
@@ -121,5 +121,5 @@ export const PlaceFormModal: React.SFC<Props> = ({
         </Button>
       </DialogActions>
     </Form>
-  </Dialog>
+  </AdaptiveModal>
 );

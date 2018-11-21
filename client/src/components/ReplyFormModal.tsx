@@ -1,6 +1,5 @@
 import {
   Button,
-  Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -9,6 +8,7 @@ import {
 import React from "react";
 import * as yup from "yup";
 import { ReplyDto } from "../models/ReplyDto";
+import { AdaptiveModal } from "./AdaptiveModal";
 import { Field } from "./Field";
 import { Form } from "./Form";
 import { Textarea } from "./Textarea";
@@ -77,7 +77,7 @@ export const ReplyModal: React.SFC<Props> = ({
   onCancel
 }) => {
   return (
-    <Dialog open={true} fullScreen={true} onClose={onCancel}>
+    <AdaptiveModal open={true} onClose={onCancel}>
       <Form
         onSubmit={onSubmit}
         initialValues={initialValues}
@@ -92,7 +92,7 @@ export const ReplyModal: React.SFC<Props> = ({
             component={Textarea}
             id="comment"
             name="comment"
-            label="Your Reply"
+            label="Enter Your Reply"
           />
         </DialogContent>
         <DialogActions>
@@ -102,6 +102,6 @@ export const ReplyModal: React.SFC<Props> = ({
           </Button>
         </DialogActions>
       </Form>
-    </Dialog>
+    </AdaptiveModal>
   );
 };

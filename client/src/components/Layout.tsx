@@ -1,4 +1,4 @@
-import { Grid, Paper, withStyles, WithStyles } from "@material-ui/core";
+import { Grid, withStyles, WithStyles } from "@material-ui/core";
 import classnames from "classnames";
 import React from "react";
 

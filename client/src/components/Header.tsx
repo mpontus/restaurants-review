@@ -9,8 +9,8 @@ import {
 import React from "react";
 import { Link } from "react-router-dom";
 import * as routes from "../routes";
-import { useModal } from "./ModalRoot";
 import { AuthModal } from "./AuthModal";
+import { useModal } from "./ModalRoot";
 
 interface Props extends WithStyles<"title"> {}
 
