@@ -65,7 +65,7 @@ export const UserListItem = ({ user, onDelete }: any) => {
       }
       initialValues={initialValues}
       submitLabel="Save User"
-      onSubmit={hideConfirmModal}
+      onSubmit={hideEditModal}
       onCancel={hideEditModal}
     />
   ));
