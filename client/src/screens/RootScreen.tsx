@@ -5,6 +5,7 @@ import {
 } from "@material-ui/icons";
 import React from "react";
 import { Redirect, Route, Switch } from "react-router";
+import { Layout } from "../components/Layout";
 import { Header } from "../components/Header";
 import { MobileNavigation } from "../components/MobileNavigation";
 import { MobileNavigationLink } from "../components/MobileNavigationLink";
@@ -17,15 +18,16 @@ import { UserListScreen } from "./UserListScreen";
 
 export const RootScreen = () => (
   <div>
-    <Header />
-    <Switch>
-      <Route exact={true} path={routes.HOME} component={FrontpageScreen} />
-      <Route path={routes.PLACE_DETAILS} component={PlaceDetailsScreen} />
-      <Route path={routes.PLACES_OWN} component={OwnPlacesScreen} />
-      <Route path={routes.REVIEWS_PENDING} component={PendingReviewsScreen} />
-      <Route path={routes.USERS} component={UserListScreen} />
-      <Redirect to={routes.HOME} />
-    </Switch>
+    <Layout header={<Header />}>
+      <Switch>
+        <Route exact={true} path={routes.HOME} component={FrontpageScreen} />
+        <Route path={routes.PLACE_DETAILS} component={PlaceDetailsScreen} />
+        <Route path={routes.PLACES_OWN} component={OwnPlacesScreen} />
+        <Route path={routes.REVIEWS_PENDING} component={PendingReviewsScreen} />
+        <Route path={routes.USERS} component={UserListScreen} />
+        <Redirect to={routes.HOME} />
+      </Switch>
+    </Layout>
     <MobileNavigation>
       <MobileNavigationLink
         to={routes.PLACES_OWN}
