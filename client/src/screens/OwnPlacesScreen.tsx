@@ -13,11 +13,14 @@ import {
   MoreVert as MoreVertIcon
 } from "@material-ui/icons";
 import React from "react";
+import { Link } from "react-router-dom";
+import { formatRoute } from "react-router-named-routes";
 import { ConfirmModal } from "../components/ConfirmModal";
 import { FloatingActionButton } from "../components/FloatingActionButton";
 import { IconMenu } from "../components/IconMenu";
 import { useModal } from "../components/ModalRoot";
 import { PlaceFormModal } from "../components/PlaceFormModal";
+import * as routes from "../routes";
 
 // prettier-ignore
 const places = [
@@ -60,7 +63,15 @@ export const PlaceListItem = ({ place, onDelete }: any) => {
   ));
 
   return (
-    <ListItem key={place.id}>
+    <ListItem
+      button={true}
+      component={({ innerRef, ...rest }) => (
+        <Link
+          to={formatRoute(routes.PLACE_DETAILS, { id: place.id })}
+          {...rest}
+        />
+      )}
+    >
       <ListItemText primary={place.title} secondary={place.address} />
       <ListItemSecondaryAction>
         <IconMenu icon={<MoreVertIcon />}>

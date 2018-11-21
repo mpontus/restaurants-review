@@ -1,6 +1,9 @@
 import { List, ListItem, ListItemText } from "@material-ui/core";
 import React from "react";
+import { Link } from "react-router-dom";
+import { formatRoute } from "react-router-named-routes";
 import { Rating } from "../components/Rating";
+import * as routes from "../routes";
 
 const items = [
   [
@@ -38,7 +41,16 @@ export const FrontpageScreen = () => {
   return (
     <List>
       {items.map(item => (
-        <ListItem key={item.id}>
+        <ListItem
+          button={true}
+          key={item.id}
+          component={({ innerRef, ...rest }) => (
+            <Link
+              to={formatRoute(routes.PLACE_DETAILS, { id: item.id })}
+              {...rest}
+            />
+          )}
+        >
           <ListItemText primary={item.title} secondary={item.address} />
           <Rating value={item.rating} />
         </ListItem>
