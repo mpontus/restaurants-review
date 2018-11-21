@@ -31,7 +31,10 @@ export const ReviewContainer = ({ review }: Props) => {
         comment: review.comment,
         reply: review.reply
       }}
-      onSubmit={console.log}
+      onSubmit={
+        // tslint:disable-next-line
+        console.log
+      }
       onCancel={hideEditModal}
     />
   ));
@@ -47,7 +50,10 @@ export const ReviewContainer = ({ review }: Props) => {
           <Typography component="span">{review.comment}</Typography>
         </>
       }
-      onSubmit={console.log}
+      onSubmit={
+        // tslint:disable-next-line
+        console.log
+      }
       onCancel={hideReplyModal}
     />
   ));

@@ -24,8 +24,14 @@ const enhance = withStyles({
 export const Header = enhance(({ classes }: Props) => {
   const [showLoginModal, hideLoginModal] = useModal(() => (
     <AuthModal
-      onLogin={console.log}
-      onSignup={console.log}
+      onLogin={
+        // tslint:disable-next-line
+        console.log
+      }
+      onSignup={
+        // tslint:disable-next-line
+        console.log
+      }
       onCancel={hideLoginModal}
     />
   ));

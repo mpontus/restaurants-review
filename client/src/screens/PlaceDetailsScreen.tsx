@@ -95,7 +95,10 @@ export const PlaceDetailsScreen = () => {
   const [showReviewModal, hideReviewModal] = useModal(() => (
     <CreateReviewModal
       autoFocus={true}
-      onSubmit={console.log}
+      onSubmit={
+        // tslint:disable-next-line
+        console.log
+      }
       onCancel={hideReviewModal}
     />
   ));

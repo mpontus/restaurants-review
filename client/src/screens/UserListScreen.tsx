@@ -65,7 +65,10 @@ export const UserListItem = ({ user, onDelete }: any) => {
       }
       initialValues={initialValues}
       submitLabel="Save User"
-      onSubmit={console.log}
+      onSubmit={
+        // tslint:disable-next-line
+        console.log
+      }
       onCancel={hideEditModal}
     />
   ));
@@ -100,7 +103,10 @@ export const UserListScreen = () => {
       title="Create New User"
       subtitle={<>Enter new user details.</>}
       submitLabel="Save User"
-      onSubmit={console.log}
+      onSubmit={
+        // tslint:disable-next-line
+        console.log
+      }
       onCancel={hideCreateModal}
     />
   ));

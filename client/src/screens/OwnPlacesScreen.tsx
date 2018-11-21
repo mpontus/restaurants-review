@@ -57,7 +57,10 @@ export const PlaceListItem = ({ place, onDelete }: any) => {
       }
       initialValues={initialValues}
       submitLabel="Save Restaurant"
-      onSubmit={console.log}
+      onSubmit={
+        // tslint:disable-next-line
+        console.log
+      }
       onCancel={hideEditModal}
     />
   ));
@@ -100,7 +103,10 @@ export const OwnPlacesScreen = () => {
       title="Add Restaurant"
       subtitle={<>Enter new place details.</>}
       submitLabel="Save Place"
-      onSubmit={console.log}
+      onSubmit={
+        // tslint:disable-next-line
+        console.log
+      }
       onCancel={hideCreateModal}
     />
   ));
