@@ -1,17 +1,65 @@
 import { Typography } from "@material-ui/core";
 import React from "react";
+import { connect, Selector } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import { ConfirmModal } from "../components/ConfirmModal";
+import { Loading } from "../components/Loading";
 import { useModal } from "../components/ModalRoot";
 import { ReplyModal } from "../components/ReplyFormModal";
 import { Review as ReviewComponent } from "../components/Review";
 import { ReviewFormModal } from "../components/ReviewFormModal";
 import { Review } from "../models/Review";
+import { State } from "../reducers";
+import { makeGetReviewById } from "../selectors/reviewSelectors";
 
-interface Props {
-  review: Review;
+/**
+ * External Props
+ */
+interface OwnProps {
+  /**
+   * Review Id
+   */
+  id: string;
 }
 
-export const ReviewContainer = ({ review }: Props) => {
+/**
+ * Connected Props
+ */
+interface StateProps {
+  /**
+   * Review entity
+   */
+  review?: Review;
+}
+
+/**
+ * Combined props
+ */
+interface Props extends OwnProps, StateProps {}
+
+/**
+ * State selector
+ */
+const makeMapStateToProps = (): Selector<State, StateProps, OwnProps> =>
+  createStructuredSelector({
+    review: makeGetReviewById()
+  });
+
+/**
+ * Component enhancer
+ */
+const enhance = connect(makeMapStateToProps);
+
+/**
+ * Review Container
+ *
+ * Displays a single review by id
+ */
+export const BaseReviewContainer = ({ review }: Props) => {
+  if (review === undefined) {
+    return <Loading />;
+  }
+
   const [showConfirmModal, hideConfirmModal] = useModal(() => (
     <ConfirmModal
       title="Delete review?"
@@ -74,3 +122,8 @@ export const ReviewContainer = ({ review }: Props) => {
     />
   );
 };
+
+/**
+ * Export enhanced component
+ */
+export const ReviewContainer = enhance(BaseReviewContainer);

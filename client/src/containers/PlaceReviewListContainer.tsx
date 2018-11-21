@@ -2,25 +2,26 @@ import { Button, List } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { loadPlaces } from "../actions/placeListActions";
+import { loadReviews } from "../actions/reviewListActions";
 import { Loading } from "../components/Loading";
-import { LoadPlacesDto } from "../models/LoadPlacesDto";
+import { LoadReviewsDto } from "../models/LoadReviewsDto";
 import { Page } from "../models/Page";
+import { Place } from "../models/Place";
 import { RequestStatus } from "../models/RequestStatus";
 import { State } from "../reducers";
 import {
-  makeGetPlaceListPage,
-  makeGetPlaceListRequestStatus
-} from "../selectors/placeListSelectors";
+  makeGetReviewListPage,
+  makeGetReviewListRequestStatus
+} from "../selectors/reviewListSelectors";
 
 /**
  * External props
  */
 interface OwnProps {
   /**
-   * Filter places by rating
+   * Filter reviews by review
    */
-  ratingFilter: number;
+  place: Place;
 
   /**
    * Current page
@@ -48,14 +49,14 @@ interface OwnProps {
  */
 interface StateProps {
   /**
-   * Page entity containing place ids
+   * Page entity containing review ids
    */
   page?: Page<string>;
 
   /**
    * Request status for the current page
    */
-  requestStatus: RequestStatus<LoadPlacesDto>;
+  requestStatus: RequestStatus<LoadReviewsDto>;
 }
 
 /**
@@ -63,9 +64,9 @@ interface StateProps {
  */
 interface DispatchProps {
   /**
-   * Request places to be loaded
+   * Request reviews to be loaded
    */
-  onLoadPlaces: (criteria: LoadPlacesDto) => void;
+  onLoadReviews: (criteria: LoadReviewsDto) => void;
 }
 
 /**
@@ -78,8 +79,8 @@ interface Props extends OwnProps, StateProps, DispatchProps {}
  */
 const makeMapStateToProps = (): Selector<State, StateProps, OwnProps> =>
   createStructuredSelector({
-    page: makeGetPlaceListPage(),
-    requestStatus: makeGetPlaceListRequestStatus()
+    page: makeGetReviewListPage(),
+    requestStatus: makeGetReviewListRequestStatus()
   });
 
 /**
@@ -87,30 +88,30 @@ const makeMapStateToProps = (): Selector<State, StateProps, OwnProps> =>
  */
 const enhance = connect(
   makeMapStateToProps,
-  { onLoadPlaces: loadPlaces.request }
+  { onLoadReviews: loadReviews.request }
 );
 
 /**
- * Place List Container
+ * Review List Container
  */
-const BasePlaceListContainer = ({
-  ratingFilter,
+const BasePlaceReviewListContainer = ({
+  place,
   currentPage,
   page,
   requestStatus,
-  onLoadPlaces,
+  onLoadReviews,
   renderItem,
   onPrev,
   onNext
 }: Props) => {
   useEffect(
     () => {
-      onLoadPlaces({
-        page: currentPage,
-        rating: ratingFilter
+      onLoadReviews({
+        place,
+        page: currentPage
       });
     },
-    [ratingFilter, currentPage]
+    [place, currentPage]
   );
 
   if (page === undefined) {
@@ -133,4 +134,4 @@ const BasePlaceListContainer = ({
 /**
  * Export enhanced component
  */
-export const PlaceListContainer = enhance(BasePlaceListContainer);
+export const PlaceReviewListContainer = enhance(BasePlaceReviewListContainer);

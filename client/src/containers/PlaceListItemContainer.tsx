@@ -59,7 +59,7 @@ const makeMapStateToProps = (): Selector<State, StateProps, OwnProps> =>
 const enhance = connect(makeMapStateToProps);
 
 /**
- * Place List Container
+ * Place List Item Container
  *
  * Displays a single place inside a list.
  */

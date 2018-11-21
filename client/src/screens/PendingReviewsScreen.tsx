@@ -43,7 +43,7 @@ export const PendingReviewsScreen = () => {
   return (
     <React.Fragment>
       {reviews.map(review => (
-        <ReviewContainer key={review.id} review={review} />
+        <ReviewContainer key={review.id} id={review.id} />
       ))}
     </React.Fragment>
   );

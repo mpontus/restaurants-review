@@ -4,6 +4,9 @@ import { Page } from "../models/Page";
 import { Place } from "../models/Place";
 import { RequestError } from "../models/RequestError";
 
+/**
+ * Request places from API
+ */
 export const loadPlaces = createAsyncAction(
   "LOAD_PLACES_REQUEST",
   "LOAD_PLACES_SUCCESS",
