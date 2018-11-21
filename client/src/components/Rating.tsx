@@ -1,4 +1,11 @@
-import { Radio, RadioGroup, withStyles, WithStyles } from "@material-ui/core";
+import {
+  FormGroup,
+  FormHelperText,
+  Radio,
+  RadioGroup,
+  withStyles,
+  WithStyles
+} from "@material-ui/core";
 import {
   Star as StarIcon,
   StarBorder as StarBorderIcon,
@@ -29,7 +36,8 @@ interface Props extends WithStyles<ClassKey> {
  */
 const enhance = withStyles<ClassKey>(theme => ({
   root: {
-    padding: theme.spacing.unit
+    padding: theme.spacing.unit,
+    paddingLeft: 0
   },
   star: {
     padding: 0
@@ -84,22 +92,21 @@ class BaseRating extends React.PureComponent<Props> {
    * Render component
    */
   public render() {
-    const { classes, id, name, onChange } = this.props;
+    const { classes, id, name, error, onChange } = this.props;
 
     return (
-      <RadioGroup
-        className={classes.root}
-        row={true}
-        id={id}
-        name={name}
-        onChange={onChange}
-      >
-        {this.renderStar(1)}
-        {this.renderStar(2)}
-        {this.renderStar(3)}
-        {this.renderStar(4)}
-        {this.renderStar(5)}
-      </RadioGroup>
+      <React.Fragment>
+        <FormGroup className={classes.root}>
+          <RadioGroup row={true} id={id} name={name} onChange={onChange}>
+            {this.renderStar(1)}
+            {this.renderStar(2)}
+            {this.renderStar(3)}
+            {this.renderStar(4)}
+            {this.renderStar(5)}
+          </RadioGroup>
+          {error && <FormHelperText error={true}>{error}</FormHelperText>}
+        </FormGroup>
+      </React.Fragment>
     );
   }
 }

@@ -3,7 +3,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControlLabel
+  FormControl,
+  FormLabel
 } from "@material-ui/core";
 import React from "react";
 import * as yup from "yup";
@@ -86,11 +87,15 @@ export const CreateReviewModal: React.SFC<Props> = ({
       >
         <DialogTitle id="form-dialog-title">Submit New Review</DialogTitle>
         <DialogContent>
-          <FormControlLabel
-            label="Rating"
-            labelPlacement="end"
-            control={<Field component={Rating} name="rating" />}
-          />
+          <FormControl component="fieldset" margin="normal">
+            <FormLabel component="legend">Rating</FormLabel>
+            <Field
+              component={Rating}
+              id="rating"
+              label="Rating"
+              name="rating"
+            />
+          </FormControl>
           <Field
             component={Textarea}
             autoFocus={autoFocus}
