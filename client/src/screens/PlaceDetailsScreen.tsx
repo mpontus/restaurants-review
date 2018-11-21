@@ -125,11 +125,11 @@ export const PlaceDetailsScreen = () => {
       )}
       {place.ownReview && (
         <React.Fragment>
-          <ListSubheader>Your Review</ListSubheader>
+          <ListSubheader disableSticky={true}>Your Review</ListSubheader>
           <ReviewContainer review={place.ownReview} />
         </React.Fragment>
       )}
-      <ListSubheader>Other Reviews</ListSubheader>
+      <ListSubheader disableSticky={true}>Other Reviews</ListSubheader>
       <PlaceReviewListContainer />
     </React.Fragment>
   );
