@@ -1,80 +1,53 @@
-import { Typography, withStyles, WithStyles } from "@material-ui/core";
+import { Radio, RadioGroup, withStyles, WithStyles } from "@material-ui/core";
 import {
   Star as StarIcon,
   StarBorder as StarBorderIcon,
   StarHalf as StarHalfIcon
 } from "@material-ui/icons";
-import classnames from "classnames";
 import React from "react";
 
 /**
- * Class names for custom styling
+ * Custom class names
  */
-type ClassKey = "root" | "button" | "interactive";
+type ClassKey = "root" | "star";
 
 /**
- * Rating component props
+ * Rating Component Props
  */
 interface Props extends WithStyles<ClassKey> {
-  /**
-   * Use component as rating input
-   */
-  interactive?: boolean;
-
-  /**
-   * Rating value
-   */
-  value: number;
-
-  /**
-   * Number of reviews
-   */
-  reviews?: number | null;
-
-  /**
-   * Change listener
-   */
-  onChange?: (e: { target: { value: number } }) => void;
+  id?: string;
+  label?: string;
+  name?: string;
+  value: any;
+  error?: string | null;
+  onBlur?: (e: any) => void;
+  onChange?: (e: React.ChangeEvent<any>) => void;
 }
 
 /**
- * Apply custom styles
+ * Styling enhancer for rating component
  */
 const enhance = withStyles<ClassKey>(theme => ({
   root: {
-    padding: theme.spacing.unit,
-    color: "#FF9800"
+    padding: theme.spacing.unit
   },
-  interactive: {
-    cursor: "pointer"
-  },
-  button: {
-    color: "inherit",
-    padding: 0,
-    background: "none",
-    border: "none",
-    outline: "none"
+  star: {
+    padding: 0
   }
 }));
 
 /**
- * Displays star rating
+ * Star Rating Component
+ *
+ * Displays star rating and acts as an input.
  */
-export class BaseRating extends React.Component<Props> {
+class BaseRating extends React.PureComponent<Props> {
   /**
-   * Handle hovering over star
+   * Get N-th star icon
    */
-  public handleHover = () => undefined;
+  public getIcon = (n: number): React.ReactNode => {
+    const filled = this.props.value - n + 1;
 
-  /**
-   * Handle clicking on star
-   */
-  public handleClick = () => undefined;
-
-  /**
-   * Render filled star
-   */
-  public renderStar = (filled: number) => {
     if (filled < 0.25) {
       return <StarBorderIcon color="inherit" />;
     }
@@ -87,43 +60,51 @@ export class BaseRating extends React.Component<Props> {
   };
 
   /**
-   * Render a button with a star
+   * Render N-th star
    */
-  public renderStarButton = (n: number) => (
-    <button
-      key={n}
-      type="button"
-      className={this.props.classes.button}
-      onClick={this.handleClick}
-    >
-      {this.renderStar(this.props.value - n)}
-    </button>
-  );
-
-  /**
-   * Render star rating
-   */
-  public render() {
-    const { classes, reviews, interactive } = this.props;
+  public renderStar = (n: number): React.ReactNode => {
+    const { classes, name } = this.props;
 
     return (
-      <div
-        className={classnames(classes.root, {
-          [classes.interactive]: interactive
-        })}
+      <Radio
+        className={classes.star}
+        style={{
+          // Overrides disabled color.
+          color: "#FF9800"
+        }}
+        name={name}
+        value={n}
+        icon={this.getIcon(n)}
+        disabled={this.props.onChange === undefined}
+      />
+    );
+  };
+
+  /**
+   * Render component
+   */
+  public render() {
+    const { classes, id, name, onChange } = this.props;
+
+    return (
+      <RadioGroup
+        className={classes.root}
+        row={true}
+        id={id}
+        name={name}
+        onChange={onChange}
       >
-        {[0, 1, 2, 3, 4].map(this.renderStarButton)}
-        {reviews && (
-          <Typography align="right" color="textSecondary">
-            {reviews} reviews
-          </Typography>
-        )}
-      </div>
+        {this.renderStar(1)}
+        {this.renderStar(2)}
+        {this.renderStar(3)}
+        {this.renderStar(4)}
+        {this.renderStar(5)}
+      </RadioGroup>
     );
   }
 }
 
 /**
- * Export class with applied enhancer
+ * Export styled rating component
  */
 export const Rating = enhance(BaseRating);
