@@ -23,7 +23,7 @@ interface Props extends WithStyles<"button"> {
  */
 const enhance = withStyles<"button">(theme => ({
   button: {
-    position: "absolute",
+    position: "fixed",
     right: theme.spacing.unit * 2,
     bottom: theme.spacing.unit * 9
   }
