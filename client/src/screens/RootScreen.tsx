@@ -18,7 +18,8 @@ import { UserListScreen } from "./UserListScreen";
 
 export const RootScreen = () => (
   <div>
-    <Layout header={<Header />}>
+    <Header />
+    <Layout>
       <Switch>
         <Route exact={true} path={routes.HOME} component={FrontpageScreen} />
         <Route path={routes.PLACE_DETAILS} component={PlaceDetailsScreen} />

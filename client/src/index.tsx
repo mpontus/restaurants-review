@@ -8,6 +8,12 @@ import { RootScreen } from "./screens/RootScreen";
 import * as serviceWorker from "./serviceWorker";
 
 const theme = createMuiTheme({
+  palette: {
+    type: "light",
+    background: {
+      default: "#fff"
+    }
+  },
   typography: {
     useNextVariants: true
   }
