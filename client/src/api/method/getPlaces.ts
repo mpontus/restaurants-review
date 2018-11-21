@@ -1,7 +1,7 @@
 import * as t from "io-ts";
-import * as qs from "querystring";
 import { ApiGateway } from "../ApiGateway";
 import { placePaginationSchema } from "../schema/placePaginationSchema";
+import { formatQuery } from "../utils/formatQuery";
 import { validateResponse } from "../utils/validateResponse";
 
 /**
@@ -37,5 +37,5 @@ export const getPlaces = async (
   params: Params
 ): Promise<Result> =>
   api
-    .get(`/places?${qs.stringify(params)}`)
+    .get(`/places?${formatQuery(params)}`)
     .then(validateResponse(placePaginationSchema));

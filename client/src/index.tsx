@@ -1,34 +1,40 @@
 import { CssBaseline } from "@material-ui/core";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
+import axios from "axios";
 import React from "react";
 import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
+import { PersistGate } from "redux-persist/integration/react";
+import { ApiGateway } from "./api/ApiGateway";
 import { ModalProvider, ModalRoot } from "./components/ModalRoot";
+import { config } from "./config";
+import { configureStore } from "./configureStore";
 import { RootScreen } from "./screens/RootScreen";
 import * as serviceWorker from "./serviceWorker";
+import { theme } from "./theme";
 
-const theme = createMuiTheme({
-  palette: {
-    type: "light",
-    background: {
-      default: "#fff"
-    }
-  },
-  typography: {
-    useNextVariants: true
-  }
-});
+const api = new ApiGateway(
+  axios.create({
+    baseURL: `${process.env.REACT_APP_API_URL || ""}`
+  })
+);
+const { store, persistor } = configureStore(undefined, { api, config });
 
 ReactDOM.render(
-  <BrowserRouter>
-    <MuiThemeProvider theme={theme}>
-      <ModalProvider>
-        <ModalRoot />
-        <CssBaseline />
-        <RootScreen />
-      </ModalProvider>
-    </MuiThemeProvider>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <BrowserRouter>
+        <MuiThemeProvider theme={createMuiTheme(theme)}>
+          <ModalProvider>
+            <ModalRoot />
+            <CssBaseline />
+            <RootScreen />
+          </ModalProvider>
+        </MuiThemeProvider>
+      </BrowserRouter>
+    </PersistGate>
+  </Provider>,
   document.getElementById("root")
 );
 

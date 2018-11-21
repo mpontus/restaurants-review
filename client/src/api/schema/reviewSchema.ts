@@ -1,18 +1,28 @@
 import * as t from "io-ts";
 
 /**
- * Describes restaurant details
+ * Describes review details
  */
 export const reviewSchema = t.type({
   /**
-   * Restaurant id
+   * Review id
    */
   id: t.string,
 
   /**
-   * Restaurant name
+   * Embedded author details
    */
-  rating: t.string,
+  author: t.type({
+    /**
+     * Author name
+     */
+    name: t.string
+  }),
+
+  /**
+   * Review rating
+   */
+  rating: t.number,
 
   /**
    * Date of the visit
