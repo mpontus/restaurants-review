@@ -58,11 +58,7 @@ export const AuthModal: React.SFC<Props> = ({
   );
 
   return (
-    <Dialog
-      open={true}
-      onClose={onCancel}
-      aria-labelledby="confirm-dialog-title"
-    >
+    <Dialog open={true} onClose={onCancel} fullScreen={true}>
       <Tabs
         fullWidth={true}
         indicatorColor="primary"
@@ -84,14 +80,14 @@ export const AuthModal: React.SFC<Props> = ({
             <Field
               component={Input}
               type="email"
-              id="email"
+              id="login-email"
               name="email"
               label="Email Address"
             />
             <Field
               component={Input}
               type="password"
-              id="password"
+              id="login-password"
               name="password"
               label="Password"
             />
@@ -113,14 +109,14 @@ export const AuthModal: React.SFC<Props> = ({
             <Field
               component={Input}
               type="email"
-              id="email"
+              id="signup-email"
               name="email"
               label="Email Address"
             />
             <Field
               component={Input}
               type="password"
-              id="password"
+              id="signup-password"
               name="password"
               label="Password"
             />
