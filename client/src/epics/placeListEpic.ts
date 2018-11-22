@@ -26,7 +26,6 @@ export const loadPlaceListEpic: Epic<Action, Action, State, Dependencies> = (
 ) => {
   return action$.pipe(
     filter(isActionOf(actions.loadPlaces.request)),
-    // Refetch the last page whenever place list is modified
     replayLastWhen(
       action$.pipe(
         filter(

@@ -19,9 +19,14 @@ import {
  */
 interface OwnProps {
   /**
-   * Place for which to load reviews
+   * Show pending reviews
    */
-  place: Place;
+  pending?: boolean;
+
+  /**
+   * Show reviews for the place
+   */
+  place?: Place;
 
   /**
    * Current page
@@ -95,6 +100,7 @@ const enhance = connect(
  * Review List Container
  */
 const BaseReviewListContainer = ({
+  pending,
   place,
   currentPage,
   page,
@@ -106,12 +112,19 @@ const BaseReviewListContainer = ({
 }: Props) => {
   useEffect(
     () => {
-      onLoadReviews({
-        place,
-        page: currentPage
-      });
+      onLoadReviews(
+        place
+          ? {
+              place,
+              page: currentPage
+            }
+          : {
+              pending: true,
+              page: currentPage
+            }
+      );
     },
-    [place, page]
+    [place, currentPage]
   );
 
   if (page === undefined) {

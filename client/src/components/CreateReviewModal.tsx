@@ -1,5 +1,4 @@
 import {
-  Button,
   DialogActions,
   DialogContent,
   DialogTitle,
@@ -9,9 +8,12 @@ import {
 import React from "react";
 import * as yup from "yup";
 import { CreateReviewDto } from "../models/CreateReviewDto";
+import { RequestError } from "../models/RequestError";
 import { AdaptiveModal } from "./AdaptiveModal";
+import { Button } from "./Button";
 import { Field } from "./Field";
 import { Form } from "./Form";
+import { Message } from "./Message";
 import { Rating } from "./Rating";
 import { Textarea } from "./Textarea";
 
@@ -30,9 +32,14 @@ interface Props {
   initialValues?: CreateReviewDto;
 
   /**
+   * Whether request is in progress
+   */
+  loading?: boolean;
+
+  /**
    * Form errors
    */
-  errors?: { [key in keyof CreateReviewDto]?: string };
+  error?: RequestError<CreateReviewDto>;
 
   /**
    * Callback invoked on successful form submission
@@ -72,10 +79,11 @@ const defaultValues = {
  */
 export const CreateReviewModal: React.SFC<Props> = ({
   autoFocus,
+  loading,
   onSubmit,
   onCancel,
   initialValues = defaultValues,
-  errors = {}
+  error
 }) => {
   return (
     <AdaptiveModal open={true} onClose={onCancel}>
@@ -83,10 +91,11 @@ export const CreateReviewModal: React.SFC<Props> = ({
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}
-        errors={errors}
+        errors={error && error.details}
       >
         <DialogTitle id="form-dialog-title">Submit New Review</DialogTitle>
         <DialogContent>
+          {error && <Message error={error} />}
           <FormControl component="fieldset" margin="normal">
             <FormLabel component="legend">Rating</FormLabel>
             <Field
@@ -106,7 +115,7 @@ export const CreateReviewModal: React.SFC<Props> = ({
         </DialogContent>
         <DialogActions>
           <Button onClick={onCancel}>Cancel</Button>
-          <Button type="submit" color="primary">
+          <Button type="submit" color="primary" loading={loading}>
             Submit Review
           </Button>
         </DialogActions>

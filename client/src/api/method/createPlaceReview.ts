@@ -18,11 +18,6 @@ interface Params {
   rating: number;
 
   /**
-   * Date of the visit
-   */
-  dateVisitted: string;
-
-  /**
    * Review Comment
    */
   comment: string;

@@ -5,6 +5,7 @@ import { Page } from "../models/Page";
 import { Place } from "../models/Place";
 import { RequestStatus } from "../models/RequestStatus";
 import { State } from "../reducers";
+import { filterDeletedEntities } from "./utils/filterDeletedEntities";
 
 /**
  * Review Listing Parameters
@@ -28,28 +29,30 @@ export const makeGetReviewListRequestStatus = (): Selector<
  * Get ids of the reviews on current page
  */
 export const makeGetReviewListPage = () =>
-  createSelector(
-    (state: State, ownProps: ListProps) => ownProps.place,
-    (state: State, ownProps: ListProps) => ownProps.pending,
-    (state: State, ownProps: ListProps) => ownProps.currentPage,
-    (state: State) => state.reviewList,
-    (place, pending, page, reviewList): Page<string> | undefined => {
-      if (pending) {
+  filterDeletedEntities(
+    state => state.deletedReviews,
+    createSelector(
+      (state: State, ownProps: ListProps) => ownProps.place,
+      (state: State, ownProps: ListProps) => ownProps.pending,
+      (state: State, ownProps: ListProps) => ownProps.currentPage,
+      (state: State) => state.reviewList,
+      (state: State) => state.pendingReviewList,
+      (
+        place,
+        pending,
+        page,
+        placeReviewList,
+        pendingReviewList
+      ): Page<string> | undefined => {
+        if (pending) {
+          return pendingReviewList[page];
+        }
+
+        if (place) {
+          return placeReviewList[place.id] && placeReviewList[place.id]![page];
+        }
+
         return undefined;
       }
-
-      if (place) {
-        return reviewList[place.id] && reviewList[place.id]![page];
-      }
-
-      return undefined;
-    }
+    )
   );
-
-/**
- * Return single review by id
- */
-export const makeGetReviewById = () => (
-  state: State,
-  ownProps: { id: string }
-) => state.reviewEntity[ownProps.id];

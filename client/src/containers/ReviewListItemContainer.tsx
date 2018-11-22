@@ -1,16 +1,20 @@
-import { Typography } from "@material-ui/core";
-import React from "react";
+import React, { useCallback } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import {
+  deleteReview
+} from "../actions/reviewListActions";
 import { ConfirmModal } from "../components/ConfirmModal";
 import { Loading } from "../components/Loading";
 import { useModal } from "../components/ModalRoot";
-import { ReplyModal } from "../components/ReplyFormModal";
 import { Review as ReviewComponent } from "../components/Review";
-import { ReviewFormModal } from "../components/ReviewFormModal";
+import { RequestStatus } from "../models/RequestStatus";
 import { Review } from "../models/Review";
 import { State } from "../reducers";
-import { makeGetReviewById } from "../selectors/reviewListSelectors";
+import { makeGetReviewById } from "../selectors/reviewSelectors";
+import { makeGetReviewUpdateRequestStatus } from "../selectors/reviewSelectors";
+import { ReplyFormModalContainer } from "./ReplyFormModalContainer";
+import { UpdateReviewModalContainer } from "./UpdateReviewModalContainer";
 
 /**
  * External Props
@@ -30,41 +34,72 @@ interface StateProps {
    * Review entity
    */
   review?: Review;
+
+  /**
+   * Review update request state
+   */
+  requestStatus: RequestStatus<any>;
+}
+
+/**
+ * Connected actions
+ */
+interface DispatchProps {
+  /**
+   * Review delete callback
+   */
+  onDelete: (props: { review: Review }) => void;
 }
 
 /**
  * Combined props
  */
-interface Props extends OwnProps, StateProps {}
+interface Props extends OwnProps, StateProps, DispatchProps {}
 
 /**
  * State selector
  */
 const makeMapStateToProps = (): Selector<State, StateProps, OwnProps> =>
   createStructuredSelector({
-    review: makeGetReviewById()
+    review: makeGetReviewById(),
+    requestStatus: makeGetReviewUpdateRequestStatus()
   });
 
 /**
  * Component enhancer
  */
-const enhance = connect(makeMapStateToProps);
+const enhance = connect(
+  makeMapStateToProps,
+  {
+    onDelete: deleteReview.request
+  }
+);
 
 /**
- * Review Container
+ * Review List Item Container
  *
  * Displays a single review by id
  */
-export const BaseReviewContainer = ({ review }: Props) => {
+export const BaseReviewListItemContainer = ({
+  id,
+  review,
+  requestStatus,
+  onDelete
+}: Props) => {
   if (review === undefined) {
     return <Loading />;
   }
+
+  const handleDelete = useCallback(() => onDelete({ review }), [
+    onDelete,
+    review
+  ]);
 
   const [showConfirmModal, hideConfirmModal] = useModal(() => (
     <ConfirmModal
       title="Delete review?"
       confirmLabel="Delete review"
-      onConfirm={hideConfirmModal}
+      onConfirm={handleDelete}
       onCancel={hideConfirmModal}
     >
       Do you really want to delete review from{" "}
@@ -73,37 +108,11 @@ export const BaseReviewContainer = ({ review }: Props) => {
   ));
 
   const [showEditModal, hideEditModal] = useModal(() => (
-    <ReviewFormModal
-      initialValues={{
-        rating: review.rating,
-        comment: review.comment,
-        reply: review.reply
-      }}
-      onSubmit={
-        // tslint:disable-next-line
-        console.log
-      }
-      onCancel={hideEditModal}
-    />
+    <UpdateReviewModalContainer id={review.id} onCancel={hideEditModal} />
   ));
 
   const [showReplyModal, hideReplyModal] = useModal(() => (
-    <ReplyModal
-      autoFocus={true}
-      subtitle={
-        <>
-          <Typography component="span" variant="subtitle1">
-            {review.author.name} writes:
-          </Typography>
-          <Typography component="span">{review.comment}</Typography>
-        </>
-      }
-      onSubmit={
-        // tslint:disable-next-line
-        console.log
-      }
-      onCancel={hideReplyModal}
-    />
+    <ReplyFormModalContainer id={review.id} onCancel={hideReplyModal} />
   ));
 
   return (
@@ -126,4 +135,4 @@ export const BaseReviewContainer = ({ review }: Props) => {
 /**
  * Export enhanced component
  */
-export const ReviewContainer = enhance(BaseReviewContainer);
+export const ReviewListItemContainer = enhance(BaseReviewListItemContainer);

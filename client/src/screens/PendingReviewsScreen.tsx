@@ -1,50 +1,22 @@
-import React from "react";
-import { ReviewContainer } from "../containers/ReviewContainer";
+import React, { useState } from "react";
+import { ReviewListContainer } from "../containers/ReviewListContainer";
+import { ReviewListItemContainer } from "../containers/ReviewListItemContainer";
 
-const reviews = [
-  [
-    "0a931d01-a888-5523-86d1-c89bacc0a22b",
-    4.17,
-    "2012-05-22",
-    "Party environment control quality full less painting.",
-    "Serious inside else memory if six."
-  ],
-  [
-    "cbf76a7b-14e5-5ba3-9c4f-af96f24cd72d",
-    3.45,
-    "1996-03-20",
-    "Have heart cover analysis carry."
-  ],
-  [
-    "58d1832e-b696-5c49-ac55-9a4beced3f9b",
-    1.46,
-    "1996-03-20",
-    "Have heart cover analysis carry."
-  ],
-  [
-    "9ea7f963-47d2-5a2d-8b4d-782680d3b1bf",
-    2.67,
-    "2012-05-22",
-    "Notice soon as brother.",
-    "State machine energy a production like service."
-  ]
-].map(([id, rating, dateVisitted, comment, reply]) => ({
-  id: id as string,
-  author: {
-    name: "Ryan Gallagher"
-  },
-  rating: rating as number,
-  dateVisitted: dateVisitted as string,
-  comment: comment as string,
-  reply: reply as string
-}));
-
+/**
+ * Pending reviews screen
+ *
+ * Displays a list of reviews pending for the user's reply
+ */
 export const PendingReviewsScreen = () => {
+  const [currentPage, setPage] = useState(0);
+
   return (
-    <React.Fragment>
-      {reviews.map(review => (
-        <ReviewContainer key={review.id} id={review.id} />
-      ))}
-    </React.Fragment>
+    <ReviewListContainer
+      pending={true}
+      currentPage={currentPage}
+      onPrev={() => setPage(page => page - 1)}
+      onNext={() => setPage(page => page + 1)}
+      renderItem={id => <ReviewListItemContainer key={id} id={id} />}
+    />
   );
 };

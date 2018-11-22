@@ -1,5 +1,4 @@
 import {
-  Button,
   DialogActions,
   DialogContent,
   DialogTitle,
@@ -8,10 +7,13 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import * as yup from "yup";
+import { RequestError } from "../models/RequestError";
 import { UpdateReviewDto } from "../models/UpdateReviewDto";
 import { AdaptiveModal } from "./AdaptiveModal";
+import { Button } from "./Button";
 import { Field } from "./Field";
 import { Form } from "./Form";
+import { Message } from "./Message";
 import { Rating } from "./Rating";
 import { Textarea } from "./Textarea";
 
@@ -30,9 +32,14 @@ interface Props {
   initialValues?: UpdateReviewDto;
 
   /**
+   * Whether request is in progress
+   */
+  loading?: boolean;
+
+  /**
    * Form errors
    */
-  errors?: { [key in keyof UpdateReviewDto]?: string };
+  error?: RequestError<UpdateReviewDto>;
 
   /**
    * Callback invoked on successful form submission
@@ -74,7 +81,8 @@ const defaultValues = {
  */
 export const ReviewFormModal: React.SFC<Props> = ({
   autoFocus,
-  errors,
+  loading,
+  error,
   onSubmit,
   onCancel,
   initialValues = defaultValues
@@ -85,10 +93,11 @@ export const ReviewFormModal: React.SFC<Props> = ({
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}
-        errors={errors}
+        errors={error && error.details}
       >
         <DialogTitle id="form-dialog-title">Update Review</DialogTitle>
         <DialogContent>
+          {error && <Message error={error} />}
           <FormControl component="fieldset" margin="normal">
             <FormLabel component="legend">Rating</FormLabel>
             <Field

@@ -1,34 +1,49 @@
-import { Epic } from "redux-observable";
+import { combineEpics, Epic } from "redux-observable";
 import { from } from "rxjs";
-import { filter, map, switchMap } from "rxjs/operators";
+import { filter, map, mapTo, switchMap } from "rxjs/operators";
 import { isActionOf } from "typesafe-actions";
 import { Action } from "../actions";
-import { loadReviews } from "../actions/reviewListActions";
+import * as actions from "../actions/reviewListActions";
+import { createPlaceReview } from "../api/method/createPlaceReview";
+import { deleteReview } from "../api/method/deleteReview";
 import { getPendingReviews } from "../api/method/getPendingReviews";
 import { getPlaceReviews } from "../api/method/getPlaceReviews";
+import { updateReview } from "../api/method/updateReview";
 import { Dependencies } from "../configureStore";
 import { State } from "../reducers";
 import { handleApiError } from "./utils/handleApiError";
+import { replayLastWhen } from "./utils/replayLastWhen";
 
 /**
  * Review list epic
  *
  * Fetches review listings.
  */
-export const reviewListEpic: Epic<Action, Action, State, Dependencies> = (
+export const loadReviewListEpic: Epic<Action, Action, State, Dependencies> = (
   action$,
   state$,
   { api, config }
 ) => {
   return action$.pipe(
-    filter(isActionOf(loadReviews.request)),
+    filter(isActionOf(actions.loadReviews.request)),
+    replayLastWhen(
+      action$.pipe(
+        filter(
+          isActionOf([
+            actions.createReview.success,
+            actions.updateReview.success,
+            actions.deleteReview.success
+          ])
+        )
+      )
+    ),
     switchMap(action => {
       const criteria = action.payload;
       const limit = config.pageLimit;
       const offset = criteria.page * limit;
 
       return from(
-        "pending" in criteria
+        criteria.pending
           ? getPendingReviews(api, {
               take: limit,
               skip: offset
@@ -40,7 +55,7 @@ export const reviewListEpic: Epic<Action, Action, State, Dependencies> = (
             })
       ).pipe(
         map(page =>
-          loadReviews.success({
+          actions.loadReviews.success({
             criteria,
             page: {
               nextPageExists: offset + page.items.length < page.total,
@@ -52,7 +67,7 @@ export const reviewListEpic: Epic<Action, Action, State, Dependencies> = (
           })
         ),
         handleApiError(error =>
-          loadReviews.failure({
+          actions.loadReviews.failure({
             criteria,
             error
           })
@@ -61,3 +76,129 @@ export const reviewListEpic: Epic<Action, Action, State, Dependencies> = (
     })
   );
 };
+
+/**
+ * Create review epic
+ *
+ * Handles creation of new reviews.
+ */
+export const createReviewEpic: Epic<Action, Action, State, Dependencies> = (
+  action$,
+  state$,
+  { api, config }
+) => {
+  return action$.pipe(
+    filter(isActionOf(actions.createReview.request)),
+    switchMap(action => {
+      const { place, data } = action.payload;
+
+      return from(createPlaceReview(api, { id: place.id, ...data })).pipe(
+        map(review => actions.createReview.success({ place, review })),
+        handleApiError(error => actions.createReview.failure({ place, error }))
+      );
+    })
+  );
+};
+
+/**
+ * Update review epic
+ *
+ * Handles updates to review record.
+ */
+export const replyToReviewEpic: Epic<Action, Action, State, Dependencies> = (
+  action$,
+  state$,
+  { api, config }
+) => {
+  return action$.pipe(
+    filter(isActionOf(actions.updateReview.request)),
+    switchMap(action =>
+      from(
+        updateReview(api, {
+          id: action.payload.review.id,
+          ...action.payload.data
+        })
+      ).pipe(
+        map(review => actions.updateReview.success({ review })),
+        handleApiError(error =>
+          actions.updateReview.failure({
+            review: action.payload.review,
+            error
+          })
+        )
+      )
+    )
+  );
+};
+
+/**
+ * Update review epic
+ *
+ * Handles updates to review record.
+ */
+export const updateReviewEpic: Epic<Action, Action, State, Dependencies> = (
+  action$,
+  state$,
+  { api, config }
+) => {
+  return action$.pipe(
+    filter(isActionOf(actions.updateReview.request)),
+    switchMap(action =>
+      from(
+        updateReview(api, {
+          id: action.payload.review.id,
+          ...action.payload.data
+        })
+      ).pipe(
+        map(review => actions.updateReview.success({ review })),
+        handleApiError(error =>
+          actions.updateReview.failure({
+            review: action.payload.review,
+            error
+          })
+        )
+      )
+    )
+  );
+};
+
+/**
+ * Delete review epic
+ *
+ * Handles review deletion.
+ */
+export const deleteReviewEpic: Epic<Action, Action, State, Dependencies> = (
+  action$,
+  state$,
+  { api, config }
+) => {
+  return action$.pipe(
+    filter(isActionOf(actions.deleteReview.request)),
+    switchMap(action =>
+      from(
+        deleteReview(api, {
+          id: action.payload.review.id
+        })
+      ).pipe(
+        mapTo(actions.deleteReview.success(action.payload)),
+        handleApiError(error =>
+          actions.deleteReview.failure({
+            ...action.payload,
+            error
+          })
+        )
+      )
+    )
+  );
+};
+
+/**
+ * Export all epics combined
+ */
+export const reviewListEpic = combineEpics(
+  loadReviewListEpic,
+  createReviewEpic,
+  replyToReviewEpic,
+  updateReviewEpic,
+  deleteReviewEpic
+);

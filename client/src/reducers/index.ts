@@ -3,17 +3,21 @@ import { StateType } from "typesafe-actions";
 import { authReducer } from "./authReducer";
 import { authRequestReducer } from "./authRequestReducer";
 import { deletedPlacesReducer } from "./deletedPlacesReducer";
+import { deletedReviewsReducer } from "./deletedReviews";
 import { deletedUsersReducer } from "./deletedUsersReducer";
 import { ownPlaceListReducer } from "./ownPlaceListReducer";
+import { pendingReviewListReducer } from "./pendingReviewListReducer";
 import { placeCreateRequestReducer } from "./placeCreateRequestReducer";
 import { placeEntityReducer } from "./placeEntityReducer";
 import { placeListReducer } from "./placeListReducer";
 import { placeListRequestReducer } from "./placeListRequestReducer";
 import { placeRequestReducer } from "./placeRequestReducer";
 import { placeUpdateRequestReducer } from "./placeUpdateRequestReducer";
+import { reviewCreateRequestReducer } from "./reviewCreateRequestReducer";
 import { reviewEntityReducer } from "./reviewEntityReducer";
 import { reviewListReducer } from "./reviewListReducer";
 import { reviewListRequestReducer } from "./reviewListRequestReducer";
+import { reviewUpdateRequestReducer } from "./reviewUpdateRequestReducer";
 import { userCreateRequestReducer } from "./userCreateRequestReducer";
 import { userEntityReducer } from "./userEntityReducer";
 import { userListReducer } from "./userListReducer";
@@ -42,7 +46,11 @@ export const rootReducer = combineReducers({
   deletedPlaces: deletedPlacesReducer,
   reviewEntity: reviewEntityReducer,
   reviewList: reviewListReducer,
-  reviewListRequest: reviewListRequestReducer
+  pendingReviewList: pendingReviewListReducer,
+  reviewListRequest: reviewListRequestReducer,
+  reviewCreateRequest: reviewCreateRequestReducer,
+  reviewUpdateRequest: reviewUpdateRequestReducer,
+  deletedReviews: deletedReviewsReducer
 });
 
 /**

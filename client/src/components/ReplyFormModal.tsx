@@ -1,5 +1,4 @@
 import {
-  Button,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -8,9 +7,12 @@ import {
 import React from "react";
 import * as yup from "yup";
 import { ReplyDto } from "../models/ReplyDto";
+import { RequestError } from "../models/RequestError";
 import { AdaptiveModal } from "./AdaptiveModal";
+import { Button } from "./Button";
 import { Field } from "./Field";
 import { Form } from "./Form";
+import { Message } from "./Message";
 import { Textarea } from "./Textarea";
 
 /**
@@ -33,9 +35,14 @@ interface Props {
   initialValues?: ReplyDto;
 
   /**
+   * Whether request is in progress
+   */
+  loading?: boolean;
+
+  /**
    * Form errors
    */
-  errors?: { [key in keyof ReplyDto]?: string };
+  error?: RequestError<ReplyDto>;
 
   /**
    * Callback invoked on successful form submission
@@ -68,11 +75,12 @@ const defaultValues = {
  * Displays a dialog for replying to a review
  */
 
-export const ReplyModal: React.SFC<Props> = ({
+export const ReplyFormModal: React.SFC<Props> = ({
   autoFocus = false,
   subtitle,
   initialValues = defaultValues,
-  errors = {},
+  loading,
+  error,
   onSubmit,
   onCancel
 }) => {
@@ -82,11 +90,12 @@ export const ReplyModal: React.SFC<Props> = ({
         onSubmit={onSubmit}
         initialValues={initialValues}
         validationSchema={validationSchema}
-        errors={errors}
+        errors={error && error.details}
       >
         <DialogTitle id="form-dialog-title">Reply to a review</DialogTitle>
         <DialogContent>
           <DialogContentText>{subtitle}</DialogContentText>
+          {error && <Message error={error} />}
           <Field
             autoFocus={autoFocus}
             component={Textarea}
@@ -97,7 +106,7 @@ export const ReplyModal: React.SFC<Props> = ({
         </DialogContent>
         <DialogActions>
           <Button onClick={onCancel}>Cancel</Button>
-          <Button type="submit" color="primary">
+          <Button type="submit" color="primary" loading={loading}>
             Reply to a review
           </Button>
         </DialogActions>
