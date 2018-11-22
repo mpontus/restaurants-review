@@ -10,7 +10,7 @@ import { Review as ReviewComponent } from "../components/Review";
 import { ReviewFormModal } from "../components/ReviewFormModal";
 import { Review } from "../models/Review";
 import { State } from "../reducers";
-import { makeGetReviewById } from "../selectors/reviewSelectors";
+import { makeGetReviewById } from "../selectors/reviewListSelectors";
 
 /**
  * External Props

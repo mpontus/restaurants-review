@@ -9,7 +9,7 @@ import { State } from "../reducers";
 /**
  * Review Listing Parameters
  */
-interface Props {
+interface ListProps {
   place?: Place;
   pending?: boolean;
   currentPage: number;
@@ -29,9 +29,9 @@ export const makeGetReviewListRequestStatus = (): Selector<
  */
 export const makeGetReviewListPage = () =>
   createSelector(
-    (state: State, ownProps: Props) => ownProps.place,
-    (state: State, ownProps: Props) => ownProps.pending,
-    (state: State, ownProps: Props) => ownProps.currentPage,
+    (state: State, ownProps: ListProps) => ownProps.place,
+    (state: State, ownProps: ListProps) => ownProps.pending,
+    (state: State, ownProps: ListProps) => ownProps.currentPage,
     (state: State) => state.reviewList,
     (place, pending, page, reviewList): Page<string> | undefined => {
       if (pending) {
@@ -45,3 +45,11 @@ export const makeGetReviewListPage = () =>
       return undefined;
     }
   );
+
+/**
+ * Return single review by id
+ */
+export const makeGetReviewById = () => (
+  state: State,
+  ownProps: { id: string }
+) => state.reviewEntity[ownProps.id];

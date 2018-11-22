@@ -4,7 +4,6 @@ import {
   InputAdornment
 } from "@material-ui/core";
 import * as React from "react";
-import { Route } from "react-router";
 
 interface Props extends React.ComponentProps<typeof MaterialButton> {
   /**

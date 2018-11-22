@@ -1,6 +1,7 @@
 import { combineEpics, Epic } from "redux-observable";
 import { from } from "rxjs";
 import {
+  distinctUntilChanged,
   filter,
   ignoreElements,
   map,
@@ -29,8 +30,8 @@ export const setTokenEpic: Epic<Action, Action, State, Dependencies> = (
 ) =>
   state$.pipe(
     map(makeGetAuthToken()),
-    filter(Boolean),
-    tap(api.setAuthToken.bind(api)),
+    distinctUntilChanged(),
+    tap(token => api.setAuthToken(token || null)),
     ignoreElements()
   );
 

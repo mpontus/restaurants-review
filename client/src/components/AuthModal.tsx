@@ -1,7 +1,6 @@
 import {
   DialogActions,
   DialogContent,
-  DialogContentText,
   Tab,
   Tabs
 } from "@material-ui/core";
@@ -9,14 +8,14 @@ import React, { useCallback, useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import * as yup from "yup";
 import { LoginDto } from "../models/LoginDto";
+import { RequestError } from "../models/RequestError";
 import { SignupDto } from "../models/SignupDto";
 import { AdaptiveModal } from "./AdaptiveModal";
+import { Button } from "./Button";
 import { Field } from "./Field";
 import { Form } from "./Form";
 import { Input } from "./Input";
-import { Button } from "./Button";
 import { Message } from "./Message";
-import { RequestError } from "../models/RequestError";
 
 /**
  * Auth Modal Props

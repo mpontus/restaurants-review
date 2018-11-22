@@ -8,6 +8,11 @@ export interface User {
   id: string;
 
   /**
+   * User display name
+   */
+  name: string;
+
+  /**
    * User email
    */
   email: string;

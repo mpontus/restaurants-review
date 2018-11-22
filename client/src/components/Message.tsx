@@ -1,5 +1,5 @@
-import React from "react";
 import { DialogContentText } from "@material-ui/core";
+import React from "react";
 
 /**
  * Component props
