@@ -15,20 +15,32 @@ import { AdaptiveModal } from "./AdaptiveModal";
 import { Field } from "./Field";
 import { Form } from "./Form";
 import { Input } from "./Input";
+import { Message } from "./Message";
+import { RequestError } from "../models/RequestError";
 
 /**
  * Auth Modal Props
  */
 interface Props {
   /**
+   * Whether login request is in progress
+   */
+  loginLoading?: boolean;
+
+  /**
+   * Whether signup request is in progress
+   */
+  signupLoading?: boolean;
+
+  /**
    * Login error
    */
-  loginError?: string;
+  loginError?: RequestError<LoginDto>;
 
   /**
    * Signup error
    */
-  signupError?: string;
+  signupError?: RequestError<SignupDto>;
 
   /**
    * Login callback
@@ -75,6 +87,10 @@ const signupSchema = yup.object<SignupDto>().shape({
  * sign up with a new account.
  */
 export const AuthModal: React.SFC<Props> = ({
+  loginLoading,
+  signupLoading,
+  loginError,
+  signupError,
   onLogin,
   onSignup,
   onCancel
@@ -99,12 +115,17 @@ export const AuthModal: React.SFC<Props> = ({
       </Tabs>
       <SwipeableViews index={tabIndex} onChangeIndex={setTabIndex}>
         <Form
-          onSubmit={onLogin}
           initialValues={{ email: "", password: "" }}
           validationSchema={loginSchema}
+          errors={loginError && loginError.details}
+          onSubmit={onLogin}
         >
           <DialogContent>
-            <DialogContentText>Log in with existing account</DialogContentText>
+            {loginError ? (
+              <Message error={loginError} />
+            ) : (
+              <Message>Log in with existing account</Message>
+            )}
             <Field
               component={Input}
               type="email"
@@ -122,18 +143,23 @@ export const AuthModal: React.SFC<Props> = ({
           </DialogContent>
           <DialogActions>
             <Button onClick={onCancel}>Cancel</Button>
-            <Button type="submit" color="primary">
+            <Button type="submit" color="primary" disabled={loginLoading}>
               Login
             </Button>
           </DialogActions>
         </Form>
         <Form
-          onSubmit={onSignup}
           initialValues={{ email: "", password: "" }}
           validationSchema={signupSchema}
+          errors={signupError && signupError.details}
+          onSubmit={onSignup}
         >
           <DialogContent>
-            <DialogContentText>Create new account</DialogContentText>
+            {loginError ? (
+              <Message error={loginError} />
+            ) : (
+              <Message>Sign up with a new account</Message>
+            )}
             <Field
               component={Input}
               type="email"
@@ -151,7 +177,7 @@ export const AuthModal: React.SFC<Props> = ({
           </DialogContent>
           <DialogActions>
             <Button onClick={onCancel}>Cancel</Button>
-            <Button type="submit" color="primary">
+            <Button type="submit" color="primary" disabled={signupLoading}>
               Sign Up
             </Button>
           </DialogActions>

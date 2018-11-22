@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import { StateType } from "typesafe-actions";
 import { authReducer } from "./authReducer";
+import { authRequestReducer } from "./authRequestReducer";
 import { placeEntityReducer } from "./placeEntityReducer";
 import { placeListReducer } from "./placeListReducer";
 import { placeListRequestReducer } from "./placeListRequestReducer";
@@ -11,6 +12,7 @@ import { reviewListRequestReducer } from "./reviewListRequestReducer";
 
 export const rootReducer = combineReducers({
   auth: authReducer,
+  authRequest: authRequestReducer,
   placeRequest: placeRequestReducer,
   placeEntity: placeEntityReducer,
   placeList: placeListReducer,

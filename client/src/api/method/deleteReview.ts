@@ -1,6 +1,4 @@
-import * as t from "io-ts";
 import { ApiGateway } from "../ApiGateway";
-import { reviewSchema } from "../schema/reviewSchema";
 
 /**
  * Request params

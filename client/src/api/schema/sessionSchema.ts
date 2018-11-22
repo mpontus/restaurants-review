@@ -5,6 +5,7 @@ import { userSchema } from "./userSchema";
  * Describes shape of session response
  */
 export const sessionSchema = t.type({
-  token: t.string,
+  accessToken: t.string,
+  refreshToken: t.string,
   user: userSchema
 });

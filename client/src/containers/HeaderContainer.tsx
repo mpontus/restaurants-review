@@ -1,17 +1,29 @@
-import {
-  AppBar,
-  Button,
-  Toolbar,
-  Typography
-} from "@material-ui/core";
+import React from "react";
+import { Header } from "../components/Header";
+import { useModal } from "../components/ModalRoot";
+import { AuthModalContainer } from "./AuthModalContainer";
+import { CurrentUserProvider } from "./CurrentUserProvider";
 
-export const HeaderContainer = () => (
-  <AppBar position="static">
-    <Toolbar>
-      <Typography variant="h6" color="inherit">
-        Restaurant Reviews
-      </Typography>
-      <Button color="inherit">Login</Button>
-    </Toolbar>
-  </AppBar>
-);
+/**
+ * Header Container
+ *
+ * Displays application header connected to the store.
+ */
+export const HeaderContainer = () => {
+  const [showAuthModal, hideAuthModal] = useModal(() => (
+    <AuthModalContainer onCancel={hideAuthModal} />
+  ));
+
+  return (
+    <CurrentUserProvider>
+      {({ isAuthenticated, user, onLogout }) => (
+        <Header
+          canLogin={!isAuthenticated}
+          canLogout={isAuthenticated}
+          onLogin={showAuthModal}
+          onLogout={onLogout}
+        />
+      )}
+    </CurrentUserProvider>
+  );
+};

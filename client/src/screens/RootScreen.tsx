@@ -5,10 +5,10 @@ import {
 } from "@material-ui/icons";
 import React from "react";
 import { Redirect, Route, Switch } from "react-router";
-import { Header } from "../components/Header";
 import { Layout } from "../components/Layout";
 import { MobileNavigation } from "../components/MobileNavigation";
 import { MobileNavigationLink } from "../components/MobileNavigationLink";
+import { HeaderContainer } from "../containers/HeaderContainer";
 import * as routes from "../routes";
 import { FrontpageScreen } from "./FrontpageScreen";
 import { OwnPlacesScreen } from "./OwnPlacesScreen";
@@ -18,7 +18,7 @@ import { UserListScreen } from "./UserListScreen";
 
 export const RootScreen = () => (
   <div>
-    <Header />
+    <HeaderContainer />
     <Layout>
       <Switch>
         <Route exact={true} path={routes.HOME} component={FrontpageScreen} />
