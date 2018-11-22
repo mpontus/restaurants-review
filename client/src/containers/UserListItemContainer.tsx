@@ -37,7 +37,7 @@ interface OwnProps {
 }
 
 /**
- * Connected Props
+ * Connected props
  */
 interface StateProps {
   /**
@@ -51,6 +51,9 @@ interface StateProps {
   requestStatus: RequestStatus<any>;
 }
 
+/**
+ * Connected actions
+ */
 interface DispatchProps {
   /**
    * User delete callback

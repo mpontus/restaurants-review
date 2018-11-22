@@ -1,5 +1,4 @@
 import {
-  Button,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -7,11 +6,14 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import * as yup from "yup";
+import { RequestError } from "../models/RequestError";
 import { SavePlaceDto } from "../models/SavePlaceDto";
 import { AdaptiveModal } from "./AdaptiveModal";
+import { Button } from "./Button";
 import { Field } from "./Field";
 import { Form } from "./Form";
 import { Input } from "./Input";
+import { Message } from "./Message";
 
 /**
  * Place Form Modal Props
@@ -43,9 +45,14 @@ interface Props {
   initialValues?: SavePlaceDto;
 
   /**
+   * Whether request is in progress
+   */
+  loading?: boolean;
+
+  /**
    * Form errors
    */
-  errors?: { [key in keyof SavePlaceDto]?: string };
+  error?: RequestError<SavePlaceDto>;
 
   /**
    * Callback invoked on successful form submission
@@ -81,7 +88,8 @@ const defaultValues = {
  */
 export const PlaceFormModal: React.SFC<Props> = ({
   autoFocus,
-  errors,
+  loading,
+  error,
   title,
   subtitle,
   submitLabel,
@@ -94,11 +102,12 @@ export const PlaceFormModal: React.SFC<Props> = ({
       onSubmit={onSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema}
-      errors={errors}
+      errors={error && error.details}
     >
       <DialogTitle id="form-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{subtitle}</DialogContentText>
+        {error && <Message error={error} />}
         <Field
           component={Input}
           autoFocus={autoFocus}
@@ -116,7 +125,7 @@ export const PlaceFormModal: React.SFC<Props> = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={onCancel}>Cancel</Button>
-        <Button type="submit" color="primary">
+        <Button type="submit" color="primary" loading={loading}>
           {submitLabel}
         </Button>
       </DialogActions>

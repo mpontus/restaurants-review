@@ -73,9 +73,7 @@ export class UserService {
       roles: this.updateRoles(user, update),
     });
 
-    await this.userRepository.update(user);
-
-    return user;
+    return this.userRepository.update(user);
   }
 
   /**

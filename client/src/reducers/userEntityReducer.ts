@@ -23,17 +23,23 @@ export const userEntityReducer: Reducer<State, Action> = (
         state
       );
 
-    case getType(updateUser.success):
-      return {
-        ...state,
-        [action.payload.user.id]: action.payload.user
-      };
+    case getType(updateUser.success): {
+      const { user } = action.payload;
 
-    case getType(deleteUser.success):
       return {
         ...state,
-        [action.payload.user.id]: undefined
+        [user.id]: user
       };
+    }
+
+    case getType(deleteUser.success): {
+      const { user } = action.payload;
+
+      return {
+        ...state,
+        [user.id]: undefined
+      };
+    }
 
     default:
       return state;

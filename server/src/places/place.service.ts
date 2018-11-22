@@ -87,7 +87,7 @@ export class PlaceService {
       address: update.address || place.address,
     });
 
-    return place;
+    return this.placeRepository.update(place);
   }
 
   /**

@@ -18,9 +18,14 @@ import {
  */
 interface OwnProps {
   /**
+   * Load user's own places
+   */
+  own?: boolean;
+
+  /**
    * Filter places by rating
    */
-  ratingFilter: number;
+  ratingFilter?: number;
 
   /**
    * Current page
@@ -94,6 +99,7 @@ const enhance = connect(
  * Place List Container
  */
 const BasePlaceListContainer = ({
+  own,
   ratingFilter,
   currentPage,
   page,
@@ -105,12 +111,19 @@ const BasePlaceListContainer = ({
 }: Props) => {
   useEffect(
     () => {
-      onLoadPlaces({
-        page: currentPage,
-        rating: ratingFilter
-      });
+      onLoadPlaces(
+        own
+          ? {
+              own: true,
+              page: currentPage
+            }
+          : {
+              rating: ratingFilter,
+              page: currentPage
+            }
+      );
     },
-    [ratingFilter, currentPage]
+    [own, ratingFilter, currentPage]
   );
 
   if (page === undefined) {

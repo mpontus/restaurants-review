@@ -11,6 +11,7 @@ import { updateUser } from "../api/method/updateUser";
 import { Dependencies } from "../configureStore";
 import { State } from "../reducers";
 import { handleApiError } from "./utils/handleApiError";
+import { replayLastWhen } from "./utils/replayLastWhen";
 
 /**
  * Load user list epic
@@ -24,6 +25,18 @@ export const loadUserListEpic: Epic<Action, Action, State, Dependencies> = (
 ) => {
   return action$.pipe(
     filter(isActionOf(actions.loadUsers.request)),
+    // Refetch the last page whenever place list is modified
+    replayLastWhen(
+      action$.pipe(
+        filter(
+          isActionOf([
+            actions.createUser.success,
+            actions.updateUser.success,
+            actions.deleteUser.success
+          ])
+        )
+      )
+    ),
     switchMap(action => {
       const criteria = action.payload;
       const limit = config.pageLimit;

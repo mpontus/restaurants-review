@@ -1,40 +1,62 @@
-import { Epic } from "redux-observable";
+import { combineEpics, Epic } from "redux-observable";
 import { from } from "rxjs";
-import { filter, map, switchMap } from "rxjs/operators";
+import { filter, map, mapTo, switchMap } from "rxjs/operators";
 import { isActionOf } from "typesafe-actions";
 import { Action } from "../actions";
-import { loadPlaces } from "../actions/placeListActions";
+import * as actions from "../actions/placeListActions";
+import { createPlace } from "../api/method/createPlace";
+import { deletePlace } from "../api/method/deletePlace";
+import { getOwnPlaces } from "../api/method/getOwnPlaces";
 import { getPlaces } from "../api/method/getPlaces";
+import { updatePlace } from "../api/method/updatePlace";
 import { Dependencies } from "../configureStore";
 import { State } from "../reducers";
 import { handleApiError } from "./utils/handleApiError";
+import { replayLastWhen } from "./utils/replayLastWhen";
 
 /**
  * Place list epic
  *
  * Handlers retrieval of frontpage restaurants
  */
-export const placeListEpic: Epic<Action, Action, State, Dependencies> = (
+export const loadPlaceListEpic: Epic<Action, Action, State, Dependencies> = (
   action$,
   state$,
   { api, config }
 ) => {
   return action$.pipe(
-    filter(isActionOf(loadPlaces.request)),
+    filter(isActionOf(actions.loadPlaces.request)),
+    // Refetch the last page whenever place list is modified
+    replayLastWhen(
+      action$.pipe(
+        filter(
+          isActionOf([
+            actions.createPlace.success,
+            actions.updatePlace.success,
+            actions.deletePlace.success
+          ])
+        )
+      )
+    ),
     switchMap(action => {
       const criteria = action.payload;
       const limit = config.pageLimit;
       const offset = criteria.page * limit;
 
       return from(
-        getPlaces(api, {
-          take: limit,
-          skip: offset,
-          rating: criteria.rating || undefined
-        })
+        "own" in criteria
+          ? getOwnPlaces(api, {
+              take: limit,
+              skip: offset
+            })
+          : getPlaces(api, {
+              take: limit,
+              skip: offset,
+              rating: criteria.rating || undefined
+            })
       ).pipe(
         map(page =>
-          loadPlaces.success({
+          actions.loadPlaces.success({
             criteria,
             page: {
               nextPageExists: offset + page.items.length < page.total,
@@ -46,7 +68,7 @@ export const placeListEpic: Epic<Action, Action, State, Dependencies> = (
           })
         ),
         handleApiError(error =>
-          loadPlaces.failure({
+          actions.loadPlaces.failure({
             criteria,
             error
           })
@@ -55,3 +77,95 @@ export const placeListEpic: Epic<Action, Action, State, Dependencies> = (
     })
   );
 };
+
+/**
+ * Create place epic
+ *
+ * Handles creation of new places.
+ */
+export const createPlaceEpic: Epic<Action, Action, State, Dependencies> = (
+  action$,
+  state$,
+  { api, config }
+) => {
+  return action$.pipe(
+    filter(isActionOf(actions.createPlace.request)),
+    switchMap(action =>
+      from(createPlace(api, action.payload)).pipe(
+        map(actions.createPlace.success),
+        handleApiError(actions.createPlace.failure)
+      )
+    )
+  );
+};
+
+/**
+ * Update place epic
+ *
+ * Handles updates to place record.
+ */
+export const updatePlaceEpic: Epic<Action, Action, State, Dependencies> = (
+  action$,
+  state$,
+  { api, config }
+) => {
+  return action$.pipe(
+    filter(isActionOf(actions.updatePlace.request)),
+    switchMap(action =>
+      from(
+        updatePlace(api, {
+          id: action.payload.place.id,
+          ...action.payload.data
+        })
+      ).pipe(
+        map(place => actions.updatePlace.success({ place })),
+        handleApiError(error =>
+          actions.updatePlace.failure({
+            place: action.payload.place,
+            error
+          })
+        )
+      )
+    )
+  );
+};
+
+/**
+ * Delete place epic
+ *
+ * Handles place deletion.
+ */
+export const deletePlaceEpic: Epic<Action, Action, State, Dependencies> = (
+  action$,
+  state$,
+  { api, config }
+) => {
+  return action$.pipe(
+    filter(isActionOf(actions.deletePlace.request)),
+    switchMap(action =>
+      from(
+        deletePlace(api, {
+          id: action.payload.place.id
+        })
+      ).pipe(
+        mapTo(actions.deletePlace.success(action.payload)),
+        handleApiError(error =>
+          actions.deletePlace.failure({
+            ...action.payload,
+            error
+          })
+        )
+      )
+    )
+  );
+};
+
+/**
+ * Export all epics combined
+ */
+export const placeListEpic = combineEpics(
+  loadPlaceListEpic,
+  createPlaceEpic,
+  updatePlaceEpic,
+  deletePlaceEpic
+);

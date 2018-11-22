@@ -2,11 +2,15 @@ import { combineReducers } from "redux";
 import { StateType } from "typesafe-actions";
 import { authReducer } from "./authReducer";
 import { authRequestReducer } from "./authRequestReducer";
-import { deletedUsersReducer } from "./deletedUsers";
+import { deletedPlacesReducer } from "./deletedPlacesReducer";
+import { deletedUsersReducer } from "./deletedUsersReducer";
+import { ownPlaceListReducer } from "./ownPlaceListReducer";
+import { placeCreateRequestReducer } from "./placeCreateRequestReducer";
 import { placeEntityReducer } from "./placeEntityReducer";
 import { placeListReducer } from "./placeListReducer";
 import { placeListRequestReducer } from "./placeListRequestReducer";
 import { placeRequestReducer } from "./placeRequestReducer";
+import { placeUpdateRequestReducer } from "./placeUpdateRequestReducer";
 import { reviewEntityReducer } from "./reviewEntityReducer";
 import { reviewListReducer } from "./reviewListReducer";
 import { reviewListRequestReducer } from "./reviewListRequestReducer";
@@ -31,7 +35,11 @@ export const rootReducer = combineReducers({
   placeRequest: placeRequestReducer,
   placeEntity: placeEntityReducer,
   placeList: placeListReducer,
+  ownPlaceList: ownPlaceListReducer,
   placeListRequest: placeListRequestReducer,
+  placeCreateRequest: placeCreateRequestReducer,
+  placeUpdateRequest: placeUpdateRequestReducer,
+  deletedPlaces: deletedPlacesReducer,
   reviewEntity: reviewEntityReducer,
   reviewList: reviewListReducer,
   reviewListRequest: reviewListRequestReducer
