@@ -1,5 +1,4 @@
 import {
-  Button,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -15,6 +14,7 @@ import { AdaptiveModal } from "./AdaptiveModal";
 import { Field } from "./Field";
 import { Form } from "./Form";
 import { Input } from "./Input";
+import { Button } from "./Button";
 import { Message } from "./Message";
 import { RequestError } from "../models/RequestError";
 
@@ -143,7 +143,7 @@ export const AuthModal: React.SFC<Props> = ({
           </DialogContent>
           <DialogActions>
             <Button onClick={onCancel}>Cancel</Button>
-            <Button type="submit" color="primary" disabled={loginLoading}>
+            <Button type="submit" color="primary" loading={loginLoading}>
               Login
             </Button>
           </DialogActions>
@@ -177,7 +177,7 @@ export const AuthModal: React.SFC<Props> = ({
           </DialogContent>
           <DialogActions>
             <Button onClick={onCancel}>Cancel</Button>
-            <Button type="submit" color="primary" disabled={signupLoading}>
+            <Button type="submit" color="primary" loading={signupLoading}>
               Sign Up
             </Button>
           </DialogActions>
