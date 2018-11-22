@@ -16,4 +16,4 @@ interface Params {
 export const deleteUser = async (
   api: ApiGateway,
   { id }: Params
-): Promise<void> => api.delete("/users").then(() => undefined);
+): Promise<void> => api.delete(`/users/${id}`).then(() => undefined);

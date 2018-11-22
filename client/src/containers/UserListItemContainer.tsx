@@ -10,16 +10,21 @@ import {
   Edit as EditIcon,
   MoreVert as MoreVertIcon
 } from "@material-ui/icons";
-import React from "react";
+import React, { useCallback } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
+import { deleteUser } from "../actions/userListActions";
 import { ConfirmModal } from "../components/ConfirmModal";
 import { IconMenu } from "../components/IconMenu";
 import { useModal } from "../components/ModalRoot";
-import { UserFormModal } from "../components/UserFormModal";
+import { RequestStatus } from "../models/RequestStatus";
 import { User } from "../models/User";
 import { State } from "../reducers";
-import { makeGetUserById } from "../selectors/userListSelectors";
+import {
+  makeGetUserById,
+  makeGetUserUpdateRequestStatus
+} from "../selectors/userSelectors";
+import { UserFormModalContainer } from "./UserFormModalContainer";
 
 /**
  * External Props
@@ -39,75 +44,74 @@ interface StateProps {
    * User
    */
   user?: User;
+
+  /**
+   * Update request status
+   */
+  requestStatus: RequestStatus<any>;
+}
+
+interface DispatchProps {
+  /**
+   * User delete callback
+   */
+  onDelete: (props: { user: User }) => void;
 }
 
 /**
  * Combined props
  */
-interface Props extends OwnProps, StateProps {}
+interface Props extends OwnProps, StateProps, DispatchProps {}
 
 /**
  * State selector
  */
 const makeMapStateToProps = (): Selector<State, StateProps, OwnProps> =>
   createStructuredSelector({
-    user: makeGetUserById()
+    user: makeGetUserById(),
+    requestStatus: makeGetUserUpdateRequestStatus()
   });
 
 /**
  * Component enhancer
  */
-const enhance = connect(makeMapStateToProps);
+const enhance = connect(
+  makeMapStateToProps,
+  {
+    onDelete: deleteUser.request
+  }
+);
 
 /**
  * User List Item Container
  *
  * Displays a single user inside a list.
  */
-export const BaseUserListItemContainer = ({ user }: Props) => {
+export const BaseUserListItemContainer = ({
+  id,
+  user,
+  requestStatus,
+  onDelete
+}: Props) => {
   if (user === undefined) {
     return null;
   }
 
+  const handleDelete = useCallback(() => onDelete({ user }), [user, onDelete]);
   const [showConfirmModal, hideConfirmModal] = useModal(() => (
     <ConfirmModal
       title="Delete user?"
       confirmLabel="Delete user"
-      onConfirm={hideConfirmModal}
+      onConfirm={handleDelete}
       onCancel={hideConfirmModal}
     >
-      Do you really want to delete <strong>{user.name}</strong>?
+      Do you really want to delete {user.name}?
     </ConfirmModal>
   ));
 
-  const [showEditModal, hideEditModal] = useModal(() => {
-    const initialValues = {
-      name: user.name,
-      email: user.email,
-      password: "",
-      isUser: user.roles.includes("user"),
-      isOwner: user.roles.includes("owner"),
-      isAdmin: user.roles.includes("admin")
-    };
-
-    return (
-      <UserFormModal
-        title="Update User"
-        subtitle={
-          <>
-            Change <strong>{user.name}</strong> account details
-          </>
-        }
-        initialValues={initialValues}
-        submitLabel="Save User"
-        onSubmit={
-          // tslint:disable-next-line
-          console.log
-        }
-        onCancel={hideEditModal}
-      />
-    );
-  });
+  const [showEditModal, hideEditModal] = useModal(() => (
+    <UserFormModalContainer id={user.id} onCancel={hideEditModal} />
+  ));
 
   return (
     <ListItem key={user.id}>

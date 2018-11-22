@@ -18,14 +18,15 @@ interface Props extends React.ComponentProps<typeof MaterialButton> {
  * Extends Material-UI's button with loading state.
  */
 export const Button: React.SFC<Props> = props => {
-  if (props.loading) {
+  const { loading, ...rest } = props;
+
+  if (loading) {
     return Button({
-      ...props,
-      loading: false,
+      ...rest,
       disabled: true,
       children: (
         <>
-          {props.children}{" "}
+          {props.children}
           <InputAdornment position="end">
             <CircularProgress size={16} color="inherit" />
           </InputAdornment>
@@ -34,5 +35,5 @@ export const Button: React.SFC<Props> = props => {
     });
   }
 
-  return <MaterialButton {...props} />;
+  return <MaterialButton {...rest} />;
 };

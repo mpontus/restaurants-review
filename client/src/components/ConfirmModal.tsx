@@ -1,12 +1,14 @@
 import {
-  Button,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle
 } from "@material-ui/core";
 import React from "react";
+import { RequestError } from "../models/RequestError";
 import { AdaptiveModal } from "./AdaptiveModal";
+import { Button } from "./Button";
+import { Message } from "./Message";
 
 /**
  * Confirm Modal Props
@@ -21,6 +23,16 @@ interface Props {
    * Confirm button label
    */
   confirmLabel: React.ReactNode;
+
+  /**
+   * Whether the request is in progress
+   */
+  loading?: boolean;
+
+  /**
+   * Request error
+   */
+  error?: RequestError<any>;
 
   /**
    * Confirm callback
@@ -41,6 +53,8 @@ interface Props {
 export const ConfirmModal: React.SFC<Props> = ({
   title,
   confirmLabel,
+  loading,
+  error,
   onConfirm,
   onCancel,
   children
@@ -54,10 +68,11 @@ export const ConfirmModal: React.SFC<Props> = ({
     <DialogTitle id="confirm-dialog-title">{title}</DialogTitle>
     <DialogContent>
       <DialogContentText>{children}</DialogContentText>
+      {error && <Message error={error} />}
     </DialogContent>
     <DialogActions>
       <Button onClick={onCancel}>Cancel</Button>
-      <Button color="primary" onClick={onConfirm}>
+      <Button color="primary" onClick={onConfirm} loading={loading}>
         {confirmLabel}
       </Button>
     </DialogActions>

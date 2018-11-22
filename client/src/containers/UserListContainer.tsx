@@ -1,9 +1,12 @@
 import { Button, List } from "@material-ui/core";
+import { Add as AddIcon } from "@material-ui/icons";
 import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { loadUsers } from "../actions/userListActions";
+import { FloatingActionButton } from "../components/FloatingActionButton";
 import { Loading } from "../components/Loading";
+import { useModal } from "../components/ModalRoot";
 import { LoadUsersDto } from "../models/LoadUsersDto";
 import { Page } from "../models/Page";
 import { RequestStatus } from "../models/RequestStatus";
@@ -14,6 +17,7 @@ import {
   makeGetUserListPage,
   makeGetUserListRequestStatus
 } from "../selectors/userListSelectors";
+import { UserFormModalContainer } from "./UserFormModalContainer";
 
 /**
  * External props
@@ -114,11 +118,13 @@ const BaseUserListContainer = ({
     () => {
       onLoadUsers({ page: currentPage });
     },
-    [
-      currentPage,
-      user // Refresh on authentication status change
-    ]
+    // Refresh on authentication status change
+    [currentPage, user]
   );
+
+  const [showCreateModal, hideCreateModal] = useModal(() => (
+    <UserFormModalContainer onCancel={hideCreateModal} />
+  ));
 
   if (page === undefined) {
     return <Loading />;
@@ -133,6 +139,11 @@ const BaseUserListContainer = ({
       <Button disabled={!page.nextPageExists} onClick={onNext}>
         Next
       </Button>
+      <FloatingActionButton
+        icon={<AddIcon />}
+        aria-label="Add"
+        onClick={showCreateModal}
+      />
     </React.Fragment>
   );
 };

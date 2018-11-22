@@ -36,8 +36,8 @@ type Result = t.TypeOf<typeof userSchema>;
 /**
  * Update user details
  */
-export const createUser = async (
+export const updateUser = async (
   api: ApiGateway,
   { id, ...rest }: Params
 ): Promise<Result> =>
-  api.patch("/users", rest).then(validateResponse(userSchema));
+  api.patch(`/users/${id}`, rest).then(validateResponse(userSchema));

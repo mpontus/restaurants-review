@@ -67,7 +67,6 @@ export const ModalProvider: React.SFC = ({ children }) => {
  */
 export const ModalRoot = () => {
   const { modals } = useContext(ModalContext);
-
   return ReactDOM.createPortal(
     <React.Fragment>
       {Object.keys(modals).map(key => {
@@ -88,9 +87,19 @@ export const useModal = (Component: React.ComponentType<any>) => {
   const [shown, setShown] = useState(false);
   const { showModal, hideModal } = useContext(ModalContext);
 
-  useEffect(() => (shown ? showModal(key, Component) : hideModal(key)), [
-    shown
-  ]);
+  useEffect(
+    () => {
+      if (shown) {
+        showModal(key, Component);
+      } else {
+        hideModal(key);
+      }
+
+      // Hide modal on parent component unmount
+      return () => hideModal(key);
+    },
+    [shown]
+  );
 
   return [() => setShown(true), () => setShown(false)];
 };

@@ -1,26 +1,29 @@
-import { Epic } from "redux-observable";
+import { combineEpics, Epic } from "redux-observable";
 import { from } from "rxjs";
-import { filter, map, switchMap } from "rxjs/operators";
+import { filter, map, mapTo, switchMap } from "rxjs/operators";
 import { isActionOf } from "typesafe-actions";
 import { Action } from "../actions";
-import { loadUsers } from "../actions/userListActions";
+import * as actions from "../actions/userListActions";
+import { createUser } from "../api/method/createUser";
+import { deleteUser } from "../api/method/deleteUser";
 import { getUsers } from "../api/method/getUsers";
+import { updateUser } from "../api/method/updateUser";
 import { Dependencies } from "../configureStore";
 import { State } from "../reducers";
 import { handleApiError } from "./utils/handleApiError";
 
 /**
- * User list epic
+ * Load user list epic
  *
  * Handlers retrieval of frontpage restaurants
  */
-export const userListEpic: Epic<Action, Action, State, Dependencies> = (
+export const loadUserListEpic: Epic<Action, Action, State, Dependencies> = (
   action$,
   state$,
   { api, config }
 ) => {
   return action$.pipe(
-    filter(isActionOf(loadUsers.request)),
+    filter(isActionOf(actions.loadUsers.request)),
     switchMap(action => {
       const criteria = action.payload;
       const limit = config.pageLimit;
@@ -33,7 +36,7 @@ export const userListEpic: Epic<Action, Action, State, Dependencies> = (
         })
       ).pipe(
         map(page =>
-          loadUsers.success({
+          actions.loadUsers.success({
             criteria,
             page: {
               nextPageExists: offset + page.items.length < page.total,
@@ -45,7 +48,7 @@ export const userListEpic: Epic<Action, Action, State, Dependencies> = (
           })
         ),
         handleApiError(error =>
-          loadUsers.failure({
+          actions.loadUsers.failure({
             criteria,
             error
           })
@@ -54,3 +57,95 @@ export const userListEpic: Epic<Action, Action, State, Dependencies> = (
     })
   );
 };
+
+/**
+ * Create user epic
+ *
+ * Handles creation of new users.
+ */
+export const createUserEpic: Epic<Action, Action, State, Dependencies> = (
+  action$,
+  state$,
+  { api, config }
+) => {
+  return action$.pipe(
+    filter(isActionOf(actions.createUser.request)),
+    switchMap(action =>
+      from(createUser(api, action.payload)).pipe(
+        map(actions.createUser.success),
+        handleApiError(actions.createUser.failure)
+      )
+    )
+  );
+};
+
+/**
+ * Update user epic
+ *
+ * Handles updates to user record.
+ */
+export const updateUserEpic: Epic<Action, Action, State, Dependencies> = (
+  action$,
+  state$,
+  { api, config }
+) => {
+  return action$.pipe(
+    filter(isActionOf(actions.updateUser.request)),
+    switchMap(action =>
+      from(
+        updateUser(api, {
+          id: action.payload.user.id,
+          ...action.payload.data
+        })
+      ).pipe(
+        map(user => actions.updateUser.success({ user })),
+        handleApiError(error =>
+          actions.updateUser.failure({
+            user: action.payload.user,
+            error
+          })
+        )
+      )
+    )
+  );
+};
+
+/**
+ * Delete user epic
+ *
+ * Handles user deletion.
+ */
+export const deleteUserEpic: Epic<Action, Action, State, Dependencies> = (
+  action$,
+  state$,
+  { api, config }
+) => {
+  return action$.pipe(
+    filter(isActionOf(actions.deleteUser.request)),
+    switchMap(action =>
+      from(
+        deleteUser(api, {
+          id: action.payload.user.id
+        })
+      ).pipe(
+        mapTo(actions.deleteUser.success(action.payload)),
+        handleApiError(error =>
+          actions.deleteUser.failure({
+            ...action.payload,
+            error
+          })
+        )
+      )
+    )
+  );
+};
+
+/**
+ * Export all epics combined
+ */
+export const userListEpic = combineEpics(
+  loadUserListEpic,
+  createUserEpic,
+  updateUserEpic,
+  deleteUserEpic
+);

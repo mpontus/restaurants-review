@@ -1,7 +1,7 @@
 import { Reducer } from "redux";
 import { getType } from "typesafe-actions";
 import { Action } from "../actions";
-import { loadUsers } from "../actions/userListActions";
+import { deleteUser, loadUsers, updateUser } from "../actions/userListActions";
 import { User } from "../models/User";
 
 type State = { [id in string]?: User };
@@ -22,6 +22,18 @@ export const userEntityReducer: Reducer<State, Action> = (
         }),
         state
       );
+
+    case getType(updateUser.success):
+      return {
+        ...state,
+        [action.payload.user.id]: action.payload.user
+      };
+
+    case getType(deleteUser.success):
+      return {
+        ...state,
+        [action.payload.user.id]: undefined
+      };
 
     default:
       return state;

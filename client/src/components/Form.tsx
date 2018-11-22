@@ -1,3 +1,4 @@
+import { diff } from "deep-object-diff";
 import { Form as FormikForm, Formik, FormikErrors } from "formik";
 import * as React from "react";
 import { Schema } from "yup";
@@ -6,6 +7,11 @@ import { Schema } from "yup";
  * Outter props
  */
 export interface FormProps<V> {
+  /**
+   * Omit unchanged values from submission
+   */
+  onlyChanged?: boolean;
+
   /**
    * Initial values
    */
@@ -38,19 +44,19 @@ export interface FormProps<V> {
  * Extends Formik with ability to set external errors and normalize
  * values before passing them to onSubmit callback.
  */
-export class Form<T> extends React.Component<FormProps<T>> {
+export class Form<T extends object> extends React.Component<FormProps<T>> {
   /**
    * Reference to Formik component instance
    */
   private readonly formikRef: React.RefObject<Formik<T>> = React.createRef();
 
   /**
-   * Normalize values according to validation schema
+   * Normalize values according to validation schema.
+   *
+   * Only submits the changed values.
    */
   public handleSubmit = (values: T) => {
-    const { validationSchema, onSubmit } = this.props;
-
-    onSubmit(validationSchema ? validationSchema.cast(values) : values);
+    this.props.onSubmit(this.normalizeValues(values));
   };
 
   /**
@@ -76,5 +82,21 @@ export class Form<T> extends React.Component<FormProps<T>> {
         <FormikForm>{this.props.children}</FormikForm>
       </Formik>
     );
+  }
+
+  /**
+   * Normalize values accoridng to validationSchema and leaving out
+   * default values.
+   */
+  private normalizeValues(values: T) {
+    const { validationSchema, initialValues, onlyChanged } = this.props;
+
+    const normalize = (val: T) =>
+      validationSchema ? validationSchema.cast(val) : val;
+
+    const removeUnchanged = (val: T) =>
+      onlyChanged ? (diff(initialValues, val) as T) : val;
+
+    return removeUnchanged(normalize(values));
   }
 }

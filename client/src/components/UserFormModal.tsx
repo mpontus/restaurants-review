@@ -1,5 +1,4 @@
 import {
-  Button,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -10,11 +9,14 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import * as yup from "yup";
+import { RequestError } from "../models/RequestError";
 import { SaveUserDto } from "../models/SaveUserDto";
 import { AdaptiveModal } from "./AdaptiveModal";
+import { Button } from "./Button";
 import { Field } from "./Field";
 import { Form } from "./Form";
 import { Input } from "./Input";
+import { Message } from "./Message";
 import { Switch } from "./Switch";
 
 /**
@@ -47,9 +49,14 @@ interface Props {
   initialValues?: SaveUserDto;
 
   /**
+   * Whether request is in progress
+   */
+  loading?: boolean;
+
+  /**
    * Form errors
    */
-  errors?: { [key in keyof SaveUserDto]?: string };
+  error?: RequestError<SaveUserDto>;
 
   /**
    * Callback invoked on successful form submission
@@ -96,24 +103,27 @@ const defaultValues = {
  */
 export const UserFormModal: React.SFC<Props> = ({
   autoFocus,
+  loading,
   title,
   subtitle,
   submitLabel,
-  errors,
+  error,
   onSubmit,
   onCancel,
   initialValues = defaultValues
 }) => (
   <AdaptiveModal open={true} onClose={onCancel}>
     <Form
+      onlyChanged={true}
       onSubmit={onSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema}
-      errors={errors}
+      errors={error && error.details}
     >
       <DialogTitle id="form-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{subtitle}</DialogContentText>
+        {error && <Message error={error} />}
         <FormControl component="fieldset" margin="normal">
           <FormLabel component="legend">Roles</FormLabel>
           <FormGroup row={true}>
@@ -156,7 +166,7 @@ export const UserFormModal: React.SFC<Props> = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={onCancel}>Cancel</Button>
-        <Button type="submit" color="primary">
+        <Button type="submit" color="primary" loading={loading}>
           {submitLabel}
         </Button>
       </DialogActions>
