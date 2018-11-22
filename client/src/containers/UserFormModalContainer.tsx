@@ -116,7 +116,7 @@ const BaseUserFormModalContainer = ({
   const initialValues = user
     ? {
         name: user.name,
-        email: user.email,
+        email: user.email || "",
         password: "",
         isUser: user.roles.includes("user"),
         isOwner: user.roles.includes("owner"),

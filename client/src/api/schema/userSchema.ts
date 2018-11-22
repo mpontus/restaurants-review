@@ -5,8 +5,8 @@ import * as t from "io-ts";
  */
 export const userSchema = t.type({
   id: t.string,
-  email: t.string,
   name: t.string,
+  email: t.union([t.string, t.undefined]),
   roles: t.array(
     t.union([t.literal("user"), t.literal("owner"), t.literal("admin")])
   )
