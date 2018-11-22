@@ -1,9 +1,10 @@
-import { Button, List } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { loadReviews } from "../actions/reviewListActions";
+import { List } from "../components/List";
 import { Loading } from "../components/Loading";
+import { PaginationControls } from "../components/PaginationControls";
 import { LoadReviewsDto } from "../models/LoadReviewsDto";
 import { Page } from "../models/Page";
 import { Place } from "../models/Place";
@@ -19,14 +20,14 @@ import {
  */
 interface OwnProps {
   /**
-   * Show pending reviews
+   * List header
    */
-  pending?: boolean;
+  header: React.ReactNode;
 
   /**
-   * Show reviews for the place
+   * Show reviews for this place
    */
-  place?: Place;
+  place: Place;
 
   /**
    * Current page
@@ -97,10 +98,12 @@ const enhance = connect(
 );
 
 /**
- * Review List Container
+ * Place Review List Container
+ *
+ * Displays a list of place reviews.
  */
-const BaseReviewListContainer = ({
-  pending,
+const BasePlaceReviewListContainer = ({
+  header,
   place,
   currentPage,
   page,
@@ -112,17 +115,10 @@ const BaseReviewListContainer = ({
 }: Props) => {
   useEffect(
     () => {
-      onLoadReviews(
-        place
-          ? {
-              place,
-              page: currentPage
-            }
-          : {
-              pending: true,
-              page: currentPage
-            }
-      );
+      onLoadReviews({
+        place,
+        page: currentPage
+      });
     },
     [place, currentPage]
   );
@@ -131,15 +127,20 @@ const BaseReviewListContainer = ({
     return <Loading />;
   }
 
+  if (page.items.length === 0) {
+    return null;
+  }
+
   return (
     <React.Fragment>
-      <List>{page.items.map(renderItem)}</List>
-      <Button disabled={!page.prevPageExists} onClick={onPrev}>
-        Prev
-      </Button>
-      <Button disabled={!page.nextPageExists} onClick={onNext}>
-        Next
-      </Button>
+      {header}
+      <List items={page.items} renderItem={renderItem} />
+      <PaginationControls
+        hasPrev={page.prevPageExists}
+        hasNext={page.nextPageExists}
+        onPrev={onPrev}
+        onNext={onNext}
+      />
     </React.Fragment>
   );
 };
@@ -147,4 +148,4 @@ const BaseReviewListContainer = ({
 /**
  * Export enhanced component
  */
-export const ReviewListContainer = enhance(BaseReviewListContainer);
+export const PlaceReviewListContainer = enhance(BasePlaceReviewListContainer);

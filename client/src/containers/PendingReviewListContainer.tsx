@@ -1,33 +1,23 @@
 import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import { loadPlaces } from "../actions/placeListActions";
+import { loadReviews } from "../actions/reviewListActions";
 import { List } from "../components/List";
 import { Loading } from "../components/Loading";
 import { PaginationControls } from "../components/PaginationControls";
-import { LoadPlacesDto } from "../models/LoadPlacesDto";
+import { LoadReviewsDto } from "../models/LoadReviewsDto";
 import { Page } from "../models/Page";
 import { RequestStatus } from "../models/RequestStatus";
 import { State } from "../reducers";
 import {
-  makeGetPlaceListPage,
-  makeGetPlaceListRequestStatus
-} from "../selectors/placeListSelectors";
+  makeGetReviewListPage,
+  makeGetReviewListRequestStatus
+} from "../selectors/reviewListSelectors";
 
 /**
  * External props
  */
 interface OwnProps {
-  /**
-   * Load user's own places
-   */
-  own?: boolean;
-
-  /**
-   * Filter places by rating
-   */
-  ratingFilter?: number;
-
   /**
    * Current page
    */
@@ -54,14 +44,14 @@ interface OwnProps {
  */
 interface StateProps {
   /**
-   * Page entity containing place ids
+   * Page entity containing review ids
    */
   page?: Page<string>;
 
   /**
    * Request status for the current page
    */
-  requestStatus: RequestStatus<LoadPlacesDto>;
+  requestStatus: RequestStatus<LoadReviewsDto>;
 }
 
 /**
@@ -69,9 +59,9 @@ interface StateProps {
  */
 interface DispatchProps {
   /**
-   * Request places to be loaded
+   * Request reviews to be loaded
    */
-  onLoadPlaces: (criteria: LoadPlacesDto) => void;
+  onLoadReviews: (criteria: LoadReviewsDto) => void;
 }
 
 /**
@@ -84,8 +74,8 @@ interface Props extends OwnProps, StateProps, DispatchProps {}
  */
 const makeMapStateToProps = (): Selector<State, StateProps, OwnProps> =>
   createStructuredSelector({
-    page: makeGetPlaceListPage(),
-    requestStatus: makeGetPlaceListRequestStatus()
+    page: makeGetReviewListPage(),
+    requestStatus: makeGetReviewListRequestStatus()
   });
 
 /**
@@ -93,38 +83,31 @@ const makeMapStateToProps = (): Selector<State, StateProps, OwnProps> =>
  */
 const enhance = connect(
   makeMapStateToProps,
-  { onLoadPlaces: loadPlaces.request }
+  { onLoadReviews: loadReviews.request }
 );
 
 /**
- * Place List Container
+ * Pending Review List Container
+ *
+ * Displays reviews pending for the user.
  */
-const BasePlaceListContainer = ({
-  own,
-  ratingFilter,
+const BasePendingReviewListContainer = ({
   currentPage,
   page,
   requestStatus,
-  onLoadPlaces,
+  onLoadReviews,
   renderItem,
   onPrev,
   onNext
 }: Props) => {
   useEffect(
     () => {
-      onLoadPlaces(
-        own
-          ? {
-              own: true,
-              page: currentPage
-            }
-          : {
-              rating: ratingFilter,
-              page: currentPage
-            }
-      );
+      onLoadReviews({
+        pending: true,
+        page: currentPage
+      });
     },
-    [own, ratingFilter, currentPage]
+    [currentPage]
   );
 
   if (page === undefined) {
@@ -151,4 +134,6 @@ const BasePlaceListContainer = ({
 /**
  * Export enhanced component
  */
-export const PlaceListContainer = enhance(BasePlaceListContainer);
+export const PendingReviewListContainer = enhance(
+  BasePendingReviewListContainer
+);

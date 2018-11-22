@@ -1,9 +1,10 @@
-import { Button, List } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { loadUsers } from "../actions/userListActions";
+import { List } from "../components/List";
 import { Loading } from "../components/Loading";
+import { PaginationControls } from "../components/PaginationControls";
 import { LoadUsersDto } from "../models/LoadUsersDto";
 import { Page } from "../models/Page";
 import { RequestStatus } from "../models/RequestStatus";
@@ -122,15 +123,19 @@ const BaseUserListContainer = ({
     return <Loading />;
   }
 
+  if (page.items.length === 0) {
+    return null;
+  }
+
   return (
     <React.Fragment>
-      <List>{page.items.map(renderItem)}</List>
-      <Button disabled={!page.prevPageExists} onClick={onPrev}>
-        Prev
-      </Button>
-      <Button disabled={!page.nextPageExists} onClick={onNext}>
-        Next
-      </Button>
+      <List items={page.items} renderItem={renderItem} />
+      <PaginationControls
+        hasPrev={page.prevPageExists}
+        hasNext={page.nextPageExists}
+        onPrev={onPrev}
+        onNext={onNext}
+      />
     </React.Fragment>
   );
 };

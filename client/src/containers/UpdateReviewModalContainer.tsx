@@ -112,7 +112,11 @@ const BaseUpdateReviewModalContainer = ({
 
   return (
     <ReviewFormModal
-      autoFocus={true}
+      initialValues={{
+        rating: review.rating,
+        comment: review.comment,
+        reply: review.reply
+      }}
       loading={requestStatus.loading}
       error={requestStatus.error}
       onSubmit={handleUpdate}

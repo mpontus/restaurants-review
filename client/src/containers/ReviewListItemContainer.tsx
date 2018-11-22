@@ -1,9 +1,7 @@
 import React, { useCallback } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import {
-  deleteReview
-} from "../actions/reviewListActions";
+import { deleteReview } from "../actions/reviewListActions";
 import { ConfirmModal } from "../components/ConfirmModal";
 import { Loading } from "../components/Loading";
 import { useModal } from "../components/ModalRoot";
@@ -80,7 +78,7 @@ const enhance = connect(
  *
  * Displays a single review by id
  */
-export const BaseReviewListItemContainer = ({
+export const BaseReviewContainer = ({
   id,
   review,
   requestStatus,
@@ -135,4 +133,4 @@ export const BaseReviewListItemContainer = ({
 /**
  * Export enhanced component
  */
-export const ReviewListItemContainer = enhance(BaseReviewListItemContainer);
+export const ReviewContainer = enhance(BaseReviewContainer);

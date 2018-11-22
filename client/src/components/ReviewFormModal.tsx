@@ -95,7 +95,7 @@ export const ReviewFormModal: React.SFC<Props> = ({
         validationSchema={validationSchema}
         errors={error && error.details}
       >
-        <DialogTitle id="form-dialog-title">Update Review</DialogTitle>
+        <DialogTitle id="form-dialog-title">Edit Review</DialogTitle>
         <DialogContent>
           {error && <Message error={error} />}
           <FormControl component="fieldset" margin="normal">
@@ -107,7 +107,6 @@ export const ReviewFormModal: React.SFC<Props> = ({
               name="rating"
             />
           </FormControl>
-
           <Field
             component={Textarea}
             autoFocus={autoFocus}

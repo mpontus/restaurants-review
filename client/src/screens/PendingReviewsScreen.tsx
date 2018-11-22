@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { ReviewListContainer } from "../containers/ReviewListContainer";
-import { ReviewListItemContainer } from "../containers/ReviewListItemContainer";
+import { PendingReviewListContainer } from "../containers/PendingReviewListContainer";
+import { ReviewContainer } from "../containers/ReviewListItemContainer";
 
 /**
  * Pending reviews screen
@@ -11,12 +11,11 @@ export const PendingReviewsScreen = () => {
   const [currentPage, setPage] = useState(0);
 
   return (
-    <ReviewListContainer
-      pending={true}
+    <PendingReviewListContainer
       currentPage={currentPage}
       onPrev={() => setPage(page => page - 1)}
       onNext={() => setPage(page => page + 1)}
-      renderItem={id => <ReviewListItemContainer key={id} id={id} />}
+      renderItem={id => <ReviewContainer key={id} id={id} />}
     />
   );
 };
