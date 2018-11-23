@@ -64,8 +64,12 @@ export class PlaceController {
    */
   @Get(':id')
   @ApiOkResponse({ type: Place })
-  public async getPlace(@Param('id') id: string): Promise<Place> {
-    return this.placeService.getPlace(id);
+  @UseGuards(AuthGuard)
+  public async getPlace(
+    @Req() req: IAuthRequest,
+    @Param('id') id: string,
+  ): Promise<Place> {
+    return this.placeService.getPlace(id, req.user);
   }
 
   /**
@@ -138,12 +142,14 @@ export class PlaceController {
    * Get place reviews
    */
   @Get(':id/reviews')
+  @UseGuards(AuthGuard)
   @ApiResponse({ status: 200, type: ReviewList })
   public async getReviews(
+    @Req() req: IAuthRequest,
     @Param('id') id: string,
     @Query() criteria: ListPlaceReviewsCriteria,
   ): Promise<ReviewList> {
-    const place = await this.placeService.getPlace(id);
+    const place = await this.placeService.getPlace(id, req.user);
 
     return this.reviewService.listPlaceReviews(place, criteria);
   }

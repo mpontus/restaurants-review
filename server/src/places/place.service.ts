@@ -21,8 +21,8 @@ export class PlaceService {
   /**
    * Retrieve single place by its ID
    */
-  public async getPlace(id: string): Promise<Place> {
-    const place = await this.placeRepository.findById(id);
+  public async getPlace(id: string, actor?: Principal): Promise<Place> {
+    const place = await this.placeRepository.findById(id, actor);
 
     if (place === undefined) {
       throw new NotFoundException();

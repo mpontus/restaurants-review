@@ -46,10 +46,11 @@ export const reviewEntityReducer: Reducer<State, Action> = (
       };
     }
 
+    // Extract reviews from place details
     case getType(loadPlace.success): {
-      const { bestReview, worstReview } = action.payload.place;
+      const { bestReview, worstReview, ownReview } = action.payload.place;
 
-      return [bestReview, worstReview].reduce(
+      return [bestReview, worstReview, ownReview].reduce(
         (acc, review) =>
           review === undefined ? acc : { ...acc, [review.id]: review },
         state

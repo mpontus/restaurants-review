@@ -7,6 +7,7 @@ import {
   Entity,
   Index,
   ManyToOne,
+  OneToOne,
   PrimaryColumn,
 } from 'typeorm';
 import { UserEntity } from 'user/entity/user.entity';
@@ -35,11 +36,18 @@ export class PlaceEntity {
   /**
    * Place Owner
    *
-   * We never need to join user entity, this relation only serves the
-   * purpose for cascade deletion.
+   * We need this for cascade deletion.
    */
   @ManyToOne(() => UserEntity, { onDelete: 'CASCADE' })
   public owner: UserEntity;
+
+  /**
+   * User's own review
+   *
+   * Join condition must be specified in query builder.
+   */
+  @OneToOne(() => ReviewEntity, review => review.place)
+  public ownReview: ReviewEntity;
 
   /**
    * Place name
@@ -99,6 +107,9 @@ export class PlaceEntity {
         : undefined,
       worstReview: this.worstReview
         ? PlaceReview.fromReview(this.worstReview.toModel())
+        : undefined,
+      ownReview: this.ownReview
+        ? PlaceReview.fromReview(this.ownReview.toModel())
         : undefined,
     });
   }

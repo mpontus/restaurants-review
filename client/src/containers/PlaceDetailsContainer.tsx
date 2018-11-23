@@ -115,11 +115,9 @@ export const BasePlaceDetailsContainer = ({
         <ListItemText primary={place.title} secondary={place.address} />
         <Rating value={place.rating} />
       </ListItem>
-      {!place.ownReview && (
-        <Button fullWidth={true} color="primary" onClick={showReviewModal}>
-          Submit Review
-        </Button>
-      )}
+      <Button fullWidth={true} color="primary" onClick={showReviewModal}>
+        Submit Review
+      </Button>
       {place.bestReview && (
         <React.Fragment>
           <ListSubheader disableSticky={true}>Highest Review</ListSubheader>

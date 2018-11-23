@@ -57,6 +57,12 @@ export class Place {
   public worstReview?: PlaceReview;
 
   /**
+   * User's own review
+   */
+  @ApiModelProperty()
+  public ownReview?: PlaceReview;
+
+  /**
    * Constructor
    */
   constructor(values: Partial<Place>) {

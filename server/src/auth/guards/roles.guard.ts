@@ -18,6 +18,10 @@ export class RolesGuard implements CanActivate {
   public canActivate(context: ExecutionContext): boolean {
     const req: IAuthRequest = context.switchToHttp().getRequest();
 
+    if (!req.user) {
+      return false;
+    }
+
     return req.user.roles.some(this.matchRole.bind(this));
   }
 

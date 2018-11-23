@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
+import { Principal } from 'common/model/principal.model';
 import { Between, EntityManager, FindConditions } from 'typeorm';
 import uuid from 'uuid';
 import { PlaceEntity } from './entity/place.entity';
@@ -42,19 +43,33 @@ export class PlaceRepository {
   /**
    * Return single place by id
    */
-  public async findById(id: string): Promise<Place | undefined> {
-    const placeEntity = await this.manager.findOne(
-      PlaceEntity,
-      { id },
-      {
-        relations: [
-          'bestReview',
-          'bestReview.author',
-          'worstReview',
-          'worstReview.author',
-        ],
-      },
-    );
+  public async findById(
+    id: string,
+    actor?: Principal,
+  ): Promise<Place | undefined> {
+    const queryBuilder = this.manager
+      .createQueryBuilder(PlaceEntity, 'place')
+      .where({ id })
+      // Include relations for best review and worst review
+      .leftJoinAndSelect('place.bestReview', 'bestReview')
+      .leftJoinAndSelect('bestReview.author', 'bestReview_author')
+      .leftJoinAndSelect('place.worstReview', 'worstReview')
+      .leftJoinAndSelect('worstReview.author', 'worstReview_author');
+
+    // Include user's own review when the request is made by
+    // authenticated user.
+    if (actor !== undefined) {
+      queryBuilder
+        .leftJoinAndSelect(
+          'place.ownReview',
+          'ownReview',
+          'ownReview.author = :id AND ownReview.id NOT IN (place.bestReview, place.worstReview)',
+          { id: actor.id },
+        )
+        .leftJoinAndSelect('ownReview.author', 'ownReview_author');
+    }
+
+    const placeEntity = await queryBuilder.getOne();
 
     if (placeEntity === undefined) {
       return undefined;

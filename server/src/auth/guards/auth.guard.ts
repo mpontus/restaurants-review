@@ -17,7 +17,8 @@ export class AuthGuard implements CanActivate {
     const req = context.switchToHttp().getRequest();
 
     if (!req.headers || !req.headers.authorization) {
-      return false;
+      // Use RolesGuard to restrict access to authenticated users.
+      return true;
     }
 
     const [schema, credentials, ...rest] = req.headers.authorization.split(' ');

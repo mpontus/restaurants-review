@@ -63,8 +63,6 @@ export class ReviewController {
     @Param('id') id: string,
     @Body() data: UpdateReviewDto,
   ): Promise<Review> {
-    console.log('PATCH ID');
-
     const review = await this.reviewService.getReview(id);
 
     return this.reviewService.updateReview(req.user, review, data);
