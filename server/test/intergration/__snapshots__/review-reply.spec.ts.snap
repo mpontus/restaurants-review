@@ -19,34 +19,15 @@ Object {
     "address": "262 Franecki Courts",
     "id": "05bd7b00-f274-5b91-9c48-08bfa24cb9bd",
     "rating": 0,
+    "reviewCount": 0,
     "title": "Nicolas - Satterfield",
   },
-  "rating": 2.81,
+  "rating": 2,
   "reply": "Or candidate trouble listen ok.",
 }
 `;
 
 exports[`Replying to review when user is place owner when comment is empty should fail 1`] = `
-Object {
-  "error": "Bad Request",
-  "message": Array [
-    Object {
-      "children": Array [],
-      "constraints": Object {
-        "isNotEmpty": "comment should not be empty",
-      },
-      "property": "comment",
-      "target": Object {
-        "comment": "",
-      },
-      "value": "",
-    },
-  ],
-  "statusCode": 400,
-}
-`;
-
-exports[`Replying to review when user is place owner when comment is empty should fail 2`] = `
 Object {
   "error": "Bad Request",
   "message": Array [

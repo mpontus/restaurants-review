@@ -21,9 +21,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 2.67,
+      "rating": 2,
     },
     Object {
       "author": Object {
@@ -36,9 +37,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 4.17,
+      "rating": 4,
     },
     Object {
       "author": Object {
@@ -51,9 +53,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 2.06,
+      "rating": 2,
     },
     Object {
       "author": Object {
@@ -66,9 +69,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 3.84,
+      "rating": 3,
     },
     Object {
       "author": Object {
@@ -81,9 +85,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 3.45,
+      "rating": 3,
     },
     Object {
       "author": Object {
@@ -96,9 +101,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 1.46,
+      "rating": 1,
     },
     Object {
       "author": Object {
@@ -111,9 +117,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 3.35,
+      "rating": 3,
     },
     Object {
       "author": Object {
@@ -126,9 +133,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 2.89,
+      "rating": 2,
     },
     Object {
       "author": Object {
@@ -141,9 +149,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 2.25,
+      "rating": 2,
     },
     Object {
       "author": Object {
@@ -156,9 +165,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 3.6,
+      "rating": 3,
     },
   ],
   "total": 11,
@@ -222,9 +232,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 4.17,
+      "rating": 4,
     },
     Object {
       "author": Object {
@@ -237,9 +248,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 2.67,
+      "rating": 2,
     },
   ],
   "total": 11,
@@ -323,9 +335,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 2.06,
+      "rating": 2,
     },
     Object {
       "author": Object {
@@ -338,9 +351,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 1.46,
+      "rating": 1,
     },
     Object {
       "author": Object {
@@ -353,9 +367,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 3.45,
+      "rating": 3,
     },
     Object {
       "author": Object {
@@ -368,9 +383,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 3.35,
+      "rating": 3,
     },
     Object {
       "author": Object {
@@ -383,9 +399,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 2.25,
+      "rating": 2,
     },
     Object {
       "author": Object {
@@ -398,9 +415,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 2.89,
+      "rating": 2,
     },
     Object {
       "author": Object {
@@ -413,9 +431,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 4.69,
+      "rating": 4,
     },
     Object {
       "author": Object {
@@ -428,9 +447,10 @@ Object {
         "address": "261 Alexandre Forks",
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
+        "reviewCount": 0,
         "title": "The Exhibit",
       },
-      "rating": 3.6,
+      "rating": 3,
     },
   ],
   "total": 11,

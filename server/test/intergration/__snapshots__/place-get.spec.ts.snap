@@ -5,6 +5,7 @@ Object {
   "address": "1187 Weskut Ridge",
   "id": "d3973942-133b-55e4-920e-7b0033ab9d38",
   "rating": 3.75,
+  "reviewCount": 0,
   "title": "The Noodle Farmer",
 }
 `;
