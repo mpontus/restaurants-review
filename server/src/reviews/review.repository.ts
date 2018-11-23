@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
+import { Place } from 'places/model/place.model';
 import { EntityManager, FindConditions } from 'typeorm';
 import uuid from 'uuid';
 import { ReviewEntity } from './entity/review.entity';
@@ -44,6 +45,48 @@ export class ReviewRepository {
    */
   public async findById(id: string): Promise<Review | undefined> {
     const reviewEntity = await this.manager.findOne(ReviewEntity, id, {
+      relations: ['place', 'author'],
+    });
+
+    if (reviewEntity === undefined) {
+      return undefined;
+    }
+
+    return reviewEntity.toModel();
+  }
+
+  /**
+   * Return lowest rated place review
+   */
+  public async findWorstReview(place: Place): Promise<Review | undefined> {
+    const reviewEntity = await this.manager.findOne(ReviewEntity, {
+      where: {
+        place: { id: place.id },
+      },
+      order: {
+        rating: 'ASC',
+      },
+      relations: ['place', 'author'],
+    });
+
+    if (reviewEntity === undefined) {
+      return undefined;
+    }
+
+    return reviewEntity.toModel();
+  }
+
+  /**
+   * Return highest rated place review
+   */
+  public async findBestReview(place: Place): Promise<Review | undefined> {
+    const reviewEntity = await this.manager.findOne(ReviewEntity, {
+      where: {
+        place: { id: place.id },
+      },
+      order: {
+        rating: 'DESC',
+      },
       relations: ['place', 'author'],
     });
 

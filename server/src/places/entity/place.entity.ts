@@ -1,4 +1,6 @@
+import { PlaceReview } from 'places/model/place-review.model';
 import { Place } from 'places/model/place.model';
+import { ReviewEntity } from 'reviews/entity/review.entity';
 import {
   Column,
   CreateDateColumn,
@@ -58,6 +60,18 @@ export class PlaceEntity {
   public rating: number;
 
   /**
+   * Highest rated review
+   */
+  @ManyToOne(() => ReviewEntity, { nullable: true })
+  public bestReview: ReviewEntity | null;
+
+  /**
+   * Lowest rated review
+   */
+  @ManyToOne(() => ReviewEntity, { nullable: true })
+  public worstReview: ReviewEntity | null;
+
+  /**
    * Auto-generation creation date used in sorting
    */
   @CreateDateColumn()
@@ -73,6 +87,12 @@ export class PlaceEntity {
       title: this.title,
       address: this.address,
       rating: this.rating,
+      bestReview: this.bestReview
+        ? PlaceReview.fromReview(this.bestReview.toModel())
+        : undefined,
+      worstReview: this.worstReview
+        ? PlaceReview.fromReview(this.worstReview.toModel())
+        : undefined,
     });
   }
 }

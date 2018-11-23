@@ -1,5 +1,6 @@
 import { ApiModelProperty } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
+import { PlaceReview } from './place-review.model';
 
 /**
  * Place Model
@@ -36,6 +37,18 @@ export class Place {
    */
   @ApiModelProperty()
   public rating: number;
+
+  /**
+   * Highest rated review
+   */
+  @ApiModelProperty()
+  public bestReview?: PlaceReview;
+
+  /**
+   * Highest rated review
+   */
+  @ApiModelProperty()
+  public worstReview?: PlaceReview;
 
   /**
    * Constructor

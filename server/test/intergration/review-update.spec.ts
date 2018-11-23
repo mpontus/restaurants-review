@@ -4,6 +4,11 @@ import { resetDb } from '../utils/reset-db';
 
 let nestApp: any;
 
+// Hate doing this, but I don't see a better way to wait for event
+// handlers to finish processing before moving on to the next test.
+const waitForEventsToFlush = () =>
+  new Promise(resolve => setTimeout(resolve, 1000));
+
 beforeAll(async () => {
   nestApp = await initApp();
 });
@@ -21,6 +26,8 @@ describe('Update review', () => {
     const authSeed = require('../seed/admin-user');
 
     beforeEach(() => authSeed.run(nestApp));
+
+    afterEach(waitForEventsToFlush);
 
     it('should update rating', async () => {
       const response = await supertest(nestApp.getHttpServer())

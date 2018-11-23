@@ -1,4 +1,6 @@
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
+import { ModuleRef } from '@nestjs/core';
+import { CQRSModule, EventBus } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from 'auth/auth.module';
 import { UserModule } from 'user/user.module';
@@ -15,7 +17,24 @@ import { ReviewService } from './review.service';
 @Module({
   controllers: [ReviewController],
   providers: [ReviewService, ReviewRepository],
-  imports: [AuthModule, UserModule, TypeOrmModule.forFeature([ReviewEntity])],
+  imports: [
+    AuthModule,
+    UserModule,
+    CQRSModule,
+    TypeOrmModule.forFeature([ReviewEntity]),
+  ],
   exports: [ReviewService],
 })
-export class ReviewModule {}
+export class ReviewModule implements OnModuleInit {
+  constructor(
+    private readonly moduleRef: ModuleRef,
+    private readonly event$: EventBus,
+  ) {}
+
+  /**
+   * Initialize EventBus
+   */
+  public onModuleInit(): void {
+    this.event$.setModuleRef(this.moduleRef);
+  }
+}

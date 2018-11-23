@@ -3,9 +3,13 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { EventBus } from '@nestjs/cqrs';
 import { Principal } from 'common/model/principal.model';
 import { Place } from 'places/model/place.model';
 import { UserRepository } from 'user/user.repository';
+import { ReviewCreatedEvent } from './events/review-created.event';
+import { ReviewDeletedEvent } from './events/review-deleted.event';
+import { ReviewUpdatedEvent } from './events/review-updated.event';
 import { CreateReviewDto } from './model/create-review-dto.model';
 import { FindReviewsCriteria } from './model/find-reviews-criteria.model';
 import { ListPendingReviewsCriteria } from './model/list-pending-reviews-criteria.model';
@@ -27,6 +31,7 @@ export class ReviewService {
   constructor(
     private readonly reviewRepository: ReviewRepository,
     private readonly userRepository: UserRepository,
+    private readonly eventBus: EventBus,
   ) {}
 
   /**
@@ -80,6 +85,26 @@ export class ReviewService {
   }
 
   /**
+   * Return lowest and highest rated reviews for a place
+   */
+  public async getMarginReviews(
+    place: Place,
+  ): Promise<[Review | undefined, Review | undefined]> {
+    let worst = await this.reviewRepository.findWorstReview(place);
+    let best = await this.reviewRepository.findBestReview(place);
+
+    if (best !== undefined && best.rating <= 3) {
+      best = undefined;
+    }
+
+    if (worst !== undefined && worst.rating > 3) {
+      worst = undefined;
+    }
+
+    return [worst, best];
+  }
+
+  /**
    * Create new review
    */
   public async createReview(
@@ -100,7 +125,11 @@ export class ReviewService {
       comment: data.comment,
     });
 
-    return this.reviewRepository.create(review);
+    const result = await this.reviewRepository.create(review);
+
+    this.eventBus.publish(new ReviewCreatedEvent(result));
+
+    return result;
   }
 
   /**
@@ -117,7 +146,11 @@ export class ReviewService {
       reply: data.reply || review.reply,
     });
 
-    return this.reviewRepository.update(review);
+    const result = await this.reviewRepository.update(review);
+
+    this.eventBus.publish(new ReviewUpdatedEvent(result));
+
+    return result;
   }
 
   /**
@@ -130,7 +163,11 @@ export class ReviewService {
   ): Promise<Review> {
     review.reply = reply.comment;
 
-    return this.reviewRepository.update(review);
+    const result = await this.reviewRepository.update(review);
+
+    this.eventBus.publish(new ReviewUpdatedEvent(result));
+
+    return result;
   }
 
   /**
@@ -138,5 +175,7 @@ export class ReviewService {
    */
   public async deleteReview(actor: Principal, review: Review): Promise<void> {
     await this.reviewRepository.remove(review);
+
+    this.eventBus.publish(new ReviewDeletedEvent(review));
   }
 }

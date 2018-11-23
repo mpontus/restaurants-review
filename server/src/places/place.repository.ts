@@ -43,7 +43,18 @@ export class PlaceRepository {
    * Return single place by id
    */
   public async findById(id: string): Promise<Place | undefined> {
-    const placeEntity = await this.manager.findOne(PlaceEntity, { id });
+    const placeEntity = await this.manager.findOne(
+      PlaceEntity,
+      { id },
+      {
+        relations: [
+          'bestReview',
+          'bestReview.author',
+          'worstReview',
+          'worstReview.author',
+        ],
+      },
+    );
 
     if (placeEntity === undefined) {
       return undefined;
@@ -75,6 +86,8 @@ export class PlaceRepository {
     await this.manager.update(PlaceEntity, place.id, {
       title: place.title,
       address: place.address,
+      bestReview: place.bestReview ? { id: place.bestReview.id } : null,
+      worstReview: place.worstReview ? { id: place.worstReview.id } : null,
     });
 
     return place;

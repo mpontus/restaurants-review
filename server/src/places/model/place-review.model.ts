@@ -1,24 +1,19 @@
 import { ApiResponseModelProperty } from '@nestjs/swagger';
-import { Place } from 'places/model/place.model';
-import { ReviewAuthor } from './review-author.model';
+import { ReviewAuthor } from 'reviews/model/review-author.model';
+import { Review } from 'reviews/model/review.model';
 
 /**
- * Review Model
+ * Place Review Model
  *
- * Describes a review left for a place
+ * Describes a review embedded in a place object.
  */
-export class Review {
+export class PlaceReview {
+
   /**
    * Review id
    */
   @ApiResponseModelProperty()
   public id: string;
-
-  /**
-   * Place for which the review is made.
-   */
-  @ApiResponseModelProperty()
-  public place: Place;
 
   /**
    * Review author
@@ -28,8 +23,6 @@ export class Review {
 
   /**
    * Review rating
-   *
-   * A number between 1 and 5.
    */
   @ApiResponseModelProperty()
   public rating: number;
@@ -55,7 +48,20 @@ export class Review {
   /**
    * Constructor
    */
-  constructor(values: Partial<Review>) {
+  constructor(values: Partial<PlaceReview>) {
     Object.assign(this, values);
+  }
+  /**
+   * Create PlaceReview from Review
+   */
+  public static fromReview(review: Review): PlaceReview {
+    return new PlaceReview({
+      id: review.id,
+      author: review.author,
+      rating: review.rating,
+      dateVisitted: review.dateVisitted,
+      comment: review.comment,
+      reply: review.reply,
+    });
   }
 }
