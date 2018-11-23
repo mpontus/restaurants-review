@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, PrimaryColumn, CreateDateColumn } from 'typeorm';
 import { User } from 'user/model/user.model';
 
 /**
@@ -41,6 +41,12 @@ export class UserEntity {
    */
   @Column('json')
   public roles: string[] = [];
+
+  /**
+   * Timestamp of user creation
+   */
+  @CreateDateColumn()
+  public createdAt: Date;
 
   /**
    * Transform entity to domain model
