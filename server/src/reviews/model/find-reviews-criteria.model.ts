@@ -15,6 +15,13 @@ export class FindReviewsCriteria extends PaginationParams {
   public ownerId?: string;
 
   /**
+   * Exclude following review ids
+   *
+   * Needed to remove duplication with highest, lowest, and own review.
+   */
+  public exclude: string[] = [];
+
+  /**
    * Constructor
    */
   constructor(values: Partial<FindReviewsCriteria>) {

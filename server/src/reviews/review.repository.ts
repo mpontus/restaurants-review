@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { Place } from 'places/model/place.model';
-import { EntityManager, FindConditions } from 'typeorm';
+import { EntityManager, FindConditions, Not, In } from 'typeorm';
 import uuid from 'uuid';
 import { ReviewEntity } from './entity/review.entity';
 import { FindReviewsCriteria } from './model/find-reviews-criteria.model';
@@ -155,6 +155,10 @@ export class ReviewRepository {
 
     if (criteria.placeId !== undefined) {
       where.place = { id: criteria.placeId };
+    }
+
+    if (criteria.exclude.length > 0) {
+      where.id = Not(In(criteria.exclude));
     }
 
     return where;
