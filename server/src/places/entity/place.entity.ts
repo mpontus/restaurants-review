@@ -68,13 +68,13 @@ export class PlaceEntity {
   /**
    * Highest rated review
    */
-  @ManyToOne(() => ReviewEntity, { nullable: true })
+  @ManyToOne(() => ReviewEntity, { onDelete: 'SET NULL', nullable: true })
   public bestReview: ReviewEntity | null;
 
   /**
    * Lowest rated review
    */
-  @ManyToOne(() => ReviewEntity, { nullable: true })
+  @ManyToOne(() => ReviewEntity, { onDelete: 'SET NULL', nullable: true })
   public worstReview: ReviewEntity | null;
 
   /**
