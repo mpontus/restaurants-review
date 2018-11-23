@@ -11,7 +11,7 @@ Object {
   "place": Object {
     "address": "261 Alexandre Forks",
     "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
-    "rating": null,
+    "rating": 0,
     "reviewCount": 0,
     "title": "The Exhibit",
   },
@@ -30,7 +30,7 @@ Object {
   "place": Object {
     "address": "261 Alexandre Forks",
     "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
-    "rating": null,
+    "rating": 0,
     "reviewCount": 0,
     "title": "The Exhibit",
   },
@@ -49,7 +49,7 @@ Object {
   "place": Object {
     "address": "261 Alexandre Forks",
     "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
-    "rating": null,
+    "rating": 0,
     "reviewCount": 0,
     "title": "The Exhibit",
   },

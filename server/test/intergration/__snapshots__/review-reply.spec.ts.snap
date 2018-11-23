@@ -46,23 +46,3 @@ Object {
   "statusCode": 400,
 }
 `;
-
-exports[`Replying to review when user is place owner when comment is empty should fail 2`] = `
-Object {
-  "error": "Bad Request",
-  "message": Array [
-    Object {
-      "children": Array [],
-      "constraints": Object {
-        "isNotEmpty": "comment should not be empty",
-      },
-      "property": "comment",
-      "target": Object {
-        "comment": "",
-      },
-      "value": "",
-    },
-  ],
-  "statusCode": 400,
-}
-`;
