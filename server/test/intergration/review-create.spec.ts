@@ -27,7 +27,6 @@ describe('Create review', () => {
         .post(`/places/${seed.places[0].id}/reviews`)
         .send({
           rating: 4,
-          dateVisitted: '1985-06-05',
           comment: 'Have heart cover analysis carry.',
         })
         .set('Authorization', `Bearer ${authSeed.accessToken}`)
@@ -35,6 +34,7 @@ describe('Create review', () => {
 
       expect(response.body).toMatchSnapshot({
         id: expect.any(String),
+        dateVisitted: expect.any(String),
       });
     });
 
@@ -44,71 +44,6 @@ describe('Create review', () => {
           .post(`/places/${seed.places[0].id}/reviews`)
           .send({
             rating: 0,
-            dateVisitted: '1985-06-05',
-            comment: 'Have heart cover analysis carry.',
-          })
-          .set('Authorization', `Bearer ${authSeed.accessToken}`)
-          .expect(400);
-
-        expect(response.body).toMatchSnapshot();
-      });
-    });
-
-    describe('when visit date is empty', () => {
-      it('should fail', async () => {
-        const response = await supertest(nestApp.getHttpServer())
-          .post(`/places/${seed.places[0].id}/reviews`)
-          .send({
-            rating: 4,
-            dateVisitted: '',
-            comment: 'Have heart cover analysis carry.',
-          })
-          .set('Authorization', `Bearer ${authSeed.accessToken}`)
-          .expect(400);
-
-        expect(response.body).toMatchSnapshot();
-      });
-    });
-
-    describe('when visit date is in the future', () => {
-      it('should fail', async () => {
-        const response = await supertest(nestApp.getHttpServer())
-          .post(`/places/${seed.places[0].id}/reviews`)
-          .send({
-            rating: 4,
-            dateVisitted: '2044-07-14',
-            comment: 'Have heart cover analysis carry.',
-          })
-          .set('Authorization', `Bearer ${authSeed.accessToken}`)
-          .expect(400);
-
-        expect(response.body).toMatchSnapshot();
-      });
-    });
-
-    describe('when visit date is too far in the past', () => {
-      it('should fail', async () => {
-        const response = await supertest(nestApp.getHttpServer())
-          .post(`/places/${seed.places[0].id}/reviews`)
-          .send({
-            rating: 4,
-            dateVisitted: '1044-07-14',
-            comment: 'Have heart cover analysis carry.',
-          })
-          .set('Authorization', `Bearer ${authSeed.accessToken}`)
-          .expect(400);
-
-        expect(response.body).toMatchSnapshot();
-      });
-    });
-
-    describe('when visit date is invalid', () => {
-      it('should fail', async () => {
-        const response = await supertest(nestApp.getHttpServer())
-          .post(`/places/${seed.places[0].id}/reviews`)
-          .send({
-            rating: 4,
-            dateVisitted: '4444-44-44',
             comment: 'Have heart cover analysis carry.',
           })
           .set('Authorization', `Bearer ${authSeed.accessToken}`)
@@ -124,7 +59,6 @@ describe('Create review', () => {
           .post(`/places/${seed.places[0].id}/reviews`)
           .send({
             rating: 4,
-            dateVisitted: '1985-06-05',
             comment: '',
           })
           .set('Authorization', `Bearer ${authSeed.accessToken}`)
@@ -140,7 +74,6 @@ describe('Create review', () => {
           .post(`/places/${seed.places[0].id}/reviews`)
           .send({
             rating: 4,
-            dateVisitted: '1985-06-05',
             comment: 'x'.repeat(9000),
           })
           .set('Authorization', `Bearer ${authSeed.accessToken}`)
@@ -157,7 +90,6 @@ describe('Create review', () => {
         .post(`/places/${seed.places[0].id}/reviews`)
         .send({
           rating: 4,
-          dateVisitted: '1985-06-05',
           comment: 'Have heart cover analysis carry.',
         })
         .expect(403);

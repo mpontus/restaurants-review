@@ -94,10 +94,10 @@ export const reviews = [
     '1986-03-12',
     'Before guess college speak.',
   ],
-].map(([id, rating, dateVisitted, comment]) => ({
+].map(([id, rating, createdAt, comment]) => ({
   id,
   rating,
-  dateVisitted,
+  createdAt,
   comment,
 }));
 

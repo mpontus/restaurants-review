@@ -70,10 +70,10 @@ export const reviews = [
     'Way house answer start behind old.',
     'Serious inside else memory if six.',
   ],
-].map(([reviewId, rating, dateVisitted, comment, reply]) => ({
+].map(([reviewId, rating, createdAt, comment, reply]) => ({
   id: reviewId,
   rating,
-  dateVisitted,
+  createdAt,
   comment,
   reply,
 }));

@@ -98,7 +98,6 @@ export class ReviewService {
       author: new ReviewAuthor(user),
       rating: data.rating,
       comment: data.comment,
-      dateVisitted: data.dateVisitted,
     });
 
     return this.reviewRepository.create(review);
@@ -116,7 +115,6 @@ export class ReviewService {
       rating: data.rating || review.rating,
       comment: data.comment || review.comment,
       reply: data.reply || review.reply,
-      dateVisitted: data.dateVisitted || review.dateVisitted,
     });
 
     return this.reviewRepository.update(review);

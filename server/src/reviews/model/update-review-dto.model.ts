@@ -7,9 +7,7 @@ import {
   Max,
   MaxLength,
   Min,
-  Validate,
 } from 'class-validator';
-import { IsValidVisitDate } from 'reviews/validator/is-valid-visit-date';
 
 /**
  * Describes request body for updating review details
@@ -27,18 +25,6 @@ export class UpdateReviewDto {
     enum: [1, 2, 3, 4, 5],
   })
   public rating?: number;
-
-  /**
-   * Update date of the visit
-   */
-  @IsOptional()
-  @IsString()
-  @Validate(IsValidVisitDate)
-  @ApiModelProperty({
-    type: 'string',
-    format: 'date',
-  })
-  public dateVisitted?: string;
 
   /**
    * Updated text of the review comment

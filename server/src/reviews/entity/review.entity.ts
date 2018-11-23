@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { PlaceEntity } from 'places/entity/place.entity';
 import { ReviewAuthor } from 'reviews/model/review-author.model';
 import { Review } from 'reviews/model/review.model';
@@ -57,12 +58,6 @@ export class ReviewEntity {
   public reply?: string | null;
 
   /**
-   * Date of the visit
-   */
-  @Column({ type: 'date' })
-  public dateVisitted: string;
-
-  /**
    * Timestamp of the review creation
    */
   @CreateDateColumn()
@@ -93,7 +88,7 @@ export class ReviewEntity {
       rating: this.rating,
       comment: this.comment,
       reply: this.reply || undefined,
-      dateVisitted: this.dateVisitted,
+      dateVisitted: moment(this.createdAt).format('YYYY-MM-DD'),
     });
   }
 }

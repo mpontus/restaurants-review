@@ -65,11 +65,13 @@ export class ReviewRepository {
       author: { id: review.author.id },
       rating: review.rating,
       comment: review.comment,
-      dateVisitted: review.dateVisitted,
       pendingFor: review.place ? review.place.ownerId : null,
     });
 
     await this.manager.save(ReviewEntity, reviewEntity);
+
+    // Transfer generated date from database entity to model
+    review.dateVisitted = reviewEntity.toModel().dateVisitted;
 
     return review;
   }
@@ -82,7 +84,6 @@ export class ReviewRepository {
       rating: review.rating,
       comment: review.comment,
       reply: review.reply,
-      dateVisitted: review.dateVisitted,
       ...(review.reply ? { pendingFor: null } : {}),
     });
 

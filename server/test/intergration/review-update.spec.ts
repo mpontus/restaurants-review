@@ -34,18 +34,6 @@ describe('Update review', () => {
       expect(response.body).toMatchSnapshot();
     });
 
-    it('should update visit date', async () => {
-      const response = await supertest(nestApp.getHttpServer())
-        .patch(`/reviews/${seed.reviews[0].id}`)
-        .send({
-          dateVisitted: '1986-01-24',
-        })
-        .set('Authorization', `Bearer ${authSeed.accessToken}`)
-        .expect(200);
-
-      expect(response.body).toMatchSnapshot();
-    });
-
     it('should update comment', async () => {
       const response = await supertest(nestApp.getHttpServer())
         .patch(`/reviews/${seed.reviews[0].id}`)
@@ -76,62 +64,6 @@ describe('Update review', () => {
           .patch(`/reviews/${seed.reviews[0].id}`)
           .send({
             rating: 0,
-          })
-          .set('Authorization', `Bearer ${authSeed.accessToken}`)
-          .expect(400);
-
-        expect(response.body).toMatchSnapshot();
-      });
-    });
-
-    describe('when visit date is empty', () => {
-      it('should fail', async () => {
-        const response = await supertest(nestApp.getHttpServer())
-          .patch(`/reviews/${seed.reviews[0].id}`)
-          .send({
-            dateVisitted: '',
-          })
-          .set('Authorization', `Bearer ${authSeed.accessToken}`)
-          .expect(400);
-
-        expect(response.body).toMatchSnapshot();
-      });
-    });
-
-    describe('when visit date is in the future', () => {
-      it('should fail', async () => {
-        const response = await supertest(nestApp.getHttpServer())
-          .patch(`/reviews/${seed.reviews[0].id}`)
-          .send({
-            dateVisitted: '2044-07-14',
-          })
-          .set('Authorization', `Bearer ${authSeed.accessToken}`)
-          .expect(400);
-
-        expect(response.body).toMatchSnapshot();
-      });
-    });
-
-    describe('when visit date is too far in the past', () => {
-      it('should fail', async () => {
-        const response = await supertest(nestApp.getHttpServer())
-          .patch(`/reviews/${seed.reviews[0].id}`)
-          .send({
-            dateVisitted: '1044-07-14',
-          })
-          .set('Authorization', `Bearer ${authSeed.accessToken}`)
-          .expect(400);
-
-        expect(response.body).toMatchSnapshot();
-      });
-    });
-
-    describe('when visit date is invalid', () => {
-      it('should fail', async () => {
-        const response = await supertest(nestApp.getHttpServer())
-          .patch(`/reviews/${seed.reviews[0].id}`)
-          .send({
-            dateVisitted: '4444-44-44',
           })
           .set('Authorization', `Bearer ${authSeed.accessToken}`)
           .expect(400);
