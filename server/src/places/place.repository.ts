@@ -63,7 +63,7 @@ export class PlaceRepository {
         .leftJoinAndSelect(
           'place.ownReview',
           'ownReview',
-          'ownReview.author = :id AND ownReview.id NOT IN (place.bestReview, place.worstReview)',
+          'ownReview.author = :id',
           { id: actor.id },
         )
         .leftJoinAndSelect('ownReview.author', 'ownReview_author');

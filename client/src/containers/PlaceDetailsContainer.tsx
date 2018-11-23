@@ -109,6 +109,18 @@ export const BasePlaceDetailsContainer = ({
     <CreateReviewModalContainer place={place} onCancel={hideReviewModal} />
   ));
 
+  const { bestReview, worstReview } = place;
+  let { ownReview } = place;
+
+  // Don't show own review when its already shown as best or worst review.
+  // We have to compare by id since we don't have store normailzation
+  const isSame = (some: any, other: any) =>
+    !(some === undefined || other === undefined || some.id !== other.id);
+
+  if (isSame(ownReview, bestReview) || isSame(ownReview, worstReview)) {
+    ownReview = undefined;
+  }
+
   return (
     <React.Fragment>
       <ListItem>
@@ -118,25 +130,22 @@ export const BasePlaceDetailsContainer = ({
       <Button fullWidth={true} color="primary" onClick={showReviewModal}>
         Submit Review
       </Button>
-      {place.bestReview && (
+      {bestReview && (
         <React.Fragment>
           <ListSubheader disableSticky={true}>Highest Review</ListSubheader>
-          <ReviewContainer key={place.bestReview.id} id={place.bestReview.id} />
+          <ReviewContainer key={bestReview.id} id={bestReview.id} />
         </React.Fragment>
       )}
-      {place.worstReview && (
+      {worstReview && (
         <React.Fragment>
           <ListSubheader disableSticky={true}>Lowest Review</ListSubheader>
-          <ReviewContainer
-            key={place.worstReview.id}
-            id={place.worstReview.id}
-          />
+          <ReviewContainer key={worstReview.id} id={worstReview.id} />
         </React.Fragment>
       )}
-      {place.ownReview && (
+      {ownReview && (
         <React.Fragment>
           <ListSubheader disableSticky={true}>Your Review</ListSubheader>
-          <ReviewContainer key={place.ownReview.id} id={place.ownReview.id} />
+          <ReviewContainer key={ownReview.id} id={ownReview.id} />
         </React.Fragment>
       )}
       <PlaceReviewListContainer
