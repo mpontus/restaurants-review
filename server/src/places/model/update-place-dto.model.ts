@@ -1,10 +1,5 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import {
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  MaxLength,
-} from 'class-validator';
+import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 
 /**
  * Describes request body for restaurant update
@@ -28,5 +23,5 @@ export class UpdatePlaceDto {
   @IsNotEmpty()
   @MaxLength(60)
   @ApiModelProperty()
-  public address: string;
+  public address?: string;
 }

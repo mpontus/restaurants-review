@@ -50,8 +50,6 @@ export class UpdateRating implements IEventHandler<Events> {
       reviewCount--;
     }
 
-    Object.assign(place, { rating, reviewCount });
-
-    await this.placeRepository.update(place);
+    await this.placeRepository.update(place, { rating, reviewCount });
   }
 }

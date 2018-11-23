@@ -1,11 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { Principal } from 'common/model/principal.model';
-import { Between, EntityManager, FindConditions } from 'typeorm';
+import { Between, EntityManager, FindConditions, DeepPartial } from 'typeorm';
 import uuid from 'uuid';
 import { PlaceEntity } from './entity/place.entity';
 import { FindPlacesCriteria } from './model/find-places-criteria.model';
 import { Place } from './model/place.model';
+import { clean } from 'common/utils/clean';
 
 /**
  * Place Repository
@@ -97,17 +98,23 @@ export class PlaceRepository {
   /**
    * Update place details
    */
-  public async update(place: Place): Promise<Place> {
-    await this.manager.update(PlaceEntity, place.id, {
-      title: place.title,
-      address: place.address,
-      rating: place.rating,
-      reviewCount: place.reviewCount,
-      bestReview: place.bestReview ? { id: place.bestReview.id } : null,
-      worstReview: place.worstReview ? { id: place.worstReview.id } : null,
+  public async update(place: Place, diff: Partial<Place>): Promise<Place> {
+    const update: DeepPartial<PlaceEntity> = clean({
+      title: diff.title,
+      address: diff.address,
+      rating: diff.rating,
+      reviewCount: diff.reviewCount,
+      bestReview: diff.bestReview
+        ? { id: diff.bestReview.id }
+        : diff.bestReview,
+      worstReview: diff.worstReview
+        ? { id: diff.worstReview.id }
+        : diff.worstReview,
     });
 
-    return place;
+    await this.manager.update(PlaceEntity, place.id, update);
+
+    return Object.assign(place, clean(diff));
   }
 
   /**

@@ -34,8 +34,6 @@ export class UpdateMarginReviews implements IEventHandler<{ review: Review }> {
 
     Logger.log({ place, worstReview, bestReview }, UpdateMarginReviews.name);
 
-    Object.assign(place, { worstReview, bestReview });
-
-    await this.placeRepository.update(place);
+    await this.placeRepository.update(place, { worstReview, bestReview });
   }
 }
