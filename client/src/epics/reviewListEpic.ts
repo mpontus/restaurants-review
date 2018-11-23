@@ -5,6 +5,7 @@ import { isActionOf } from "typesafe-actions";
 import { Action } from "../actions";
 import * as actions from "../actions/reviewListActions";
 import { createPlaceReview } from "../api/method/createPlaceReview";
+import { createReviewReply } from "../api/method/createReviewReply";
 import { deleteReview } from "../api/method/deleteReview";
 import { getPendingReviews } from "../api/method/getPendingReviews";
 import { getPlaceReviews } from "../api/method/getPlaceReviews";
@@ -111,17 +112,17 @@ export const replyToReviewEpic: Epic<Action, Action, State, Dependencies> = (
   { api, config }
 ) => {
   return action$.pipe(
-    filter(isActionOf(actions.updateReview.request)),
+    filter(isActionOf(actions.replyToReview.request)),
     switchMap(action =>
       from(
-        updateReview(api, {
+        createReviewReply(api, {
           id: action.payload.review.id,
           ...action.payload.data
         })
       ).pipe(
-        map(review => actions.updateReview.success({ review })),
+        map(review => actions.replyToReview.success({ review })),
         handleApiError(error =>
-          actions.updateReview.failure({
+          actions.replyToReview.failure({
             review: action.payload.review,
             error
           })
