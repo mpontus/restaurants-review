@@ -1,4 +1,3 @@
-import { Logger } from '@nestjs/common';
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 import { PlaceRepository } from 'places/place.repository';
 import { ReviewCreatedEvent } from 'reviews/events/review-created.event';
@@ -22,17 +21,9 @@ export class UpdateMarginReviews implements IEventHandler<{ review: Review }> {
    */
   public async handle(event: { review: Review }): Promise<void> {
     const { place } = event.review;
-
-    Logger.log(
-      `Updating margin reviews for place: ${place.id} (${place.title})`,
-      UpdateMarginReviews.name,
-    );
-
     const [worstReview, bestReview] = await this.reviewService.getMarginReviews(
       place,
     );
-
-    Logger.log({ place, worstReview, bestReview }, UpdateMarginReviews.name);
 
     await this.placeRepository.update(place, { worstReview, bestReview });
   }
