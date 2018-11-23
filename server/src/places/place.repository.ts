@@ -86,6 +86,8 @@ export class PlaceRepository {
     await this.manager.update(PlaceEntity, place.id, {
       title: place.title,
       address: place.address,
+      rating: place.rating,
+      reviewCount: place.reviewCount,
       bestReview: place.bestReview ? { id: place.bestReview.id } : null,
       worstReview: place.worstReview ? { id: place.worstReview.id } : null,
     });

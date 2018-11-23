@@ -39,6 +39,12 @@ export class Place {
   public rating: number;
 
   /**
+   * Review count
+   */
+  @ApiModelProperty()
+  public reviewCount: number;
+
+  /**
    * Highest rated review
    */
   @ApiModelProperty()
