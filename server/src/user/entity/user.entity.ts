@@ -1,4 +1,10 @@
-import { Column, Entity, PrimaryColumn, CreateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryColumn,
+  Index,
+} from 'typeorm';
 import { User } from 'user/model/user.model';
 
 /**
@@ -7,6 +13,7 @@ import { User } from 'user/model/user.model';
  * Describes persistence logic for user objects using TypeORM.
  */
 @Entity()
+@Index(['createdAt'])
 export class UserEntity {
   /**
    * Auto generate ID

@@ -16,7 +16,7 @@ import { UserEntity } from 'user/entity/user.entity';
  */
 @Entity()
 @Index(['rating'])
-@Index(['ownerId', 'rating'])
+@Index(['ownerId', 'title'])
 export class PlaceEntity {
   /**
    * Place id
