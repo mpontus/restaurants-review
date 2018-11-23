@@ -37,7 +37,12 @@ export class PlaceService {
   public async listPublicPlaces(
     criteria: ListPublicPlacesCriteria,
   ): Promise<PlaceList> {
-    const findCriteria = new FindPlacesCriteria(criteria);
+    const findCriteria = new FindPlacesCriteria({
+      order: 'rating',
+      rating: criteria.rating,
+      take: criteria.take,
+      skip: criteria.skip,
+    });
     const total = await this.placeRepository.count(findCriteria);
     const items = await this.placeRepository.findAll(findCriteria);
 
@@ -51,7 +56,12 @@ export class PlaceService {
     actor: Principal,
     { take, skip }: ListOwnPlacesCriteria,
   ): Promise<PlaceList> {
-    const criteria = new FindPlacesCriteria({ ownerId: actor.id, take, skip });
+    const criteria = new FindPlacesCriteria({
+      order: 'name',
+      ownerId: actor.id,
+      take,
+      skip,
+    });
     const total = await this.placeRepository.count(criteria);
     const items = await this.placeRepository.findAll(criteria);
 

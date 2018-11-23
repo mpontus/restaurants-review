@@ -5,6 +5,14 @@ import { PaginationParams } from 'common/model/pagination-params.model';
  */
 export class FindPlacesCriteria extends PaginationParams {
   /**
+   * Place ordering
+   *
+   * Public places are sorted by rating, user's own places are sorted
+   * by name.
+   */
+  public order: 'name' | 'rating';
+
+  /**
    * Filter places by owner
    */
   public ownerId?: string;

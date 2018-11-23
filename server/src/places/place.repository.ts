@@ -29,6 +29,8 @@ export class PlaceRepository {
    */
   public async findAll(criteria: FindPlacesCriteria): Promise<Place[]> {
     const items = await this.manager.find(PlaceEntity, {
+      order:
+        criteria.order === 'rating' ? { rating: 'DESC' } : { title: 'ASC' },
       where: this.createWhereClause(criteria),
       take: criteria.take,
       skip: criteria.skip,
