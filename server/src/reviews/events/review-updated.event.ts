@@ -7,5 +7,8 @@ import { Review } from 'reviews/model/review.model';
  * Dispatched on review update.
  */
 export class ReviewUpdatedEvent implements IEvent {
-  constructor(public readonly review: Review) {}
+  constructor(
+    public readonly review: Review,
+    public readonly previousValues: Partial<Review>,
+  ) {}
 }

@@ -60,6 +60,12 @@ export class PlaceEntity {
   public rating: number;
 
   /**
+   * Total review count
+   */
+  @Column({ type: 'integer', default: 0 })
+  public reviewCount: number;
+
+  /**
    * Highest rated review
    */
   @ManyToOne(() => ReviewEntity, { nullable: true })
@@ -87,6 +93,7 @@ export class PlaceEntity {
       title: this.title,
       address: this.address,
       rating: this.rating,
+      reviewCount: this.reviewCount,
       bestReview: this.bestReview
         ? PlaceReview.fromReview(this.bestReview.toModel())
         : undefined,

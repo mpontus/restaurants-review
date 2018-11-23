@@ -140,6 +140,8 @@ export class ReviewService {
     review: Review,
     data: UpdateReviewDto,
   ): Promise<Review> {
+    const previousRating = review.rating;
+
     Object.assign(review, {
       rating: data.rating || review.rating,
       comment: data.comment || review.comment,
@@ -148,7 +150,11 @@ export class ReviewService {
 
     const result = await this.reviewRepository.update(review);
 
-    this.eventBus.publish(new ReviewUpdatedEvent(result));
+    this.eventBus.publish(
+      new ReviewUpdatedEvent(result, {
+        rating: previousRating,
+      }),
+    );
 
     return result;
   }
@@ -165,7 +171,7 @@ export class ReviewService {
 
     const result = await this.reviewRepository.update(review);
 
-    this.eventBus.publish(new ReviewUpdatedEvent(result));
+    this.eventBus.publish(new ReviewUpdatedEvent(result, {}));
 
     return result;
   }

@@ -2,8 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  PrimaryColumn,
   Index,
+  PrimaryColumn,
 } from 'typeorm';
 import { User } from 'user/model/user.model';
 
