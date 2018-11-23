@@ -56,13 +56,13 @@ export class PlaceEntity {
   /**
    * Average review rating
    */
-  @Column({ type: 'float', default: 0 })
+  @Column({ type: 'real', unsigned: true, default: 0 })
   public rating: number;
 
   /**
    * Total review count
    */
-  @Column({ type: 'integer', default: 0 })
+  @Column({ type: 'int', unsigned: true, default: 0 })
   public reviewCount: number;
 
   /**
