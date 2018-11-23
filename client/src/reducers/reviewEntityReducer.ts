@@ -7,6 +7,7 @@ import {
   updateReview
 } from "../actions/reviewListActions";
 import { Review } from "../models/Review";
+import { loadPlace } from "../actions/placeDetailsActions";
 
 type State = { [id in string]?: Review };
 
@@ -43,6 +44,16 @@ export const reviewEntityReducer: Reducer<State, Action> = (
         ...state,
         [review.id]: undefined
       };
+    }
+
+    case getType(loadPlace.success): {
+      const { bestReview, worstReview } = action.payload.place;
+
+      return [bestReview, worstReview].reduce(
+        (acc, review) =>
+          review === undefined ? acc : { ...acc, [review.id]: review },
+        state
+      );
     }
 
     default:

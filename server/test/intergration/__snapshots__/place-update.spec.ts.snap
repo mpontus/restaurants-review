@@ -45,6 +45,7 @@ Object {
   "address": "069 Murphy Union",
   "id": "d3973942-133b-55e4-920e-7b0033ab9d38",
   "rating": 3.75,
+  "reviewCount": 0,
   "title": "The Noodle Farmer",
 }
 `;
@@ -54,6 +55,7 @@ Object {
   "address": "069 Murphy Union",
   "id": "05bd7b00-f274-5b91-9c48-08bfa24cb9bd",
   "rating": 0,
+  "reviewCount": 0,
   "title": "Nicolas - Satterfield",
 }
 `;

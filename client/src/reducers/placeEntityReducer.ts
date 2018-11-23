@@ -8,6 +8,7 @@ import {
   updatePlace
 } from "../actions/placeListActions";
 import { Place } from "../models/Place";
+import { deleteReview } from "../actions/reviewListActions";
 
 type State = { [id in string]?: Place };
 

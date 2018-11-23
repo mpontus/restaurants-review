@@ -16,4 +16,4 @@ interface Params {
 export const deleteReview = async (
   api: ApiGateway,
   { id }: Params
-): Promise<void> => api.delete(`/review/${id}`).then(() => undefined);
+): Promise<void> => api.delete(`/reviews/${id}`).then(() => undefined);

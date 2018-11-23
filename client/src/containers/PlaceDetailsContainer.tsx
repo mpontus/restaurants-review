@@ -123,19 +123,22 @@ export const BasePlaceDetailsContainer = ({
       {place.bestReview && (
         <React.Fragment>
           <ListSubheader disableSticky={true}>Highest Review</ListSubheader>
-          <ReviewContainer id={place.bestReview.id} />
+          <ReviewContainer key={place.bestReview.id} id={place.bestReview.id} />
         </React.Fragment>
       )}
       {place.worstReview && (
         <React.Fragment>
           <ListSubheader disableSticky={true}>Lowest Review</ListSubheader>
-          <ReviewContainer id={place.worstReview.id} />
+          <ReviewContainer
+            key={place.worstReview.id}
+            id={place.worstReview.id}
+          />
         </React.Fragment>
       )}
       {place.ownReview && (
         <React.Fragment>
           <ListSubheader disableSticky={true}>Your Review</ListSubheader>
-          <ReviewContainer id={place.ownReview.id} />
+          <ReviewContainer key={place.ownReview.id} id={place.ownReview.id} />
         </React.Fragment>
       )}
       <PlaceReviewListContainer

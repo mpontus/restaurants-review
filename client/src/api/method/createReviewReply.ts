@@ -30,4 +30,4 @@ export const createReviewReply = async (
   api: ApiGateway,
   { id, ...rest }: Params
 ): Promise<Result> =>
-  api.post(`/reviews/${id}`, rest).then(validateResponse(reviewSchema));
+  api.put(`/reviews/${id}/reply`, rest).then(validateResponse(reviewSchema));

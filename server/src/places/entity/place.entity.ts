@@ -56,25 +56,25 @@ export class PlaceEntity {
   /**
    * Average review rating
    */
-  @Column({ type: 'float', default: 0 })
+  @Column({ type: 'real', unsigned: true, default: 0 })
   public rating: number;
 
   /**
    * Total review count
    */
-  @Column({ type: 'integer', default: 0 })
+  @Column({ type: 'int', unsigned: true, default: 0 })
   public reviewCount: number;
 
   /**
    * Highest rated review
    */
-  @ManyToOne(() => ReviewEntity, { nullable: true })
+  @ManyToOne(() => ReviewEntity, { onDelete: 'SET NULL', nullable: true })
   public bestReview: ReviewEntity | null;
 
   /**
    * Lowest rated review
    */
-  @ManyToOne(() => ReviewEntity, { nullable: true })
+  @ManyToOne(() => ReviewEntity, { onDelete: 'SET NULL', nullable: true })
   public worstReview: ReviewEntity | null;
 
   /**

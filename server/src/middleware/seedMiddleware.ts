@@ -38,7 +38,8 @@ export const seedMiddleware = (
 
   return async (req, res, next) => {
     // Reset database
-    await app.get(Connection).synchronize(true);
+    await app.get(Connection).dropDatabase();
+    await app.get(Connection).runMigrations();
 
     // Collect the results from each of the executed seeds
     const results = [];

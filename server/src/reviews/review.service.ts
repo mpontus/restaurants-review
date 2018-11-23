@@ -150,7 +150,6 @@ export class ReviewService {
 
     const result = await this.reviewRepository.update(review);
 
-    console.log('DISPATCHING UPDATE EVENT');
     this.eventBus.publish(
       new ReviewUpdatedEvent(result, {
         rating: previousRating,

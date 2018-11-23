@@ -13,6 +13,7 @@ Object {
   "address": "907 Wolff Mountain",
   "id": Any<String>,
   "rating": 0,
+  "reviewCount": 0,
   "title": "Armstrong, Jacobs and Murray",
 }
 `;

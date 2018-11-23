@@ -43,7 +43,7 @@ export class ReviewEntity {
   /**
    * Review Rating
    */
-  @Column({ type: 'float', default: 0 })
+  @Column({ type: 'smallint', unsigned: true, default: 0 })
   public rating: number;
 
   /**

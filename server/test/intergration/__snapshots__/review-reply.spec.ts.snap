@@ -19,9 +19,10 @@ Object {
     "address": "262 Franecki Courts",
     "id": "05bd7b00-f274-5b91-9c48-08bfa24cb9bd",
     "rating": 0,
+    "reviewCount": 0,
     "title": "Nicolas - Satterfield",
   },
-  "rating": 2.81,
+  "rating": 2,
   "reply": "Or candidate trouble listen ok.",
 }
 `;

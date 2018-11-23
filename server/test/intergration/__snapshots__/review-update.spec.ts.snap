@@ -11,10 +11,11 @@ Object {
   "place": Object {
     "address": "261 Alexandre Forks",
     "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
-    "rating": 0,
+    "rating": null,
+    "reviewCount": 0,
     "title": "The Exhibit",
   },
-  "rating": 4.17,
+  "rating": 4,
 }
 `;
 
@@ -29,7 +30,8 @@ Object {
   "place": Object {
     "address": "261 Alexandre Forks",
     "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
-    "rating": 0,
+    "rating": null,
+    "reviewCount": 0,
     "title": "The Exhibit",
   },
   "rating": 2,
@@ -47,10 +49,11 @@ Object {
   "place": Object {
     "address": "261 Alexandre Forks",
     "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
-    "rating": 0,
+    "rating": null,
+    "reviewCount": 0,
     "title": "The Exhibit",
   },
-  "rating": 4.17,
+  "rating": 4,
   "reply": "Serious inside else memory if six.",
 }
 `;
