@@ -23,10 +23,11 @@ export class UpdateRating implements IEventHandler<Events> {
   public async handle(event: Events): Promise<void> {
     const { review } = event;
     const { place } = review;
+    let { rating, reviewCount } = place;
 
     if (event instanceof ReviewCreatedEvent) {
-      place.rating += (review.rating - place.rating) / (place.reviewCount + 1);
-      place.reviewCount++;
+      rating += (review.rating - rating) / (reviewCount + 1);
+      reviewCount++;
     }
 
     if (event instanceof ReviewUpdatedEvent) {
@@ -35,14 +36,21 @@ export class UpdateRating implements IEventHandler<Events> {
         return;
       }
 
-      place.rating +=
-        (review.rating - event.previousValues.rating) / place.reviewCount;
+      rating += (review.rating - event.previousValues.rating) / reviewCount;
     }
 
     if (event instanceof ReviewDeletedEvent) {
-      place.rating -= (review.rating - place.rating) / (place.reviewCount - 1);
-      place.reviewCount--;
+      if (reviewCount === 1) {
+        // Prevent division by zero
+        rating = 0;
+      } else {
+        rating -= (review.rating - place.rating) / (reviewCount - 1);
+      }
+
+      reviewCount--;
     }
+
+    Object.assign(place, { rating, reviewCount });
 
     await this.placeRepository.update(place);
   }
