@@ -32,6 +32,7 @@ export const loadReviewListEpic: Epic<Action, Action, State, Dependencies> = (
         filter(
           isActionOf([
             actions.createReview.success,
+            actions.replyToReview.success,
             actions.updateReview.success,
             actions.deleteReview.success
           ])

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { deleteReview } from "../actions/reviewListActions";
@@ -84,34 +84,40 @@ export const BaseReviewContainer = ({
   requestStatus,
   onDelete
 }: Props) => {
+  const handleDelete = useCallback(
+    () => (review ? onDelete({ review }) : undefined),
+    [onDelete, review]
+  );
+
+  const [showConfirmModal, hideConfirmModal] = useModal(() =>
+    review ? (
+      <ConfirmModal
+        title="Delete review?"
+        confirmLabel="Delete review"
+        onConfirm={handleDelete}
+        onCancel={hideConfirmModal}
+      >
+        Do you really want to delete review from{" "}
+        <strong>{review.author.name}</strong>?
+      </ConfirmModal>
+    ) : null
+  );
+
+  const [showEditModal, hideEditModal] = useModal(() =>
+    review ? (
+      <UpdateReviewModalContainer id={review.id} onCancel={hideEditModal} />
+    ) : null
+  );
+
+  const [showReplyModal, hideReplyModal] = useModal(() =>
+    review ? (
+      <ReplyFormModalContainer id={review.id} onCancel={hideReplyModal} />
+    ) : null
+  );
+
   if (review === undefined) {
     return <Loading />;
   }
-
-  const handleDelete = useCallback(() => onDelete({ review }), [
-    onDelete,
-    review
-  ]);
-
-  const [showConfirmModal, hideConfirmModal] = useModal(() => (
-    <ConfirmModal
-      title="Delete review?"
-      confirmLabel="Delete review"
-      onConfirm={handleDelete}
-      onCancel={hideConfirmModal}
-    >
-      Do you really want to delete review from{" "}
-      <strong>{review.author.name}</strong>?
-    </ConfirmModal>
-  ));
-
-  const [showEditModal, hideEditModal] = useModal(() => (
-    <UpdateReviewModalContainer id={review.id} onCancel={hideEditModal} />
-  ));
-
-  const [showReplyModal, hideReplyModal] = useModal(() => (
-    <ReplyFormModalContainer id={review.id} onCancel={hideReplyModal} />
-  ));
 
   return (
     <ReviewComponent
