@@ -43,6 +43,7 @@ export class UserRepository {
    */
   public async findAll(criteria: ListUsersCriteria): Promise<User[]> {
     const items = await this.manager.find(UserEntity, {
+      order: { createdAt: 'DESC' },
       take: criteria.take,
       skip: criteria.skip,
     });

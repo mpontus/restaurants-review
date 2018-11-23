@@ -29,6 +29,7 @@ export class ReviewRepository {
    */
   public async findAll(criteria: FindReviewsCriteria): Promise<Review[]> {
     const items = await this.manager.find(ReviewEntity, {
+      order: { createdAt: 'DESC' },
       where: this.createWhereClause(criteria),
       relations: ['place', 'author'],
       take: criteria.take,

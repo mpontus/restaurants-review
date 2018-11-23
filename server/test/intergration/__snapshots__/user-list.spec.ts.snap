@@ -4,11 +4,11 @@ exports[`List Users when user is admin should succeed 1`] = `
 Object {
   "items": Array [
     Object {
-      "email": "taneg@nosmo.tw",
-      "id": "41a5bad8-9cb4-5881-b296-2eb316df862c",
-      "name": "Betty Stokes",
+      "email": "ket@vavojis.ax",
+      "id": "56a8809b-3fc0-5400-8bbd-512e242cc91d",
+      "name": "Joshua Wood",
       "roles": Array [
-        "user",
+        "admin",
       ],
     },
     Object {
@@ -52,9 +52,9 @@ Object {
       ],
     },
     Object {
-      "email": "potsa@lo.sv",
-      "id": "454da2fe-bada-5f2e-81a8-64dd43469f27",
-      "name": "Ethel Bennett",
+      "email": "taneg@nosmo.tw",
+      "id": "41a5bad8-9cb4-5881-b296-2eb316df862c",
+      "name": "Betty Stokes",
       "roles": Array [
         "user",
       ],
@@ -135,11 +135,11 @@ exports[`List Users when user is admin when limit is provided should succeed 1`]
 Object {
   "items": Array [
     Object {
-      "email": "taneg@nosmo.tw",
-      "id": "41a5bad8-9cb4-5881-b296-2eb316df862c",
-      "name": "Betty Stokes",
+      "email": "ket@vavojis.ax",
+      "id": "56a8809b-3fc0-5400-8bbd-512e242cc91d",
+      "name": "Joshua Wood",
       "roles": Array [
-        "user",
+        "admin",
       ],
     },
     Object {
@@ -246,9 +246,9 @@ Object {
       ],
     },
     Object {
-      "email": "potsa@lo.sv",
-      "id": "454da2fe-bada-5f2e-81a8-64dd43469f27",
-      "name": "Ethel Bennett",
+      "email": "taneg@nosmo.tw",
+      "id": "41a5bad8-9cb4-5881-b296-2eb316df862c",
+      "name": "Betty Stokes",
       "roles": Array [
         "user",
       ],
@@ -286,11 +286,11 @@ Object {
       ],
     },
     Object {
-      "email": "ket@vavojis.ax",
-      "id": "56a8809b-3fc0-5400-8bbd-512e242cc91d",
-      "name": "Joshua Wood",
+      "email": "potsa@lo.sv",
+      "id": "454da2fe-bada-5f2e-81a8-64dd43469f27",
+      "name": "Ethel Bennett",
       "roles": Array [
-        "admin",
+        "user",
       ],
     },
   ],
