@@ -82,6 +82,20 @@ Object {
 }
 `;
 
+exports[`Create review when user is authenticated when user has already reviewed the place should fail 1`] = `
+Object {
+  "error": "Forbidden",
+  "statusCode": 403,
+}
+`;
+
+exports[`Create review when user is reviewing their own place should fail 1`] = `
+Object {
+  "error": "Forbidden",
+  "statusCode": 403,
+}
+`;
+
 exports[`Create review when user is unauthenticated should fail 1`] = `
 Object {
   "error": "Forbidden",
