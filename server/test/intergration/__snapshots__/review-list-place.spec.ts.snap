@@ -19,6 +19,9 @@ Object {
       "id": "9ea7f963-47d2-5a2d-8b4d-782680d3b1bf",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -35,6 +38,9 @@ Object {
       "id": "0a931d01-a888-5523-86d1-c89bacc0a22b",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -51,6 +57,9 @@ Object {
       "id": "88b4c16c-e3c5-539d-b4b5-b158f4c23667",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -67,6 +76,9 @@ Object {
       "id": "613c0e6f-4087-5546-ae99-e2436fd68219",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -83,6 +95,9 @@ Object {
       "id": "cbf76a7b-14e5-5ba3-9c4f-af96f24cd72d",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -99,6 +114,9 @@ Object {
       "id": "58d1832e-b696-5c49-ac55-9a4beced3f9b",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -115,6 +133,9 @@ Object {
       "id": "231a909a-6ce5-5c65-a053-5d2853d02b52",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -131,6 +152,9 @@ Object {
       "id": "07c76adf-2a28-5914-9128-d10c7d83f36b",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -147,6 +171,9 @@ Object {
       "id": "6bc794d6-e0fe-5913-9ea7-66219afce965",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -163,6 +190,9 @@ Object {
       "id": "700650e5-d979-5bfa-92e3-523f73036f9e",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -230,6 +260,9 @@ Object {
       "id": "0a931d01-a888-5523-86d1-c89bacc0a22b",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -246,6 +279,9 @@ Object {
       "id": "9ea7f963-47d2-5a2d-8b4d-782680d3b1bf",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -333,6 +369,9 @@ Object {
       "id": "88b4c16c-e3c5-539d-b4b5-b158f4c23667",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -349,6 +388,9 @@ Object {
       "id": "58d1832e-b696-5c49-ac55-9a4beced3f9b",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -365,6 +407,9 @@ Object {
       "id": "cbf76a7b-14e5-5ba3-9c4f-af96f24cd72d",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -381,6 +426,9 @@ Object {
       "id": "231a909a-6ce5-5c65-a053-5d2853d02b52",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -397,6 +445,9 @@ Object {
       "id": "6bc794d6-e0fe-5913-9ea7-66219afce965",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -413,6 +464,9 @@ Object {
       "id": "07c76adf-2a28-5914-9128-d10c7d83f36b",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -429,6 +483,9 @@ Object {
       "id": "e6336264-dacd-59dc-8a16-f6e06351f47b",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,
@@ -445,6 +502,9 @@ Object {
       "id": "700650e5-d979-5bfa-92e3-523f73036f9e",
       "place": Object {
         "address": "261 Alexandre Forks",
+        "canDelete": false,
+        "canEdit": false,
+        "canReview": false,
         "id": "99ea5b8b-c27d-5560-a6a3-35f23fd8e83d",
         "rating": 0,
         "reviewCount": 0,

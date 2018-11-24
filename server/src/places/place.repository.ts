@@ -29,7 +29,10 @@ export class PlaceRepository {
   /**
    * Return places matching criteria
    */
-  public async findAll(criteria: FindPlacesCriteria): Promise<Place[]> {
+  public async findAll(
+    actor: Principal | undefined,
+    criteria: FindPlacesCriteria,
+  ): Promise<Place[]> {
     const items = await this.manager.find(PlaceEntity, {
       order:
         criteria.order === 'rating' ? { rating: 'DESC' } : { title: 'ASC' },
@@ -38,15 +41,15 @@ export class PlaceRepository {
       skip: criteria.skip,
     });
 
-    return items.map(item => item.toModel());
+    return items.map(item => item.toModel(actor));
   }
 
   /**
    * Return single place by id
    */
   public async findById(
+    actor: Principal | undefined,
     id: string,
-    actor?: Principal,
   ): Promise<Place | undefined> {
     const queryBuilder = this.manager
       .createQueryBuilder(PlaceEntity, 'place')
@@ -76,13 +79,16 @@ export class PlaceRepository {
       return undefined;
     }
 
-    return placeEntity.toModel();
+    return placeEntity.toModel(actor);
   }
 
   /**
    * Create new place
    */
-  public async create(place: Place): Promise<Place> {
+  public async create(
+    actor: Principal | undefined,
+    place: Place,
+  ): Promise<Place> {
     const placeEntity = this.manager.create(PlaceEntity, {
       id: uuid(),
       owner: { id: place.ownerId },
@@ -92,7 +98,7 @@ export class PlaceRepository {
 
     await this.manager.save(PlaceEntity, placeEntity);
 
-    return placeEntity.toModel();
+    return placeEntity.toModel(actor);
   }
 
   /**

@@ -1,3 +1,4 @@
+import { Principal } from 'common/model/principal.model';
 import moment from 'moment';
 import { PlaceEntity } from 'places/entity/place.entity';
 import { ReviewAuthor } from 'reviews/model/review-author.model';
@@ -77,10 +78,10 @@ export class ReviewEntity {
   /**
    * Transform entity to domain model
    */
-  public toModel(): Review {
+  public toModel(actor?: Principal): Review {
     return new Review({
       id: this.id,
-      place: this.place ? this.place.toModel() : undefined,
+      place: this.place ? this.place.toModel(actor) : undefined,
       author: this.author
         ? new ReviewAuthor({
             id: this.author.id,

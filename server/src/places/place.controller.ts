@@ -38,6 +38,7 @@ import { PlaceService } from './place.service';
  * Provides API endpoints for place management
  */
 @Controller('/places')
+@UseGuards(AuthGuard)
 @UsePipes(new ValidationPipe({ transform: true }))
 @UseInterceptors(ClassSerializerInterceptor)
 export class PlaceController {
@@ -64,12 +65,11 @@ export class PlaceController {
    */
   @Get(':id')
   @ApiOkResponse({ type: Place })
-  @UseGuards(AuthGuard)
   public async getPlace(
     @Req() req: IAuthRequest,
     @Param('id') id: string,
   ): Promise<Place> {
-    return this.placeService.getPlace(id, req.user);
+    return this.placeService.getPlace(req.user, id);
   }
 
   /**
@@ -78,9 +78,10 @@ export class PlaceController {
   @Get()
   @ApiOkResponse({ type: PlaceList })
   public async listPlaces(
+    @Req() req: IAuthRequest,
     @Query() criteria: ListPublicPlacesCriteria,
   ): Promise<PlaceList> {
-    return this.placeService.listPublicPlaces(criteria);
+    return this.placeService.listPublicPlaces(req.user, criteria);
   }
 
   /**
@@ -109,9 +110,9 @@ export class PlaceController {
     @Param('id') id: string,
     @Body() data: UpdatePlaceDto,
   ): Promise<Place> {
-    const place = await this.placeService.getPlace(id);
+    const place = await this.placeService.getPlace(req.user, id);
 
-    if (place.ownerId !== req.user.id && !req.user.roles.includes('admin')) {
+    if (!place.canEdit) {
       throw new ForbiddenException();
     }
 
@@ -129,9 +130,9 @@ export class PlaceController {
     @Req() req: IAuthRequest,
     @Param('id') id: string,
   ): Promise<void> {
-    const place = await this.placeService.getPlace(id);
+    const place = await this.placeService.getPlace(req.user, id);
 
-    if (place.ownerId !== req.user.id && !req.user.roles.includes('admin')) {
+    if (!place.canDelete) {
       throw new ForbiddenException();
     }
 
@@ -149,7 +150,7 @@ export class PlaceController {
     @Param('id') id: string,
     @Query() criteria: ListPlaceReviewsCriteria,
   ): Promise<ReviewList> {
-    const place = await this.placeService.getPlace(id, req.user);
+    const place = await this.placeService.getPlace(req.user, id);
 
     return this.reviewService.listPlaceReviews(place, criteria);
   }
@@ -166,10 +167,9 @@ export class PlaceController {
     @Param('id') id: string,
     @Body() data: CreateReviewDto,
   ): Promise<Review> {
-    const place = await this.placeService.getPlace(id, req.user);
+    const place = await this.placeService.getPlace(req.user, id);
 
-    // Prevent user from reviewing a place twice
-    if (place.ownReview !== undefined) {
+    if (!place.canReview) {
       throw new ForbiddenException();
     }
 

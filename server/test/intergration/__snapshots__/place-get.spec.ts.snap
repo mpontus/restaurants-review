@@ -3,6 +3,9 @@
 exports[`Get Place should succeed 1`] = `
 Object {
   "address": "1187 Weskut Ridge",
+  "canDelete": false,
+  "canEdit": false,
+  "canReview": false,
   "id": "d3973942-133b-55e4-920e-7b0033ab9d38",
   "rating": 3.75,
   "reviewCount": 0,

@@ -48,6 +48,9 @@ Object {
   "items": Array [
     Object {
       "address": "1915 Uzma Court",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "6bf9374f-8abc-5942-b52e-fff076137298",
       "rating": 4.61,
       "reviewCount": 0,
@@ -55,6 +58,9 @@ Object {
     },
     Object {
       "address": "39 Coko Turnpike",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "2d688467-2116-5d95-9195-13083b904496",
       "rating": 3.9,
       "reviewCount": 0,
@@ -133,6 +139,9 @@ Object {
   "items": Array [
     Object {
       "address": "1355 Pogol Parkway",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "08347a44-d09d-58c6-b198-163b9a0ed423",
       "rating": 3.84,
       "reviewCount": 0,
@@ -140,6 +149,9 @@ Object {
     },
     Object {
       "address": "1230 Cejet Key",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "2230ab56-ca08-55d2-8a82-8ef007547c31",
       "rating": 3.78,
       "reviewCount": 0,
@@ -147,6 +159,9 @@ Object {
     },
     Object {
       "address": "1187 Weskut Ridge",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "d3973942-133b-55e4-920e-7b0033ab9d38",
       "rating": 3.75,
       "reviewCount": 0,
@@ -154,6 +169,9 @@ Object {
     },
     Object {
       "address": "1467 Huzwas Highway",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "8242a55b-5a9d-5ca9-b296-eed08dcf2897",
       "rating": 3.57,
       "reviewCount": 0,
@@ -161,6 +179,9 @@ Object {
     },
     Object {
       "address": "134 Medmon Path",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "6b0ceb1b-e72c-5ef8-b0c6-c54455b5aba7",
       "rating": 3.53,
       "reviewCount": 0,
@@ -168,6 +189,9 @@ Object {
     },
     Object {
       "address": "375 Uciwa Loop",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "55b62c9d-d3f6-5973-80cc-ca2744b0c1a6",
       "rating": 3.42,
       "reviewCount": 0,
@@ -175,6 +199,9 @@ Object {
     },
     Object {
       "address": "1006 Laet Manor",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "dc1884c7-35da-5973-9893-f902839ff6ff",
       "rating": 3.35,
       "reviewCount": 0,
@@ -182,6 +209,9 @@ Object {
     },
     Object {
       "address": "332 Ruvow Path",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "821ea0ca-77af-5dd5-a15f-176fd4ce23a2",
       "rating": 3.12,
       "reviewCount": 0,
@@ -189,6 +219,9 @@ Object {
     },
     Object {
       "address": "1117 Nekli Glen",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "d1c878c1-1474-5c83-b289-508f75b89a4f",
       "rating": 3.03,
       "reviewCount": 0,
@@ -196,6 +229,9 @@ Object {
     },
     Object {
       "address": "85 Huvzu Terrace",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "cf34d948-1260-58e3-ad82-1d4335016dc0",
       "rating": 2.54,
       "reviewCount": 0,
@@ -211,6 +247,9 @@ Object {
   "items": Array [
     Object {
       "address": "375 Uciwa Loop",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "55b62c9d-d3f6-5973-80cc-ca2744b0c1a6",
       "rating": 3.42,
       "reviewCount": 0,
@@ -218,6 +257,9 @@ Object {
     },
     Object {
       "address": "1006 Laet Manor",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "dc1884c7-35da-5973-9893-f902839ff6ff",
       "rating": 3.35,
       "reviewCount": 0,
@@ -225,6 +267,9 @@ Object {
     },
     Object {
       "address": "332 Ruvow Path",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "821ea0ca-77af-5dd5-a15f-176fd4ce23a2",
       "rating": 3.12,
       "reviewCount": 0,
@@ -232,6 +277,9 @@ Object {
     },
     Object {
       "address": "1117 Nekli Glen",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "d1c878c1-1474-5c83-b289-508f75b89a4f",
       "rating": 3.03,
       "reviewCount": 0,
@@ -239,6 +287,9 @@ Object {
     },
     Object {
       "address": "85 Huvzu Terrace",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "cf34d948-1260-58e3-ad82-1d4335016dc0",
       "rating": 2.54,
       "reviewCount": 0,
@@ -254,6 +305,9 @@ Object {
   "items": Array [
     Object {
       "address": "1915 Uzma Court",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "6bf9374f-8abc-5942-b52e-fff076137298",
       "rating": 4.61,
       "reviewCount": 0,
@@ -261,6 +315,9 @@ Object {
     },
     Object {
       "address": "39 Coko Turnpike",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "2d688467-2116-5d95-9195-13083b904496",
       "rating": 3.9,
       "reviewCount": 0,
@@ -268,6 +325,9 @@ Object {
     },
     Object {
       "address": "1528 Aceer Way",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "36241277-6054-5955-a823-6a0706710235",
       "rating": 3.85,
       "reviewCount": 0,
@@ -275,6 +335,9 @@ Object {
     },
     Object {
       "address": "1355 Pogol Parkway",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "08347a44-d09d-58c6-b198-163b9a0ed423",
       "rating": 3.84,
       "reviewCount": 0,
@@ -282,6 +345,9 @@ Object {
     },
     Object {
       "address": "1230 Cejet Key",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "2230ab56-ca08-55d2-8a82-8ef007547c31",
       "rating": 3.78,
       "reviewCount": 0,
@@ -289,6 +355,9 @@ Object {
     },
     Object {
       "address": "1187 Weskut Ridge",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "d3973942-133b-55e4-920e-7b0033ab9d38",
       "rating": 3.75,
       "reviewCount": 0,
@@ -296,6 +365,9 @@ Object {
     },
     Object {
       "address": "1467 Huzwas Highway",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "8242a55b-5a9d-5ca9-b296-eed08dcf2897",
       "rating": 3.57,
       "reviewCount": 0,
@@ -303,6 +375,9 @@ Object {
     },
     Object {
       "address": "134 Medmon Path",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "6b0ceb1b-e72c-5ef8-b0c6-c54455b5aba7",
       "rating": 3.53,
       "reviewCount": 0,
@@ -310,6 +385,9 @@ Object {
     },
     Object {
       "address": "375 Uciwa Loop",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "55b62c9d-d3f6-5973-80cc-ca2744b0c1a6",
       "rating": 3.42,
       "reviewCount": 0,
@@ -317,6 +395,9 @@ Object {
     },
     Object {
       "address": "1006 Laet Manor",
+      "canDelete": false,
+      "canEdit": false,
+      "canReview": false,
       "id": "dc1884c7-35da-5973-9893-f902839ff6ff",
       "rating": 3.35,
       "reviewCount": 0,

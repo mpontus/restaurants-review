@@ -1,5 +1,6 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
+import { Principal } from 'common/model/principal.model';
 import { PlaceReview } from './place-review.model';
 
 /**
@@ -63,9 +64,56 @@ export class Place {
   public ownReview?: PlaceReview;
 
   /**
+   * Describes whether the user can review the place
+   */
+  @ApiModelProperty()
+  @Expose()
+  get canReview(): boolean {
+    if (!this.actor) {
+      return false;
+    }
+
+    return this.actor.roles.includes('user') && !this.ownReview;
+  }
+
+  /**
+   * Describe whether the user can edit the place
+   */
+  @ApiModelProperty()
+  @Expose()
+  get canEdit(): boolean {
+    if (!this.actor) {
+      return false;
+    }
+
+    return this.actor.roles.includes('admin') || this.ownerId === this.actor.id;
+  }
+
+  /**
+   * Describe whether the user can delete the place
+   */
+  @ApiModelProperty()
+  @Expose()
+  get canDelete(): boolean {
+    if (!this.actor) {
+      return false;
+    }
+
+    return this.actor.roles.includes('admin') || this.ownerId === this.actor.id;
+  }
+
+  /**
+   * Identity of the user making the request
+   */
+  @Exclude()
+  private readonly actor: Principal | undefined;
+
+  /**
    * Constructor
    */
-  constructor(values: Partial<Place>) {
+  constructor(actor: Principal | undefined, values: Partial<Place>) {
+    this.actor = actor;
+
     Object.assign(this, values);
   }
 }

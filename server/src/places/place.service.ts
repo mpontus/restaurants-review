@@ -21,8 +21,11 @@ export class PlaceService {
   /**
    * Retrieve single place by its ID
    */
-  public async getPlace(id: string, actor?: Principal): Promise<Place> {
-    const place = await this.placeRepository.findById(id, actor);
+  public async getPlace(
+    actor: Principal | undefined,
+    id: string,
+  ): Promise<Place> {
+    const place = await this.placeRepository.findById(actor, id);
 
     if (place === undefined) {
       throw new NotFoundException();
@@ -35,6 +38,7 @@ export class PlaceService {
    * List public places
    */
   public async listPublicPlaces(
+    actor: Principal | undefined,
     criteria: ListPublicPlacesCriteria,
   ): Promise<PlaceList> {
     const findCriteria = new FindPlacesCriteria({
@@ -44,7 +48,7 @@ export class PlaceService {
       skip: criteria.skip,
     });
     const total = await this.placeRepository.count(findCriteria);
-    const items = await this.placeRepository.findAll(findCriteria);
+    const items = await this.placeRepository.findAll(actor, findCriteria);
 
     return new PlaceList(total, items);
   }
@@ -63,7 +67,7 @@ export class PlaceService {
       skip,
     });
     const total = await this.placeRepository.count(criteria);
-    const items = await this.placeRepository.findAll(criteria);
+    const items = await this.placeRepository.findAll(actor, criteria);
 
     return new PlaceList(total, items);
   }
@@ -75,13 +79,13 @@ export class PlaceService {
     actor: Principal,
     data: CreatePlaceDto,
   ): Promise<Place> {
-    const place = new Place({
+    const place = new Place(actor, {
       ownerId: actor.id,
       title: data.title,
       address: data.address,
     });
 
-    return this.placeRepository.create(place);
+    return this.placeRepository.create(actor, place);
   }
 
   /**

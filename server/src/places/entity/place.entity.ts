@@ -1,3 +1,4 @@
+import { Principal } from 'common/model/principal.model';
 import { PlaceReview } from 'places/model/place-review.model';
 import { Place } from 'places/model/place.model';
 import { ReviewEntity } from 'reviews/entity/review.entity';
@@ -94,8 +95,8 @@ export class PlaceEntity {
   /**
    * Map database object to domain model
    */
-  public toModel(): Place {
-    return new Place({
+  public toModel(actor?: Principal): Place {
+    return new Place(actor, {
       id: this.id,
       ownerId: this.ownerId,
       title: this.title,

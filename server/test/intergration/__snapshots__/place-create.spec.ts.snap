@@ -11,6 +11,9 @@ Object {
 exports[`Create place when user is owner should succeed 1`] = `
 Object {
   "address": "907 Wolff Mountain",
+  "canDelete": true,
+  "canEdit": true,
+  "canReview": true,
   "id": Any<String>,
   "rating": 0,
   "reviewCount": 0,
