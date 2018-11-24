@@ -1,15 +1,7 @@
-import {
-  BottomNavigation,
-  withStyles,
-  WithStyles
-} from "@material-ui/core";
+import { BottomNavigation, withStyles, WithStyles } from "@material-ui/core";
 import { Location } from "history";
 import React, { useCallback } from "react";
-import {
-  matchPath,
-  RouteComponentProps,
-  withRouter
-} from "react-router";
+import { matchPath, RouteComponentProps, withRouter } from "react-router";
 
 export interface LinkProps {
   to: string;
@@ -29,7 +21,7 @@ interface Props extends RouteComponentProps<any>, WithStyles<"stickToBottom"> {
   /**
    * Array of mobile navigation links
    */
-  children: Array<React.ReactElement<LinkProps>>;
+  children: Array<React.ReactElement<LinkProps> | null>;
 }
 
 /**
@@ -43,8 +35,11 @@ export const BaseMobileNavigation = ({
   classes,
   history,
   location,
-  children
+  children: allChildren
 }: Props) => {
+  const children = allChildren.filter(
+    (child): child is React.ReactElement<LinkProps> => child !== null
+  );
   const value = children.findIndex(matchChild(location));
   const handleChange = useCallback(
     (event: object, index: number) => history.push(children[index].props.to),
