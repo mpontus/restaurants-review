@@ -110,25 +110,6 @@ describe('Create review', () => {
     });
   });
 
-  describe('when user is reviewing their own place', () => {
-    const authSeed = require('../seed/owner-user');
-
-    beforeEach(() => authSeed.run(nestApp));
-
-    it('should fail', async () => {
-      const response = await supertest(nestApp.getHttpServer())
-        .post(`/places/${authSeed.place.id}/reviews`)
-        .send({
-          rating: 4,
-          comment: 'Have heart cover analysis carry.',
-        })
-        .set('Authorization', `Bearer ${authSeed.accessToken}`)
-        .expect(403);
-
-      expect(response.body).toMatchSnapshot();
-    });
-  });
-
   describe('when user is unauthenticated', () => {
     it('should fail', async () => {
       const response = await supertest(nestApp.getHttpServer())

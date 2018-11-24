@@ -168,11 +168,6 @@ export class PlaceController {
   ): Promise<Review> {
     const place = await this.placeService.getPlace(id, req.user);
 
-    // Prevent place owner from reviewing their own place
-    if (place.ownerId === req.user.id) {
-      throw new ForbiddenException();
-    }
-
     // Prevent user from reviewing a place twice
     if (place.ownReview !== undefined) {
       throw new ForbiddenException();
