@@ -51,6 +51,21 @@ describe('Signup', () => {
     });
   });
 
+  describe('when name is too long', () => {
+    it('should fail', async () => {
+      const response = await supertest(nestApp.getHttpServer())
+        .post(`/auth/signup`)
+        .send({
+          name: 'x'.repeat(1000),
+          email: 'polo@peswop.dm',
+          password: 'ngbA1CVl!H',
+        })
+        .expect(400);
+
+      expect(response.body).toMatchSnapshot();
+    });
+  });
+
   describe('when email is empty', () => {
     it('should fail', async () => {
       const response = await supertest(nestApp.getHttpServer())

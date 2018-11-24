@@ -52,6 +52,22 @@ describe('Update User', () => {
       });
     });
 
+    describe('when name is too long', () => {
+      it('should fail', async () => {
+        const response = await supertest(nestApp.getHttpServer())
+          .patch(`/users/${seed.users[0].id}`)
+          .send({
+            name: 'x'.repeat(1000),
+            email: 'milabgog@iz.ro',
+            password: '#(i9Z3OyGW',
+          })
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
+          .expect(400);
+
+        expect(response.body).toMatchSnapshot();
+      });
+    });
+
     describe('when email is invalid', () => {
       it('should fail', async () => {
         const response = await supertest(nestApp.getHttpServer())
