@@ -39,21 +39,34 @@ export interface Place {
    * Review by the currently logged in user
    */
   ownReview?: Review;
+
+  /**
+   * Whether user can leave review for the place
+   */
+  canReview?: boolean;
+
+  /**
+   * Whether user can edit the place
+   */
+  canEdit?: boolean;
+
+  /**
+   * Whether user can delete the place
+   */
+  canDelete?: boolean;
 }
 
 /**
  * Return whether place can be reviewed by actor
  */
-export const canReview = (place: Place, actor?: User) =>
-  actor && isUser(actor) && !place.ownReview;
+export const canReview = (place: Place, actor?: User) => place.canReview;
 
 /**
  * Return whether place can be editted by actor
  */
-export const canEdit = (place: Place, actor?: User) => actor && isAdmin(actor);
+export const canEdit = (place: Place, actor?: User) => place.canEdit;
 
 /**
  * Return whether place can be deleted by actor
  */
-export const canDelete = (place: Place, actor?: User) =>
-  actor && isAdmin(actor);
+export const canDelete = (place: Place, actor?: User) => place.canDelete;

@@ -46,16 +46,19 @@ export interface Review {
    * Owner's reply
    */
   reply?: string;
+
+  /**
+   * Whether user can reply to the review
+   */
+  canReply?: boolean;
+
+  /**
+   * Whether user can edit the review
+   */
+  canEdit?: boolean;
+
+  /**
+   * Whether user can delete the review
+   */
+  canDelete?: boolean;
 }
-
-/**
- * Return whether review can be editted by actor
- */
-export const canEdit = (review: Review, actor?: User) =>
-  actor && isAdmin(actor);
-
-/**
- * Return whether review can be deleted by actor
- */
-export const canDelete = (review: Review, actor?: User) =>
-  actor && isAdmin(actor);

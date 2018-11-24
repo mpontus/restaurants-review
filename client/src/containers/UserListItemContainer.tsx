@@ -119,22 +119,28 @@ export const BaseUserListItemContainer = ({
   return (
     <ListItem key={user.id}>
       <ListItemText primary={user.name} secondary={user.email} />
-      <ListItemSecondaryAction>
-        <IconMenu icon={<MoreVertIcon />}>
-          <MenuItem onClick={showEditModal}>
-            <ListItemIcon>
-              <EditIcon />
-            </ListItemIcon>
-            <ListItemText inset={true} primary="Edit" />
-          </MenuItem>
-          <MenuItem onClick={showConfirmModal}>
-            <ListItemIcon>
-              <DeleteIcon />
-            </ListItemIcon>
-            <ListItemText inset={true} primary="Delete" />
-          </MenuItem>
-        </IconMenu>
-      </ListItemSecondaryAction>
+      {(user.canEdit || user.canDelete) && (
+        <ListItemSecondaryAction>
+          <IconMenu icon={<MoreVertIcon />}>
+            {user.canEdit && (
+              <MenuItem onClick={showEditModal}>
+                <ListItemIcon>
+                  <EditIcon />
+                </ListItemIcon>
+                <ListItemText inset={true} primary="Edit" />
+              </MenuItem>
+            )}
+            {user.canDelete && (
+              <MenuItem onClick={showConfirmModal}>
+                <ListItemIcon>
+                  <DeleteIcon />
+                </ListItemIcon>
+                <ListItemText inset={true} primary="Delete" />
+              </MenuItem>
+            )}
+          </IconMenu>
+        </ListItemSecondaryAction>
+      )}
     </ListItem>
   );
 };

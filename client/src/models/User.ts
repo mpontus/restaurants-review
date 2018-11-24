@@ -21,6 +21,16 @@ export interface User {
    * User roles
    */
   roles: string[];
+
+  /**
+   * Whether the user can editted by logged-in user
+   */
+  canEdit?: boolean;
+
+  /**
+   * Whether the user can deleted by logged-in user
+   */
+  canDelete?: boolean;
 }
 
 /**
@@ -37,13 +47,3 @@ export const isOwner = (user: User) => user.roles.includes("owner");
  * Return whether user is an admin
  */
 export const isAdmin = (user: User) => user.roles.includes("admin");
-
-/**
- * Return whether user can be editted by actor
- */
-export const canEdit = (user: User, actor?: User) => actor && isAdmin(actor);
-
-/**
- * Return whether user can be deleted by actor
- */
-export const canDelete = (user: User, actor?: User) => actor && isAdmin(actor);

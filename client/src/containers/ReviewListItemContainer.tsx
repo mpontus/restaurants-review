@@ -7,7 +7,7 @@ import { Loading } from "../components/Loading";
 import { useModal } from "../components/ModalRoot";
 import { Review as ReviewComponent } from "../components/Review";
 import { RequestStatus } from "../models/RequestStatus";
-import { canDelete, canEdit, Review } from "../models/Review";
+import { Review } from "../models/Review";
 import { User } from "../models/User";
 import { State } from "../reducers";
 import { makeGetCurrentUser } from "../selectors/authSelectors";
@@ -24,11 +24,6 @@ interface OwnProps {
    * Review Id
    */
   id: string;
-
-  /**
-   * Whether the review is pending
-   */
-  pending?: boolean;
 }
 
 /**
@@ -94,7 +89,6 @@ const enhance = connect(
 export const BaseReviewContainer = ({
   user,
   id,
-  pending,
   review,
   requestStatus,
   onDelete
@@ -136,9 +130,9 @@ export const BaseReviewContainer = ({
 
   return (
     <ReviewComponent
-      canReply={pending}
-      canEdit={canEdit(review, user)}
-      canDelete={canDelete(review, user)}
+      canReply={review.canReply}
+      canEdit={review.canEdit}
+      canDelete={review.canDelete}
       date={review.dateVisitted}
       author={review.author.name}
       rating={review.rating}

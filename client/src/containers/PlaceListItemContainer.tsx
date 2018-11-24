@@ -149,21 +149,25 @@ export const BasePlaceListItemContainer = ({
     >
       <ListItemText primary={place.title} secondary={place.address} />
       {showRating && <Rating value={place.rating} />}
-      {showActions && (
+      {showActions && (place.canEdit || place.canDelete) && (
         <ListItemSecondaryAction>
           <IconMenu icon={<MoreVertIcon />}>
-            <MenuItem onClick={showEditModal}>
-              <ListItemIcon>
-                <EditIcon />
-              </ListItemIcon>
-              <ListItemText inset={true} primary="Edit" />
-            </MenuItem>
-            <MenuItem onClick={showConfirmModal}>
-              <ListItemIcon>
-                <DeleteIcon />
-              </ListItemIcon>
-              <ListItemText inset={true} primary="Delete" />
-            </MenuItem>
+            {place.canEdit && (
+              <MenuItem onClick={showEditModal}>
+                <ListItemIcon>
+                  <EditIcon />
+                </ListItemIcon>
+                <ListItemText inset={true} primary="Edit" />
+              </MenuItem>
+            )}
+            {place.canDelete && (
+              <MenuItem onClick={showConfirmModal}>
+                <ListItemIcon>
+                  <DeleteIcon />
+                </ListItemIcon>
+                <ListItemText inset={true} primary="Delete" />
+              </MenuItem>
+            )}
           </IconMenu>
         </ListItemSecondaryAction>
       )}

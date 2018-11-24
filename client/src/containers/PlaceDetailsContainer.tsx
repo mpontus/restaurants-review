@@ -1,8 +1,4 @@
-import {
-  Button,
-  Grid,
-  ListSubheader
-} from "@material-ui/core";
+import { Button, Grid, ListSubheader } from "@material-ui/core";
 import React, { useCallback, useEffect, useState } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -166,17 +162,17 @@ export const BasePlaceDetailsContainer = ({
             }
             actions={
               <React.Fragment>
-                {canReview(place, user) && (
+                {place.canReview && (
                   <Button color="primary" onClick={showReviewModal}>
                     Submit Review
                   </Button>
                 )}
-                {canEdit(place, user) && (
+                {place.canEdit && (
                   <Button color="primary" onClick={showEditModal}>
                     Edit
                   </Button>
                 )}
-                {canDelete(place, user) && (
+                {place.canDelete && (
                   <Button color="primary" onClick={showConfirmModal}>
                     Delete
                   </Button>

@@ -38,5 +38,20 @@ export const placeSchema = t.type({
   /**
    * Review by the user making the request
    */
-  ownReview: t.union([reviewSchema, t.undefined])
+  ownReview: t.union([reviewSchema, t.undefined]),
+
+  /**
+   * Whether user can leave review for the place
+   */
+  canReview: t.union([t.boolean, t.undefined]),
+
+  /**
+   * Whether user can edit the place
+   */
+  canEdit: t.union([t.boolean, t.undefined]),
+
+  /**
+   * Whether user can delete the place
+   */
+  canDelete: t.union([t.boolean, t.undefined])
 });
