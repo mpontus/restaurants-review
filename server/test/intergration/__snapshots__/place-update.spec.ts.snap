@@ -45,7 +45,6 @@ Object {
   "address": "069 Murphy Union",
   "canDelete": true,
   "canEdit": true,
-  "canReview": false,
   "id": "d3973942-133b-55e4-920e-7b0033ab9d38",
   "rating": 3.75,
   "reviewCount": 0,

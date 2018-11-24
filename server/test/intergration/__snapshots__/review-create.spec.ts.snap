@@ -5,16 +5,11 @@ Object {
   "author": Object {
     "name": "Ryan Gallagher",
   },
-  "canDelete": false,
-  "canEdit": false,
-  "canReply": false,
   "comment": "Have heart cover analysis carry.",
   "dateVisitted": Any<String>,
   "id": Any<String>,
   "place": Object {
     "address": "1187 Weskut Ridge",
-    "canDelete": false,
-    "canEdit": false,
     "canReview": true,
     "id": "d3973942-133b-55e4-920e-7b0033ab9d38",
     "rating": 3.75,

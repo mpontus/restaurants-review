@@ -1,5 +1,5 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import { Exclude, Expose } from 'class-transformer';
+import { Exclude, Expose, Transform } from 'class-transformer';
 import { Principal } from 'common/model/principal.model';
 
 /**
@@ -47,6 +47,7 @@ export class User {
    */
   @ApiModelProperty()
   @Expose()
+  @Transform((value: boolean) => value || undefined)
   get canEdit(): boolean {
     return !!this.actor && this.actor.roles.includes('admin');
   }
@@ -56,6 +57,7 @@ export class User {
    */
   @ApiModelProperty()
   @Expose()
+  @Transform((value: boolean) => value || undefined)
   get canDelete(): boolean {
     return !!this.actor && this.actor.roles.includes('admin');
   }

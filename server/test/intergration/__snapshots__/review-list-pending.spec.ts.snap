@@ -15,8 +15,6 @@ Object {
       "author": Object {
         "name": "Lucinda Reid",
       },
-      "canDelete": false,
-      "canEdit": false,
       "canReply": true,
       "comment": "Party environment control quality full less painting.",
       "dateVisitted": "2001-07-05",
@@ -37,8 +35,6 @@ Object {
       "author": Object {
         "name": "Lucinda Reid",
       },
-      "canDelete": false,
-      "canEdit": false,
       "canReply": true,
       "comment": "Serious inside else memory if six.",
       "dateVisitted": "1986-01-24",
@@ -110,8 +106,6 @@ Object {
       "author": Object {
         "name": "Lucinda Reid",
       },
-      "canDelete": false,
-      "canEdit": false,
       "canReply": true,
       "comment": "Party environment control quality full less painting.",
       "dateVisitted": "2001-07-05",
@@ -203,8 +197,6 @@ Object {
       "author": Object {
         "name": "Lucinda Reid",
       },
-      "canDelete": false,
-      "canEdit": false,
       "canReply": true,
       "comment": "Serious inside else memory if six.",
       "dateVisitted": "1986-01-24",

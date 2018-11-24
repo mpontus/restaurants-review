@@ -1,5 +1,5 @@
 import { ApiModelProperty, ApiResponseModelProperty } from '@nestjs/swagger';
-import { Exclude, Expose } from 'class-transformer';
+import { Exclude, Expose, Transform } from 'class-transformer';
 import { Principal } from 'common/model/principal.model';
 import { Place } from 'places/model/place.model';
 import { ReviewAuthor } from './review-author.model';
@@ -59,6 +59,7 @@ export class Review {
    */
   @ApiModelProperty()
   @Expose()
+  @Transform((value: boolean) => value || undefined)
   get canReply(): boolean {
     if (!this.actor) {
       return false;
@@ -82,6 +83,7 @@ export class Review {
    */
   @ApiModelProperty()
   @Expose()
+  @Transform((value: boolean) => value || undefined)
   get canEdit(): boolean {
     if (!this.actor) {
       return false;
@@ -95,6 +97,7 @@ export class Review {
    */
   @ApiModelProperty()
   @Expose()
+  @Transform((value: boolean) => value || undefined)
   get canDelete(): boolean {
     if (!this.actor) {
       return false;
