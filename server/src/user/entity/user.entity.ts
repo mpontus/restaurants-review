@@ -1,3 +1,4 @@
+import { Principal } from 'common/model/principal.model';
 import {
   Column,
   CreateDateColumn,
@@ -58,8 +59,8 @@ export class UserEntity {
   /**
    * Transform entity to domain model
    */
-  public toModel(): User {
-    return new User({
+  public toModel(actor?: Principal): User {
+    return new User(actor, {
       id: this.id,
       name: this.name,
       email: this.email || undefined,

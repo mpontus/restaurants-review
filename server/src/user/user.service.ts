@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CryptoService } from 'common/crypto.service';
+import { Principal } from 'common/model/principal.model';
 import { CreateUserDto } from './model/create-user-dto.model';
 import { ListUsersCriteria } from './model/list-users-criteria.model';
 import { UpdateUserDto } from './model/update-user-dto.model';
@@ -22,8 +23,11 @@ export class UserService {
   /**
    * Find single user by id
    */
-  public async findUser(id: string): Promise<User> {
-    const user = await this.userRepository.findById(id);
+  public async findUser(
+    actor: Principal | undefined,
+    id: string,
+  ): Promise<User> {
+    const user = await this.userRepository.findById(actor, id);
 
     if (user === undefined) {
       throw new NotFoundException();
@@ -35,9 +39,12 @@ export class UserService {
   /**
    * List existing users
    */
-  public async listUsers(criteria: ListUsersCriteria): Promise<UserList> {
+  public async listUsers(
+    actor: Principal | undefined,
+    criteria: ListUsersCriteria,
+  ): Promise<UserList> {
     const total = await this.userRepository.count();
-    const items = await this.userRepository.findAll(criteria);
+    const items = await this.userRepository.findAll(actor, criteria);
 
     return new UserList(total, items);
   }
@@ -45,8 +52,11 @@ export class UserService {
   /**
    * Create new user
    */
-  public async createUser(data: CreateUserDto): Promise<User> {
-    const user = new User({
+  public async createUser(
+    actor: Principal,
+    data: CreateUserDto,
+  ): Promise<User> {
+    const user = new User(actor, {
       name: data.name,
       email: data.email,
       passwordHash: await this.cryptoService.hashPassword(data.password),
@@ -57,7 +67,7 @@ export class UserService {
       ],
     });
 
-    return this.userRepository.create(user);
+    return this.userRepository.create(actor, user);
   }
 
   /**

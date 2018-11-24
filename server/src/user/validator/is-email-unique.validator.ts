@@ -14,7 +14,7 @@ export class IsEmailUnique {
    * Check email address for uniqueness against existing user entities
    */
   public async validate(email: string): Promise<boolean> {
-    const userExists = await this.userRepository.findByEmail(email);
+    const userExists = await this.userRepository.findByEmail(undefined, email);
 
     return userExists === undefined;
   }

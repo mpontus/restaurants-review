@@ -2,6 +2,8 @@
 
 exports[`Create User when user is admin should succeed 1`] = `
 Object {
+  "canDelete": true,
+  "canEdit": true,
   "email": "milabgog@iz.ro",
   "id": Any<String>,
   "name": "Theodore Roberson",

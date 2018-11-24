@@ -142,7 +142,7 @@ export class SessionRepository {
         await this.redis.hgetall(key),
       );
 
-      const user = await this.userRepository.findById(userId);
+      const user = await this.userRepository.findById(undefined, userId);
 
       if (user === undefined) {
         return undefined;

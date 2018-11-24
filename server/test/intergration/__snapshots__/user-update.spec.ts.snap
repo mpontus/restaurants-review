@@ -2,6 +2,8 @@
 
 exports[`Update User when user is admin should succeed 1`] = `
 Object {
+  "canDelete": true,
+  "canEdit": true,
   "email": "milabgog@iz.ro",
   "id": "41a5bad8-9cb4-5881-b296-2eb316df862c",
   "name": "Theodore Roberson",

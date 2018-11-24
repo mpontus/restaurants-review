@@ -43,7 +43,7 @@ export class AuthService {
    * Create session for the user with the given email and password
    */
   public async login(data: LoginDto): Promise<Session> {
-    const user = await this.userRepository.findByEmail(data.email);
+    const user = await this.userRepository.findByEmail(undefined, data.email);
 
     if (user === undefined || user.passwordHash === undefined) {
       throw new BadRequestException('Bad credentials');
@@ -66,7 +66,8 @@ export class AuthService {
    */
   public async signup(data: SignupDto): Promise<Session> {
     const user = await this.userRepository.create(
-      new User({
+      undefined,
+      new User(undefined, {
         name: data.name,
         email: data.email,
         passwordHash: await this.cryptoService.hashPassword(data.password),

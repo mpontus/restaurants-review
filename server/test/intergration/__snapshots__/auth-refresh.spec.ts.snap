@@ -17,6 +17,8 @@ Object {
 
 exports[`session refresh when refresh token is valid should succeed 2`] = `
 Object {
+  "canDelete": false,
+  "canEdit": false,
   "email": "uwezepgis@aku.cm",
   "id": Any<String>,
   "name": "Ryan Gallagher",

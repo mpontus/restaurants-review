@@ -1,5 +1,6 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import { Exclude } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
+import { Principal } from 'common/model/principal.model';
 
 /**
  * User model object
@@ -7,6 +8,7 @@ import { Exclude } from 'class-transformer';
  * User may exist without email or password, for example, when
  * authenticated using 3-rd party application.
  */
+@Expose()
 export class User {
   /**
    * User id
@@ -41,9 +43,35 @@ export class User {
   public roles: string[];
 
   /**
+   * Describe whether the user can edit the place
+   */
+  @ApiModelProperty()
+  @Expose()
+  get canEdit(): boolean {
+    return !!this.actor && this.actor.roles.includes('admin');
+  }
+
+  /**
+   * Describe whether the user can delete the place
+   */
+  @ApiModelProperty()
+  @Expose()
+  get canDelete(): boolean {
+    return !!this.actor && this.actor.roles.includes('admin');
+  }
+
+  /**
+   * Identity of the user making the request
+   */
+  @Exclude()
+  private readonly actor: Principal | undefined;
+
+  /**
    * Constructor shorthand
    */
-  constructor(values: Partial<User>) {
-    return Object.assign(this, values);
+  constructor(actor: Principal | undefined, values: Partial<User>) {
+    this.actor = actor;
+
+    Object.assign(this, values);
   }
 }

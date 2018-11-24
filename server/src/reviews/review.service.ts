@@ -121,7 +121,7 @@ export class ReviewService {
     place: Place,
     data: CreateReviewDto,
   ): Promise<Review> {
-    const user = await this.userRepository.findById(actor.id);
+    const user = await this.userRepository.findById(undefined, actor.id);
 
     if (user === undefined) {
       throw new UnauthorizedException();

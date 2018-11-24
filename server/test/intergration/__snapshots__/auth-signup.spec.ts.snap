@@ -10,6 +10,8 @@ Object {
 
 exports[`Signup when details are valid should succeed 2`] = `
 Object {
+  "canDelete": false,
+  "canEdit": false,
   "email": "polo@peswop.dm",
   "id": Any<String>,
   "name": "Lawrence Ford",

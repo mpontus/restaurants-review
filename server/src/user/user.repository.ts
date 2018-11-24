@@ -1,4 +1,5 @@
 import { InjectEntityManager } from '@nestjs/typeorm';
+import { Principal } from 'common/model/principal.model';
 import { EntityManager, FindConditions } from 'typeorm';
 import uuid from 'uuid';
 import { UserEntity } from './entity/user.entity';
@@ -18,8 +19,11 @@ export class UserRepository {
    *
    * Return undefined when user with given email does not exist
    */
-  public async findById(id: string): Promise<User | undefined> {
-    return this.lookupSingle({ id });
+  public async findById(
+    actor: Principal | undefined,
+    id: string,
+  ): Promise<User | undefined> {
+    return this.lookupSingle(actor, { id });
   }
 
   /**
@@ -27,8 +31,11 @@ export class UserRepository {
    *
    * Return undefined when user with given email does not exist
    */
-  public async findByEmail(email: string): Promise<User | undefined> {
-    return this.lookupSingle({ email });
+  public async findByEmail(
+    actor: Principal | undefined,
+    email: string,
+  ): Promise<User | undefined> {
+    return this.lookupSingle(actor, { email });
   }
 
   /**
@@ -41,20 +48,23 @@ export class UserRepository {
   /**
    * Return all users matching specified criteria
    */
-  public async findAll(criteria: ListUsersCriteria): Promise<User[]> {
+  public async findAll(
+    actor: Principal | undefined,
+    criteria: ListUsersCriteria,
+  ): Promise<User[]> {
     const items = await this.manager.find(UserEntity, {
       order: { createdAt: 'DESC' },
       take: criteria.take,
       skip: criteria.skip,
     });
 
-    return items.map(item => item.toModel());
+    return items.map(item => item.toModel(actor));
   }
 
   /**
    * Persist given user in the database
    */
-  public async create(user: User): Promise<User> {
+  public async create(actor: Principal | undefined, user: User): Promise<User> {
     const userEntity = this.manager.create(UserEntity, {
       id: uuid(),
       name: user.name,
@@ -65,7 +75,7 @@ export class UserRepository {
 
     await this.manager.save(userEntity);
 
-    return userEntity.toModel();
+    return userEntity.toModel(actor);
   }
 
   /**
@@ -93,6 +103,7 @@ export class UserRepository {
    * Find a single user by specified criteria
    */
   private async lookupSingle(
+    actor: Principal | undefined,
     conditions: FindConditions<UserEntity>,
   ): Promise<User | undefined> {
     const userEntity = await this.manager.findOne(UserEntity, conditions);
@@ -101,6 +112,6 @@ export class UserRepository {
       return undefined;
     }
 
-    return userEntity.toModel();
+    return userEntity.toModel(actor);
   }
 }

@@ -8,6 +8,7 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   UseGuards,
   UseInterceptors,
   UsePipes,
@@ -16,6 +17,7 @@ import {
 import { ApiBearerAuth, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'auth/guards/auth.guard';
 import { RolesGuard } from 'auth/guards/roles.guard';
+import { IAuthRequest } from 'common/interfaces/auth-request.interface';
 import { CreateUserDto } from './model/create-user-dto.model';
 import { ListUsersCriteria } from './model/list-users-criteria.model';
 import { UpdateUserDto } from './model/update-user-dto.model';
@@ -43,9 +45,10 @@ export class UserController {
   @ApiBearerAuth()
   @ApiOkResponse({ type: UserList })
   public async listUsers(
+    @Req() req: IAuthRequest,
     @Query() criteria: ListUsersCriteria,
   ): Promise<UserList> {
-    return this.userService.listUsers(criteria);
+    return this.userService.listUsers(req.user, criteria);
   }
 
   /**
@@ -55,8 +58,11 @@ export class UserController {
   @UseGuards(new RolesGuard(['admin']))
   @ApiBearerAuth()
   @ApiResponse({ status: 201, type: User })
-  public async createUser(@Body() data: CreateUserDto): Promise<User> {
-    return this.userService.createUser(data);
+  public async createUser(
+    @Req() req: IAuthRequest,
+    @Body() data: CreateUserDto,
+  ): Promise<User> {
+    return this.userService.createUser(req.user, data);
   }
 
   /**
@@ -67,10 +73,11 @@ export class UserController {
   @ApiBearerAuth()
   @ApiOkResponse({ type: User })
   public async updateUser(
+    @Req() req: IAuthRequest,
     @Param('id') id: string,
     @Body() data: UpdateUserDto,
   ): Promise<User> {
-    const user = await this.userService.findUser(id);
+    const user = await this.userService.findUser(req.user, id);
 
     return this.userService.updateUser(user, data);
   }
@@ -82,8 +89,11 @@ export class UserController {
   @UseGuards(new RolesGuard(['admin']))
   @ApiBearerAuth()
   @ApiResponse({ status: 204, type: User })
-  public async deleteUser(@Param('id') id: string): Promise<void> {
-    const user = await this.userService.findUser(id);
+  public async deleteUser(
+    @Req() req: IAuthRequest,
+    @Param('id') id: string,
+  ): Promise<void> {
+    const user = await this.userService.findUser(req.user, id);
 
     return this.userService.deleteUser(user);
   }
