@@ -1,9 +1,4 @@
-import {
-  DialogActions,
-  DialogContent,
-  Tab,
-  Tabs
-} from "@material-ui/core";
+import { DialogActions, DialogContent, Tab, Tabs } from "@material-ui/core";
 import React, { useCallback, useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import * as yup from "yup";
@@ -72,6 +67,7 @@ const loginSchema = yup.object<LoginDto>().shape({
  * Validation schema for signup form
  */
 const signupSchema = yup.object<SignupDto>().shape({
+  name: yup.string().required(),
   email: yup.string().required(),
   password: yup
     .string()
@@ -148,7 +144,7 @@ export const AuthModal: React.SFC<Props> = ({
           </DialogActions>
         </Form>
         <Form
-          initialValues={{ email: "", password: "" }}
+          initialValues={{ name: "", email: "", password: "" }}
           validationSchema={signupSchema}
           errors={signupError && signupError.details}
           onSubmit={onSignup}
@@ -159,6 +155,13 @@ export const AuthModal: React.SFC<Props> = ({
             ) : (
               <Message>Sign up with a new account</Message>
             )}
+            <Field
+              component={Input}
+              type="text"
+              id="signup-name"
+              name="name"
+              label="Display Name"
+            />
             <Field
               component={Input}
               type="email"
