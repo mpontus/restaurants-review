@@ -12,7 +12,7 @@ export class Review {
    * Review id
    */
   @ApiResponseModelProperty()
-  public id: string;
+  public id!: string;
 
   /**
    * Place for which the review is made.

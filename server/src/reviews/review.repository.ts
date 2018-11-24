@@ -1,7 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { Place } from 'places/model/place.model';
-import { EntityManager, FindConditions, Not, In } from 'typeorm';
+import {
+  EntityManager,
+  FindConditions,
+  Not,
+  In,
+  FindOneOptions,
+} from 'typeorm';
 import uuid from 'uuid';
 import { ReviewEntity } from './entity/review.entity';
 import { FindReviewsCriteria } from './model/find-reviews-criteria.model';
@@ -59,42 +65,14 @@ export class ReviewRepository {
    * Return lowest rated place review
    */
   public async findWorstReview(place: Place): Promise<Review | undefined> {
-    const reviewEntity = await this.manager.findOne(ReviewEntity, {
-      where: {
-        place: { id: place.id },
-      },
-      order: {
-        rating: 'ASC',
-      },
-      relations: ['place', 'author'],
-    });
-
-    if (reviewEntity === undefined) {
-      return undefined;
-    }
-
-    return reviewEntity.toModel();
+    return this.getFirstPlaceReview(place, { rating: 'ASC' });
   }
 
   /**
    * Return highest rated place review
    */
   public async findBestReview(place: Place): Promise<Review | undefined> {
-    const reviewEntity = await this.manager.findOne(ReviewEntity, {
-      where: {
-        place: { id: place.id },
-      },
-      order: {
-        rating: 'DESC',
-      },
-      relations: ['place', 'author'],
-    });
-
-    if (reviewEntity === undefined) {
-      return undefined;
-    }
-
-    return reviewEntity.toModel();
+    return this.getFirstPlaceReview(place, { rating: 'DESC' });
   }
 
   /**
@@ -162,5 +140,27 @@ export class ReviewRepository {
     }
 
     return where;
+  }
+
+  /**
+   * Retrieve the first review for the place for the given order
+   */
+  private async getFirstPlaceReview(
+    place: Place,
+    order: FindOneOptions<ReviewEntity>['order'],
+  ): Promise<Review | undefined> {
+    const reviewEntity = await this.manager.findOne(ReviewEntity, {
+      where: {
+        place: { id: place.id },
+      },
+      order,
+      relations: ['place', 'author'],
+    });
+
+    if (reviewEntity === undefined) {
+      return undefined;
+    }
+
+    return reviewEntity.toModel();
   }
 }
