@@ -40,7 +40,7 @@ export class UpdateRating implements IEventHandler<Events> {
     }
 
     if (event instanceof ReviewDeletedEvent) {
-      if (reviewCount === 1) {
+      if (reviewCount <= 1) {
         // Prevent division by zero
         rating = 0;
       } else {
