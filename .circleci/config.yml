@@ -95,6 +95,44 @@ jobs:
       - run:
           name: Build
           command: yarn build
+      - persist_to_workspace:
+          root: .
+          paths: .
+
+  deploy_client:
+    <<: *client_defaults
+    steps:
+      - attach_workspace:
+          at: ~/repo/client
+      - run:
+          name: Build
+          command: yarn build
+      - run:
+          name: Install awscli
+          command: sudo apt-get -y -qq install awscli
+      - run:
+          name: Setting signature version 4 for S3 request authentication
+          command: aws configure set default.s3.signature_version s3v4
+      - run:
+          name: Deploy to S3
+          command: |
+            aws s3 sync build/ s3://$AWS_BUCKET_NAME --delete
+
+  deploy_server:
+    <<: *server_defaults
+    docker:
+      - image: circleci/node:8.11
+    steps:
+      - checkout
+      - run:
+          name: Synchronize front-end URL with the server
+          command: |
+            npx heroku config:set PUBLIC_URL=$PUBLIC_URL -a $HEROKU_APP_NAME
+      - run:
+          name: Deploy Master to Heroku
+          command: |
+            git push -f https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master
+
 
 workflows:
   version: 2
@@ -116,3 +154,17 @@ workflows:
       - lint_client:
           requires:
             - checkout_code
+      - deploy_client:
+          requires:
+            - build_server
+            - lint_server
+            - test_server
+            - build_client
+            - lint_client
+      - deploy_server:
+          requires:
+            - build_server
+            - lint_server
+            - test_server
+            - build_client
+            - lint_client
