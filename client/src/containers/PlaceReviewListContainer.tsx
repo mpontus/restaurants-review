@@ -1,8 +1,8 @@
+import { Grid } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { loadReviews } from "../actions/reviewListActions";
-import { List } from "../components/List";
 import { Loading } from "../components/Loading";
 import { PaginationControls } from "../components/PaginationControls";
 import { LoadReviewsDto } from "../models/LoadReviewsDto";
@@ -133,14 +133,24 @@ const BasePlaceReviewListContainer = ({
 
   return (
     <React.Fragment>
-      {header}
-      <List items={page.items} renderItem={renderItem} />
-      <PaginationControls
-        hasPrev={page.prevPageExists}
-        hasNext={page.nextPageExists}
-        onPrev={onPrev}
-        onNext={onNext}
-      />
+      <Grid item={true} xs={12}>
+        {header}
+      </Grid>
+      <Grid container={true} spacing={16}>
+        {page.items.map(id => (
+          <Grid key={id} item={true} xs={12} sm={6}>
+            {renderItem(id)}
+          </Grid>
+        ))}
+        <Grid item={true} xs={12}>
+          <PaginationControls
+            hasPrev={page.prevPageExists}
+            hasNext={page.nextPageExists}
+            onPrev={onPrev}
+            onNext={onNext}
+          />
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 };

@@ -37,10 +37,8 @@ interface Props extends WithStyles<ClassKey> {
 
 const enhance = withStyles<ClassKey>(theme => ({
   root: {
-    marginTop: theme.spacing.unit * 2,
-    marginBottom: theme.spacing.unit * 2,
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit
+    marginTop: theme.spacing.unit,
+    marginBottom: theme.spacing.unit
   },
   positive: {
     borderTop: `4px solid #81c784`

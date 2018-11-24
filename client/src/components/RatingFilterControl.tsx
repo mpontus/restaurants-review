@@ -1,15 +1,10 @@
-import {
-  Toolbar,
-  Typography,
-  withStyles,
-  WithStyles
-} from "@material-ui/core";
+import { Toolbar, Typography, withStyles, WithStyles } from "@material-ui/core";
 import classnames from "classnames";
 import React from "react";
 import { useCallback } from "react";
 import { Rating } from "./Rating";
 
-type ClassKey = "label";
+type ClassKey = "label" | "active";
 
 /**
  * Component props
@@ -57,8 +52,8 @@ export const RatingFilterControl = enhance(
       <Toolbar>
         <Typography
           variant="button"
-          color="textSecondary"
-          className={classnames(classes.label, { active: value })}
+          color={value ? "primary" : "textSecondary"}
+          className={classnames(classes.label, { [classes.active]: value })}
           onClick={handleReset}
         >
           Filter by rating

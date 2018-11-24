@@ -120,6 +120,7 @@ export const BasePlaceListItemContainer = ({
     place,
     onDelete
   ]);
+
   const [showConfirmModal, hideConfirmModal] = useModal(() => (
     <ConfirmModal
       title="Delete place?"

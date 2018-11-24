@@ -3,6 +3,7 @@ import {
   FormHelperText,
   Radio,
   RadioGroup,
+  Typography,
   withStyles,
   WithStyles
 } from "@material-ui/core";
@@ -16,18 +17,45 @@ import React from "react";
 /**
  * Custom class names
  */
-type ClassKey = "root" | "star";
+type ClassKey = "root" | "row" | "star" | "caption";
 
 /**
  * Rating Component Props
  */
 interface Props extends WithStyles<ClassKey> {
+  /**
+   * Element id
+   */
   id?: string;
-  label?: string;
+
+  /**
+   * Input name
+   */
   name?: string;
+
+  /**
+   * Current value
+   */
   value: any;
-  error?: string | null;
+
+  /**
+   * Caption
+   */
+  caption?: React.ReactNode;
+
+  /**
+   * Form error
+   */
+  error?: React.ReactNode;
+
+  /**
+   * Blur callback
+   */
   onBlur?: (e: any) => void;
+
+  /**
+   * Change callback
+   */
   onChange?: (e: React.ChangeEvent<any>) => void;
 }
 
@@ -39,8 +67,14 @@ const enhance = withStyles<ClassKey>(theme => ({
     padding: theme.spacing.unit,
     paddingLeft: 0
   },
+  row: {
+    flexWrap: "nowrap"
+  },
   star: {
     padding: 0
+  },
+  caption: {
+    marginTop: theme.spacing.unit
   }
 }));
 
@@ -92,21 +126,34 @@ class BaseRating extends React.PureComponent<Props> {
    * Render component
    */
   public render() {
-    const { classes, id, name, error, onChange } = this.props;
+    const { classes, id, name, error, caption, onChange } = this.props;
 
     return (
-      <React.Fragment>
-        <FormGroup className={classes.root}>
-          <RadioGroup row={true} id={id} name={name} onChange={onChange}>
-            {this.renderStar(1)}
-            {this.renderStar(2)}
-            {this.renderStar(3)}
-            {this.renderStar(4)}
-            {this.renderStar(5)}
-          </RadioGroup>
-          {error && <FormHelperText error={true}>{error}</FormHelperText>}
-        </FormGroup>
-      </React.Fragment>
+      <FormGroup className={classes.root}>
+        <RadioGroup
+          className={classes.row}
+          row={true}
+          id={id}
+          name={name}
+          onChange={onChange}
+        >
+          {this.renderStar(1)}
+          {this.renderStar(2)}
+          {this.renderStar(3)}
+          {this.renderStar(4)}
+          {this.renderStar(5)}
+        </RadioGroup>
+        {caption && (
+          <Typography
+            variant="caption"
+            align="center"
+            className={classes.caption}
+          >
+            {caption}
+          </Typography>
+        )}
+        {error && <FormHelperText error={true}>{error}</FormHelperText>}
+      </FormGroup>
     );
   }
 }
