@@ -5,6 +5,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  MaxLength,
   MinLength,
   Validate,
 } from 'class-validator';
@@ -17,24 +18,26 @@ export class CreateUserDto {
   /**
    * User display name
    */
-  @ApiModelProperty()
   @IsString()
   @IsNotEmpty()
+  @MaxLength(60)
+  @ApiModelProperty()
   public name: string;
 
   /**
    * User email address
    */
-  @ApiModelProperty()
   @IsEmail()
+  @MaxLength(60)
   @Validate(IsEmailUnique)
+  @ApiModelProperty()
   public email: string;
 
   /**
    * User password
    */
-  @ApiModelProperty()
   @MinLength(6)
+  @ApiModelProperty()
   public password: string;
 
   /**
@@ -42,6 +45,7 @@ export class CreateUserDto {
    */
   @IsOptional()
   @IsBoolean()
+  @ApiModelProperty()
   public isOwner?: boolean;
 
   /**
@@ -49,5 +53,6 @@ export class CreateUserDto {
    */
   @IsOptional()
   @IsBoolean()
+  @ApiModelProperty()
   public isAdmin?: boolean;
 }

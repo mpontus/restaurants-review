@@ -25,7 +25,7 @@ export class PlaceEntity {
    * Place id
    */
   @PrimaryColumn('uuid')
-  public id!: string;
+  public id: string;
 
   /**
    * Place owner id

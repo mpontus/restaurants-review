@@ -5,6 +5,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  MaxLength,
   MinLength,
   Validate,
 } from 'class-validator';
@@ -17,27 +18,29 @@ export class UpdateUserDto {
   /**
    * User display name
    */
-  @ApiModelProperty()
   @IsOptional()
   @IsString()
   @IsNotEmpty()
+  @MaxLength(60)
+  @ApiModelProperty()
   public name?: string;
 
   /**
    * User email address
    */
-  @ApiModelProperty()
   @IsOptional()
   @IsEmail()
+  @MaxLength(60)
   @Validate(IsEmailUnique)
+  @ApiModelProperty()
   public email?: string;
 
   /**
    * User password
    */
-  @ApiModelProperty()
   @IsOptional()
   @MinLength(6)
+  @ApiModelProperty()
   public password?: string;
 
   /**
@@ -45,6 +48,7 @@ export class UpdateUserDto {
    */
   @IsOptional()
   @IsBoolean()
+  @ApiModelProperty()
   public isOwner?: boolean;
 
   /**
@@ -52,5 +56,6 @@ export class UpdateUserDto {
    */
   @IsOptional()
   @IsBoolean()
+  @ApiModelProperty()
   public isAdmin?: boolean;
 }

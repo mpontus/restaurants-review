@@ -3,6 +3,7 @@ import {
   IsEmail,
   IsNotEmpty,
   IsString,
+  MaxLength,
   MinLength,
   Validate,
 } from 'class-validator';
@@ -15,17 +16,19 @@ export class SignupDto {
   /**
    * User display name
    */
-  @ApiModelProperty()
   @IsString()
   @IsNotEmpty()
+  @MaxLength(60)
+  @ApiModelProperty()
   public name: string;
 
   /**
    * User email
    */
-  @ApiModelProperty()
   @IsEmail()
+  @MaxLength(60)
   @Validate(IsEmailUnique)
+  @ApiModelProperty()
   public email: string;
 
   /**
