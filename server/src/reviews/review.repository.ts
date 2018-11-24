@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
+import { Principal } from 'common/model/principal.model';
 import { Place } from 'places/model/place.model';
 import {
   EntityManager,
@@ -34,7 +35,10 @@ export class ReviewRepository {
   /**
    * Return reviews matching criteria
    */
-  public async findAll(criteria: FindReviewsCriteria): Promise<Review[]> {
+  public async findAll(
+    actor: Principal | undefined,
+    criteria: FindReviewsCriteria,
+  ): Promise<Review[]> {
     const items = await this.manager.find(ReviewEntity, {
       order: { createdAt: 'DESC' },
       where: this.createWhereClause(criteria),
@@ -43,13 +47,16 @@ export class ReviewRepository {
       skip: criteria.skip,
     });
 
-    return items.map(item => item.toModel());
+    return items.map(item => item.toModel(actor));
   }
 
   /**
    * Return single review by id
    */
-  public async findById(id: string): Promise<Review | undefined> {
+  public async findById(
+    actor: Principal | undefined,
+    id: string,
+  ): Promise<Review | undefined> {
     const reviewEntity = await this.manager.findOne(ReviewEntity, id, {
       relations: ['place', 'author'],
     });
@@ -58,7 +65,7 @@ export class ReviewRepository {
       return undefined;
     }
 
-    return reviewEntity.toModel();
+    return reviewEntity.toModel(actor);
   }
 
   /**
@@ -78,7 +85,10 @@ export class ReviewRepository {
   /**
    * Create new review
    */
-  public async create(review: Review): Promise<Review> {
+  public async create(
+    actor: Principal | undefined,
+    review: Review,
+  ): Promise<Review> {
     review.id = uuid();
 
     const reviewEntity = this.manager.create(ReviewEntity, {
@@ -93,7 +103,7 @@ export class ReviewRepository {
     await this.manager.save(ReviewEntity, reviewEntity);
 
     // Transfer generated date from database entity to model
-    review.dateVisitted = reviewEntity.toModel().dateVisitted;
+    review.dateVisitted = reviewEntity.toModel(actor).dateVisitted;
 
     return review;
   }
@@ -161,6 +171,6 @@ export class ReviewRepository {
       return undefined;
     }
 
-    return reviewEntity.toModel();
+    return reviewEntity.toModel(undefined);
   }
 }

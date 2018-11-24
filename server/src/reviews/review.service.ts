@@ -37,8 +37,11 @@ export class ReviewService {
   /**
    * Retrieve single review by id
    */
-  public async getReview(id: string): Promise<Review> {
-    const review = await this.reviewRepository.findById(id);
+  public async getReview(
+    actor: Principal | undefined,
+    id: string,
+  ): Promise<Review> {
+    const review = await this.reviewRepository.findById(actor, id);
 
     if (review === undefined) {
       throw new NotFoundException();
@@ -61,7 +64,7 @@ export class ReviewService {
     });
 
     const total = await this.reviewRepository.count(findCriteria);
-    const items = await this.reviewRepository.findAll(findCriteria);
+    const items = await this.reviewRepository.findAll(actor, findCriteria);
 
     return new ReviewList(total, items);
   }
@@ -70,6 +73,7 @@ export class ReviewService {
    * Return a list of the reviews for a place
    */
   public async listPlaceReviews(
+    actor: Principal | undefined,
     place: Place,
     criteria: ListPlaceReviewsCriteria,
   ): Promise<ReviewList> {
@@ -84,7 +88,7 @@ export class ReviewService {
       ].filter((s?: string): s is string => s !== undefined),
     });
     const total = await this.reviewRepository.count(findCriteria);
-    const items = await this.reviewRepository.findAll(findCriteria);
+    const items = await this.reviewRepository.findAll(actor, findCriteria);
 
     return new ReviewList(total, items);
   }
@@ -123,14 +127,14 @@ export class ReviewService {
       throw new UnauthorizedException();
     }
 
-    const review = new Review({
+    const review = new Review(actor, {
       place,
       author: new ReviewAuthor(user),
       rating: data.rating,
       comment: data.comment,
     });
 
-    const result = await this.reviewRepository.create(review);
+    const result = await this.reviewRepository.create(actor, review);
 
     this.eventBus.publish(new ReviewCreatedEvent(result));
 

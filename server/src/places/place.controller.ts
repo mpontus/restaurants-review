@@ -152,7 +152,7 @@ export class PlaceController {
   ): Promise<ReviewList> {
     const place = await this.placeService.getPlace(req.user, id);
 
-    return this.reviewService.listPlaceReviews(place, criteria);
+    return this.reviewService.listPlaceReviews(req.user, place, criteria);
   }
 
   /**

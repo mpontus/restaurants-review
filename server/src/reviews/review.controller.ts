@@ -63,7 +63,11 @@ export class ReviewController {
     @Param('id') id: string,
     @Body() data: UpdateReviewDto,
   ): Promise<Review> {
-    const review = await this.reviewService.getReview(id);
+    const review = await this.reviewService.getReview(req.user, id);
+
+    if (!review.canEdit) {
+      throw new ForbiddenException();
+    }
 
     return this.reviewService.updateReview(req.user, review, data);
   }
@@ -80,9 +84,9 @@ export class ReviewController {
     @Param('id') id: string,
     @Body() data: ReplyDto,
   ): Promise<Review> {
-    const review = await this.reviewService.getReview(id);
+    const review = await this.reviewService.getReview(req.user, id);
 
-    if (review.place.ownerId !== req.user.id) {
+    if (!review.canReply) {
       throw new ForbiddenException();
     }
 
@@ -100,7 +104,11 @@ export class ReviewController {
     @Req() req: IAuthRequest,
     @Param('id') id: string,
   ): Promise<void> {
-    const review = await this.reviewService.getReview(id);
+    const review = await this.reviewService.getReview(req.user, id);
+
+    if (!review.canDelete) {
+      throw new ForbiddenException();
+    }
 
     return this.reviewService.deleteReview(req.user, review);
   }

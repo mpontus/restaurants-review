@@ -79,7 +79,7 @@ export class ReviewEntity {
    * Transform entity to domain model
    */
   public toModel(actor?: Principal): Review {
-    return new Review({
+    return new Review(actor, {
       id: this.id,
       place: this.place ? this.place.toModel(actor) : undefined,
       author: this.author

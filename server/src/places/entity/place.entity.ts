@@ -104,13 +104,13 @@ export class PlaceEntity {
       rating: this.rating,
       reviewCount: this.reviewCount,
       bestReview: this.bestReview
-        ? PlaceReview.fromReview(this.bestReview.toModel())
+        ? PlaceReview.fromReview(this.bestReview.toModel(actor))
         : undefined,
       worstReview: this.worstReview
-        ? PlaceReview.fromReview(this.worstReview.toModel())
+        ? PlaceReview.fromReview(this.worstReview.toModel(actor))
         : undefined,
       ownReview: this.ownReview
-        ? PlaceReview.fromReview(this.ownReview.toModel())
+        ? PlaceReview.fromReview(this.ownReview.toModel(actor))
         : undefined,
     });
   }

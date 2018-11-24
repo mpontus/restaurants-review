@@ -5,6 +5,9 @@ Object {
   "author": Object {
     "name": "Ryan Gallagher",
   },
+  "canDelete": false,
+  "canEdit": false,
+  "canReply": false,
   "comment": "Have heart cover analysis carry.",
   "dateVisitted": Any<String>,
   "id": Any<String>,
