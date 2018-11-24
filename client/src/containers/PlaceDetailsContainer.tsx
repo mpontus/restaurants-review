@@ -11,12 +11,15 @@ import { loadPlace } from "../actions/placeDetailsActions";
 import { Loading } from "../components/Loading";
 import { useModal } from "../components/ModalRoot";
 import { Rating } from "../components/Rating";
-import { Place } from "../models/Place";
+import { Place, canReview } from "../models/Place";
 import { State } from "../reducers";
 import { makeGetPlaceById } from "../selectors/placeSelectors";
 import { CreateReviewModalContainer } from "./CreateReviewModalContainer";
 import { PlaceReviewListContainer } from "./PlaceReviewListContainer";
 import { ReviewContainer } from "./ReviewListItemContainer";
+import { makeGetCurrentUser } from "../selectors/authSelectors";
+import { User, canDelete } from "../models/User";
+import { canEdit } from "../models/Review";
 
 /**
  * External Props
@@ -43,6 +46,11 @@ interface OwnProps {
  */
 interface StateProps {
   /**
+   * Currently authenticated user
+   */
+  user?: User;
+
+  /**
    * Place
    */
   place?: Place;
@@ -68,6 +76,7 @@ interface Props extends OwnProps, StateProps, DispatchProps {}
  */
 const makeMapStateToProps = (): Selector<State, StateProps, OwnProps> =>
   createStructuredSelector({
+    user: makeGetCurrentUser(),
     place: makeGetPlaceById()
   });
 
@@ -87,18 +96,14 @@ const enhance = connect(
  * Displays place details.
  */
 export const BasePlaceDetailsContainer = ({
+  user,
   id,
   place,
   onLoadPlace
 }: Props) => {
-  useEffect(
-    () => {
-      if (place === undefined) {
-        onLoadPlace({ id });
-      }
-    },
-    [id, place]
-  );
+  useEffect(() => {
+    onLoadPlace({ id });
+  }, []);
 
   if (place === undefined) {
     return <Loading />;
@@ -126,9 +131,11 @@ export const BasePlaceDetailsContainer = ({
         <ListItemText primary={place.title} secondary={place.address} />
         <Rating value={place.rating} />
       </ListItem>
-      <Button fullWidth={true} color="primary" onClick={showReviewModal}>
-        Submit Review
-      </Button>
+      {canReview(place, user) && (
+        <Button fullWidth={true} color="primary" onClick={showReviewModal}>
+          Submit Review
+        </Button>
+      )}
       {bestReview && (
         <React.Fragment>
           <ListSubheader disableSticky={true}>Highest Review</ListSubheader>

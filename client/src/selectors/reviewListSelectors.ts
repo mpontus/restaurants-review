@@ -44,15 +44,11 @@ export const makeGetReviewListPage = () =>
         placeReviewList,
         pendingReviewList
       ): Page<string> | undefined => {
-        if (pending) {
-          return pendingReviewList[page];
-        }
-
         if (place) {
           return placeReviewList[place.id] && placeReviewList[place.id]![page];
         }
 
-        return undefined;
+        return pendingReviewList[page];
       }
     )
   );

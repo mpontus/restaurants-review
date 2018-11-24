@@ -120,7 +120,7 @@ const BasePlaceReviewListContainer = ({
         page: currentPage
       });
     },
-    [place, currentPage]
+    [currentPage]
   );
 
   if (page === undefined) {

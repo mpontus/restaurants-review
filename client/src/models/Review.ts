@@ -1,4 +1,5 @@
 import { Place } from "./Place";
+import { isAdmin, User } from "./User";
 
 /**
  * Review Model
@@ -46,3 +47,15 @@ export interface Review {
    */
   reply?: string;
 }
+
+/**
+ * Return whether review can be editted by actor
+ */
+export const canEdit = (review: Review, actor?: User) =>
+  actor && isAdmin(actor);
+
+/**
+ * Return whether review can be deleted by actor
+ */
+export const canDelete = (review: Review, actor?: User) =>
+  actor && isAdmin(actor);

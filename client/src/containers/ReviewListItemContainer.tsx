@@ -7,12 +7,14 @@ import { Loading } from "../components/Loading";
 import { useModal } from "../components/ModalRoot";
 import { Review as ReviewComponent } from "../components/Review";
 import { RequestStatus } from "../models/RequestStatus";
-import { Review } from "../models/Review";
+import { Review, canEdit, canDelete } from "../models/Review";
 import { State } from "../reducers";
 import { makeGetReviewById } from "../selectors/reviewSelectors";
 import { makeGetReviewUpdateRequestStatus } from "../selectors/reviewSelectors";
 import { ReplyFormModalContainer } from "./ReplyFormModalContainer";
 import { UpdateReviewModalContainer } from "./UpdateReviewModalContainer";
+import { makeGetCurrentUser } from "../selectors/authSelectors";
+import { User } from "../models/User";
 
 /**
  * External Props
@@ -22,12 +24,22 @@ interface OwnProps {
    * Review Id
    */
   id: string;
+
+  /**
+   * Whether the review is pending
+   */
+  pending?: boolean;
 }
 
 /**
  * Connected Props
  */
 interface StateProps {
+  /**
+   * Currently authenticated user
+   */
+  user?: User;
+
   /**
    * Review entity
    */
@@ -59,6 +71,7 @@ interface Props extends OwnProps, StateProps, DispatchProps {}
  */
 const makeMapStateToProps = (): Selector<State, StateProps, OwnProps> =>
   createStructuredSelector({
+    user: makeGetCurrentUser(),
     review: makeGetReviewById(),
     requestStatus: makeGetReviewUpdateRequestStatus()
   });
@@ -79,7 +92,9 @@ const enhance = connect(
  * Displays a single review by id
  */
 export const BaseReviewContainer = ({
+  user,
   id,
+  pending,
   review,
   requestStatus,
   onDelete
@@ -121,9 +136,9 @@ export const BaseReviewContainer = ({
 
   return (
     <ReviewComponent
-      canEdit={true}
-      canReply={true}
-      canDelete={true}
+      canReply={pending}
+      canEdit={canEdit(review, user)}
+      canDelete={canDelete(review, user)}
       date={review.dateVisitted}
       author={review.author.name}
       rating={review.rating}

@@ -103,7 +103,7 @@ export const BaseReview = (props: Props) => {
       {reply && (
         <CardContent>
           <Typography variant="subtitle2">Owner Replied:</Typography>
-          <Typography component="p">{comment}</Typography>
+          <Typography component="p">{reply}</Typography>
         </CardContent>
       )}
       {(canReply || canEdit || canDelete) && (

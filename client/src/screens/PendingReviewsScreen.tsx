@@ -15,7 +15,7 @@ export const PendingReviewsScreen = () => {
       currentPage={currentPage}
       onPrev={() => setPage(page => page - 1)}
       onNext={() => setPage(page => page + 1)}
-      renderItem={id => <ReviewContainer key={id} id={id} />}
+      renderItem={id => <ReviewContainer key={id} pending={true} id={id} />}
     />
   );
 };
