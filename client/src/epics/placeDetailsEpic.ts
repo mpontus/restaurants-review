@@ -6,9 +6,9 @@ import { Action } from "../actions";
 import { loadPlace } from "../actions/placeDetailsActions";
 import {
   createReview,
-  updateReview,
   deleteReview,
-  replyToReview
+  replyToReview,
+  updateReview
 } from "../actions/reviewListActions";
 import { getPlace } from "../api/method/getPlace";
 import { Dependencies } from "../configureStore";
