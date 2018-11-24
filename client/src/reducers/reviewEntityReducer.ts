@@ -1,15 +1,14 @@
-import { Reducer } from "redux";
 import { normalize } from "normalizr";
-import { placeSchema, reviewSchema } from "../schemas";
+import { Reducer } from "redux";
 import { getType } from "typesafe-actions";
 import { Action } from "../actions";
 import { loadPlace } from "../actions/placeDetailsActions";
 import {
-  deleteReview,
   loadReviews,
   updateReview
 } from "../actions/reviewListActions";
 import { Review } from "../models/Review";
+import { placeSchema, reviewSchema } from "../schemas";
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 

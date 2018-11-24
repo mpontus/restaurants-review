@@ -11,15 +11,14 @@ import { loadPlace } from "../actions/placeDetailsActions";
 import { Loading } from "../components/Loading";
 import { useModal } from "../components/ModalRoot";
 import { Rating } from "../components/Rating";
-import { Place, canReview } from "../models/Place";
+import { canReview, Place } from "../models/Place";
+import { User } from "../models/User";
 import { State } from "../reducers";
+import { makeGetCurrentUser } from "../selectors/authSelectors";
 import { makeGetPlaceById } from "../selectors/placeSelectors";
 import { CreateReviewModalContainer } from "./CreateReviewModalContainer";
 import { PlaceReviewListContainer } from "./PlaceReviewListContainer";
 import { ReviewContainer } from "./ReviewListItemContainer";
-import { makeGetCurrentUser } from "../selectors/authSelectors";
-import { User, canDelete } from "../models/User";
-import { canEdit } from "../models/Review";
 
 /**
  * External Props

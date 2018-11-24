@@ -1,4 +1,4 @@
-import { createSelector, ParametricSelector } from "reselect";
+import { createSelector } from "reselect";
 import { Place } from "../models/Place";
 import { RequestStatus } from "../models/RequestStatus";
 import { SavePlaceDto } from "../models/SavePlaceDto";

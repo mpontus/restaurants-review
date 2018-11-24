@@ -1,17 +1,14 @@
 import { normalize } from "normalizr";
 import { Reducer } from "redux";
-import { getType, isActionOf } from "typesafe-actions";
+import { getType } from "typesafe-actions";
 import { Action } from "../actions";
 import { loadPlace } from "../actions/placeDetailsActions";
 import {
-  deletePlace,
   loadPlaces,
   updatePlace
 } from "../actions/placeListActions";
-import { deleteReview } from "../actions/reviewListActions";
 import { Place } from "../models/Place";
-import { placeSchema, reviewSchema } from "../schemas";
-import { eitherPredicate } from "./utils/eitherPredicate";
+import { placeSchema } from "../schemas";
 
 export interface NormalizedPlace
   extends Omit<Place, "bestReview" | "worstReview" | "ownReview"> {

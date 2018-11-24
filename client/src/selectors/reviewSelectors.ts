@@ -1,8 +1,8 @@
 import { createSelector } from "reselect";
-import { NormalizedReview } from "../reducers/reviewEntityReducer";
 import { RequestStatus } from "../models/RequestStatus";
 import { Review } from "../models/Review";
 import { State } from "../reducers";
+import { NormalizedReview } from "../reducers/reviewEntityReducer";
 import { safeGet } from "./utils/safeGet";
 
 /**
