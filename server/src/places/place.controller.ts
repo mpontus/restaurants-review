@@ -14,6 +14,7 @@ import {
   UseInterceptors,
   UsePipes,
   ValidationPipe,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'auth/guards/auth.guard';
@@ -166,7 +167,17 @@ export class PlaceController {
     @Param('id') id: string,
     @Body() data: CreateReviewDto,
   ): Promise<Review> {
-    const place = await this.placeService.getPlace(id);
+    const place = await this.placeService.getPlace(id, req.user);
+
+    // Prevent place owner from reviewing their own place
+    if (place.ownerId === req.user.id) {
+      throw new ForbiddenException();
+    }
+
+    // Prevent user from reviewing a place twice
+    if (place.ownReview !== undefined) {
+      throw new ForbiddenException();
+    }
 
     return this.reviewService.createReview(req.user, place, data);
   }
