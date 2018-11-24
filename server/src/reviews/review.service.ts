@@ -81,7 +81,6 @@ export class ReviewService {
       exclude: [
         place.bestReview && place.bestReview.id,
         place.worstReview && place.worstReview.id,
-        place.ownReview && place.ownReview.id,
       ].filter((s?: string): s is string => s !== undefined),
     });
     const total = await this.reviewRepository.count(findCriteria);
