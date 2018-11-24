@@ -55,28 +55,6 @@ Object {
 }
 `;
 
-exports[`Create User when user is admin when email is too long should fail 1`] = `
-Object {
-  "error": "Bad Request",
-  "message": Array [
-    Object {
-      "children": Array [],
-      "constraints": Object {
-        "isEmail": "email must be an email",
-      },
-      "property": "email",
-      "target": Object {
-        "email": "foobar",
-        "name": "Theodore Roberson",
-        "password": "#(i9Z3OyGW",
-      },
-      "value": "foobar",
-    },
-  ],
-  "statusCode": 400,
-}
-`;
-
 exports[`Create User when user is admin when name is empty should fail 1`] = `
 Object {
   "error": "Bad Request",
