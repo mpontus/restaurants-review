@@ -113,7 +113,6 @@ export const BasePlaceDetailsContainer = ({
   let { ownReview } = place;
 
   // Don't show own review when its already shown as best or worst review.
-  // We have to compare by id since we don't have store normailzation
   const isSame = (some: any, other: any) =>
     !(some === undefined || other === undefined || some.id !== other.id);
 

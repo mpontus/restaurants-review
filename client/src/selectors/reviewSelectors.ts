@@ -1,6 +1,9 @@
+import { createSelector } from "reselect";
+import { NormalizedReview } from "../reducers/reviewEntityReducer";
 import { RequestStatus } from "../models/RequestStatus";
 import { Review } from "../models/Review";
 import { State } from "../reducers";
+import { safeGet } from "./utils/safeGet";
 
 /**
  * Review List Item Parameters
@@ -17,11 +20,30 @@ const defaultRequestStatus = { loading: false, success: false };
 /**
  * Return single review by id
  */
-export const makeGetReviewById = () => (
-  state: State,
-  ownProps: ItemProps
-): Review | undefined =>
-  ownProps.id ? state.reviewEntity[ownProps.id] : undefined;
+export const makeGetReviewById = () =>
+  createSelector(
+    (state: State) => state,
+    (state: State, ownProps: ItemProps) =>
+      safeGet(state.reviewEntity, ownProps.id),
+    // Denormalize review
+    createSelector(
+      (state: State, review?: NormalizedReview) => review,
+      (state: State, review?: NormalizedReview) =>
+        safeGet(state.placeEntity, safeGet(review, "place")),
+      (review, place): Review | undefined =>
+        // Denormalize place by removing its reviews
+        review &&
+        Object.assign({}, review, {
+          place:
+            place &&
+            Object.assign({}, place, {
+              bestReview: undefined,
+              worstReview: undefined,
+              ownReview: undefined
+            })
+        })
+    )
+  );
 
 /**
  * Get request status for review listing

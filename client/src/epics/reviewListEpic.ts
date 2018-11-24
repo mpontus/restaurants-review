@@ -64,7 +64,10 @@ export const loadReviewListEpic: Epic<Action, Action, State, Dependencies> = (
               prevPageExists: offset > 0,
               total: page.total,
               offset,
-              items: page.items
+              items: page.items.map(review => ({
+                ...review,
+                place: criteria.place
+              }))
             }
           })
         ),

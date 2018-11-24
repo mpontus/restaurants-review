@@ -1,4 +1,6 @@
 import { Reducer } from "redux";
+import { normalize } from "normalizr";
+import { placeSchema, reviewSchema } from "../schemas";
 import { getType } from "typesafe-actions";
 import { Action } from "../actions";
 import { loadPlace } from "../actions/placeDetailsActions";
@@ -9,7 +11,13 @@ import {
 } from "../actions/reviewListActions";
 import { Review } from "../models/Review";
 
-type State = { [id in string]?: Review };
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+export interface NormalizedReview extends Omit<Review, "place"> {
+  place: string;
+}
+
+type State = { [id in string]?: NormalizedReview };
 
 /**
  * Stores review entities by their ids
@@ -19,17 +27,24 @@ export const reviewEntityReducer: Reducer<State, Action> = (
   action
 ) => {
   switch (action.type) {
-    case getType(loadReviews.success):
-      return action.payload.page.items.reduce(
-        (acc, item) => ({
-          ...acc,
-          [item.id]: item
-        }),
-        state
+    case getType(loadReviews.success): {
+      const { items } = action.payload.page;
+
+      return Object.assign(
+        {},
+        state,
+        normalize(items, [reviewSchema]).entities.review
       );
+    }
 
     case getType(updateReview.success): {
       const { review } = action.payload;
+
+      return Object.assign(
+        {},
+        state,
+        normalize(review, reviewSchema).entities.review
+      );
 
       return {
         ...state,
@@ -37,23 +52,14 @@ export const reviewEntityReducer: Reducer<State, Action> = (
       };
     }
 
-    case getType(deleteReview.success): {
-      const { review } = action.payload;
-
-      return {
-        ...state,
-        [review.id]: undefined
-      };
-    }
-
     // Extract reviews from place details
     case getType(loadPlace.success): {
-      const { bestReview, worstReview, ownReview } = action.payload.place;
+      const { place } = action.payload;
 
-      return [bestReview, worstReview, ownReview].reduce(
-        (acc, review) =>
-          review === undefined ? acc : { ...acc, [review.id]: review },
-        state
+      return Object.assign(
+        {},
+        state,
+        normalize(place, placeSchema).entities.review
       );
     }
 

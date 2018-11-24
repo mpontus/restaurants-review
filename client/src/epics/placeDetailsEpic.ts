@@ -15,6 +15,7 @@ import { Dependencies } from "../configureStore";
 import { State } from "../reducers";
 import { handleApiError } from "./utils/handleApiError";
 import { replayLastWhen } from "./utils/replayLastWhen";
+import { Review } from "../models/Review";
 
 /**
  * Place details epic
@@ -47,7 +48,18 @@ export const placeDetailsEpic: Epic<Action, Action, State, Dependencies> = (
         map(place =>
           loadPlace.success({
             id: action.payload.id,
-            place
+            place: {
+              ...place,
+              bestReview: place.bestReview
+                ? ({ ...place.bestReview, place } as Review)
+                : undefined,
+              worstReview: place.worstReview
+                ? ({ ...place.worstReview, place } as Review)
+                : undefined,
+              ownReview: place.ownReview
+                ? ({ ...place.ownReview, place } as Review)
+                : undefined
+            }
           })
         ),
         handleApiError(error =>
