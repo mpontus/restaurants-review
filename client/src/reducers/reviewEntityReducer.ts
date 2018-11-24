@@ -1,13 +1,13 @@
 import { Reducer } from "redux";
 import { getType } from "typesafe-actions";
 import { Action } from "../actions";
+import { loadPlace } from "../actions/placeDetailsActions";
 import {
   deleteReview,
   loadReviews,
   updateReview
 } from "../actions/reviewListActions";
 import { Review } from "../models/Review";
-import { loadPlace } from "../actions/placeDetailsActions";
 
 type State = { [id in string]?: Review };
 

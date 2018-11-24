@@ -1,12 +1,12 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { Principal } from 'common/model/principal.model';
-import { Between, EntityManager, FindConditions, DeepPartial } from 'typeorm';
+import { clean } from 'common/utils/clean';
+import { Between, DeepPartial, EntityManager, FindConditions } from 'typeorm';
 import uuid from 'uuid';
 import { PlaceEntity } from './entity/place.entity';
 import { FindPlacesCriteria } from './model/find-places-criteria.model';
 import { Place } from './model/place.model';
-import { clean } from 'common/utils/clean';
 
 /**
  * Place Repository

@@ -4,9 +4,9 @@ import { Place } from 'places/model/place.model';
 import {
   EntityManager,
   FindConditions,
-  Not,
-  In,
   FindOneOptions,
+  In,
+  Not,
 } from 'typeorm';
 import uuid from 'uuid';
 import { ReviewEntity } from './entity/review.entity';

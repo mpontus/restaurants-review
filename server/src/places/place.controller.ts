@@ -14,7 +14,6 @@ import {
   UseInterceptors,
   UsePipes,
   ValidationPipe,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'auth/guards/auth.guard';
