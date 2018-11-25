@@ -7,7 +7,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
     "start": "nodemon",
     "migration:generate": "ts-node -r tsconfig-paths/register node_modules/.bin/typeorm migration:generate",
     "migration:run": "ts-node -r tsconfig-paths/register node_modules/.bin/typeorm migration:run",
