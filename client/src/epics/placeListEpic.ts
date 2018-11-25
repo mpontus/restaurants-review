@@ -62,18 +62,7 @@ export const loadPlaceListEpic: Epic<Action, Action, State, Dependencies> = (
               prevPageExists: offset > 0,
               total: page.total,
               offset,
-              items: page.items.map(place => ({
-                ...place,
-                bestReview: place.bestReview
-                  ? { ...place.bestReview, place }
-                  : undefined,
-                worstReview: place.worstReview
-                  ? { ...place.worstReview, place }
-                  : undefined,
-                ownReview: place.ownReview
-                  ? { ...place.ownReview, place }
-                  : undefined
-              }))
+              items: page.items
             }
           })
         ),
