@@ -97,7 +97,7 @@ export const ReviewFormModal: React.SFC<Props> = ({
         <DialogTitle id="form-dialog-title">Edit Review</DialogTitle>
         <DialogContent>
           <FormControl component="fieldset" margin="normal">
-            <FormLabel component="legend">Rating</FormLabel>
+            <FormLabel htmlFor="rating">Rating</FormLabel>
             <Field
               component={Rating}
               id="rating"

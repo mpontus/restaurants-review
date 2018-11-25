@@ -46,6 +46,13 @@ export const users = [
 
 export const reviews = [
   [
+    'e9eb742d-6f01-5e3f-be96-f896ecd9e02a',
+    users[5].id,
+    5,
+    'Iure laborum earum et.',
+    '1986-03-12',
+  ],
+  [
     '5219c32e-d087-50c0-b177-7f208abf97cb',
     users[0].id,
     2,
@@ -79,13 +86,6 @@ export const reviews = [
     2,
     'Optio natus tempore totam qui.',
     '1992-01-14',
-  ],
-  [
-    'e9eb742d-6f01-5e3f-be96-f896ecd9e02a',
-    users[5].id,
-    5,
-    'Iure laborum earum et.',
-    '1986-03-12',
   ],
   [
     'c177e416-17b7-5763-87b3-68e7aefed023',

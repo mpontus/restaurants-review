@@ -3,13 +3,13 @@
 exports[`Update review when user is an admin should update comment 1`] = `
 Object {
   "author": Object {
-    "name": "Hilma Johnson",
+    "name": "Dr. Rubye Grant",
   },
   "canDelete": true,
   "canEdit": true,
   "comment": "Serious inside else memory if six.",
-  "dateVisitted": "2009-01-18",
-  "id": "5219c32e-d087-50c0-b177-7f208abf97cb",
+  "dateVisitted": "1986-03-12",
+  "id": "e9eb742d-6f01-5e3f-be96-f896ecd9e02a",
   "place": Object {
     "address": "261 Alexandre Forks",
     "canDelete": true,
@@ -19,20 +19,20 @@ Object {
     "reviewCount": 0,
     "title": "The Exhibit",
   },
-  "rating": 2,
+  "rating": 5,
 }
 `;
 
 exports[`Update review when user is an admin should update rating 1`] = `
 Object {
   "author": Object {
-    "name": "Hilma Johnson",
+    "name": "Dr. Rubye Grant",
   },
   "canDelete": true,
   "canEdit": true,
-  "comment": "Distinctio voluptas aliquid vitae et harum et voluptatem nostrum.",
-  "dateVisitted": "2009-01-18",
-  "id": "5219c32e-d087-50c0-b177-7f208abf97cb",
+  "comment": "Iure laborum earum et.",
+  "dateVisitted": "1986-03-12",
+  "id": "e9eb742d-6f01-5e3f-be96-f896ecd9e02a",
   "place": Object {
     "address": "261 Alexandre Forks",
     "canDelete": true,
@@ -49,13 +49,13 @@ Object {
 exports[`Update review when user is an admin should update reply 1`] = `
 Object {
   "author": Object {
-    "name": "Hilma Johnson",
+    "name": "Dr. Rubye Grant",
   },
   "canDelete": true,
   "canEdit": true,
-  "comment": "Distinctio voluptas aliquid vitae et harum et voluptatem nostrum.",
-  "dateVisitted": "2009-01-18",
-  "id": "5219c32e-d087-50c0-b177-7f208abf97cb",
+  "comment": "Iure laborum earum et.",
+  "dateVisitted": "1986-03-12",
+  "id": "e9eb742d-6f01-5e3f-be96-f896ecd9e02a",
   "place": Object {
     "address": "261 Alexandre Forks",
     "canDelete": true,
@@ -65,7 +65,7 @@ Object {
     "reviewCount": 0,
     "title": "The Exhibit",
   },
-  "rating": 2,
+  "rating": 5,
   "reply": "Serious inside else memory if six.",
 }
 `;
