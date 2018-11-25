@@ -68,7 +68,7 @@ export const notificationReducer: Reducer<State, Action> = (
       return addSuccess(state, `Restaurant created`);
 
     case getType(placeListActions.updatePlace.success):
-      return addSuccess(state, `Restaurant updated`);
+      return addSuccess(state, `Restaurant saved`);
 
     case getType(placeListActions.deletePlace.success):
       return addSuccess(state, `Restaurant deleted`);

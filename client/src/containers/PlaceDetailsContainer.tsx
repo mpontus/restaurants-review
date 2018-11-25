@@ -169,12 +169,12 @@ export const BasePlaceDetailsContainer = ({
                 )}
                 {place.canEdit && (
                   <Button color="primary" onClick={showEditModal}>
-                    Edit
+                    Edit Restaurant
                   </Button>
                 )}
                 {place.canDelete && (
                   <Button color="primary" onClick={showConfirmModal}>
-                    Delete
+                    Delete Restaurant
                   </Button>
                 )}
               </React.Fragment>
