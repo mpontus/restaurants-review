@@ -1,15 +1,14 @@
 import { Epic } from "redux-observable";
 import { from, merge } from "rxjs";
 import {
+  distinctUntilChanged,
   filter,
   map,
-  switchMap,
-  distinctUntilChanged,
-  skip
+  skip,
+  switchMap
 } from "rxjs/operators";
 import { isActionOf } from "typesafe-actions";
 import { Action } from "../actions";
-import * as authActions from "../actions/authActions";
 import { loadPlace } from "../actions/placeDetailsActions";
 import {
   createReview,
@@ -21,9 +20,9 @@ import { getPlace } from "../api/method/getPlace";
 import { Dependencies } from "../configureStore";
 import { Review } from "../models/Review";
 import { State } from "../reducers";
+import { makeGetCurrentUser } from "../selectors/authSelectors";
 import { handleApiError } from "./utils/handleApiError";
 import { replayLastWhen } from "./utils/replayLastWhen";
-import { makeGetCurrentUser } from "../selectors/authSelectors";
 
 /**
  * Place details epic

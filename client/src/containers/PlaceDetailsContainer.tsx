@@ -75,7 +75,7 @@ interface DispatchProps {
   /**
    * Request a place to be deleted
    */
-  onDelete: (props: { place: Place }) => void;
+  onDelete: (props: { place: Place; fromDetails: boolean }) => void;
 }
 
 /**
@@ -124,10 +124,10 @@ export const BasePlaceDetailsContainer = ({
     ) : null
   );
 
-  const handleDelete = useCallback(() => place && onDelete({ place }), [
-    place,
-    onDelete
-  ]);
+  const handleDelete = useCallback(
+    () => place && onDelete({ place, fromDetails: true }),
+    [place, onDelete]
+  );
 
   const [showConfirmModal, hideConfirmModal] = useModal(() =>
     place ? (

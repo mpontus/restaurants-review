@@ -1,16 +1,16 @@
 import { combineEpics, Epic } from "redux-observable";
 import { from, merge } from "rxjs";
 import {
+  distinctUntilChanged,
   filter,
   map,
   mapTo,
+  skip,
   switchMap,
-  distinctUntilChanged,
-  skip
+  tap
 } from "rxjs/operators";
 import { isActionOf } from "typesafe-actions";
 import { Action } from "../actions";
-import * as authActions from "../actions/authActions";
 import * as actions from "../actions/placeListActions";
 import { createPlace } from "../api/method/createPlace";
 import { deletePlace } from "../api/method/deletePlace";
@@ -19,9 +19,10 @@ import { getPlaces } from "../api/method/getPlaces";
 import { updatePlace } from "../api/method/updatePlace";
 import { Dependencies } from "../configureStore";
 import { State } from "../reducers";
+import * as routes from "../routes";
+import { makeGetCurrentUser } from "../selectors/authSelectors";
 import { handleApiError } from "./utils/handleApiError";
 import { replayLastWhen } from "./utils/replayLastWhen";
-import { makeGetCurrentUser } from "../selectors/authSelectors";
 
 /**
  * Place list epic
@@ -153,7 +154,7 @@ export const updatePlaceEpic: Epic<Action, Action, State, Dependencies> = (
 export const deletePlaceEpic: Epic<Action, Action, State, Dependencies> = (
   action$,
   state$,
-  { api, config }
+  { api, config, history }
 ) => {
   return action$.pipe(
     filter(isActionOf(actions.deletePlace.request)),
@@ -164,6 +165,12 @@ export const deletePlaceEpic: Epic<Action, Action, State, Dependencies> = (
         })
       ).pipe(
         mapTo(actions.deletePlace.success(action.payload)),
+        tap(() => {
+          if (action.payload.fromDetails) {
+            // Redirect user back to the front page when place is deleted
+            history.replace(routes.HOME);
+          }
+        }),
         handleApiError(error =>
           actions.deletePlace.failure({
             ...action.payload,

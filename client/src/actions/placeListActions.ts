@@ -54,6 +54,9 @@ export const updatePlace = createAsyncAction(
 
 /**
  * Action dispatched for place deletion
+ *
+ * We need to know whether the place was deleted from the detailed
+ * place view screen in order to redirect the user after deletion.
  */
 export const deletePlace = createAsyncAction(
   "DELETE_PLACE_REQUEST",
@@ -62,12 +65,15 @@ export const deletePlace = createAsyncAction(
 )<
   {
     place: Place;
+    fromDetails?: boolean;
   },
   {
     place: Place;
+    fromDetails?: boolean;
   },
   {
     place: Place;
     error: RequestError<void>;
+    fromDetails?: boolean;
   }
 >();

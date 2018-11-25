@@ -22,5 +22,6 @@ describe("admin can delete a place", () => {
 
     cy.get("[role=dialog]").should("not.exist");
     cy.contains("Restaurant deleted");
+    cy.url().should("be", "/");
   });
 });
