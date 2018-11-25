@@ -3,10 +3,7 @@ import { Reducer } from "redux";
 import { getType } from "typesafe-actions";
 import { Action } from "../actions";
 import { loadPlace } from "../actions/placeDetailsActions";
-import {
-  loadReviews,
-  updateReview
-} from "../actions/reviewListActions";
+import { loadReviews, updateReview } from "../actions/reviewListActions";
 import { Review } from "../models/Review";
 import { placeSchema, reviewSchema } from "../schemas";
 
@@ -44,11 +41,6 @@ export const reviewEntityReducer: Reducer<State, Action> = (
         state,
         normalize(review, reviewSchema).entities.review
       );
-
-      return {
-        ...state,
-        [review.id]: review
-      };
     }
 
     // Extract reviews from place details
