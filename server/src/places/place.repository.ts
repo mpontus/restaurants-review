@@ -105,18 +105,25 @@ export class PlaceRepository {
    * Update place details
    */
   public async update(place: Place, diff: Partial<Place>): Promise<Place> {
+    // Remove undefined non-nullable fields
     const update: DeepPartial<PlaceEntity> = clean({
       title: diff.title,
       address: diff.address,
       rating: diff.rating,
       reviewCount: diff.reviewCount,
-      bestReview: diff.bestReview
-        ? { id: diff.bestReview.id }
-        : diff.bestReview,
-      worstReview: diff.worstReview
-        ? { id: diff.worstReview.id }
-        : diff.worstReview,
     });
+
+    // Allow resetting bestReview
+    if ('bestReview' in diff) {
+      update.bestReview = diff.bestReview ? { id: diff.bestReview.id } : null;
+    }
+
+    // Allow resetting worst review
+    if ('worstReview' in diff) {
+      update.worstReview = diff.worstReview
+        ? { id: diff.worstReview.id }
+        : null;
+    }
 
     await this.manager.update(PlaceEntity, place.id, update);
 
