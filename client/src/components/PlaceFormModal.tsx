@@ -13,7 +13,6 @@ import { Button } from "./Button";
 import { Field } from "./Field";
 import { Form } from "./Form";
 import { Input } from "./Input";
-import { Message } from "./Message";
 
 /**
  * Place Form Modal Props
@@ -107,7 +106,6 @@ export const PlaceFormModal: React.SFC<Props> = ({
       <DialogTitle id="form-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{subtitle}</DialogContentText>
-        {error && <Message error={error} />}
         <Field
           component={Input}
           autoFocus={autoFocus}

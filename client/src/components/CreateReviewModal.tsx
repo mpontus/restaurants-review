@@ -13,7 +13,6 @@ import { AdaptiveModal } from "./AdaptiveModal";
 import { Button } from "./Button";
 import { Field } from "./Field";
 import { Form } from "./Form";
-import { Message } from "./Message";
 import { Rating } from "./Rating";
 import { Textarea } from "./Textarea";
 
@@ -95,7 +94,6 @@ export const CreateReviewModal: React.SFC<Props> = ({
       >
         <DialogTitle id="form-dialog-title">Submit New Review</DialogTitle>
         <DialogContent>
-          {error && <Message error={error} />}
           <FormControl component="fieldset" margin="normal">
             <FormLabel component="legend">Rating</FormLabel>
             <Field

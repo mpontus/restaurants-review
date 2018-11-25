@@ -1,4 +1,10 @@
-import { DialogActions, DialogContent, Tab, Tabs } from "@material-ui/core";
+import {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  Tab,
+  Tabs
+} from "@material-ui/core";
 import React, { useCallback, useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import * as yup from "yup";
@@ -10,7 +16,6 @@ import { Button } from "./Button";
 import { Field } from "./Field";
 import { Form } from "./Form";
 import { Input } from "./Input";
-import { Message } from "./Message";
 
 /**
  * Auth Modal Props
@@ -116,11 +121,7 @@ export const AuthModal: React.SFC<Props> = ({
           onSubmit={onLogin}
         >
           <DialogContent>
-            {loginError ? (
-              <Message error={loginError} />
-            ) : (
-              <Message>Log in with existing account</Message>
-            )}
+            <DialogContentText>Log in with existing account</DialogContentText>
             <Field
               component={Input}
               type="email"
@@ -150,11 +151,7 @@ export const AuthModal: React.SFC<Props> = ({
           onSubmit={onSignup}
         >
           <DialogContent>
-            {loginError ? (
-              <Message error={loginError} />
-            ) : (
-              <Message>Sign up with a new account</Message>
-            )}
+            <DialogContentText>Sign up with a new account</DialogContentText>
             <Field
               component={Input}
               type="text"

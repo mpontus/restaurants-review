@@ -16,7 +16,6 @@ import { Button } from "./Button";
 import { Field } from "./Field";
 import { Form } from "./Form";
 import { Input } from "./Input";
-import { Message } from "./Message";
 import { Switch } from "./Switch";
 
 /**
@@ -123,7 +122,6 @@ export const UserFormModal: React.SFC<Props> = ({
       <DialogTitle id="form-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{subtitle}</DialogContentText>
-        {error && <Message error={error} />}
         <FormControl component="fieldset" margin="normal">
           <FormLabel component="legend">Roles</FormLabel>
           <FormGroup row={true}>

@@ -117,11 +117,17 @@ export const BaseUserListItemContainer = ({
   ));
 
   return (
-    <ListItem key={user.id}>
-      <ListItemText primary={user.name} secondary={user.email} />
+    <ListItem
+      key={user.id}
+      ContainerProps={{ "aria-labelledby": `user-item-${user.id}` }}
+    >
+      <ListItemText
+        primary={<span id={`user-item-${user.id}`}>{user.name}</span>}
+        secondary={user.email}
+      />
       {(user.canEdit || user.canDelete) && (
         <ListItemSecondaryAction>
-          <IconMenu icon={<MoreVertIcon />}>
+          <IconMenu icon={<MoreVertIcon />} aria-label="More Actions">
             {user.canEdit && (
               <MenuItem onClick={showEditModal}>
                 <ListItemIcon>

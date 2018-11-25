@@ -12,7 +12,6 @@ import { AdaptiveModal } from "./AdaptiveModal";
 import { Button } from "./Button";
 import { Field } from "./Field";
 import { Form } from "./Form";
-import { Message } from "./Message";
 import { Textarea } from "./Textarea";
 
 /**
@@ -95,7 +94,6 @@ export const ReplyFormModal: React.SFC<Props> = ({
         <DialogTitle id="form-dialog-title">Reply to a review</DialogTitle>
         <DialogContent>
           <DialogContentText>{subtitle}</DialogContentText>
-          {error && <Message error={error} />}
           <Field
             autoFocus={autoFocus}
             component={Textarea}

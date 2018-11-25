@@ -8,7 +8,6 @@ import React from "react";
 import { RequestError } from "../models/RequestError";
 import { AdaptiveModal } from "./AdaptiveModal";
 import { Button } from "./Button";
-import { Message } from "./Message";
 
 /**
  * Confirm Modal Props
@@ -68,7 +67,6 @@ export const ConfirmModal: React.SFC<Props> = ({
     <DialogTitle id="confirm-dialog-title">{title}</DialogTitle>
     <DialogContent>
       <DialogContentText>{children}</DialogContentText>
-      {error && <Message error={error} />}
     </DialogContent>
     <DialogActions>
       <Button onClick={onCancel}>Cancel</Button>
