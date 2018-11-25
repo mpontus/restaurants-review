@@ -102,7 +102,7 @@ export const BaseReviewContainer = ({
     review ? (
       <ConfirmModal
         title="Delete review?"
-        confirmLabel="Delete review"
+        confirmLabel="Delete Review"
         onConfirm={handleDelete}
         onCancel={hideConfirmModal}
       >
