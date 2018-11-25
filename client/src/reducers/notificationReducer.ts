@@ -64,23 +64,14 @@ export const notificationReducer: Reducer<State, Action> = (
     case getType(authActions.logout):
       return addInfo(state, "You have logged out");
 
-    case getType(placeListActions.createPlace.success): {
-      const place = action.payload;
+    case getType(placeListActions.createPlace.success):
+      return addSuccess(state, `Restaurant created`);
 
-      return addSuccess(state, `Restaurant ${place.title} created`);
-    }
+    case getType(placeListActions.updatePlace.success):
+      return addSuccess(state, `Restaurant updated`);
 
-    case getType(placeListActions.updatePlace.success): {
-      const { place } = action.payload;
-
-      return addSuccess(state, `Restaurant ${place.title} updated`);
-    }
-
-    case getType(placeListActions.deletePlace.success): {
-      const { place } = action.payload;
-
-      return addSuccess(state, `Restaurant ${place.title} deleted`);
-    }
+    case getType(placeListActions.deletePlace.success):
+      return addSuccess(state, `Restaurant deleted`);
 
     case getType(reviewListActions.createReview.success):
       return addSuccess(state, "Thank you for your review");
