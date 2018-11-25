@@ -97,7 +97,7 @@ export class ReviewRepository {
       author: { id: review.author.id },
       rating: review.rating,
       comment: review.comment,
-      pendingFor: review.place ? review.place.ownerId : null,
+      pendingFor: review.pendingFor,
     });
 
     await this.manager.save(ReviewEntity, reviewEntity);
@@ -116,7 +116,7 @@ export class ReviewRepository {
       rating: review.rating,
       comment: review.comment,
       reply: review.reply,
-      ...(review.reply ? { pendingFor: null } : {}),
+      pendingFor: review.pendingFor,
     });
 
     return review;

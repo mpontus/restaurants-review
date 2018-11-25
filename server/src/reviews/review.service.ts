@@ -132,6 +132,7 @@ export class ReviewService {
       author: new ReviewAuthor(user),
       rating: data.rating,
       comment: data.comment,
+      pendingFor: place.ownerId,
     });
 
     const result = await this.reviewRepository.create(actor, review);
@@ -155,6 +156,7 @@ export class ReviewService {
       rating: data.rating || review.rating,
       comment: data.comment || review.comment,
       reply: data.reply || review.reply,
+      pendingFor: data.reply ? undefined : review.pendingFor,
     });
 
     const result = await this.reviewRepository.update(review);
@@ -177,6 +179,7 @@ export class ReviewService {
     reply: ReplyDto,
   ): Promise<Review> {
     review.reply = reply.comment;
+    review.pendingFor = undefined;
 
     const result = await this.reviewRepository.update(review);
 

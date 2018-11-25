@@ -92,6 +92,7 @@ export class ReviewEntity {
       rating: this.rating,
       comment: this.comment,
       reply: this.reply || undefined,
+      pendingFor: this.pendingFor || undefined,
       dateVisitted: moment(this.createdAt).format('YYYY-MM-DD'),
     });
   }

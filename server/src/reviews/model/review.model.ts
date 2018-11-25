@@ -55,6 +55,12 @@ export class Review {
   public reply?: string;
 
   /**
+   * User id for whom the review is pending
+   */
+  @Exclude()
+  public pendingFor?: string;
+
+  /**
    * Describes whether the user can reply to the review
    */
   @ApiModelProperty()
@@ -66,12 +72,7 @@ export class Review {
     }
 
     // Only owner can reply
-    if (this.actor.id !== this.place.ownerId) {
-      return false;
-    }
-
-    // Can only reply once
-    if (this.reply !== undefined) {
+    if (this.actor.id !== this.pendingFor) {
       return false;
     }
 

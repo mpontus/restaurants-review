@@ -1,6 +1,7 @@
 import { ApiResponseModelProperty } from '@nestjs/swagger';
 import { ReviewAuthor } from 'reviews/model/review-author.model';
 import { Review } from 'reviews/model/review.model';
+import { Transform } from 'class-transformer';
 
 /**
  * Place Review Model
@@ -8,7 +9,6 @@ import { Review } from 'reviews/model/review.model';
  * Describes a review embedded in a place object.
  */
 export class PlaceReview {
-
   /**
    * Review id
    */
@@ -46,6 +46,27 @@ export class PlaceReview {
   public reply?: string;
 
   /**
+   * Describes whether the user can reply to the review
+   */
+  @ApiResponseModelProperty()
+  @Transform((value: boolean) => value || undefined)
+  public canReply?: boolean;
+
+  /**
+   * Describe whether the user can edit the place
+   */
+  @ApiResponseModelProperty()
+  @Transform((value: boolean) => value || undefined)
+  public canEdit?: boolean;
+
+  /**
+   * Describe whether the user can delete the place
+   */
+  @ApiResponseModelProperty()
+  @Transform((value: boolean) => value || undefined)
+  public canDelete?: boolean;
+
+  /**
    * Constructor
    */
   constructor(values: Partial<PlaceReview>) {
@@ -62,6 +83,9 @@ export class PlaceReview {
       dateVisitted: review.dateVisitted,
       comment: review.comment,
       reply: review.reply,
+      canReply: review.canReply,
+      canEdit: review.canEdit,
+      canDelete: review.canDelete,
     });
   }
 }
