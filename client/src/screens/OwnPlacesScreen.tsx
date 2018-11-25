@@ -1,6 +1,6 @@
-import { Add as AddIcon } from "@material-ui/icons";
+import { Typography } from "@material-ui/core";
 import React, { useState } from "react";
-import { FloatingActionButton } from "../components/FloatingActionButton";
+import { Button } from "../components/Button";
 import { useModal } from "../components/ModalRoot";
 import { PlaceFormModalContainer } from "../containers/PlaceFormModalContainer";
 import { PlaceListContainer } from "../containers/PlaceListContainer";
@@ -19,6 +19,16 @@ export const OwnPlacesScreen = () => {
 
   return (
     <React.Fragment>
+      <Typography gutterBottom={true} variant="h5">
+        Restaurant Management
+      </Typography>
+      <Typography gutterBottom={true} variant="subtitle1" color="textSecondary">
+        This page lists your own restaurants. You can create new resturants from
+        this page.
+      </Typography>
+      <Button variant="outlined" color="primary" onClick={showCreateModal}>
+        Create Restaurant
+      </Button>
       <PlaceListContainer
         own={true}
         currentPage={currentPage}
@@ -27,12 +37,6 @@ export const OwnPlacesScreen = () => {
         renderItem={id => (
           <PlaceListItemContainer key={id} showActions={true} id={id} />
         )}
-      />
-
-      <FloatingActionButton
-        icon={<AddIcon />}
-        aria-label="Add Restaurant"
-        onClick={showCreateModal}
       />
     </React.Fragment>
   );

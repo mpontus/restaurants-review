@@ -1,3 +1,4 @@
+import { Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { RatingFilterControl } from "../components/RatingFilterControl";
 import { PlaceListContainer } from "../containers/PlaceListContainer";
@@ -22,6 +23,13 @@ export const FrontpageScreen = () => {
 
   return (
     <React.Fragment>
+      <Typography gutterBottom={true} variant="h5">
+        Restaurant Reviews
+      </Typography>
+      <Typography gutterBottom={true} variant="subtitle1" color="textSecondary">
+        This is a website for restaurant reviews. You can find the best
+        restaurants and read reviews left by our users.
+      </Typography>
       <RatingFilterControl value={ratingFilter} onChange={setRatingFilter} />
       <PlaceListContainer
         ratingFilter={ratingFilter}
