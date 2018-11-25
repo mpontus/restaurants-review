@@ -49,10 +49,10 @@ export const RatingFilterControl = enhance(
     const handleReset = useCallback(() => onChange(0), [onChange]);
 
     return (
-      <Toolbar>
+      <Toolbar aria-labelledby="rating-filter-label">
         <Typography
+          id="rating-filter-label"
           variant="button"
-          color={value ? "primary" : "textSecondary"}
           className={classnames(classes.label, { [classes.active]: value })}
           onClick={handleReset}
         >

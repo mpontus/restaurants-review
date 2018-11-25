@@ -83,7 +83,7 @@ export const BaseReview = (props: Props) => {
           [props.classes.negative]: props.rating < 3,
           [props.classes.neutral]: props.rating === 3
         })}
-        action={<Rating value={rating} />}
+        action={<Rating value={rating} caption={`Rating: ${rating}`} />}
         title={
           <Typography component="span" variant="body2">
             {author}

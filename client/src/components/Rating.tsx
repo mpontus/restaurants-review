@@ -117,6 +117,7 @@ class BaseRating extends React.PureComponent<Props> {
         name={name}
         value={n}
         icon={this.getIcon(n)}
+        aria-label={`${n} stars`}
         disabled={this.props.onChange === undefined}
       />
     );

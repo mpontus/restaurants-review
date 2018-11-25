@@ -12,5 +12,5 @@ interface Config {
  * App Configuration
  */
 export const config: Config = {
-  pageLimit: 5
+  pageLimit: 10
 };

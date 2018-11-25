@@ -13,92 +13,184 @@ export const owner = {
   roles: ['user', 'owner'],
 };
 
-export const author = {
-  id: '01fe6835-d9d2-5de3-94aa-a23bc14b9c73',
-  name: 'Norma Fisher',
-  email: 'ngallagher@cole-pearson.info',
-  password: '71bPiFy8)g',
-  roles: ['user'],
-};
-
 export const place = {
   id: '99ea5b8b-c27d-5560-a6a3-35f23fd8e83d',
   title: 'The Exhibit',
   address: '261 Alexandre Forks',
+  bestReview: 'e9eb742d-6f01-5e3f-be96-f896ecd9e02a',
+  worstReview: '70aa23d6-5681-50cf-9f15-ed50c286648f',
 };
+
+export const users = [
+  ['3b7d0cf5-d8e2-59b9-8a18-70e452c75ab5', 'Hilma Johnson'],
+  ['a176dee3-d811-5d78-885c-0855994b2741', 'Alyson Prosacco'],
+  ['ff0aa1d1-9087-5504-a07d-24e4c92b88eb', 'Jackeline Ferry'],
+  ['26f0c494-f22b-5132-ba40-3c5f5e59d6e6', 'Mr. Willis Prosacco'],
+  ['a9d1c8bb-b8a7-51f6-9bbe-8065ebf30a74', 'Diana Sipes'],
+  ['a30c810a-c1b7-5de6-8a96-de36acde8a7b', 'Dr. Rubye Grant'],
+  ['16509e33-b3de-59a9-9364-2d2aeedd9c98', 'Mrs. Milan Towne'],
+  ['723d4ca4-cf49-5435-83c6-a2c5fbef0068', 'Adaline Kreiger'],
+  ['0885dc4c-b8d4-5c95-b228-09a94632ffed', 'Justine Goyette'],
+  ['704e18a1-3b8a-5537-ac17-7bd06479a064', 'Vidal Sipes'],
+  ['2c0f42e5-96db-514f-b533-488086d10649', 'Jalyn Dach'],
+  ['11d7d17d-2a55-575e-ab22-097e187ccb3f', 'Aidan Leffler'],
+  ['a611fbce-ac2d-5c88-a214-4eda98081c8c', "Asha O'Keefe"],
+  ['dbdbe182-3386-57fd-9af4-10c2b5e3767d', 'Rebekah Wisoky'],
+  ['fe0aed96-49f0-56e8-9355-6d8e693d9461', 'Payton Emard'],
+  ['47b9d629-2e26-52ee-9be9-65f1bce5a602', 'Kaden Rice'],
+  ['6d927645-6e34-5032-9401-0b4f287c7b26', 'Arthur Cole'],
+  ['e87b42c3-f4c7-5953-a89b-f695f25362b1', 'Dr. Yazmin Spencer'],
+  ['f4a44714-ab54-5847-90ae-71007141ef84', 'Ardella Schaden'],
+  ['c0815ae3-a1a0-5415-82ab-1dc5ff7ebb34', 'Mrs. Arely Daniel'],
+].map(([id, name]) => ({ id, name }));
 
 export const reviews = [
   [
-    '0a931d01-a888-5523-86d1-c89bacc0a22b',
-    4,
-    '2012-05-22',
-    'Party environment control quality full less painting.',
-  ],
-  [
-    'cbf76a7b-14e5-5ba3-9c4f-af96f24cd72d',
-    3,
-    '1996-03-20',
-    'Have heart cover analysis carry.',
-  ],
-  [
-    '58d1832e-b696-5c49-ac55-9a4beced3f9b',
-    1,
-    '1996-03-20',
-    'Have heart cover analysis carry.',
-  ],
-  [
-    '9ea7f963-47d2-5a2d-8b4d-782680d3b1bf',
+    '5219c32e-d087-50c0-b177-7f208abf97cb',
+    '3b7d0cf5-d8e2-59b9-8a18-70e452c75ab5',
     2,
-    '2012-05-22',
-    'Notice soon as brother.',
-  ],
-  [
-    '07c76adf-2a28-5914-9128-d10c7d83f36b',
-    2,
-    '1979-02-22',
-    'Before guess college speak.',
-  ],
-  [
-    '88b4c16c-e3c5-539d-b4b5-b158f4c23667',
-    2,
+    'Distinctio voluptas aliquid vitae et harum et voluptatem nostrum.',
     '2009-01-18',
-    'Notice soon as brother.',
   ],
   [
-    '6bc794d6-e0fe-5913-9ea7-66219afce965',
+    '5d7dfb9e-7ca1-5743-bb72-e54f23abbcbd',
+    'a176dee3-d811-5d78-885c-0855994b2741',
+    3,
+    'Temporibus molestiae enim sunt quos sint id.',
+    '1992-01-14',
+  ],
+  [
+    'f0ca6108-f9ba-52bd-a265-e8360c91f82e',
+    'ff0aa1d1-9087-5504-a07d-24e4c92b88eb',
     2,
-    '1979-02-22',
-    'Have heart cover analysis carry.',
-  ],
-  [
-    '613c0e6f-4087-5546-ae99-e2436fd68219',
-    3,
+    'Sed rerum officiis suscipit ut placeat saepe non repudiandae.',
     '2009-01-18',
-    'Party environment control quality full less painting.',
   ],
   [
-    'e6336264-dacd-59dc-8a16-f6e06351f47b',
+    '3211b3c8-2a5a-5e93-a9fb-2b0d2828d55e',
+    '26f0c494-f22b-5132-ba40-3c5f5e59d6e6',
     4,
-    '1973-11-06',
-    'Serious inside else memory if six.',
+    'Debitis est illo aperiam voluptas.',
+    '1986-01-24',
   ],
   [
-    '700650e5-d979-5bfa-92e3-523f73036f9e',
-    3,
-    '1973-11-06',
-    'Have heart cover analysis carry.',
+    'd249e54b-5f99-5dd7-ab56-ed6815acf830',
+    'a9d1c8bb-b8a7-51f6-9bbe-8065ebf30a74',
+    2,
+    'Optio natus tempore totam qui.',
+    '1992-01-14',
   ],
   [
-    '231a909a-6ce5-5c65-a053-5d2853d02b52',
-    3,
+    'e9eb742d-6f01-5e3f-be96-f896ecd9e02a',
+    'a30c810a-c1b7-5de6-8a96-de36acde8a7b',
+    5,
+    'Iure laborum earum et.',
     '1986-03-12',
-    'Before guess college speak.',
   ],
-].map(([id, rating, createdAt, comment]) => ({
+  [
+    'c177e416-17b7-5763-87b3-68e7aefed023',
+    '16509e33-b3de-59a9-9364-2d2aeedd9c98',
+    3,
+    'Et aut omnis et dignissimos.',
+    '1986-01-24',
+  ],
+  [
+    '8fcc3c67-bf2e-5ae1-98c5-a315ef4c0a44',
+    '723d4ca4-cf49-5435-83c6-a2c5fbef0068',
+    4,
+    'Sed laborum quasi aperiam non unde quibusdam magni.',
+    '1986-01-24',
+  ],
+  [
+    '70aa23d6-5681-50cf-9f15-ed50c286648f',
+    '0885dc4c-b8d4-5c95-b228-09a94632ffed',
+    1,
+    'Ea ipsa et voluptate nesciunt quas.',
+    '2009-01-18',
+  ],
+  [
+    '83cf3a08-4d02-5bbb-ba2f-dba86273a0a3',
+    '704e18a1-3b8a-5537-ac17-7bd06479a064',
+    2,
+    'Reprehenderit aut reprehenderit mollitia mollitia asperiores molestiae.',
+    '1979-02-22',
+  ],
+  [
+    'cfe4485a-855f-5e4f-834e-07b66b75faa6',
+    '2c0f42e5-96db-514f-b533-488086d10649',
+    3,
+    'Qui rerum pariatur deleniti necessitatibus velit.',
+    '1979-02-22',
+  ],
+  [
+    '520f3237-c60f-55ba-82d0-5098c68a7c55',
+    '11d7d17d-2a55-575e-ab22-097e187ccb3f',
+    4,
+    'Enim asperiores nam vel occaecati vero.',
+    '1985-06-05',
+  ],
+  [
+    '6e4d9465-97a7-51a4-bc5f-b2cfdc1afe2f',
+    'a611fbce-ac2d-5c88-a214-4eda98081c8c',
+    3,
+    'Quaerat qui eius officiis maxime placeat.',
+    '1979-02-22',
+  ],
+  [
+    'ebc2b9a3-8fa2-552a-a82a-14bfc766f48b',
+    'dbdbe182-3386-57fd-9af4-10c2b5e3767d',
+    4,
+    'Quia qui provident et ut voluptas.',
+    '1985-06-05',
+  ],
+  [
+    'b549cbba-e08c-5de4-bc3b-18feb3c5785f',
+    'fe0aed96-49f0-56e8-9355-6d8e693d9461',
+    4,
+    'Recusandae sit voluptas voluptatibus eveniet incidunt et sit eos.',
+    '1973-11-06',
+  ],
+  [
+    'db055d7c-d715-5c13-8a02-13f665ddca8c',
+    '47b9d629-2e26-52ee-9be9-65f1bce5a602',
+    2,
+    'Sed magni aspernatur dolor.',
+    '1986-01-24',
+  ],
+  [
+    'da8b455e-b396-5957-9c77-f0bc0c7f2687',
+    '6d927645-6e34-5032-9401-0b4f287c7b26',
+    2,
+    'Animi ducimus molestiae est hic enim cum ex voluptatem.',
+    '1985-06-05',
+  ],
+  [
+    'b29f9105-f8ac-52f9-aaa8-7b8258453db8',
+    'e87b42c3-f4c7-5953-a89b-f695f25362b1',
+    2,
+    'Repudiandae eveniet ullam est.',
+    '1992-01-14',
+  ],
+  [
+    '8991d3bf-427f-5785-acca-80ced0e7c26a',
+    'f4a44714-ab54-5847-90ae-71007141ef84',
+    4,
+    'Dolorem laudantium sunt ut temporibus eum eius.',
+    '1973-11-06',
+  ],
+  [
+    '9e4d11a2-129c-595f-8ec9-d956abc5ebd1',
+    'c0815ae3-a1a0-5415-82ab-1dc5ff7ebb34',
+    4,
+    'Vitae id aut.',
+    '1992-01-14',
+  ],
+].map(([id, authorId, rating, comment, date]) => ({
   id,
+  authorId,
   rating,
-  createdAt,
   comment,
+  date,
 }));
 
 export const run = async (nestApp: NestApplication) => {
@@ -107,13 +199,25 @@ export const run = async (nestApp: NestApplication) => {
     .createQueryBuilder()
     .insert()
     .into(UserEntity)
+    .values({
+      id: owner.id,
+      name: owner.name,
+      email: owner.email,
+      passwordHash: bcrypt.hashSync(owner.password, 6),
+      roles: owner.roles,
+    })
+    .execute();
+
+  await nestApp
+    .get(Connection)
+    .createQueryBuilder()
+    .insert()
+    .into(UserEntity)
     .values(
-      [owner, author].map(user => ({
+      users.map(user => ({
         id: user.id,
         name: user.name,
-        email: user.email,
-        passwordHash: bcrypt.hashSync(user.password, 6),
-        roles: user.roles,
+        roles: ['user'],
       })),
     )
     .execute();
@@ -124,9 +228,11 @@ export const run = async (nestApp: NestApplication) => {
     .insert()
     .into(PlaceEntity)
     .values({
-      ownerId: owner.id,
-      ...place,
-    })
+      id: place.id,
+      title: place.title,
+      address: place.address,
+      owner: { id: owner.id },
+    } as any)
     .execute();
 
   await nestApp
@@ -134,13 +240,25 @@ export const run = async (nestApp: NestApplication) => {
     .createQueryBuilder()
     .insert()
     .into(ReviewEntity)
-    .values(
-      reviews.map((data: any) => ({
-        ...data,
-        place: { id: place.id },
-        author: { id: author.id },
-        pendingFor: owner.id,
-      })),
-    )
+    .values(reviews.map((review: any) => ({
+      id: review.id,
+      rating: review.rating,
+      comment: review.comment,
+      author: { id: review.authorId },
+      place: { id: place.id },
+      createdAt: review.date,
+      pendingFor: owner.id,
+    })) as any)
+    .execute();
+
+  await nestApp
+    .get(Connection)
+    .createQueryBuilder()
+    .update(PlaceEntity)
+    .set({
+      bestReview: { id: place.bestReview },
+      worstReview: { id: place.worstReview },
+    })
+    .where({ id: place.id })
     .execute();
 };

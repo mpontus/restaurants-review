@@ -148,7 +148,12 @@ export const BasePlaceListItemContainer = ({
       )}
     >
       <ListItemText primary={place.title} secondary={place.address} />
-      {showRating && <Rating value={place.rating} />}
+      {showRating && (
+        <Rating
+          value={place.rating}
+          caption={`Rating: ${place.rating.toFixed(2)}`}
+        />
+      )}
       {showActions && (place.canEdit || place.canDelete) && (
         <ListItemSecondaryAction>
           <IconMenu icon={<MoreVertIcon />}>

@@ -145,7 +145,7 @@ export const BasePlaceDetailsContainer = ({
     return <Loading />;
   }
 
-  const { bestReview, worstReview, ownReview } = place;
+  const { bestReview, worstReview } = place;
 
   return (
     <React.Fragment>
@@ -182,27 +182,44 @@ export const BasePlaceDetailsContainer = ({
           />
         </Grid>
         {bestReview && (
-          <Grid item={true} xs={12} sm={6}>
-            <ListSubheader disableSticky={true}>Highest Review</ListSubheader>
+          <Grid
+            item={true}
+            xs={12}
+            sm={6}
+            aria-labelledby="place-details-highest-review"
+          >
+            <ListSubheader
+              id="place-details-highest-review"
+              disableSticky={true}
+            >
+              Highest Review
+            </ListSubheader>
             <ReviewContainer key={bestReview.id} id={bestReview.id} />
           </Grid>
         )}
         {worstReview && (
-          <Grid item={true} xs={12} sm={6}>
-            <ListSubheader disableSticky={true}>Lowest Review</ListSubheader>
+          <Grid
+            item={true}
+            xs={12}
+            sm={6}
+            aria-labelledby="place-details-lowest-review"
+          >
+            <ListSubheader
+              disableSticky={true}
+              id="place-details-lowest-review"
+            >
+              Lowest Review
+            </ListSubheader>
             <ReviewContainer key={worstReview.id} id={worstReview.id} />
           </Grid>
         )}
-        {ownReview && (
-          <Grid item={true} xs={12} sm={6}>
-            <ListSubheader disableSticky={true}>Your Review</ListSubheader>
-            <ReviewContainer key={ownReview.id} id={ownReview.id} />
-          </Grid>
-        )}
-        <Grid item={true} xs={12}>
+        <Grid item={true} xs={12} aria-labelledby="place-details-other-reviews">
           <PlaceReviewListContainer
             header={
-              <ListSubheader disableSticky={true}>
+              <ListSubheader
+                disableSticky={true}
+                id="place-details-other-reviews"
+              >
                 {place.ownReview || place.bestReview || place.worstReview
                   ? "Other Reviews"
                   : "Reviews"}
