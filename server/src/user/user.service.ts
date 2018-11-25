@@ -53,7 +53,7 @@ export class UserService {
    * Create new user
    */
   public async createUser(
-    actor: Principal,
+    actor: Principal | undefined,
     data: CreateUserDto,
   ): Promise<User> {
     const user = new User(actor, {
