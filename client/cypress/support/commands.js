@@ -42,3 +42,7 @@ Cypress.Commands.add("login", (email, password) => {
   cy.contains("[type=submit]", "Login").click();
   cy.contains("Logout");
 });
+
+Cypress.Commands.add("logout", (email, password) => {
+  cy.contains("Logout").click();
+});
