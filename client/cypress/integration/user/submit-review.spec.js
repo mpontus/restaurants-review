@@ -9,11 +9,11 @@ describe("user can submit review", () => {
   });
 
   beforeEach(function() {
-    cy.visit(`/place/${this.seed.places[0].id}`);
     cy.login(this.seed.auth.email, this.seed.auth.password);
   });
 
   it("should allow user to create review", function() {
+    cy.visit(`/place/${this.seed.places[0].id}`);
     cy.getByText("Submit Review").click();
 
     cy.get("[role=dialog]").within(() => {

@@ -13,7 +13,7 @@ describe("user deletion", () => {
   });
 
   it("should allow admin to delete a user", function() {
-    cy.getByLabelText(this.seed.users[0].name).within(() => {
+    cy.queryByLabelText(this.seed.users[0].name).within(() => {
       cy.getByLabelText("More Actions").click();
     });
 
@@ -24,6 +24,6 @@ describe("user deletion", () => {
     cy.getByText("Delete user").click();
 
     cy.contains(`User ${this.seed.users[0].name} deleted`);
-    cy.contains(this.seed.users[0].name).should("not.exist");
+    cy.queryByLabelText(this.seed.users[0].name).should("not.exist");
   });
 });
