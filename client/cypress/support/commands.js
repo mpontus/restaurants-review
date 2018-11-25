@@ -33,3 +33,11 @@ Cypress.Commands.add("seed", (...seeds) => {
     .request(`${apiUrl}/seed?seeds=${seeds.join(",")}`)
     .then(({ body }) => body);
 });
+
+Cypress.Commands.add("login", (email, password) => {
+  cy.visit("/");
+  cy.contains("Login").click();
+  cy.get("#login-email").type(email);
+  cy.get("#login-password").type(password);
+  cy.contains("[type=submit]", "Login").click();
+});
