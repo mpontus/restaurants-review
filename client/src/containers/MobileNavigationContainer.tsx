@@ -1,10 +1,12 @@
 import {
+  Home as HomeIcon,
   Person as PersonIcon,
   RateReview as RateReviewIcon,
   StoreMallDirectory as StoreMallDirectoryIcon
 } from "@material-ui/icons";
 import React from "react";
 import { connect, Selector } from "react-redux";
+import { RouteComponentProps, withRouter } from "react-router";
 import { createStructuredSelector } from "reselect";
 import { MobileNavigation } from "../components/MobileNavigation";
 import { MobileNavigationLink } from "../components/MobileNavigationLink";
@@ -24,6 +26,11 @@ interface StateProps {
 }
 
 /**
+ * Combined Props
+ */
+interface Props extends StateProps, RouteComponentProps {}
+
+/**
  * Connect component to the store
  */
 const makeMapStateToProps = (): Selector<State, StateProps, {}> =>
@@ -41,13 +48,19 @@ const enhance = connect(makeMapStateToProps);
  *
  * Provides bottom navigation on mobile devices.
  */
-export const MobileNavigationContainer = enhance(({ user }: StateProps) => {
-  if (user === undefined) {
+const BaseMobileNavigationContainer = ({ user }: Props) => {
+  if (user === undefined || !(isOwner(user) || isAdmin(user))) {
     return null;
   }
 
   return (
     <MobileNavigation>
+      <MobileNavigationLink
+        exact={true}
+        to={routes.HOME}
+        label="Home"
+        icon={<HomeIcon />}
+      />
       {isOwner(user) ? (
         <MobileNavigationLink
           to={routes.PLACES_OWN}
@@ -71,4 +84,14 @@ export const MobileNavigationContainer = enhance(({ user }: StateProps) => {
       ) : null}
     </MobileNavigation>
   );
-});
+};
+
+/**
+ * Export enhanced component
+ *
+ * We need to wrap component in withRouter in order to update
+ * navigation on location change.
+ */
+export const MobileNavigationContainer = withRouter(
+  enhance(BaseMobileNavigationContainer)
+);

@@ -2,17 +2,20 @@ import { BottomNavigation, withStyles, WithStyles } from "@material-ui/core";
 import { Location } from "history";
 import React, { useCallback } from "react";
 import { matchPath, RouteComponentProps, withRouter } from "react-router";
-
-export interface LinkProps {
-  to: string;
-}
+import { MobileNavigationLinkProps as LinkProps } from "./MobileNavigationLink";
 
 /**
  * Helper function to match a child pointing to current location
  */
 export const matchChild = (location: Location<any>) => (
   child: React.ReactElement<LinkProps>
-): boolean => Boolean(matchPath(location.pathname, { path: child.props.to }));
+): boolean =>
+  Boolean(
+    matchPath(location.pathname, {
+      exact: child.props.exact,
+      path: child.props.to
+    })
+  );
 
 /**
  * Mobile Navigation Props

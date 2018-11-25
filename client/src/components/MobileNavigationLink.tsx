@@ -4,9 +4,15 @@ import React from "react";
 /**
  * Mobile Navigation Link Props
  */
-interface Props extends React.ComponentProps<typeof BottomNavigationAction> {
+export interface MobileNavigationLinkProps
+  extends React.ComponentProps<typeof BottomNavigationAction> {
   /**
-   * Link href
+   * Match path exactly
+   */
+  exact?: boolean;
+
+  /**
+   * Target path
    */
   to: string;
 }
@@ -16,6 +22,8 @@ interface Props extends React.ComponentProps<typeof BottomNavigationAction> {
  *
  * To be used inside MobileNavigation.
  */
-export const MobileNavigationLink = ({ to: _to, ...rest }: Props) => (
-  <BottomNavigationAction {...rest} />
-);
+export const MobileNavigationLink = ({
+  to,
+  exact,
+  ...rest
+}: MobileNavigationLinkProps) => <BottomNavigationAction {...rest} />;
