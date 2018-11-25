@@ -43,7 +43,7 @@ describe("user update", () => {
     cy.getByText("Save User").click();
 
     // Modal closed
-    cy.contains("Update User").should("not", "exist");
+    cy.contains("Update User").should("not.exist");
 
     // Name updated
     cy.contains("Miss America Kemmer");

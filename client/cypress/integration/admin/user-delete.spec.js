@@ -24,6 +24,6 @@ describe("user deletion", () => {
     cy.getByText("Delete user").click();
 
     cy.contains(`User ${this.seed.users[0].name} deleted`);
-    cy.contains(this.seed.users[0].name).should("not", "exist");
+    cy.contains(this.seed.users[0].name).should("not.exist");
   });
 });

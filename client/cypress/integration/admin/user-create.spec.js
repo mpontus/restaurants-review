@@ -25,7 +25,7 @@ describe("user creation", () => {
 
       it("should create user", () => {
         cy.contains("User Theresa Brown created");
-        cy.contains("User creation").should("not", "exist");
+        cy.contains("User creation").should("not.exist");
       });
     });
 
@@ -40,7 +40,7 @@ describe("user creation", () => {
 
       it("should create user", () => {
         cy.contains("User Theresa Brown created");
-        cy.contains("User creation").should("not", "exist");
+        cy.contains("User creation").should("not.exist");
       });
     });
 
@@ -55,7 +55,7 @@ describe("user creation", () => {
 
       it("should create user", () => {
         cy.contains("User Theresa Brown created");
-        cy.contains("User creation").should("not", "exist");
+        cy.contains("User creation").should("not.exist");
       });
     });
   });
