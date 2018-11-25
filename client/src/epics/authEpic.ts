@@ -5,17 +5,23 @@ import {
   filter,
   ignoreElements,
   map,
+  skip,
   switchMap,
   tap
 } from "rxjs/operators";
-import { getType, isOfType } from "typesafe-actions";
+import { isActionOf } from "typesafe-actions";
 import { Action } from "../actions";
 import * as actions from "../actions/authActions";
 import { login } from "../api/method/login";
 import { signup } from "../api/method/signup";
 import { Dependencies } from "../configureStore";
+import { isAdmin, isOwner } from "../models/User";
 import { State } from "../reducers";
-import { makeGetAuthToken } from "../selectors/authSelectors";
+import * as routes from "../routes";
+import {
+  makeGetAuthToken,
+  makeGetCurrentUser
+} from "../selectors/authSelectors";
 import { handleApiError } from "./utils/handleApiError";
 
 /**
@@ -46,7 +52,7 @@ export const loginEpic: Epic<Action, Action, State, Dependencies> = (
   { api }
 ) =>
   action$.pipe(
-    filter(isOfType(getType(actions.login.request))),
+    filter(isActionOf(actions.login.request)),
     switchMap(action =>
       from(login(api, action.payload)).pipe(
         map(actions.login.success),
@@ -66,7 +72,7 @@ export const signupEpic: Epic<Action, Action, State, Dependencies> = (
   { api }
 ) =>
   action$.pipe(
-    filter(isOfType(getType(actions.signup.request))),
+    filter(isActionOf(actions.signup.request)),
     switchMap(action =>
       from(signup(api, action.payload)).pipe(
         map(actions.signup.success),
@@ -75,4 +81,53 @@ export const signupEpic: Epic<Action, Action, State, Dependencies> = (
     )
   );
 
-export const authEpic = combineEpics(setTokenEpic, loginEpic, signupEpic);
+/**
+ * Redirect user after successful login
+ *
+ * Has to happen after state is updated, otherwise AuthGuard will
+ * redirect the user back to the frontpage.
+ */
+export const redirectAfterLoginEpic: Epic<
+  Action,
+  Action,
+  State,
+  Dependencies
+> = (action$, state$, { history }) =>
+  // Wait for login action
+  action$.pipe(
+    filter(isActionOf(actions.login.request)),
+    switchMap(() =>
+      // Wait for the store to reflect new auth state
+      state$.pipe(
+        // Skip the initial state
+        skip(1),
+        map(makeGetCurrentUser()),
+        distinctUntilChanged(),
+        tap(user => {
+          if (user === undefined) {
+            return;
+          }
+
+          // Redirect admin to user management
+          if (isAdmin(user)) {
+            history.push(routes.USERS);
+            return;
+          }
+
+          // Redirect owner to their own places
+          if (isOwner(user)) {
+            history.push(routes.PLACES_OWN);
+            return;
+          }
+        }),
+        ignoreElements()
+      )
+    )
+  );
+
+export const authEpic = combineEpics(
+  setTokenEpic,
+  loginEpic,
+  signupEpic,
+  redirectAfterLoginEpic
+);

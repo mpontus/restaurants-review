@@ -1,3 +1,4 @@
+import { History } from "history";
 import { applyMiddleware, compose, createStore } from "redux";
 import logger from "redux-logger";
 import { createEpicMiddleware } from "redux-observable";
@@ -21,6 +22,11 @@ export interface Dependencies {
    * API gateway
    */
   api: ApiGateway;
+
+  /**
+   * Browser History
+   */
+  history: History;
 }
 
 // Redux DevTools integration

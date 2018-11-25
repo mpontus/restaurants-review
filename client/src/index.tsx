@@ -1,10 +1,11 @@
 import { CssBaseline } from "@material-ui/core";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import axios from "axios";
+import createBrowserHistory from "history/createBrowserHistory";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { BrowserRouter } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { PersistGate } from "redux-persist/integration/react";
 import { ApiGateway } from "./api/ApiGateway";
 import { ModalProvider, ModalRoot } from "./components/ModalRoot";
@@ -14,17 +15,22 @@ import { RootScreen } from "./screens/RootScreen";
 import * as serviceWorker from "./serviceWorker";
 import { theme } from "./theme";
 
+const history = createBrowserHistory();
 const api = new ApiGateway(
   axios.create({
     baseURL: `${process.env.REACT_APP_API_URL || ""}`
   })
 );
-const { store, persistor } = configureStore(undefined, { api, config });
+const { store, persistor } = configureStore(undefined, {
+  config,
+  api,
+  history
+});
 
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>
-      <BrowserRouter>
+      <Router history={history}>
         <MuiThemeProvider theme={createMuiTheme(theme)}>
           <ModalProvider>
             <ModalRoot />
@@ -32,7 +38,7 @@ ReactDOM.render(
             <RootScreen />
           </ModalProvider>
         </MuiThemeProvider>
-      </BrowserRouter>
+      </Router>
     </PersistGate>
   </Provider>,
   document.getElementById("root")
