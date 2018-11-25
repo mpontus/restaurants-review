@@ -74,7 +74,18 @@ export class Place {
       return false;
     }
 
-    return this.actor.roles.includes('user') && !this.ownReview;
+    // Only users can review
+    if (!this.actor.roles.includes('user')) {
+      return false;
+    }
+
+    // Owner can't review their own restaurant
+    if (this.actor.id === this.ownerId) {
+      return false;
+    }
+
+    // Can only review once
+    return !this.ownReview;
   }
 
   /**

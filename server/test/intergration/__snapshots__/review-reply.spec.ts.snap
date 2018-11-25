@@ -19,7 +19,6 @@ Object {
     "address": "262 Franecki Courts",
     "canDelete": true,
     "canEdit": true,
-    "canReview": true,
     "id": "05bd7b00-f274-5b91-9c48-08bfa24cb9bd",
     "rating": 0,
     "reviewCount": 0,
