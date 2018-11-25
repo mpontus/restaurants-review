@@ -140,6 +140,7 @@ export const BasePlaceListItemContainer = ({
     <ListItem
       button={true}
       key={place.id}
+      ContainerProps={{ "aria-labelledby": `place-item-${place.id}` }}
       component={({ innerRef, ...rest }) => (
         <Link
           to={formatRoute(routes.PLACE_DETAILS, { id: place.id })}
@@ -147,7 +148,10 @@ export const BasePlaceListItemContainer = ({
         />
       )}
     >
-      <ListItemText primary={place.title} secondary={place.address} />
+      <ListItemText
+        primary={<span id={`place-item-${place.id}`}>{place.title}</span>}
+        secondary={place.address}
+      />
       {showRating && (
         <Rating
           value={place.rating}
@@ -156,7 +160,7 @@ export const BasePlaceListItemContainer = ({
       )}
       {showActions && (place.canEdit || place.canDelete) && (
         <ListItemSecondaryAction>
-          <IconMenu icon={<MoreVertIcon />}>
+          <IconMenu icon={<MoreVertIcon />} aria-label="More Actions">
             {place.canEdit && (
               <MenuItem onClick={showEditModal}>
                 <ListItemIcon>
