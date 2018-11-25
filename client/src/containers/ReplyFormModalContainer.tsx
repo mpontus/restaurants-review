@@ -2,9 +2,7 @@ import { Typography } from "@material-ui/core";
 import React, { useCallback, useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import {
-  replyToReview
-} from "../actions/reviewListActions";
+import { replyToReview } from "../actions/reviewListActions";
 import { ReplyFormModal } from "../components/ReplyFormModal";
 import { useSubsequent } from "../hooks/useSubsequentValue";
 import { ReplyDto } from "../models/ReplyDto";

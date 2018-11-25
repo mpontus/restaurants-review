@@ -82,33 +82,31 @@ export const ReplyFormModal: React.SFC<Props> = ({
   error,
   onSubmit,
   onCancel
-}) => {
-  return (
-    <AdaptiveModal open={true} onClose={onCancel}>
-      <Form
-        onSubmit={onSubmit}
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        errors={error && error.details}
-      >
-        <DialogTitle id="form-dialog-title">Reply to a review</DialogTitle>
-        <DialogContent>
-          <DialogContentText>{subtitle}</DialogContentText>
-          <Field
-            autoFocus={autoFocus}
-            component={Textarea}
-            id="comment"
-            name="comment"
-            label="Enter Your Reply"
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={onCancel}>Cancel</Button>
-          <Button type="submit" color="primary" loading={loading}>
-            Reply to a review
-          </Button>
-        </DialogActions>
-      </Form>
-    </AdaptiveModal>
-  );
-};
+}) => (
+  <AdaptiveModal open={true} onClose={onCancel}>
+    <Form
+      onSubmit={onSubmit}
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      errors={error && error.details}
+    >
+      <DialogTitle id="form-dialog-title">Reply to a review</DialogTitle>
+      <DialogContent>
+        <DialogContentText>{subtitle}</DialogContentText>
+        <Field
+          autoFocus={autoFocus}
+          component={Textarea}
+          id="comment"
+          name="comment"
+          label="Enter your reply"
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onCancel}>Cancel</Button>
+        <Button type="submit" color="primary" loading={loading}>
+          Reply to review
+        </Button>
+      </DialogActions>
+    </Form>
+  </AdaptiveModal>
+);
