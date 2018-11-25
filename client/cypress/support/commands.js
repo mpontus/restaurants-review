@@ -35,7 +35,6 @@ Cypress.Commands.add("seed", (...seeds) => {
 });
 
 Cypress.Commands.add("login", (email, password) => {
-  cy.visit("/");
   cy.contains("Login").click();
   cy.get("#login-email").type(email);
   cy.get("#login-password").type(password);

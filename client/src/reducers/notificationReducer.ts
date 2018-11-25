@@ -74,7 +74,7 @@ export const notificationReducer: Reducer<State, Action> = (
       return addSuccess(state, `Restaurant deleted`);
 
     case getType(reviewListActions.createReview.success):
-      return addSuccess(state, "Thank you for your review");
+      return addSuccess(state, "Thank you for your review!");
 
     case getType(reviewListActions.replyToReview.success):
       return addSuccess(state, "Reply saved");

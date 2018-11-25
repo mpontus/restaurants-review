@@ -1,8 +1,16 @@
 import { combineEpics, Epic } from "redux-observable";
-import { from } from "rxjs";
-import { filter, map, mapTo, switchMap } from "rxjs/operators";
+import { from, merge } from "rxjs";
+import {
+  filter,
+  map,
+  mapTo,
+  switchMap,
+  distinctUntilChanged,
+  skip
+} from "rxjs/operators";
 import { isActionOf } from "typesafe-actions";
 import { Action } from "../actions";
+import * as authActions from "../actions/authActions";
 import * as actions from "../actions/placeListActions";
 import { createPlace } from "../api/method/createPlace";
 import { deletePlace } from "../api/method/deletePlace";
@@ -13,6 +21,7 @@ import { Dependencies } from "../configureStore";
 import { State } from "../reducers";
 import { handleApiError } from "./utils/handleApiError";
 import { replayLastWhen } from "./utils/replayLastWhen";
+import { makeGetCurrentUser } from "../selectors/authSelectors";
 
 /**
  * Place list epic
@@ -27,13 +36,20 @@ export const loadPlaceListEpic: Epic<Action, Action, State, Dependencies> = (
   return action$.pipe(
     filter(isActionOf(actions.loadPlaces.request)),
     replayLastWhen(
-      action$.pipe(
-        filter(
-          isActionOf([
-            actions.createPlace.success,
-            actions.updatePlace.success,
-            actions.deletePlace.success
-          ])
+      merge(
+        state$.pipe(
+          map(makeGetCurrentUser()),
+          distinctUntilChanged(),
+          skip(1)
+        ),
+        action$.pipe(
+          filter(
+            isActionOf([
+              actions.createPlace.success,
+              actions.updatePlace.success,
+              actions.deletePlace.success
+            ])
+          )
         )
       )
     ),
