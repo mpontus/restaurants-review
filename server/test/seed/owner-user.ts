@@ -34,9 +34,43 @@ export const author = {
   roles: ['user'],
 };
 
+export const users = [
+  [
+    '7177e22e-ee35-5eea-aef9-38031272a696',
+    'Shayna Kulas',
+    'Brandyn.Pfannerstill86@gmail.com',
+  ],
+  [
+    'eca0b215-72a3-5690-bc01-9073659f017b',
+    'Trenton Kessler',
+    'Diana53@gmail.com',
+  ],
+  [
+    '8310ec47-f611-5a29-9fbc-b9b5e1d48977',
+    'Christina Friesen',
+    'Kennith9@hotmail.com',
+  ],
+  [
+    'a4b252ff-9f36-5d6e-8a2c-0c0a3172e9cb',
+    'Marcos VonRueden',
+    'Torey_Wunsch44@yahoo.com',
+  ],
+  [
+    'b14d5490-cc44-582b-be03-e578a977cb9c',
+    'Ms. Maximo Jacobson',
+    'Gene_White18@yahoo.com',
+  ],
+  [
+    '356f3bd6-e51e-5cad-9a84-99299ff75a6e',
+    'Dino Kuhic',
+    'Elsa.Hayes84@gmail.com',
+  ],
+].map(([id, name, email]) => ({ id, name, email }));
+
 export const reviews = [
   [
     'be543903-6fbc-5df3-bd31-4256624cc898',
+    users[0].id,
     2,
     '2001-07-05',
     'Party environment control quality full less painting.',
@@ -44,6 +78,7 @@ export const reviews = [
   ],
   [
     'd8320717-05e2-5fd0-83ee-0c36d13b55e1',
+    users[1].id,
     4,
     '2012-05-22',
     'Field return long bed after.',
@@ -51,6 +86,7 @@ export const reviews = [
   ],
   [
     '93aa6df2-8c47-54b1-8445-4152fe33ab41',
+    users[2].id,
     1,
     '1986-01-24',
     'Serious inside else memory if six.',
@@ -58,6 +94,7 @@ export const reviews = [
   ],
   [
     'a414e5ec-e52b-597a-9b1d-527895a781fb',
+    users[3].id,
     1,
     '1973-11-06',
     'State machine energy a production like service.',
@@ -65,13 +102,15 @@ export const reviews = [
   ],
   [
     '1fc8006f-22b9-5b20-8b48-0c31861c4558',
+    users[4].id,
     3,
     '1986-01-24',
     'Way house answer start behind old.',
     'Serious inside else memory if six.',
   ],
-].map(([reviewId, rating, createdAt, comment, reply]) => ({
+].map(([reviewId, authorId, rating, createdAt, comment, reply]) => ({
   id: reviewId,
+  authorId,
   rating,
   createdAt,
   comment,
@@ -90,7 +129,7 @@ export const run = async (nestApp: NestApplication) => {
     .createQueryBuilder()
     .insert()
     .into(UserEntity)
-    .values({ id, name, email, passwordHash, roles: ['user', 'owner'] })
+    .values({ id, name, email, passwordHash, roles: ['owner'] })
     .execute();
 
   await nestApp
@@ -111,7 +150,14 @@ export const run = async (nestApp: NestApplication) => {
     .createQueryBuilder()
     .insert()
     .into(UserEntity)
-    .values(author)
+    .values(
+      users.map(user => ({
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        roles: ['user'],
+      })),
+    )
     .execute();
 
   await nestApp
@@ -119,14 +165,15 @@ export const run = async (nestApp: NestApplication) => {
     .createQueryBuilder()
     .insert()
     .into(ReviewEntity)
-    .values(
-      reviews.map((review: any) => ({
-        ...review,
-        author: { id: author.id },
-        place: { id: place.id },
-        pendingFor: review.reply ? null : id,
-      })),
-    )
+    .values(reviews.map((review: any) => ({
+      id: review.id,
+      rating: review.rating,
+      comment: review.comment,
+      author: { id: review.authorId },
+      place: { id: place.id },
+      createdAt: review.date,
+      pendingFor: review.reply ? null : id,
+    })) as any)
     .execute();
 
   await Promise.all([
