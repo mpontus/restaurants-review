@@ -26,6 +26,8 @@ export const place = {
   id: '05bd7b00-f274-5b91-9c48-08bfa24cb9bd',
   title: 'Nicolas - Satterfield',
   address: '262 Franecki Courts',
+  bestReview: 'd8320717-05e2-5fd0-83ee-0c36d13b55e1',
+  worstReview: '93aa6df2-8c47-54b1-8445-4152fe33ab41',
 };
 
 export const author = {
@@ -65,17 +67,33 @@ export const users = [
     'Dino Kuhic',
     'Elsa.Hayes84@gmail.com',
   ],
-].map(([id, name, email]) => ({ id, name, email }));
+].map(([id, name, email]) => ({ id, name, email, reply: null }));
 
-export const reviews = [
+export const pendingReviews = [
   [
     'be543903-6fbc-5df3-bd31-4256624cc898',
     users[0].id,
     2,
     '2001-07-05',
     'Party environment control quality full less painting.',
-    null,
   ],
+  [
+    '93aa6df2-8c47-54b1-8445-4152fe33ab41',
+    users[2].id,
+    1,
+    '1986-01-24',
+    'Serious inside else memory if six.',
+  ],
+].map(([reviewId, authorId, rating, createdAt, comment]) => ({
+  id: reviewId,
+  authorId,
+  rating,
+  createdAt,
+  comment,
+  pendingFor: id,
+}));
+
+export const answeredReviews = [
   [
     'd8320717-05e2-5fd0-83ee-0c36d13b55e1',
     users[1].id,
@@ -85,17 +103,9 @@ export const reviews = [
     'Party environment control quality full less painting.',
   ],
   [
-    '93aa6df2-8c47-54b1-8445-4152fe33ab41',
-    users[2].id,
-    1,
-    '1986-01-24',
-    'Serious inside else memory if six.',
-    null,
-  ],
-  [
     'a414e5ec-e52b-597a-9b1d-527895a781fb',
     users[3].id,
-    1,
+    2,
     '1973-11-06',
     'State machine energy a production like service.',
     'Serious inside else memory if six.',
@@ -116,6 +126,8 @@ export const reviews = [
   comment,
   reply,
 }));
+
+export const reviews = [...pendingReviews, ...answeredReviews];
 
 export const run = async (nestApp: NestApplication) => {
   const sessionData = {
@@ -172,8 +184,20 @@ export const run = async (nestApp: NestApplication) => {
       author: { id: review.authorId },
       place: { id: place.id },
       createdAt: review.date,
+      reply: review.reply,
       pendingFor: review.reply ? null : id,
     })) as any)
+    .execute();
+
+  await nestApp
+    .get(Connection)
+    .createQueryBuilder()
+    .update(PlaceEntity)
+    .set({
+      bestReview: { id: place.bestReview },
+      worstReview: { id: place.worstReview },
+    })
+    .where({ id: place.id })
     .execute();
 
   await Promise.all([
