@@ -1,5 +1,8 @@
 {
   "defaultSeverity": "error",
+  "linterOptions": {
+    "exclude": ["src/migrations/**"]
+  },
   "extends": [
     "tslint:recommended",
     "tslint-clean-code/recommended_ruleset",

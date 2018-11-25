@@ -23,9 +23,8 @@ import { UserModule } from 'user/user.module';
       useFactory: (config: ConfigService): TypeOrmModuleOptions => ({
         type: 'postgres',
         url: config.get('env.database_url'),
-        entities: [`${__dirname}/**/*.entity{.ts,.js}`],
-        migrations: [`${__dirname}/../migrations/*.ts`],
-        migrationsRun: false,
+        entities: [`${__dirname}/**/*.entity.{ts,js}`],
+        migrations: [`${__dirname}/migrations/*.{ts,js}`],
       }),
       inject: [ConfigService],
     }),
