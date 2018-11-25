@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { AuthModule } from 'auth/auth.module';
-import { ConfigModule } from 'nestjs-config';
+import { ConfigModule, ConfigService } from 'nestjs-config';
 import * as path from 'path';
 import { PlaceModule } from 'places/place.module';
 import { RedisModule } from 'redis/redis.module';
@@ -19,8 +19,15 @@ import { UserModule } from 'user/user.module';
     UserModule,
     PlaceModule,
     ReviewModule,
+    TypeOrmModule.forRootAsync({
+      useFactory: (config: ConfigService): TypeOrmModuleOptions => ({
+        type: 'postgres',
+        url: config.get('env.database_url'),
+        entities: [`${__dirname}/**/*.entity{.ts,.js}`],
+      }),
+      inject: [ConfigService],
+    }),
     RedisModule.forRoot(process.env.REDIS_URL || undefined),
-    TypeOrmModule.forRoot(),
     ConfigModule.load(path.resolve(__dirname, 'config/**/*.{ts,js}')),
   ],
 })
