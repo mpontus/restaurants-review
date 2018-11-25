@@ -5,6 +5,7 @@ import { authRequestReducer } from "./authRequestReducer";
 import { deletedPlacesReducer } from "./deletedPlacesReducer";
 import { deletedReviewsReducer } from "./deletedReviews";
 import { deletedUsersReducer } from "./deletedUsersReducer";
+import { notificationReducer } from "./notificationReducer";
 import { ownPlaceListReducer } from "./ownPlaceListReducer";
 import { pendingReviewListReducer } from "./pendingReviewListReducer";
 import { placeCreateRequestReducer } from "./placeCreateRequestReducer";
@@ -50,7 +51,8 @@ export const rootReducer = combineReducers({
   reviewListRequest: reviewListRequestReducer,
   reviewCreateRequest: reviewCreateRequestReducer,
   reviewUpdateRequest: reviewUpdateRequestReducer,
-  deletedReviews: deletedReviewsReducer
+  deletedReviews: deletedReviewsReducer,
+  notifications: notificationReducer
 });
 
 /**

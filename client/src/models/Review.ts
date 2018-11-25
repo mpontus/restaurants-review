@@ -1,5 +1,4 @@
 import { Place } from "./Place";
-import { isAdmin, User } from "./User";
 
 /**
  * Review Model

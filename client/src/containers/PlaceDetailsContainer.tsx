@@ -9,7 +9,7 @@ import { Loading } from "../components/Loading";
 import { useModal } from "../components/ModalRoot";
 import { PlaceDetailsHeader } from "../components/PlaceDetailsHeader";
 import { Rating } from "../components/Rating";
-import { canDelete, canEdit, canReview, Place } from "../models/Place";
+import { Place } from "../models/Place";
 import { User } from "../models/User";
 import { State } from "../reducers";
 import { makeGetCurrentUser } from "../selectors/authSelectors";

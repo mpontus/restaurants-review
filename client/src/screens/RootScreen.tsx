@@ -4,6 +4,7 @@ import { Layout } from "../components/Layout";
 import { AuthGuard } from "../containers/AuthGuard";
 import { HeaderContainer } from "../containers/HeaderContainer";
 import { MobileNavigationContainer } from "../containers/MobileNavigationContainer";
+import NotificationContainer from "../containers/NotificationContainer";
 import { isAdmin, isOwner } from "../models/User";
 import * as routes from "../routes";
 import { FrontpageScreen } from "./FrontpageScreen";
@@ -46,5 +47,6 @@ export const RootScreen = () => (
       </Switch>
     </Layout>
     <MobileNavigationContainer />
+    <NotificationContainer />
   </div>
 );
