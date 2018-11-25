@@ -37,6 +37,12 @@ export class PlaceRepository {
       order:
         criteria.order === 'rating' ? { rating: 'DESC' } : { title: 'ASC' },
       where: this.createWhereClause(criteria),
+      relations: [
+        'bestReview',
+        'bestReview.author',
+        'worstReview',
+        'worstReview.author',
+      ],
       take: criteria.take,
       skip: criteria.skip,
     });

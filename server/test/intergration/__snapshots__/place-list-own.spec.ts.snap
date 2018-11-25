@@ -5,12 +5,32 @@ Object {
   "items": Array [
     Object {
       "address": "262 Franecki Courts",
+      "bestReview": Object {
+        "author": Object {
+          "name": "Trenton Kessler",
+        },
+        "comment": "Field return long bed after.",
+        "dateVisitted": "2018-11-25",
+        "id": "d8320717-05e2-5fd0-83ee-0c36d13b55e1",
+        "rating": 4,
+        "reply": "Party environment control quality full less painting.",
+      },
       "canDelete": true,
       "canEdit": true,
       "id": "05bd7b00-f274-5b91-9c48-08bfa24cb9bd",
       "rating": 0,
       "reviewCount": 0,
       "title": "Nicolas - Satterfield",
+      "worstReview": Object {
+        "author": Object {
+          "name": "Christina Friesen",
+        },
+        "canReply": true,
+        "comment": "Serious inside else memory if six.",
+        "dateVisitted": "2018-11-25",
+        "id": "93aa6df2-8c47-54b1-8445-4152fe33ab41",
+        "rating": 1,
+      },
     },
   ],
   "total": 1,
@@ -65,12 +85,32 @@ Object {
   "items": Array [
     Object {
       "address": "262 Franecki Courts",
+      "bestReview": Object {
+        "author": Object {
+          "name": "Trenton Kessler",
+        },
+        "comment": "Field return long bed after.",
+        "dateVisitted": "2018-11-25",
+        "id": "d8320717-05e2-5fd0-83ee-0c36d13b55e1",
+        "rating": 4,
+        "reply": "Party environment control quality full less painting.",
+      },
       "canDelete": true,
       "canEdit": true,
       "id": "05bd7b00-f274-5b91-9c48-08bfa24cb9bd",
       "rating": 0,
       "reviewCount": 0,
       "title": "Nicolas - Satterfield",
+      "worstReview": Object {
+        "author": Object {
+          "name": "Christina Friesen",
+        },
+        "canReply": true,
+        "comment": "Serious inside else memory if six.",
+        "dateVisitted": "2018-11-25",
+        "id": "93aa6df2-8c47-54b1-8445-4152fe33ab41",
+        "rating": 1,
+      },
     },
   ],
   "total": 1,
