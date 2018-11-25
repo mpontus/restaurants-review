@@ -1,5 +1,5 @@
 import { ApiModelProperty } from '@nestjs/swagger';
-import { Exclude, Expose, Transform } from 'class-transformer';
+import { Exclude, Expose } from 'class-transformer';
 import { Principal } from 'common/model/principal.model';
 import { PlaceReview } from './place-review.model';
 
@@ -68,24 +68,23 @@ export class Place {
    */
   @ApiModelProperty()
   @Expose()
-  @Transform((value: boolean) => value || undefined)
-  get canReview(): boolean {
+  get canReview(): true | undefined {
     if (!this.actor) {
-      return false;
+      return;
     }
 
     // Only users can review
     if (!this.actor.roles.includes('user')) {
-      return false;
+      return;
     }
 
     // Owner can't review their own restaurant
     if (this.actor.id === this.ownerId) {
-      return false;
+      return;
     }
 
     // Can only review once
-    return !this.ownReview;
+    return !this.ownReview || undefined;
   }
 
   /**
@@ -93,13 +92,16 @@ export class Place {
    */
   @ApiModelProperty()
   @Expose()
-  @Transform((value: boolean) => value || undefined)
-  get canEdit(): boolean {
+  get canEdit(): true | undefined {
     if (!this.actor) {
-      return false;
+      return;
     }
 
-    return this.actor.roles.includes('admin') || this.ownerId === this.actor.id;
+    return (
+      this.actor.roles.includes('admin') ||
+      this.ownerId === this.actor.id ||
+      undefined
+    );
   }
 
   /**
@@ -107,13 +109,16 @@ export class Place {
    */
   @ApiModelProperty()
   @Expose()
-  @Transform((value: boolean) => value || undefined)
-  get canDelete(): boolean {
+  get canDelete(): true | undefined {
     if (!this.actor) {
-      return false;
+      return;
     }
 
-    return this.actor.roles.includes('admin') || this.ownerId === this.actor.id;
+    return (
+      this.actor.roles.includes('admin') ||
+      this.ownerId === this.actor.id ||
+      undefined
+    );
   }
 
   /**

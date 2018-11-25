@@ -240,15 +240,17 @@ export const run = async (nestApp: NestApplication) => {
     .createQueryBuilder()
     .insert()
     .into(ReviewEntity)
-    .values(reviews.map((review: any) => ({
-      id: review.id,
-      rating: review.rating,
-      comment: review.comment,
-      author: { id: review.authorId },
-      place: { id: place.id },
-      createdAt: review.date,
-      pendingFor: owner.id,
-    })) as any)
+    .values([
+      ...reviews.map((review: any) => ({
+        id: review.id,
+        rating: review.rating,
+        comment: review.comment,
+        author: { id: review.authorId },
+        place: { id: place.id },
+        createdAt: review.date,
+        pendingFor: owner.id,
+      })),
+    ] as any)
     .execute();
 
   await nestApp

@@ -67,7 +67,10 @@ export const users = [
     'Dino Kuhic',
     'Elsa.Hayes84@gmail.com',
   ],
-].map(([id, name, email]) => ({ id, name, email, reply: null }));
+].map(
+  // tslint:disable-next-line:no-shadowed-variable
+  ([id, name, email]) => ({ id, name, email, reply: null }),
+);
 
 export const pendingReviews = [
   [
@@ -177,16 +180,18 @@ export const run = async (nestApp: NestApplication) => {
     .createQueryBuilder()
     .insert()
     .into(ReviewEntity)
-    .values(reviews.map((review: any) => ({
-      id: review.id,
-      rating: review.rating,
-      comment: review.comment,
-      author: { id: review.authorId },
-      place: { id: place.id },
-      createdAt: review.date,
-      reply: review.reply,
-      pendingFor: review.reply ? null : id,
-    })) as any)
+    .values([
+      ...reviews.map((review: any) => ({
+        id: review.id,
+        rating: review.rating,
+        comment: review.comment,
+        author: { id: review.authorId } as any,
+        place: { id: place.id } as any,
+        createdAt: review.date,
+        reply: review.reply,
+        pendingFor: review.reply ? null : id,
+      })),
+    ])
     .execute();
 
   await nestApp
