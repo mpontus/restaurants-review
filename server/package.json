@@ -9,12 +9,10 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "start": "nodemon",
-    "migration:generate": "ts-node -r tsconfig-paths/register node_modules/.bin/typeorm migration:generate",
-    "migration:run": "ts-node -r tsconfig-paths/register node_modules/.bin/typeorm migration:run",
-    "migrate": "typeorm migration:run",
     "lint": "tslint -p tsconfig.json",
     "test": "jest",
-    "test:e2e": "jest --runInBand --config ./test/jest-e2e.json"
+    "test:e2e": "jest --runInBand --config ./test/jest-e2e.json",
+    "typeorm": "ts-node -r tsconfig-paths/register node_modules/.bin/typeorm"
   },
   "dependencies": {
     "@nestjs/common": "^5.1.0",
