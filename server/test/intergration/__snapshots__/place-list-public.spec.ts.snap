@@ -47,18 +47,18 @@ exports[`List Places when limit is provided should succeed 1`] = `
 Object {
   "items": Array [
     Object {
+      "address": "1467 Huzwas Highway",
+      "id": "8242a55b-5a9d-5ca9-b296-eed08dcf2897",
+      "rating": 4.99,
+      "reviewCount": 0,
+      "title": "Amigos",
+    },
+    Object {
       "address": "1915 Uzma Court",
       "id": "6bf9374f-8abc-5942-b52e-fff076137298",
       "rating": 4.61,
       "reviewCount": 0,
       "title": "Little China",
-    },
-    Object {
-      "address": "39 Coko Turnpike",
-      "id": "2d688467-2116-5d95-9195-13083b904496",
-      "rating": 3.9,
-      "reviewCount": 0,
-      "title": "Chapter",
     },
   ],
   "total": 20,
@@ -132,6 +132,13 @@ exports[`List Places when offset is provided should succeed 1`] = `
 Object {
   "items": Array [
     Object {
+      "address": "1528 Aceer Way",
+      "id": "36241277-6054-5955-a823-6a0706710235",
+      "rating": 3.85,
+      "reviewCount": 0,
+      "title": "The Fire Grove",
+    },
+    Object {
       "address": "1355 Pogol Parkway",
       "id": "08347a44-d09d-58c6-b198-163b9a0ed423",
       "rating": 3.84,
@@ -151,13 +158,6 @@ Object {
       "rating": 3.75,
       "reviewCount": 0,
       "title": "The Noodle Farmer",
-    },
-    Object {
-      "address": "1467 Huzwas Highway",
-      "id": "8242a55b-5a9d-5ca9-b296-eed08dcf2897",
-      "rating": 3.57,
-      "reviewCount": 0,
-      "title": "Amigos",
     },
     Object {
       "address": "134 Medmon Path",
@@ -253,6 +253,13 @@ exports[`List Places without any criteria should succeed 1`] = `
 Object {
   "items": Array [
     Object {
+      "address": "1467 Huzwas Highway",
+      "id": "8242a55b-5a9d-5ca9-b296-eed08dcf2897",
+      "rating": 4.99,
+      "reviewCount": 0,
+      "title": "Amigos",
+    },
+    Object {
       "address": "1915 Uzma Court",
       "id": "6bf9374f-8abc-5942-b52e-fff076137298",
       "rating": 4.61,
@@ -293,13 +300,6 @@ Object {
       "rating": 3.75,
       "reviewCount": 0,
       "title": "The Noodle Farmer",
-    },
-    Object {
-      "address": "1467 Huzwas Highway",
-      "id": "8242a55b-5a9d-5ca9-b296-eed08dcf2897",
-      "rating": 3.57,
-      "reviewCount": 0,
-      "title": "Amigos",
     },
     Object {
       "address": "134 Medmon Path",

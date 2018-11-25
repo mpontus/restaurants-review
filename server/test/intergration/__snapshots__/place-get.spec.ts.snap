@@ -2,10 +2,10 @@
 
 exports[`Get Place should succeed 1`] = `
 Object {
-  "address": "1187 Weskut Ridge",
-  "id": "d3973942-133b-55e4-920e-7b0033ab9d38",
-  "rating": 3.75,
+  "address": "1467 Huzwas Highway",
+  "id": "8242a55b-5a9d-5ca9-b296-eed08dcf2897",
+  "rating": 4.99,
   "reviewCount": 0,
-  "title": "The Noodle Farmer",
+  "title": "Amigos",
 }
 `;
