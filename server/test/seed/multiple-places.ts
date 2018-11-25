@@ -14,6 +14,12 @@ export const owner = {
 
 export const places = [
   [
+    '8242a55b-5a9d-5ca9-b296-eed08dcf2897',
+    'Amigos',
+    '1467 Huzwas Highway',
+    4.99,
+  ],
+  [
     'd3973942-133b-55e4-920e-7b0033ab9d38',
     'The Noodle Farmer',
     '1187 Weskut Ridge',
@@ -48,12 +54,6 @@ export const places = [
     'Shambles',
     '826 Cuzmav Ridge',
     0.56,
-  ],
-  [
-    '8242a55b-5a9d-5ca9-b296-eed08dcf2897',
-    'Amigos',
-    '1467 Huzwas Highway',
-    3.57,
   ],
   [
     '6bf9374f-8abc-5942-b52e-fff076137298',

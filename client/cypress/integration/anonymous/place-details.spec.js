@@ -49,7 +49,9 @@ describe("user can see place details", () => {
 
   describe("user can return to the front page", () => {
     beforeEach(() => {
-      cy.contains("Restaurant Reviews").click();
+      cy.contains("Restaurant Reviews")
+        .scrollIntoView()
+        .click({ force: true });
     });
 
     it("should forward the user to front page", () => {
