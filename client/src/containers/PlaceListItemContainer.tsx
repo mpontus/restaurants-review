@@ -123,8 +123,8 @@ export const BasePlaceListItemContainer = ({
 
   const [showConfirmModal, hideConfirmModal] = useModal(() => (
     <ConfirmModal
-      title="Delete place?"
-      confirmLabel="Delete place"
+      title="Delete restaurant?"
+      confirmLabel="Delete Restaurant"
       onConfirm={handleDelete}
       onCancel={hideConfirmModal}
     >

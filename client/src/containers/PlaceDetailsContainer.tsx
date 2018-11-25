@@ -10,10 +10,14 @@ import { useModal } from "../components/ModalRoot";
 import { PlaceDetailsHeader } from "../components/PlaceDetailsHeader";
 import { Rating } from "../components/Rating";
 import { Place } from "../models/Place";
+import { RequestStatus } from "../models/RequestStatus";
 import { User } from "../models/User";
 import { State } from "../reducers";
 import { makeGetCurrentUser } from "../selectors/authSelectors";
-import { makeGetPlaceById } from "../selectors/placeSelectors";
+import {
+  makeGetPlaceById,
+  makeGetPlaceUpdateRequestStatus
+} from "../selectors/placeSelectors";
 import { CreateReviewModalContainer } from "./CreateReviewModalContainer";
 import { PlaceFormModalContainer } from "./PlaceFormModalContainer";
 import { PlaceReviewListContainer } from "./PlaceReviewListContainer";
@@ -52,6 +56,11 @@ interface StateProps {
    * Place
    */
   place?: Place;
+
+  /**
+   * Request status for place deletion
+   */
+  updateRequestStatus: RequestStatus<any>;
 }
 
 /**
@@ -80,7 +89,8 @@ interface Props extends OwnProps, StateProps, DispatchProps {}
 const makeMapStateToProps = (): Selector<State, StateProps, OwnProps> =>
   createStructuredSelector({
     user: makeGetCurrentUser(),
-    place: makeGetPlaceById()
+    place: makeGetPlaceById(),
+    updateRequestStatus: makeGetPlaceUpdateRequestStatus()
   });
 
 /**
@@ -103,13 +113,10 @@ export const BasePlaceDetailsContainer = ({
   user,
   id,
   place,
+  updateRequestStatus,
   onLoadPlace,
   onDelete
 }: Props) => {
-  useEffect(() => {
-    onLoadPlace({ id });
-  }, []);
-
   const [currentReviewsPage, setReviewsPage] = useState(0);
   const [showReviewModal, hideReviewModal] = useModal(() =>
     place ? (
@@ -125,8 +132,8 @@ export const BasePlaceDetailsContainer = ({
   const [showConfirmModal, hideConfirmModal] = useModal(() =>
     place ? (
       <ConfirmModal
-        title="Delete place?"
-        confirmLabel="Delete place"
+        title="Delete restaurant?"
+        confirmLabel="Delete Restaurant"
         onConfirm={handleDelete}
         onCancel={hideConfirmModal}
       >
@@ -139,6 +146,21 @@ export const BasePlaceDetailsContainer = ({
     place ? (
       <PlaceFormModalContainer id={place.id} onCancel={hideEditModal} />
     ) : null
+  );
+
+  // Load place on mount
+  useEffect(() => {
+    onLoadPlace({ id });
+  }, []);
+
+  // Close dialog after place deletion
+  useEffect(
+    () => {
+      if (updateRequestStatus.success) {
+        hideConfirmModal();
+      }
+    },
+    [updateRequestStatus]
   );
 
   if (place === undefined) {
