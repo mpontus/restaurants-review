@@ -27,14 +27,17 @@ export const reviewUpdateRequestReducer = createNamespaceReducer(
   action => action.payload.review.id,
   createRequestStatusReducer(
     eitherPredicate(
+      isActionOf(replyToReview.request),
       isActionOf(updateReview.request),
       isActionOf(deleteReview.request)
     ),
     eitherPredicate(
+      isActionOf(replyToReview.success),
       isActionOf(updateReview.success),
       isActionOf(deleteReview.success)
     ),
     eitherPredicate(
+      isActionOf(replyToReview.failure),
       isActionOf(updateReview.failure),
       isActionOf(deleteReview.failure)
     ),
