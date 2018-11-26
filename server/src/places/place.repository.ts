@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { Principal } from 'common/model/principal.model';
-import { clean } from 'common/utils/clean';
+import { objectRemoveUndefined } from 'common/utils/object-remove-undefined';
 import { Between, DeepPartial, EntityManager, FindConditions } from 'typeorm';
 import uuid from 'uuid';
 import { PlaceEntity } from './entity/place.entity';
@@ -112,7 +112,7 @@ export class PlaceRepository {
    */
   public async update(place: Place, diff: Partial<Place>): Promise<Place> {
     // Remove undefined non-nullable fields
-    const update: DeepPartial<PlaceEntity> = clean({
+    const update: DeepPartial<PlaceEntity> = objectRemoveUndefined({
       title: diff.title,
       address: diff.address,
       rating: diff.rating,
@@ -133,7 +133,7 @@ export class PlaceRepository {
 
     await this.manager.update(PlaceEntity, place.id, update);
 
-    return Object.assign(place, clean(diff));
+    return Object.assign(place, objectRemoveUndefined(diff));
   }
 
   /**

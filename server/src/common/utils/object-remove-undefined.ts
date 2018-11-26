@@ -1,7 +1,7 @@
 /**
- * Remove undefiend values from object.
+ * Remove undefiend values from an object
  */
-export const clean = <T>(
+export const objectRemoveUndefined = <T>(
   // tslint:disable-next-line:no-any
   obj: Partial<T> & { [K in string]?: any },
 ): Partial<T> =>
