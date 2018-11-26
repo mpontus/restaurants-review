@@ -18,6 +18,8 @@ interface Props {
 
 /**
  * Input Component
+ *
+ * Extends Material-UI's TextField with useful defaults.
  */
 export const Input: React.SFC<Props> = ({
   autoFocus,
@@ -29,20 +31,19 @@ export const Input: React.SFC<Props> = ({
   onChange,
   onBlur,
   error = null
-}: Props) => {
-  return (
-    <TextField
-      type={type}
-      fullWidth={true}
-      margin="normal"
-      autoFocus={autoFocus}
-      id={id}
-      label={label}
-      name={name}
-      value={value}
-      error={error !== null}
-      helperText={error}
-      onChange={onChange}
-    />
-  );
-};
+}: Props) => (
+  <TextField
+    type={type}
+    fullWidth={true}
+    margin="normal"
+    autoFocus={autoFocus}
+    id={id}
+    label={label}
+    name={name}
+    value={value}
+    error={error !== null}
+    helperText={error}
+    onChange={onChange}
+    onBlur={onBlur}
+  />
+);

@@ -1,4 +1,4 @@
-import { Field as FormikField, FieldAttributes, FieldProps } from "formik";
+import { FastField as FormikField, FieldAttributes, FieldProps } from "formik";
 import * as React from "react";
 
 /**

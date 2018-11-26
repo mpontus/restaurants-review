@@ -17,6 +17,8 @@ interface Props {
 
 /**
  * Textarea Component
+ *
+ * Extends Material-UI's TextField with useful defaults.
  */
 export const Textarea: React.SFC<Props> = ({
   autoFocus,
@@ -42,6 +44,7 @@ export const Textarea: React.SFC<Props> = ({
       error={error !== null}
       helperText={error}
       onChange={onChange}
+      onBlur={onBlur}
     />
   );
 };
