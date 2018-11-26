@@ -187,4 +187,4 @@ export const BasePlaceListItemContainer = ({
 /**
  * Export enhanced component
  */
-export const PlaceListItemContainer = enhance(BasePlaceListItemContainer);
+export const PlaceContainer = enhance(BasePlaceListItemContainer);

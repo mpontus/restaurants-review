@@ -4,7 +4,7 @@ import { Loading } from "../components/Loading";
 import { Pagination } from "../components/Pagination";
 import { RatingFilterControl } from "../components/RatingFilterControl";
 import { Subheading } from "../components/Subheading";
-import { PlaceListItemContainer } from "../containers/PlaceListItemContainer";
+import { PlaceContainer } from "../containers/PlaceContainer";
 import { PlaceListProvider } from "../containers/PlaceListProvider";
 import { usePagination } from "../hooks/usePagination";
 
@@ -42,7 +42,7 @@ export const FrontpageScreen = () => {
             <Pagination
               items={ids}
               renderItem={placeId => (
-                <PlaceListItemContainer key={placeId} id={placeId} />
+                <PlaceContainer key={placeId} id={placeId} />
               )}
               hasNext={hasNextPage}
               hasPrev={hasNextPage}

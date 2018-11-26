@@ -9,7 +9,7 @@ import { Section } from "../components/Section";
 import { Subheading } from "../components/Subheading";
 import { AuthGuard } from "../containers/AuthGuard";
 import { PlaceDetailsProvider } from "../containers/PlaceDetailsProvider";
-import { ReviewContainer } from "../containers/ReviewListItemContainer";
+import { ReviewContainer } from "../containers/ReviewContainer";
 import { ReviewListProvider } from "../containers/ReviewListProvider";
 import { usePagination } from "../hooks/usePagination";
 import { canDelete, canEdit, canReview } from "../models/Place";

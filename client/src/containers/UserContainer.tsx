@@ -154,4 +154,4 @@ export const BaseUserListItemContainer = ({
 /**
  * Export enhanced component
  */
-export const UserListItemContainer = enhance(BaseUserListItemContainer);
+export const UserContainer = enhance(BaseUserListItemContainer);

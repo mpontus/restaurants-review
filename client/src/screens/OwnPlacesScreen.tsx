@@ -6,7 +6,7 @@ import { useModal } from "../components/ModalRoot";
 import { Pagination } from "../components/Pagination";
 import { Subheading } from "../components/Subheading";
 import { PlaceFormModalContainer } from "../containers/PlaceFormModalContainer";
-import { PlaceListItemContainer } from "../containers/PlaceListItemContainer";
+import { PlaceContainer } from "../containers/PlaceContainer";
 import { PlaceListProvider } from "../containers/PlaceListProvider";
 
 /**
@@ -37,7 +37,7 @@ export const OwnPlacesScreen = () => {
           <Pagination
             items={ids}
             renderItem={id => (
-              <PlaceListItemContainer key={id} showActions={true} id={id} />
+              <PlaceContainer key={id} showActions={true} id={id} />
             )}
             hasNext={hasNextPage}
             hasPrev={hasNextPage}

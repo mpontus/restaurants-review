@@ -3,7 +3,7 @@ import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
 import { Pagination } from "../components/Pagination";
 import { Subheading } from "../components/Subheading";
-import { ReviewContainer } from "../containers/ReviewListItemContainer";
+import { ReviewContainer } from "../containers/ReviewContainer";
 import { ReviewListProvider } from "../containers/ReviewListProvider";
 import { usePagination } from "../hooks/usePagination";
 

@@ -6,7 +6,7 @@ import { useModal } from "../components/ModalRoot";
 import { Pagination } from "../components/Pagination";
 import { Subheading } from "../components/Subheading";
 import { UserFormModalContainer } from "../containers/UserFormModalContainer";
-import { UserListItemContainer } from "../containers/UserListItemContainer";
+import { UserContainer } from "../containers/UserContainer";
 import { UserListProvider } from "../containers/UserListProvider";
 
 /**
@@ -35,7 +35,7 @@ export const UserListScreen = () => {
         {({ ids, hasNextPage, hasPrevPage }) => (
           <Pagination
             items={ids}
-            renderItem={id => <UserListItemContainer key={id} id={id} />}
+            renderItem={id => <UserContainer key={id} id={id} />}
             hasNext={hasNextPage}
             hasPrev={hasNextPage}
             onNext={() => setPage(currentPage + 1)}
