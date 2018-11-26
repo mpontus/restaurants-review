@@ -4,7 +4,7 @@ import { createStructuredSelector } from "reselect";
 import { loadPlace } from "../actions/placeDetailsActions";
 import { deletePlace } from "../actions/placeListActions";
 import { ConfirmModal } from "../components/ConfirmModal";
-import { useModal } from "../components/ModalRoot";
+import { useModal } from "../hooks/useModal";
 import { Place } from "../models/Place";
 import { RequestStatus } from "../models/RequestStatus";
 import { State } from "../reducers";

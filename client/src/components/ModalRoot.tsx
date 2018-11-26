@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { useState } from "react";
 import ReactDOM from "react-dom";
-import { useGlobalId } from "../hooks/useGlobalId";
 
 /**
  * Modal Type
@@ -77,29 +76,4 @@ export const ModalRoot = () => {
     </React.Fragment>,
     document.body
   );
-};
-
-/**
- * React hook to use modals in stateless components
- */
-export const useModal = (Component: React.ComponentType<any>) => {
-  const key = useGlobalId();
-  const [shown, setShown] = useState(false);
-  const { showModal, hideModal } = useContext(ModalContext);
-
-  useEffect(
-    () => {
-      if (shown) {
-        showModal(key, Component);
-      } else {
-        hideModal(key);
-      }
-
-      // Hide modal on parent component unmount
-      return () => hideModal(key);
-    },
-    [shown]
-  );
-
-  return [() => setShown(true), () => setShown(false)];
 };

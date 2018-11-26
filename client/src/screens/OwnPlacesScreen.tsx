@@ -3,12 +3,12 @@ import { Action } from "../components/Action";
 import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
-import { useModal } from "../components/ModalRoot";
 import { Pagination } from "../components/Pagination";
 import { Subheading } from "../components/Subheading";
 import { PlaceContainer } from "../containers/PlaceContainer";
 import { PlaceFormModalContainer } from "../containers/PlaceFormModalContainer";
 import { PlaceListProvider } from "../containers/PlaceListProvider";
+import { useModal } from "../hooks/useModal";
 
 /**
  * Own Places Screen

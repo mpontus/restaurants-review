@@ -16,7 +16,7 @@ import { createStructuredSelector } from "reselect";
 import { deleteUser } from "../actions/userListActions";
 import { ConfirmModal } from "../components/ConfirmModal";
 import { IconMenu } from "../components/IconMenu";
-import { useModal } from "../components/ModalRoot";
+import { useModal } from "../hooks/useModal";
 import { RequestStatus } from "../models/RequestStatus";
 import { User } from "../models/User";
 import { State } from "../reducers";
