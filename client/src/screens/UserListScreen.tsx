@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Action } from "../components/Action";
+import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
 import { useModal } from "../components/ModalRoot";
 import { Pagination } from "../components/Pagination";
 import { Subheading } from "../components/Subheading";
-import { UserFormModalContainer } from "../containers/UserFormModalContainer";
 import { UserContainer } from "../containers/UserContainer";
+import { UserFormModalContainer } from "../containers/UserFormModalContainer";
 import { UserListProvider } from "../containers/UserListProvider";
 
 /**
@@ -21,8 +22,8 @@ export const UserListScreen = () => {
   ));
 
   return (
-    <React.Fragment>
-      <Heading> User Management</Heading>
+    <DocumentTitle title="User Management">
+      <Heading>User Management</Heading>
       <Subheading>
         Here you can manage your website users: create users, assign privileges,
         modify, and delete users.
@@ -43,6 +44,6 @@ export const UserListScreen = () => {
           />
         )}
       </UserListProvider>
-    </React.Fragment>
+    </DocumentTitle>
   );
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
 import { Action } from "../components/Action";
+import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
 import { Pagination } from "../components/Pagination";
@@ -32,7 +33,7 @@ export const PlaceDetailsScreen = ({ match }: Props) => {
   return (
     <PlaceDetailsProvider id={match.params.id} placeholder={<Loading />}>
       {({ place, onReview, onEdit, onDelete }) => (
-        <React.Fragment>
+        <DocumentTitle title={place.title}>
           <Heading>{place.title}</Heading>
           <Subheading>{place.address}</Subheading>
           <RatingStatic
@@ -85,7 +86,7 @@ export const PlaceDetailsScreen = ({ match }: Props) => {
               </Section>
             )}
           </ReviewListProvider>
-        </React.Fragment>
+        </DocumentTitle>
       )}
     </PlaceDetailsProvider>
   );

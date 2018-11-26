@@ -1,4 +1,5 @@
 import React from "react";
+import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
 import { Pagination } from "../components/Pagination";
@@ -16,7 +17,7 @@ export const PendingReviewsScreen = () => {
   const [currentPage, onPrevPage, onNextPage] = usePagination(0);
 
   return (
-    <React.Fragment>
+    <DocumentTitle title="Pending Reviews">
       <Heading>Pending Reviews</Heading>
       <Subheading>
         This page allows you to reply to reviews for your restaurants.
@@ -40,6 +41,6 @@ export const PendingReviewsScreen = () => {
           />
         )}
       </ReviewListProvider>
-    </React.Fragment>
+    </DocumentTitle>
   );
 };

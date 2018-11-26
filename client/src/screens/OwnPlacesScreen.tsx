@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { Action } from "../components/Action";
+import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
 import { useModal } from "../components/ModalRoot";
 import { Pagination } from "../components/Pagination";
 import { Subheading } from "../components/Subheading";
-import { PlaceFormModalContainer } from "../containers/PlaceFormModalContainer";
 import { PlaceContainer } from "../containers/PlaceContainer";
+import { PlaceFormModalContainer } from "../containers/PlaceFormModalContainer";
 import { PlaceListProvider } from "../containers/PlaceListProvider";
 
 /**
@@ -21,7 +22,7 @@ export const OwnPlacesScreen = () => {
   ));
 
   return (
-    <React.Fragment>
+    <DocumentTitle title="Restaurant Management">
       <Heading>Restaurant Management</Heading>
       <Subheading>
         This page lists your own restaurants. You can create new resturants from
@@ -46,6 +47,6 @@ export const OwnPlacesScreen = () => {
           />
         )}
       </PlaceListProvider>
-    </React.Fragment>
+    </DocumentTitle>
   );
 };

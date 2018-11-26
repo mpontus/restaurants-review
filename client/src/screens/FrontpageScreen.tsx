@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
 import { Pagination } from "../components/Pagination";
@@ -21,7 +22,7 @@ export const FrontpageScreen = () => {
   useEffect(() => setPage(0), [ratingFilter]);
 
   return (
-    <React.Fragment>
+    <DocumentTitle>
       <Heading>Restaurant Reviews</Heading>
       <Subheading>
         This is a website for restaurant reviews. You can find the best
@@ -52,6 +53,6 @@ export const FrontpageScreen = () => {
           </React.Fragment>
         )}
       </PlaceListProvider>
-    </React.Fragment>
+    </DocumentTitle>
   );
 };
