@@ -14,7 +14,6 @@ import { Action } from "../actions";
 import * as actions from "../actions/authActions";
 import { login } from "../api/method/login";
 import { signup } from "../api/method/signup";
-import { Dependencies } from "../configureStore";
 import { isAdmin, isOwner } from "../models/User";
 import { State } from "../reducers";
 import * as routes from "../routes";
@@ -22,6 +21,7 @@ import {
   makeGetAuthToken,
   makeGetCurrentUser
 } from "../selectors/authSelectors";
+import { Dependencies } from "../store";
 import { handleApiError } from "./utils/handleApiError";
 
 /**

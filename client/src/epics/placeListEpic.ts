@@ -17,10 +17,10 @@ import { deletePlace } from "../api/method/deletePlace";
 import { getOwnPlaces } from "../api/method/getOwnPlaces";
 import { getPlaces } from "../api/method/getPlaces";
 import { updatePlace } from "../api/method/updatePlace";
-import { Dependencies } from "../configureStore";
 import { State } from "../reducers";
 import * as routes from "../routes";
 import { makeGetCurrentUser } from "../selectors/authSelectors";
+import { Dependencies } from "../store";
 import { handleApiError } from "./utils/handleApiError";
 import { replayLastWhen } from "./utils/replayLastWhen";
 

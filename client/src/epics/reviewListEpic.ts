@@ -10,8 +10,8 @@ import { deleteReview } from "../api/method/deleteReview";
 import { getPendingReviews } from "../api/method/getPendingReviews";
 import { getPlaceReviews } from "../api/method/getPlaceReviews";
 import { updateReview } from "../api/method/updateReview";
-import { Dependencies } from "../configureStore";
 import { State } from "../reducers";
+import { Dependencies } from "../store";
 import { handleApiError } from "./utils/handleApiError";
 import { replayLastWhen } from "./utils/replayLastWhen";
 
@@ -45,13 +45,13 @@ export const loadReviewListEpic: Epic<Action, Action, State, Dependencies> = (
       const offset = criteria.page * limit;
 
       return from(
-        criteria.pending
-          ? getPendingReviews(api, {
+        criteria.place
+          ? getPlaceReviews(api, {
+              id: criteria.place.id,
               take: limit,
               skip: offset
             })
-          : getPlaceReviews(api, {
-              id: criteria.place.id,
+          : getPendingReviews(api, {
               take: limit,
               skip: offset
             })

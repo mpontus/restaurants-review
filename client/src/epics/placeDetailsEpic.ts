@@ -17,10 +17,10 @@ import {
   updateReview
 } from "../actions/reviewListActions";
 import { getPlace } from "../api/method/getPlace";
-import { Dependencies } from "../configureStore";
 import { Review } from "../models/Review";
 import { State } from "../reducers";
 import { makeGetCurrentUser } from "../selectors/authSelectors";
+import { Dependencies } from "../store";
 import { handleApiError } from "./utils/handleApiError";
 import { replayLastWhen } from "./utils/replayLastWhen";
 

@@ -8,8 +8,8 @@ import { createUser } from "../api/method/createUser";
 import { deleteUser } from "../api/method/deleteUser";
 import { getUsers } from "../api/method/getUsers";
 import { updateUser } from "../api/method/updateUser";
-import { Dependencies } from "../configureStore";
 import { State } from "../reducers";
+import { Dependencies } from "../store";
 import { handleApiError } from "./utils/handleApiError";
 import { replayLastWhen } from "./utils/replayLastWhen";
 

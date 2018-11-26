@@ -10,9 +10,9 @@ import { PersistGate } from "redux-persist/integration/react";
 import { ApiGateway } from "./api/ApiGateway";
 import { ModalProvider, ModalRoot } from "./components/ModalRoot";
 import { config } from "./config";
-import { configureStore } from "./configureStore";
 import { RootScreen } from "./screens/RootScreen";
 import * as serviceWorker from "./serviceWorker";
+import { configureStore } from "./store";
 import { theme } from "./theme";
 
 const history = createBrowserHistory();
