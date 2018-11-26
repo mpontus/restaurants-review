@@ -2,6 +2,13 @@
 
 exports[`Delete review when user is admin should succeed 1`] = `Object {}`;
 
+exports[`Delete review when user is admin when review does not exist should fail 1`] = `
+Object {
+  "error": "Not Found",
+  "statusCode": 404,
+}
+`;
+
 exports[`Delete review when user is not an admin should fail 1`] = `
 Object {
   "error": "Forbidden",

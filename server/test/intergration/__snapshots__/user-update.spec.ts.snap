@@ -123,6 +123,13 @@ Object {
 }
 `;
 
+exports[`Update User when user is admin when user does not exist should fail 1`] = `
+Object {
+  "error": "Not Found",
+  "statusCode": 404,
+}
+`;
+
 exports[`Update User when user is not an admin should fail 1`] = `
 Object {
   "error": "Forbidden",

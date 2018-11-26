@@ -9,3 +9,10 @@ Object {
   "title": "Amigos",
 }
 `;
+
+exports[`Get Place when place does not exist should fail 1`] = `
+Object {
+  "error": "Not Found",
+  "statusCode": 404,
+}
+`;

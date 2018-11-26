@@ -31,6 +31,7 @@ import { PlaceList } from './model/place-list.model';
 import { Place } from './model/place.model';
 import { UpdatePlaceDto } from './model/update-place-dto.model';
 import { PlaceService } from './place.service';
+import { UUIDValidationPipe } from 'common/pipes/uuid-validation.pipe';
 
 /**
  * Places Controller
@@ -67,7 +68,7 @@ export class PlaceController {
   @ApiOkResponse({ type: Place })
   public async getPlace(
     @Req() req: IAuthRequest,
-    @Param('id') id: string,
+    @Param('id', UUIDValidationPipe) id: string,
   ): Promise<Place> {
     return this.placeService.getPlace(req.user, id);
   }
@@ -107,7 +108,7 @@ export class PlaceController {
   @ApiOkResponse({ type: Place })
   public async updatePlace(
     @Req() req: IAuthRequest,
-    @Param('id') id: string,
+    @Param('id', UUIDValidationPipe) id: string,
     @Body() data: UpdatePlaceDto,
   ): Promise<Place> {
     const place = await this.placeService.getPlace(req.user, id);
@@ -128,7 +129,7 @@ export class PlaceController {
   @ApiResponse({ status: 204, type: Place })
   public async deletePlace(
     @Req() req: IAuthRequest,
-    @Param('id') id: string,
+    @Param('id', UUIDValidationPipe) id: string,
   ): Promise<void> {
     const place = await this.placeService.getPlace(req.user, id);
 
@@ -147,7 +148,7 @@ export class PlaceController {
   @ApiResponse({ status: 200, type: ReviewList })
   public async getReviews(
     @Req() req: IAuthRequest,
-    @Param('id') id: string,
+    @Param('id', UUIDValidationPipe) id: string,
     @Query() criteria: ListPlaceReviewsCriteria,
   ): Promise<ReviewList> {
     const place = await this.placeService.getPlace(req.user, id);
@@ -164,7 +165,7 @@ export class PlaceController {
   @ApiResponse({ status: 201, type: Review })
   public async createReview(
     @Req() req: IAuthRequest,
-    @Param('id') id: string,
+    @Param('id', UUIDValidationPipe) id: string,
     @Body() data: CreateReviewDto,
   ): Promise<Review> {
     const place = await this.placeService.getPlace(req.user, id);

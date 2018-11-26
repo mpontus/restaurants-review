@@ -30,6 +30,17 @@ describe('Delete Place', () => {
 
       expect(response.body).toMatchSnapshot();
     });
+
+    describe('when place does not exist', () => {
+      it('should fail', async () => {
+        const response = await supertest(nestApp.getHttpServer())
+          .delete(`/places/foo`)
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
+          .expect(404);
+
+        expect(response.body).toMatchSnapshot();
+      });
+    });
   });
 
   describe('when user owns the place', () => {

@@ -130,6 +130,13 @@ Object {
 }
 `;
 
+exports[`Update review when user is an admin when review does not exist should fail 1`] = `
+Object {
+  "error": "Not Found",
+  "statusCode": 404,
+}
+`;
+
 exports[`Update review when user is not an admin should fail 1`] = `
 Object {
   "error": "Forbidden",

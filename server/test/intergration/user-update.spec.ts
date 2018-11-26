@@ -36,6 +36,22 @@ describe('Update User', () => {
       expect(response.body).toMatchSnapshot();
     });
 
+    describe('when user does not exist', () => {
+      it('should fail', async () => {
+        const response = await supertest(nestApp.getHttpServer())
+          .patch(`/users/foo`)
+          .send({
+            name: 'Theodore Roberson',
+            email: 'milabgog@iz.ro',
+            password: '#(i9Z3OyGW',
+          })
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
+          .expect(404);
+
+        expect(response.body).toMatchSnapshot();
+      });
+    });
+
     describe('when name is empty', () => {
       it('should fail', async () => {
         const response = await supertest(nestApp.getHttpServer())

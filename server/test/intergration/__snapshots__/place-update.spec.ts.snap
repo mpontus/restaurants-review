@@ -52,6 +52,13 @@ Object {
 }
 `;
 
+exports[`Update place when user is admin when place does not exist should fail 1`] = `
+Object {
+  "error": "Not Found",
+  "statusCode": 404,
+}
+`;
+
 exports[`Update place when user is owner when place belongs to the user should succeed 1`] = `
 Object {
   "address": "069 Murphy Union",

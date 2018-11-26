@@ -24,4 +24,14 @@ describe('Get Place', () => {
 
     expect(response.body).toMatchSnapshot();
   });
+
+  describe('when place does not exist', () => {
+    it('should fail', async () => {
+      const response = await supertest(nestApp.getHttpServer())
+        .get(`/places/foo`)
+        .expect(404);
+
+      expect(response.body).toMatchSnapshot();
+    });
+  });
 });

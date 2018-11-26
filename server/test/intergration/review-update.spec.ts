@@ -65,6 +65,20 @@ describe('Update review', () => {
       expect(response.body).toMatchSnapshot();
     });
 
+    describe('when review does not exist', () => {
+      it('should fail', async () => {
+        const response = await supertest(nestApp.getHttpServer())
+          .patch(`/reviews/foo`)
+          .send({
+            rating: 2,
+          })
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
+          .expect(404);
+
+        expect(response.body).toMatchSnapshot();
+      });
+    });
+
     describe('when rating less than 1', () => {
       it('should fail', async () => {
         const response = await supertest(nestApp.getHttpServer())

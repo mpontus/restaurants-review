@@ -33,6 +33,20 @@ describe('Update place', () => {
 
       expect(response.body).toMatchSnapshot();
     });
+
+    describe('when place does not exist', () => {
+      it('should fail', async () => {
+        const response = await supertest(nestApp.getHttpServer())
+          .patch(`/places/foo`)
+          .send({
+            address: '069 Murphy Union',
+          })
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
+          .expect(404);
+
+        expect(response.body).toMatchSnapshot();
+      });
+    });
   });
 
   describe('when user is owner', () => {

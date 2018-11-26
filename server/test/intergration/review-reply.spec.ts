@@ -30,6 +30,20 @@ describe('Replying to review', () => {
       expect(response.body).toMatchSnapshot();
     });
 
+    describe('when review does not exist', () => {
+      it('should fail', async () => {
+        const response = await supertest(nestApp.getHttpServer())
+          .put(`/reviews/foo/reply`)
+          .send({
+            comment: 'Or candidate trouble listen ok.',
+          })
+          .set('Authorization', `Bearer ${authSeed.accessToken}`)
+          .expect(404);
+
+        expect(response.body).toMatchSnapshot();
+      });
+    });
+
     describe('when comment is empty', () => {
       it('should fail', async () => {
         const response = await supertest(nestApp.getHttpServer())

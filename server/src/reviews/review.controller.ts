@@ -25,6 +25,7 @@ import { ReviewList } from './model/review-list.model';
 import { Review } from './model/review.model';
 import { UpdateReviewDto } from './model/update-review-dto.model';
 import { ReviewService } from './review.service';
+import { UUIDValidationPipe } from 'common/pipes/uuid-validation.pipe';
 
 /**
  * Reviews Controller
@@ -60,7 +61,7 @@ export class ReviewController {
   @ApiOkResponse({ type: Review })
   public async updateReview(
     @Req() req: IAuthRequest,
-    @Param('id') id: string,
+    @Param('id', UUIDValidationPipe) id: string,
     @Body() data: UpdateReviewDto,
   ): Promise<Review> {
     const review = await this.reviewService.getReview(req.user, id);
@@ -81,7 +82,7 @@ export class ReviewController {
   @ApiOkResponse({ type: Review })
   public async replyToReview(
     @Req() req: IAuthRequest,
-    @Param('id') id: string,
+    @Param('id', UUIDValidationPipe) id: string,
     @Body() data: ReplyDto,
   ): Promise<Review> {
     const review = await this.reviewService.getReview(req.user, id);
@@ -102,7 +103,7 @@ export class ReviewController {
   @ApiResponse({ status: 204, type: Review })
   public async deleteReview(
     @Req() req: IAuthRequest,
-    @Param('id') id: string,
+    @Param('id', UUIDValidationPipe) id: string,
   ): Promise<void> {
     const review = await this.reviewService.getReview(req.user, id);
 

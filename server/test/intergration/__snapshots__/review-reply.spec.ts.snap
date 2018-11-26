@@ -48,3 +48,10 @@ Object {
   "statusCode": 400,
 }
 `;
+
+exports[`Replying to review when user is place owner when review does not exist should fail 1`] = `
+Object {
+  "error": "Not Found",
+  "statusCode": 404,
+}
+`;

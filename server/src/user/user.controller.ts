@@ -24,6 +24,7 @@ import { UpdateUserDto } from './model/update-user-dto.model';
 import { UserList } from './model/user-list.model';
 import { User } from './model/user.model';
 import { UserService } from './user.service';
+import { UUIDValidationPipe } from 'common/pipes/uuid-validation.pipe';
 
 /**
  * Users Controller
@@ -74,7 +75,7 @@ export class UserController {
   @ApiOkResponse({ type: User })
   public async updateUser(
     @Req() req: IAuthRequest,
-    @Param('id') id: string,
+    @Param('id', UUIDValidationPipe) id: string,
     @Body() data: UpdateUserDto,
   ): Promise<User> {
     const user = await this.userService.findUser(req.user, id);
@@ -91,7 +92,7 @@ export class UserController {
   @ApiResponse({ status: 204, type: User })
   public async deleteUser(
     @Req() req: IAuthRequest,
-    @Param('id') id: string,
+    @Param('id', UUIDValidationPipe) id: string,
   ): Promise<void> {
     const user = await this.userService.findUser(req.user, id);
 
