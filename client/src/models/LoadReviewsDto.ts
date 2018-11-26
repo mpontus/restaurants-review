@@ -3,11 +3,11 @@ import { Place } from "./Place";
 /**
  * Describes request for fetching reviews from API
  */
-export type LoadReviewsDto = {
+export interface LoadReviewsDto {
   /**
    * Load pending reviews for logged in user
    */
-  pending?: true;
+  pending?: boolean;
 
   /**
    * Load reviews for a given place
@@ -18,10 +18,4 @@ export type LoadReviewsDto = {
    * Page number
    */
   page: number;
-} & (
-  | {
-      place: Place;
-    }
-  | {
-      pending: true;
-    });
+}

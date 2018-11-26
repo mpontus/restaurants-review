@@ -1,15 +1,18 @@
-import { Typography } from "@material-ui/core";
 import React, { useState } from "react";
-import { Button } from "../components/Button";
+import { Action } from "../components/Action";
+import { Heading } from "../components/Heading";
+import { Loading } from "../components/Loading";
 import { useModal } from "../components/ModalRoot";
+import { Pagination } from "../components/Pagination";
+import { Subheading } from "../components/Subheading";
 import { UserFormModalContainer } from "../containers/UserFormModalContainer";
-import { UserListContainer } from "../containers/UserListContainer";
 import { UserListItemContainer } from "../containers/UserListItemContainer";
+import { UserListProvider } from "../containers/UserListProvider";
 
 /**
- * Frontpage Screen
+ * User List Screen
  *
- * Displays a list of users registered on the website;
+ * Displays a list of website users
  */
 export const UserListScreen = () => {
   const [currentPage, setPage] = useState(0);
@@ -19,22 +22,27 @@ export const UserListScreen = () => {
 
   return (
     <React.Fragment>
-      <Typography gutterBottom={true} variant="h5">
-        User Management
-      </Typography>
-      <Typography gutterBottom={true} variant="subtitle1" color="textSecondary">
+      <Heading> User Management</Heading>
+      <Subheading>
         Here you can manage your website users: create users, assign privileges,
         modify, and delete users.
-      </Typography>
-      <Button variant="outlined" color="primary" onClick={showCreateModal}>
-        Create User
-      </Button>
-      <UserListContainer
+      </Subheading>
+      <Action onClick={showCreateModal}>Create User</Action>
+      <UserListProvider
         currentPage={currentPage}
-        onPrev={() => setPage(page => page - 1)}
-        onNext={() => setPage(page => page + 1)}
-        renderItem={id => <UserListItemContainer key={id} id={id} />}
-      />
+        loadingPlaceholder={<Loading />}
+      >
+        {({ ids, hasNextPage, hasPrevPage }) => (
+          <Pagination
+            items={ids}
+            renderItem={id => <UserListItemContainer key={id} id={id} />}
+            hasNext={hasNextPage}
+            hasPrev={hasNextPage}
+            onNext={() => setPage(currentPage + 1)}
+            onPrev={() => setPage(currentPage + 1)}
+          />
+        )}
+      </UserListProvider>
     </React.Fragment>
   );
 };

@@ -1,15 +1,16 @@
-import React, { useState, useCallback } from "react";
-import { useModal } from "../components/ModalRoot";
+import { useCallback, useState } from "react";
 
 /**
- * Shows modal which closes when the second argument becomes true.
+ * Pagination Hook
+ *
+ * Simplifies callback creation for increment/decrement.
  */
 export const usePagination = (
   initialPage: number
-): [number, () => void, () => void] => {
+): [number, () => void, () => void, (n: number) => void] => {
   const [page, setPage] = useState(initialPage);
-  const prevPage = useCallback(() => setPage(page => page - 1), []);
-  const nextPage = useCallback(() => setPage(page => page + 1), []);
+  const prevPage = useCallback(() => setPage(current => current - 1), []);
+  const nextPage = useCallback(() => setPage(current => current + 1), []);
 
-  return [page, prevPage, nextPage];
+  return [page, prevPage, nextPage, setPage];
 };
