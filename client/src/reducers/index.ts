@@ -3,7 +3,7 @@ import { StateType } from "typesafe-actions";
 import { authReducer } from "./authReducer";
 import { authRequestReducer } from "./authRequestReducer";
 import { deletedPlacesReducer } from "./deletedPlacesReducer";
-import { deletedReviewsReducer } from "./deletedReviews";
+import { deletedReviewsReducer } from "./deletedReviewsReducer";
 import { deletedUsersReducer } from "./deletedUsersReducer";
 import { notificationReducer } from "./notificationReducer";
 import { ownPlaceListReducer } from "./ownPlaceListReducer";
@@ -26,36 +26,39 @@ import { userListRequestReducer } from "./userListRequestReducer";
 import { userUpdateRequestReducer } from "./userUpdateRequestReducer";
 
 /**
- * Export combined reducers
+ * Export final store shape after all reducers are injected.
  */
-export const rootReducer = combineReducers({
-  auth: authReducer,
-  authRequest: authRequestReducer,
-  userEntity: userEntityReducer,
-  userList: userListReducer,
-  userListRequest: userListRequestReducer,
-  userCreateRequest: userCreateRequestReducer,
-  userUpdateRequest: userUpdateRequestReducer,
-  deletedUsers: deletedUsersReducer,
-  placeRequest: placeRequestReducer,
-  placeEntity: placeEntityReducer,
-  placeList: placeListReducer,
-  ownPlaceList: ownPlaceListReducer,
-  placeListRequest: placeListRequestReducer,
-  placeCreateRequest: placeCreateRequestReducer,
-  placeUpdateRequest: placeUpdateRequestReducer,
-  deletedPlaces: deletedPlacesReducer,
-  reviewEntity: reviewEntityReducer,
-  reviewList: reviewListReducer,
-  pendingReviewList: pendingReviewListReducer,
-  reviewListRequest: reviewListRequestReducer,
-  reviewCreateRequest: reviewCreateRequestReducer,
-  reviewUpdateRequest: reviewUpdateRequestReducer,
-  deletedReviews: deletedReviewsReducer,
-  notifications: notificationReducer
-});
+export interface State {
+  auth: StateType<typeof authReducer>;
+  authRequest: StateType<typeof authRequestReducer>;
+  userEntity: StateType<typeof userEntityReducer>;
+  userList: StateType<typeof userListReducer>;
+  userListRequest: StateType<typeof userListRequestReducer>;
+  userCreateRequest: StateType<typeof userCreateRequestReducer>;
+  userUpdateRequest: StateType<typeof userUpdateRequestReducer>;
+  deletedUsers: StateType<typeof deletedUsersReducer>;
+  placeRequest: StateType<typeof placeRequestReducer>;
+  placeEntity: StateType<typeof placeEntityReducer>;
+  placeList: StateType<typeof placeListReducer>;
+  ownPlaceList: StateType<typeof ownPlaceListReducer>;
+  placeListRequest: StateType<typeof placeListRequestReducer>;
+  placeCreateRequest: StateType<typeof placeCreateRequestReducer>;
+  placeUpdateRequest: StateType<typeof placeUpdateRequestReducer>;
+  deletedPlaces: StateType<typeof deletedPlacesReducer>;
+  reviewEntity: StateType<typeof reviewEntityReducer>;
+  reviewList: StateType<typeof reviewListReducer>;
+  pendingReviewList: StateType<typeof pendingReviewListReducer>;
+  reviewListRequest: StateType<typeof reviewListRequestReducer>;
+  reviewCreateRequest: StateType<typeof reviewCreateRequestReducer>;
+  reviewUpdateRequest: StateType<typeof reviewUpdateRequestReducer>;
+  deletedReviews: StateType<typeof deletedReviewsReducer>;
+  notifications: StateType<typeof notificationReducer>;
+}
 
 /**
- * Infer state type from root reducer
+ * Export reducers taht should be available on bootstrap
  */
-export type State = StateType<typeof rootReducer>;
+export const defaultReducers = {
+  auth: authReducer,
+  authRequest: authRequestReducer
+};

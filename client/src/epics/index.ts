@@ -8,10 +8,4 @@ import { userListEpic } from "./userListEpic";
 /**
  * Export all epics combined
  */
-export const rootEpic = combineEpics(
-  authEpic,
-  placeListEpic,
-  placeDetailsEpic,
-  reviewListEpic,
-  userListEpic
-);
+export const rootEpic = combineEpics(authEpic);

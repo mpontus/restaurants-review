@@ -77,7 +77,7 @@ const enhance = connect(
  * Displays top notification retrieved from the state, when its
  * dismissed, shows next notification.
  */
-class NotificationContainer extends React.Component<Props, ComponentState> {
+class BaseNotificationContainer extends React.Component<Props, ComponentState> {
   /**
    * Component state
    */
@@ -150,4 +150,4 @@ class NotificationContainer extends React.Component<Props, ComponentState> {
   }
 }
 
-export default enhance(NotificationContainer);
+export const NotificationContainer = enhance(BaseNotificationContainer);

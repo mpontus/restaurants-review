@@ -8,5 +8,5 @@ type State = { [id in string]?: boolean };
 export const createDeletedEntityReducer = <A extends Action>(
   actionPredicate: (value: Action) => value is A,
   idSelector: (action: A) => string
-): Reducer<State, A> => (state = {}, action) =>
+): Reducer<State, Action> => (state = {}, action) =>
   actionPredicate(action) ? { ...state, [idSelector(action)]: true } : {};

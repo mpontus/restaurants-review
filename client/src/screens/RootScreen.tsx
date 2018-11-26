@@ -4,14 +4,14 @@ import { Layout } from "../components/Layout";
 import { AuthGuard } from "../containers/AuthGuard";
 import { HeaderContainer } from "../containers/HeaderContainer";
 import { MobileNavigationContainer } from "../containers/MobileNavigationContainer";
-import NotificationContainer from "../containers/NotificationContainer";
+import { NotificationContainerLoader } from "../loaders/NotificationContainerLoader";
 import { isAdmin, isOwner } from "../models/User";
 import * as routes from "../routes";
-import { FrontpageScreen } from "./FrontpageScreen";
-import { OwnPlacesScreen } from "./OwnPlacesScreen";
-import { PendingReviewsScreen } from "./PendingReviewsScreen";
-import { PlaceDetailsScreen } from "./PlaceDetailsScreen";
-import { UserListScreen } from "./UserListScreen";
+import { FrontpageScreenLoader } from "../loaders/FrontpageScreenLoader";
+import { OwnPlacesScreenLoader } from "../loaders/OwnPlacesScreenLoader";
+import { PendingReviewsScreenLoader } from "../loaders/PendingReviewsScreenLoader";
+import { PlaceDetailsScreenLoader } from "../loaders/PlaceDetailsScreenLoader";
+import { UserListScreenLoader } from "../loaders/UserListScreenLoader";
 
 const redirectHome = <Redirect to={routes.HOME} />;
 
@@ -20,26 +20,33 @@ export const RootScreen = () => (
     <HeaderContainer />
     <Layout>
       <Switch>
-        <Route exact={true} path={routes.HOME} component={FrontpageScreen} />
-        <Route path={routes.PLACE_DETAILS} component={PlaceDetailsScreen} />
+        <Route
+          exact={true}
+          path={routes.HOME}
+          component={FrontpageScreenLoader}
+        />
+        <Route
+          path={routes.PLACE_DETAILS}
+          component={PlaceDetailsScreenLoader}
+        />
         <Route path={routes.PLACES_OWN}>
           {() => (
             <AuthGuard rule={isOwner} placeholder={redirectHome}>
-              <OwnPlacesScreen />
+              <OwnPlacesScreenLoader />
             </AuthGuard>
           )}
         </Route>
         <Route path={routes.REVIEWS_PENDING}>
           {() => (
             <AuthGuard rule={isOwner} placeholder={redirectHome}>
-              <PendingReviewsScreen />
+              <PendingReviewsScreenLoader />
             </AuthGuard>
           )}
         </Route>
         <Route path={routes.USERS}>
           {() => (
             <AuthGuard rule={isAdmin} placeholder={redirectHome}>
-              <UserListScreen />
+              <UserListScreenLoader />
             </AuthGuard>
           )}
         </Route>
@@ -47,6 +54,6 @@ export const RootScreen = () => (
       </Switch>
     </Layout>
     <MobileNavigationContainer />
-    <NotificationContainer />
+    <NotificationContainerLoader />
   </div>
 );
