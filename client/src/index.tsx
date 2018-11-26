@@ -1,5 +1,5 @@
 import { CssBaseline } from "@material-ui/core";
-import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
+import { MuiThemeProvider } from "@material-ui/core";
 import axios from "axios";
 import createBrowserHistory from "history/createBrowserHistory";
 import React from "react";
@@ -31,7 +31,7 @@ ReactDOM.render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>
       <Router history={history}>
-        <MuiThemeProvider theme={createMuiTheme(theme)}>
+        <MuiThemeProvider theme={theme}>
           <ModalProvider>
             <ModalRoot />
             <CssBaseline />

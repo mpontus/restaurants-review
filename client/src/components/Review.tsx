@@ -11,7 +11,7 @@ import {
 import classnames from "classnames";
 import dayjs from "dayjs";
 import React from "react";
-import { RatingInput } from "./RatingInput";
+import { RatingStatic } from "./RatingStatic";
 
 type ClassKey =
   | "root"
@@ -83,7 +83,7 @@ export const BaseReview = (props: Props) => {
           [props.classes.negative]: props.rating < 3,
           [props.classes.neutral]: props.rating === 3
         })}
-        action={<RatingInput value={rating} caption={`Rating: ${rating}`} />}
+        action={<RatingStatic value={rating} caption={`Rating: ${rating}`} />}
         title={
           <Typography component="span" variant="body2">
             {author}

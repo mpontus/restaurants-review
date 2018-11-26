@@ -19,7 +19,7 @@ import { deletePlace } from "../actions/placeListActions";
 import { ConfirmModal } from "../components/ConfirmModal";
 import { IconMenu } from "../components/IconMenu";
 import { useModal } from "../components/ModalRoot";
-import { RatingInput } from "../components/RatingInput";
+import { RatingStatic } from "../components/RatingStatic";
 import { Place } from "../models/Place";
 import { RequestStatus } from "../models/RequestStatus";
 import { State } from "../reducers";
@@ -153,7 +153,7 @@ export const BasePlaceListItemContainer = ({
         secondary={place.address}
       />
       {showRating && (
-        <RatingInput
+        <RatingStatic
           value={place.rating}
           caption={`Rating: ${place.rating.toFixed(2)}`}
         />

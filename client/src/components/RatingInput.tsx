@@ -3,21 +3,16 @@ import {
   FormHelperText,
   Radio,
   RadioGroup,
-  Typography,
   withStyles,
   WithStyles
 } from "@material-ui/core";
-import {
-  Star as StarIcon,
-  StarBorder as StarBorderIcon,
-  StarHalf as StarHalfIcon
-} from "@material-ui/icons";
 import React from "react";
+import { RatingStatic } from "./RatingStatic";
 
 /**
  * Custom class names
  */
-type ClassKey = "root" | "row" | "star" | "caption";
+type ClassKey = "root" | "row" | "radio";
 
 /**
  * Rating Component Props
@@ -64,59 +59,84 @@ interface Props extends WithStyles<ClassKey> {
  */
 const enhance = withStyles<ClassKey>(theme => ({
   root: {
-    padding: theme.spacing.unit,
-    paddingLeft: 0
+    padding: theme.spacing.unit
   },
   row: {
     flexWrap: "nowrap"
   },
-  star: {
+  radio: {
+    color: theme.palette.secondary.main,
     padding: 0
-  },
-  caption: {
-    marginTop: theme.spacing.unit
   }
 }));
 
 /**
  * Rating Input Component
+ *
+ * This component several material-ui elements to make rating input
+ * accessible and interactive. It does however make this component
+ * very slow to render.
+ *
+ * To optimize rendering performance where interactivity is not
+ * needed, the layout part of this component was extracted into
+ * RatingStatic, which exposes customization props to enable its use
+ * as an input component.
  */
 class BaseRatingInput extends React.PureComponent<Props> {
   /**
-   * Get N-th star icon
+   * Render root component
+   *
+   * This is a form group that may contain form error.
    */
-  public getIcon = (n: number): React.ReactNode => {
-    const filled = this.props.value - n + 1;
-
-    if (filled < 0.25) {
-      return <StarBorderIcon color="inherit" />;
-    }
-
-    if (filled < 0.75) {
-      return <StarHalfIcon color="inherit" />;
-    }
-
-    return <StarIcon color="inherit" />;
-  };
+  public renderContainer: React.SFC = ({ children }) => (
+    <FormGroup className={this.props.classes.root}>{children}</FormGroup>
+  );
 
   /**
-   * Render N-th star
+   * Render caption
+   *
+   * If caption is rendered, then it is an error. Use standard form
+   * error component from material-ui.
    */
-  public renderStar = (n: number): React.ReactNode => {
-    const { classes, name } = this.props;
+  public renderCaption: React.SFC = ({ children }) => (
+    <FormHelperText error={true}>{children}</FormHelperText>
+  );
 
+  /**
+   * Render container for stars
+   */
+  public renderRow: React.SFC = ({ children }) => (
+    <RadioGroup
+      row={true}
+      className={this.props.classes.root}
+      id={this.props.id}
+      name={this.props.name}
+      onChange={this.props.onChange}
+    >
+      {children}
+    </RadioGroup>
+  );
+
+  /**
+   * Rander individual star
+   *
+   * RadioGroup expects its children to be Radio buttons and injects
+   * the props necessary to forward onChagne calls to its consumer.
+   *
+   * We expect the injected props to be all that remains after we
+   * extract the known props.
+   */
+  public renderStar: React.SFC<{
+    value: number;
+  }> = ({ value, children, ...rest }) => {
     return (
       <Radio
-        className={classes.star}
-        style={{
-          // Overrides disabled color.
-          color: "#FF9800"
-        }}
-        name={name}
-        value={n}
-        icon={this.getIcon(n)}
-        aria-label={`${n} stars`}
-        disabled={this.props.onChange === undefined}
+        {...rest}
+        className={this.props.classes.radio}
+        name={this.props.name}
+        value={value}
+        icon={children}
+        aria-label={`${value} stars`}
       />
     );
   };
@@ -125,34 +145,15 @@ class BaseRatingInput extends React.PureComponent<Props> {
    * Render component
    */
   public render() {
-    const { classes, id, name, error, caption, onChange } = this.props;
-
     return (
-      <FormGroup className={classes.root}>
-        <RadioGroup
-          className={classes.row}
-          row={true}
-          id={id}
-          name={name}
-          onChange={onChange}
-        >
-          {this.renderStar(1)}
-          {this.renderStar(2)}
-          {this.renderStar(3)}
-          {this.renderStar(4)}
-          {this.renderStar(5)}
-        </RadioGroup>
-        {caption && (
-          <Typography
-            variant="caption"
-            align="center"
-            className={classes.caption}
-          >
-            {caption}
-          </Typography>
-        )}
-        {error && <FormHelperText error={true}>{error}</FormHelperText>}
-      </FormGroup>
+      <RatingStatic
+        containerComponent={this.renderContainer}
+        captionComponent={this.renderCaption}
+        rowComponent={this.renderRow}
+        starComponent={this.renderStar}
+        value={this.props.value}
+        caption={this.props.error}
+      />
     );
   }
 }
