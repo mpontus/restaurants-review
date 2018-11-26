@@ -8,7 +8,7 @@ import { ConfirmModal } from "../components/ConfirmModal";
 import { Loading } from "../components/Loading";
 import { useModal } from "../components/ModalRoot";
 import { PlaceDetailsHeader } from "../components/PlaceDetailsHeader";
-import { Rating } from "../components/Rating";
+import { RatingInput } from "../components/RatingInput";
 import { Place } from "../models/Place";
 import { RequestStatus } from "../models/RequestStatus";
 import { User } from "../models/User";
@@ -177,7 +177,7 @@ export const BasePlaceDetailsContainer = ({
             title={place.title}
             address={place.address}
             rating={
-              <Rating
+              <RatingInput
                 value={place.rating}
                 caption={`Rating: ${place.rating.toFixed(2)}`}
               />

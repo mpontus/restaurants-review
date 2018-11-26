@@ -2,7 +2,7 @@ import { Toolbar, Typography, withStyles, WithStyles } from "@material-ui/core";
 import classnames from "classnames";
 import React from "react";
 import { useCallback } from "react";
-import { Rating } from "./Rating";
+import { RatingInput } from "./RatingInput";
 
 type ClassKey = "label" | "active";
 
@@ -58,7 +58,7 @@ export const RatingFilterControl = enhance(
         >
           Filter by rating
         </Typography>
-        <Rating value={value} onChange={handleChange} />
+        <RatingInput value={value} onChange={handleChange} />
       </Toolbar>
     );
   }

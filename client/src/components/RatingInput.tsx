@@ -79,11 +79,9 @@ const enhance = withStyles<ClassKey>(theme => ({
 }));
 
 /**
- * Star Rating Component
- *
- * Displays star rating and acts as an input.
+ * Rating Input Component
  */
-class BaseRating extends React.PureComponent<Props> {
+class BaseRatingInput extends React.PureComponent<Props> {
   /**
    * Get N-th star icon
    */
@@ -162,4 +160,4 @@ class BaseRating extends React.PureComponent<Props> {
 /**
  * Export styled rating component
  */
-export const Rating = enhance(BaseRating);
+export const RatingInput = enhance(BaseRatingInput);

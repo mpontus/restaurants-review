@@ -13,7 +13,7 @@ import { AdaptiveModal } from "./AdaptiveModal";
 import { Button } from "./Button";
 import { Field } from "./Field";
 import { Form } from "./Form";
-import { Rating } from "./Rating";
+import { RatingInput } from "./RatingInput";
 import { Textarea } from "./Textarea";
 
 /**
@@ -99,7 +99,7 @@ export const ReviewFormModal: React.SFC<Props> = ({
           <FormControl component="fieldset" margin="normal">
             <FormLabel htmlFor="rating">Rating</FormLabel>
             <Field
-              component={Rating}
+              component={RatingInput}
               id="rating"
               label="Rating"
               name="rating"
