@@ -187,7 +187,7 @@ export const run = async (nestApp: NestApplication) => {
         comment: review.comment,
         author: { id: review.authorId } as any,
         place: { id: place.id } as any,
-        createdAt: review.date,
+        createdAt: review.createdAt,
         reply: review.reply,
         pendingFor: review.reply ? null : id,
       })),
