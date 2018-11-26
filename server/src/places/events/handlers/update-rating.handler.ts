@@ -36,12 +36,17 @@ export class UpdateRating implements IEventHandler<Events> {
         return;
       }
 
-      rating += (review.rating - event.previousValues.rating) / reviewCount;
+      // Prevent division by zero
+      if (reviewCount === 0) {
+        rating = review.rating;
+      } else {
+        rating += (review.rating - event.previousValues.rating) / reviewCount;
+      }
     }
 
     if (event instanceof ReviewDeletedEvent) {
+      // Prevent division by zero
       if (reviewCount <= 1) {
-        // Prevent division by zero
         rating = 0;
       } else {
         rating -= (review.rating - place.rating) / (reviewCount - 1);
