@@ -1,5 +1,8 @@
 import { Action, Reducer } from "redux";
 
+/**
+ * State shape
+ */
 type State = { [id in string]?: boolean };
 
 /**

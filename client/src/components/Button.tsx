@@ -5,6 +5,9 @@ import {
 } from "@material-ui/core";
 import * as React from "react";
 
+/**
+ * Component props
+ */
 interface Props extends React.ComponentProps<typeof MaterialButton> {
   /**
    * Specifies that request is in progress and the button should be disabled

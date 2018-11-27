@@ -1,5 +1,13 @@
+/**
+ * Helper type
+ */
 type Predicate<T, T1 extends T> = (input: T) => input is T1;
 
+/**
+ * All Predicates
+ *
+ * Creates a predicate which matches all of the passed predicates.
+ */
 export function allPredicates<T, T1 extends T>(
   predicate1: Predicate<T, T1>,
   ...rest: Array<(value: T1) => boolean>
@@ -18,11 +26,6 @@ export function allPredicates<T, T1 extends T, T2 extends T1, T3 extends T2>(
   ...rest: Array<(value: T3) => boolean>
 ): Predicate<T, T3>;
 
-/**
- * All Predicates
- *
- * Creates a predicate which matches all of the included predicates.
- */
 export function allPredicates(...predicates: Array<(value: any) => boolean>) {
   return (input: any) => predicates.every(predicate => predicate(input));
 }

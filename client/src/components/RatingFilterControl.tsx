@@ -4,6 +4,9 @@ import React from "react";
 import { useCallback } from "react";
 import { RatingInput } from "./RatingInput";
 
+/**
+ * Custom class names
+ */
 type ClassKey = "label" | "active";
 
 /**

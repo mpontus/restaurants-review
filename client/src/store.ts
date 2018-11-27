@@ -29,9 +29,13 @@ export interface Dependencies {
   history: History;
 }
 
-// Redux DevTools integration
+/**
+ * Use redux devtools if available, otherwise redux compose
+ */
 const composeEnhancers =
-  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+  (process.env.NODE_ENV !== "production" &&
+    (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
+  compose;
 
 /**
  * Create redux store

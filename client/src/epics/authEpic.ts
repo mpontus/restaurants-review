@@ -125,6 +125,9 @@ export const redirectAfterLoginEpic: Epic<
     )
   );
 
+/**
+ * Combine epics
+ */
 export const authEpic = combineEpics(
   setTokenEpic,
   loginEpic,

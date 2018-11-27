@@ -15,18 +15,32 @@ import * as serviceWorker from "./serviceWorker";
 import { configureStore } from "./store";
 import { theme } from "./theme";
 
+/**
+ * Create History instance to be injected in redux middleware
+ */
 const history = createBrowserHistory();
+
+/**
+ * Create instance of the API client to be injected in redux middleware
+ */
 const api = new ApiGateway(
   axios.create({
     baseURL: `${process.env.REACT_APP_API_URL || ""}`
   })
 );
+
+/**
+ * Create Redux Store
+ */
 const { store, persistor } = configureStore(undefined, {
   config,
   api,
   history
 });
 
+/**
+ * Render the application
+ */
 ReactDOM.render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>

@@ -1,6 +1,9 @@
 import { AxiosError } from "axios";
 import { ValidationError } from "class-validator";
 
+/**
+ * Typical shape of validation errors which can be passed to the forms.
+ */
 type ErrorDetails<T> = { [P in keyof T]?: string };
 
 /**

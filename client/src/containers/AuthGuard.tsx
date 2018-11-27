@@ -16,7 +16,7 @@ interface OwnProps {
   rule?: (user: User) => boolean;
 
   /**
-   * React elements to render in case of failed authroization
+   * React elements to render in case of failed authorization
    */
   placeholder?: React.ReactNode;
 

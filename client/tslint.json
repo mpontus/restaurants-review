@@ -10,7 +10,18 @@
     "variable-name": [true, "allow-leading-underscore"],
 
     // Enforce all documentation to maintain consistent flow
-    "completed-docs": true,
+    "completed-docs": [
+      true,
+      {
+        "classes": "all",
+        "methods": "all",
+        "properties": "all",
+        "functions": "all",
+        "interfaces": "all",
+        "types": "all",
+        "variables": "all"
+      }
+    ],
 
     // Force those typedefs which enhance documentation
     "typedef": [true, "property-declaration", "member-variable-declaration"],

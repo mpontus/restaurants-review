@@ -1,5 +1,16 @@
+/**
+ * Helper type
+ */
 type Predicate<T, T1 extends T> = (input: T) => input is T1;
 
+/**
+ * Either Predicate
+ *
+ * Combines multiple predicates into a single predicate which matches
+ * any of the predicates.
+ *
+ * Overloads exist to support type inference.
+ */
 export function eitherPredicate<T, T1 extends T>(
   predicate1: Predicate<T, T1>
 ): Predicate<T, T1>;
@@ -124,12 +135,6 @@ export function eitherPredicate<
   predicate9: Predicate<T, T9>
 ): Predicate<T, T1 | T2 | T3 | T4 | T5 | T6 | T7 | T8 | T9>;
 
-/**
- * Either Predicate
- *
- * Combines multiple predicates into a single predicate which matches
- * any of the predicates.
- */
 export function eitherPredicate<T>(...predicates: Array<Predicate<T, any>>) {
   return (input: T) => predicates.some(predicate => predicate(input));
 }
