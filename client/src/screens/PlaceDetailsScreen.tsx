@@ -5,7 +5,7 @@ import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
 import { Pagination } from "../components/Pagination";
-import { RatingStatic } from "../components/RatingStatic";
+import { PlaceDetailsHeader } from "../components/PlaceDetailsHeader";
 import { Section } from "../components/Section";
 import { Subheading } from "../components/Subheading";
 import { AuthGuard } from "../containers/AuthGuard";
@@ -34,14 +34,10 @@ export const PlaceDetailsScreen = ({ match }: Props) => {
     <PlaceDetailsProvider id={match.params.id} placeholder={<Loading />}>
       {({ place, onReview, onEdit, onDelete }) => (
         <DocumentTitle title={place.title}>
-          <Heading>{place.title}</Heading>
-          <Subheading>{place.address}</Subheading>
-          <div>
-            <RatingStatic
-              value={place.rating}
-              caption={`Rating: ${place.rating.toFixed(2)}`}
-            />
-          </div>
+          <PlaceDetailsHeader rating={place.rating}>
+            <Heading>{place.title}</Heading>
+            <Subheading>{place.address}</Subheading>
+          </PlaceDetailsHeader>
           <AuthGuard rule={user => canReview(place, user)}>
             <Action onClick={onReview}>Submit Review</Action>
           </AuthGuard>
@@ -72,9 +68,7 @@ export const PlaceDetailsScreen = ({ match }: Props) => {
             currentPage={currentPage}
             loadingPlaceholder={<Loading />}
             emptyPlaceholder={
-              place.bestReview || place.worstReview ? (
-                <Subheading>No other reviews</Subheading>
-              ) : (
+              place.bestReview || place.worstReview ? null : (
                 <Subheading>No reviews for this place yet</Subheading>
               )
             }
