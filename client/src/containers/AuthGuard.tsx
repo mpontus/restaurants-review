@@ -1,3 +1,4 @@
+import React from 'react';
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { User } from "../models/User";

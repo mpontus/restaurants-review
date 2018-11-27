@@ -1,3 +1,4 @@
+import React from 'react';
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { logout } from "../actions/authActions";

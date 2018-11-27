@@ -50,9 +50,9 @@ interface ComponentState {
   notification?: Notification;
 
   /**
-   * Whther the shown notification is currently exitting
+   * Whether the shown notification is currently exiting
    */
-  exitting: boolean;
+  exiting: boolean;
 }
 
 /**
@@ -84,7 +84,7 @@ class NotificationContainer extends React.Component<Props, ComponentState> {
   public state: ComponentState = {
     counter: 0,
     notification: this.props.notification,
-    exitting: false
+    exiting: false
   };
 
   /**
@@ -97,7 +97,7 @@ class NotificationContainer extends React.Component<Props, ComponentState> {
         notification: nextProps.notification
       }));
     } else if (this.state.notification !== nextProps.notification) {
-      this.setState({ exitting: true });
+      this.setState({ exiting: true });
     }
   }
 
@@ -108,12 +108,12 @@ class NotificationContainer extends React.Component<Props, ComponentState> {
     this.setState(state => ({
       counter: state.counter + 1,
       notification: this.props.notification,
-      exitting: false
+      exiting: false
     }));
   };
 
   /**
-   * Handle notificaiton dismissal.
+   * Handle notification dismissal.
    *
    * Invoked either explicitly or by timeout.
    */
@@ -125,7 +125,7 @@ class NotificationContainer extends React.Component<Props, ComponentState> {
    * Render component
    */
   public render() {
-    const { counter, notification, exitting } = this.state;
+    const { counter, notification, exiting } = this.state;
 
     if (!notification) {
       return null;
@@ -134,7 +134,7 @@ class NotificationContainer extends React.Component<Props, ComponentState> {
     return (
       <Snackbar
         key={`notification-${counter}`}
-        open={!exitting}
+        open={!exiting}
         autoHideDuration={notification.duration}
         onClick={this.handleDismiss}
         onClose={this.handleDismiss}

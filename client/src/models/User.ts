@@ -23,7 +23,7 @@ export interface User {
   roles: string[];
 
   /**
-   * Whether the user can editted by logged-in user
+   * Whether the user can edited by logged-in user
    */
   canEdit?: boolean;
 

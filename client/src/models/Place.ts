@@ -62,7 +62,7 @@ export interface Place {
 export const canReview = (place: Place, actor?: User) => !!place.canReview;
 
 /**
- * Return whether place can be editted by actor
+ * Return whether place can be edited by actor
  */
 export const canEdit = (place: Place, actor?: User) => !!place.canEdit;
 

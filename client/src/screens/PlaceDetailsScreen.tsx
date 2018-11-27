@@ -18,7 +18,7 @@ import { canDelete, canEdit, canReview } from "../models/Place";
 /**
  * Component props
  *
- * Expects parameters to be injected by Route compnent.
+ * Expects parameters to be injected by Route component.
  */
 interface Props extends RouteComponentProps<{ id: string }> {}
 

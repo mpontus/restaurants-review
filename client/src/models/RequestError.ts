@@ -9,7 +9,7 @@ type ErrorDetails<T> = { [P in keyof T]?: string };
 /**
  * Request Error Object
  *
- * Represents an error that occured during request in unified format.
+ * Represents an error that occurred during request in unified format.
  */
 export class RequestError<T> extends Error {
   /**
@@ -24,7 +24,7 @@ export class RequestError<T> extends Error {
       response.data.message === undefined
     ) {
       // Cant get any useful information out of the error
-      return new RequestError<T>("An error occured. Please try again later.");
+      return new RequestError<T>("An error occurred. Please try again later.");
     }
 
     if (Array.isArray(response.data.message)) {

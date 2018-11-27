@@ -12,14 +12,14 @@ export interface RequestStatus<T> {
   loading: boolean;
 
   /**
-   * Whether the request has finished successfuly
+   * Whether the request has finished successfully
    */
   success: boolean;
 
   /**
    * Whether the request has failed.
    *
-   * Contains validations erorrs in the format of the DTO specified
+   * Contains validations errors in the format of the DTO specified
    * using generic parameter.
    */
   error?: RequestError<T>;

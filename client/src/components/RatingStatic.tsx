@@ -94,9 +94,9 @@ const enhance = withStyles<ClassKey>(theme => ({
  * To optimize the performance, the layout of rating component was
  * extracted into this component which uses the minimum of material-ui
  * features, and exposes props which allow rating input to reuse
- * star-rating layout while substituting its own dynamic compnents.a
+ * star-rating layout while substituting its own dynamic components.
  *
- * See RatingInput compnent for details.
+ * See RatingInput component for details.
  */
 class BaseRatingStatic extends React.PureComponent<Props> {
   /**

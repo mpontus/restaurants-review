@@ -27,7 +27,7 @@ export const userSchema = t.type({
   ),
 
   /**
-   * Whether the user can be editted by the user making the request
+   * Whether the user can be edited by the user making the request
    */
   canEdit: t.union([t.boolean, t.undefined]),
 

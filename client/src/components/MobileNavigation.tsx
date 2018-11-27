@@ -30,7 +30,7 @@ interface Props extends RouteComponentProps<any>, WithStyles<"stickToBottom"> {
 /**
  * Mobile Navigation Component
  *
- * Repsonsible for providing navigation controls on mobile devices.
+ * Responsible for providing navigation controls on mobile devices.
  *
  * Accepts a number of MobileNavigationLink as children.
  */

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ModalContext } from "../components/ModalRoot";
 import { useGlobalId } from "./useGlobalId";
 

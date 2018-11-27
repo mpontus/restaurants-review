@@ -4,7 +4,7 @@ import * as React from "react";
 /**
  * Field Component
  *
- * Simliar to formik's Field component, except this one passes field
+ * Similar to formik's Field component, except this one passes field
  * props directly to the supplied component.
  */
 export class Field<T> extends React.Component<FieldAttributes<any>> {

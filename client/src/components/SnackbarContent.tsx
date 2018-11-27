@@ -35,7 +35,7 @@ interface Props extends WithStyles<ClassKey> {
   variant: "info" | "success" | "error";
 
   /**
-   * Notificaiton message
+   * Notification message
    */
   message: React.ReactNode;
 

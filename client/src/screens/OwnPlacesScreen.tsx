@@ -26,8 +26,8 @@ export const OwnPlacesScreen = () => {
     <DocumentTitle title="Restaurant Management">
       <Heading>Restaurant Management</Heading>
       <Subheading>
-        This page lists your own restaurants. You can create new resturants from
-        this page.
+        This page lists your own restaurants. You can create new restaurants
+        from this page.
       </Subheading>
       <Action onClick={showCreateModal}>Create Restaurant</Action>
       <PlaceListProvider

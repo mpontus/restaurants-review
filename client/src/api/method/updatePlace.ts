@@ -29,7 +29,7 @@ interface Params {
 type Result = t.TypeOf<typeof placeSchema>;
 
 /**
- * Update place detials
+ * Update place details
  */
 export const updatePlace = async (
   api: ApiGateway,

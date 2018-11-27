@@ -15,7 +15,7 @@ export interface Review {
    */
   author: {
     /**
-     * AUthor name
+     * Author name
      */
     name: string;
   };

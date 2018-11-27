@@ -4,7 +4,7 @@ import * as React from "react";
 import { Schema } from "yup";
 
 /**
- * Outter props
+ * Outer props
  */
 export interface FormProps<V> {
   /**
@@ -28,7 +28,7 @@ export interface FormProps<V> {
   onSubmit: (values: V) => void;
 
   /**
-   * Yup schema for validation and normalizaiton
+   * Yup schema for validation and normalization
    */
   validationSchema?: Schema<V>;
 
@@ -85,7 +85,7 @@ export class Form<T extends object> extends React.Component<FormProps<T>> {
   }
 
   /**
-   * Normalize values accoridng to validationSchema and leaving out
+   * Normalize values according to validationSchema and leaving out
    * default values.
    */
   private normalizeValues(values: T) {

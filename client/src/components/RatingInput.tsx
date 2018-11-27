@@ -118,10 +118,10 @@ class BaseRatingInput extends React.PureComponent<Props> {
   );
 
   /**
-   * Rander individual star
+   * Render individual star
    *
    * RadioGroup expects its children to be Radio buttons and injects
-   * the props necessary to forward onChagne calls to its consumer.
+   * the props necessary to forward onChange calls to its consumer.
    *
    * We expect the injected props to be all that remains after we
    * extract the known props.

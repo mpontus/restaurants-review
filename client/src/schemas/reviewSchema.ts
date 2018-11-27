@@ -1,7 +1,7 @@
 import { schema } from "normalizr";
 
 /**
- * Review Normalizaiton Schema
+ * Review Normalization Schema
  *
  * Used only as a reference for placeSchema.
  */

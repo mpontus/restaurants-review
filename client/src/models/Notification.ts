@@ -1,5 +1,5 @@
 /**
- * Notificaiton Model
+ * Notification Model
  *
  * Contains a message to be displayed to the user.
  */

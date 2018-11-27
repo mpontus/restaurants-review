@@ -19,7 +19,7 @@ export type ModalMap = Record<string | number, Modal>;
 /**
  * Modal Context
  *
- * Reponsible for storing visible modals.
+ * Responsible for storing visible modals.
  */
 export const ModalContext = React.createContext<{
   modals: ModalMap;
@@ -61,7 +61,7 @@ export const ModalProvider: React.SFC = ({ children }) => {
 /**
  * Modal Manager
  *
- * Renders visible modals outside of the DOM heirarchy of the parent
+ * Renders visible modals outside of the DOM hierarchy of the parent
  * component.
  */
 export const ModalRoot = () => {
