@@ -1,5 +1,5 @@
 import { Typography } from "@material-ui/core";
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { replyToReview } from "../actions/reviewListActions";
@@ -93,15 +93,13 @@ const BaseReplyFormModalContainer = ({
     return null;
   }
 
+  // Skip request state which may have been left by previous modal
   const requestStatus = useSubsequent(currentRequestStatus, {
     loading: false,
     success: false
   });
-  const handleReply = useCallback(
-    (data: ReplyDto) => onReply({ review, data }),
-    [review, onReply]
-  );
 
+  // Self-close the modal after successful response
   useEffect(
     () => {
       if (requestStatus.success) {
@@ -115,16 +113,16 @@ const BaseReplyFormModalContainer = ({
     <ReplyFormModal
       autoFocus={true}
       subtitle={
-        <>
+        <React.Fragment>
           <Typography component="span" variant="subtitle1">
             {review.author.name} writes:
           </Typography>
           <Typography component="span">{review.comment}</Typography>
-        </>
+        </React.Fragment>
       }
       loading={requestStatus.loading}
       error={requestStatus.error}
-      onSubmit={handleReply}
+      onSubmit={data => onReply({ review, data })}
       onCancel={onCancel}
     />
   );

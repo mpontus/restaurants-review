@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { updateReview } from "../actions/reviewListActions";
@@ -92,15 +92,13 @@ const BaseUpdateReviewModalContainer = ({
     return null;
   }
 
+  // Skip initial request state which may have been left by previous modal
   const requestStatus = useSubsequent(currentRequestStatus, {
     loading: false,
     success: false
   });
-  const handleUpdate = useCallback(
-    (data: UpdateReviewDto) => onUpdate({ review, data }),
-    [review, onUpdate]
-  );
 
+  // Skip the modal after successful response
   useEffect(
     () => {
       if (requestStatus.success) {
@@ -119,7 +117,7 @@ const BaseUpdateReviewModalContainer = ({
       }}
       loading={requestStatus.loading}
       error={requestStatus.error}
-      onSubmit={handleUpdate}
+      onSubmit={data => onUpdate({ review, data })}
       onCancel={onCancel}
     />
   );

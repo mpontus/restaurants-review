@@ -21,14 +21,11 @@ export const NavbarContainer = () => {
 
   return (
     <CurrentUserProvider>
-      {({ isAuthenticated, user, onLogout }) => (
+      {({ user, onLogout }) => (
         <Navbar
           action={
-            <Button
-              color="inherit"
-              onClick={isAuthenticated ? onLogout : showAuthModal}
-            >
-              {isAuthenticated ? "Logout" : "Login"}
+            <Button color="inherit" onClick={user ? onLogout : showAuthModal}>
+              {user ? "Logout" : "Login"}
             </Button>
           }
         >

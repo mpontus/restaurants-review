@@ -1,28 +1,26 @@
-import React from 'react';
+import React from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { User } from "../models/User";
 import { State } from "../reducers";
-import {
-  makeGetCurrentUser
-} from "../selectors/authSelectors";
+import { makeGetCurrentUser } from "../selectors/authSelectors";
 
 /**
  * External props
  */
 interface OwnProps {
   /**
-   * Additional authorization rule
+   * Assertion to make against the logged-in user
    */
   rule?: (user: User) => boolean;
 
   /**
-   * React elements to render in case of failed authorization
+   * React elements to render in case of failed permission check
    */
   placeholder?: React.ReactNode;
 
   /**
-   * React elements to render in case of successful authorization
+   * React elements to render in case of sufficient permissions
    */
   children?: React.ReactNode;
 }
@@ -56,9 +54,9 @@ const makeMapStateToProps = (): Selector<State, StateProps, {}> =>
 const enhance = connect(makeMapStateToProps);
 
 /**
- * Current User Provider
+ * Auth Guard
  *
- * Provides currently logged in user user in render prop.
+ * Renders children depending on the assertion made against logged-in user.
  */
 export const AuthGuard = enhance(
   ({ user, rule = () => true, placeholder = null, children = null }: Props) =>

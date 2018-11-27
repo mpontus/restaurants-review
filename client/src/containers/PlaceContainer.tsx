@@ -10,7 +10,7 @@ import {
   Edit as EditIcon,
   MoreVert as MoreVertIcon
 } from "@material-ui/icons";
-import React, { useCallback } from "react";
+import React from "react";
 import { connect, Selector } from "react-redux";
 import { Link } from "react-router-dom";
 import { formatRoute } from "react-router-named-routes";
@@ -100,9 +100,9 @@ const enhance = connect(
 );
 
 /**
- * Place List Item Container
+ * Place Container
  *
- * Displays a single place inside a list.
+ * Displays a single place referenced by ID.
  */
 export const BasePlaceListItemContainer = ({
   id,
@@ -116,16 +116,11 @@ export const BasePlaceListItemContainer = ({
     return null;
   }
 
-  const handleDelete = useCallback(() => onDelete({ place }), [
-    place,
-    onDelete
-  ]);
-
   const [showConfirmModal, hideConfirmModal] = useModal(() => (
     <ConfirmModal
       title="Delete restaurant?"
       confirmLabel="Delete Restaurant"
-      onConfirm={handleDelete}
+      onConfirm={() => onDelete({ place })}
       onCancel={hideConfirmModal}
     >
       Do you really want to delete {place.title}?

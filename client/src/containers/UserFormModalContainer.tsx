@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { createUser, updateUser } from "../actions/userListActions";
@@ -6,7 +6,7 @@ import { UserFormModal } from "../components/UserFormModal";
 import { useSubsequent } from "../hooks/useSubsequentValue";
 import { RequestStatus } from "../models/RequestStatus";
 import { SaveUserDto } from "../models/SaveUserDto";
-import { User } from "../models/User";
+import { isAdmin, isOwner, isUser, User } from "../models/User";
 import { State } from "../reducers";
 import {
   makeGetUserById,
@@ -95,15 +95,13 @@ const BaseUserFormModalContainer = ({
   onCreate,
   onCancel
 }: Props) => {
+  // Skip initial request status which may have been left by previous modal
   const requestStatus = useSubsequent(currentRequestStatus, {
     loading: false,
     success: false
   });
-  const handleUpdate = useCallback(
-    user ? (data: SaveUserDto) => onUpdate({ user, data }) : () => undefined,
-    [user, onUpdate]
-  );
 
+  // Self-close the modal after successful reply
   useEffect(
     () => {
       if (requestStatus.success) {
@@ -118,9 +116,9 @@ const BaseUserFormModalContainer = ({
         name: user.name,
         email: user.email || "",
         password: "",
-        isUser: user.roles.includes("user"),
-        isOwner: user.roles.includes("owner"),
-        isAdmin: user.roles.includes("admin")
+        isUser: isUser(user),
+        isOwner: isOwner(user),
+        isAdmin: isAdmin(user)
       }
     : undefined;
 
@@ -139,7 +137,7 @@ const BaseUserFormModalContainer = ({
       initialValues={initialValues}
       loading={requestStatus.loading}
       error={requestStatus.error}
-      onSubmit={user ? handleUpdate : onCreate}
+      onSubmit={data => (user ? onUpdate({ user, data }) : onCreate(data))}
       onCancel={onCancel}
     />
   );

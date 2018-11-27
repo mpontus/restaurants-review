@@ -22,7 +22,7 @@ interface StateProps {
   /**
    * Currently logged-in user
    */
-  user: User | undefined;
+  user?: User;
 }
 
 /**

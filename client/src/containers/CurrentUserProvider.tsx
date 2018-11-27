@@ -1,23 +1,40 @@
-import React from 'react';
+import React from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { logout } from "../actions/authActions";
 import { User } from "../models/User";
 import { State } from "../reducers";
-import {
-  makeGetCurrentUser,
-  makeIsUserAuthenticated
-} from "../selectors/authSelectors";
+import { makeGetCurrentUser } from "../selectors/authSelectors";
+
+/**
+ * Props passed to render function
+ */
+interface RenderProps {
+  /**
+   * Logged-in user details
+   */
+  user?: User;
+
+  /**
+   * Logout callback
+   */
+  onLogout: () => void;
+}
+
+/**
+ * External props
+ */
+interface OwnProps {
+  /**
+   * Render function
+   */
+  children: (props: RenderProps) => React.ReactNode;
+}
 
 /**
  * Connected props
  */
 interface StateProps {
-  /**
-   * Whether use is currently authenticated
-   */
-  isAuthenticated: boolean;
-
   /**
    * Current user details
    */
@@ -35,21 +52,6 @@ interface DispatchProps {
 }
 
 /**
- * Render props
- */
-interface RenderProps extends StateProps, DispatchProps {}
-
-/**
- * External Props
- */
-interface OwnProps {
-  /**
-   * Render prop
-   */
-  children: (props: RenderProps) => React.ReactNode;
-}
-
-/**
  * Combined props
  */
 interface Props extends OwnProps, StateProps, DispatchProps {}
@@ -59,7 +61,6 @@ interface Props extends OwnProps, StateProps, DispatchProps {}
  */
 const makeMapStateToProps = (): Selector<State, StateProps, {}> =>
   createStructuredSelector({
-    isAuthenticated: makeIsUserAuthenticated(),
     user: makeGetCurrentUser()
   });
 
@@ -74,11 +75,7 @@ const enhance = connect(
 /**
  * Current User Provider
  *
- * Provides currently logged in user user in render prop.
+ * Provides currently logged-in user details as render props.
  */
-export const CurrentUserProvider = enhance((({
-  isAuthenticated,
-  user,
-  onLogout,
-  children
-}) => children({ isAuthenticated, user, onLogout })) as React.SFC<Props>);
+export const CurrentUserProvider = enhance((({ user, onLogout, children }) =>
+  children({ user, onLogout })) as React.SFC<Props>);

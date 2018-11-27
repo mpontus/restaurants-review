@@ -10,7 +10,7 @@ import {
   Edit as EditIcon,
   MoreVert as MoreVertIcon
 } from "@material-ui/icons";
-import React, { useCallback } from "react";
+import React from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { deleteUser } from "../actions/userListActions";
@@ -86,9 +86,9 @@ const enhance = connect(
 );
 
 /**
- * User List Item Container
+ * User Container
  *
- * Displays a single user inside a list.
+ * Displays details of a single user.
  */
 export const BaseUserListItemContainer = ({
   id,
@@ -100,12 +100,11 @@ export const BaseUserListItemContainer = ({
     return null;
   }
 
-  const handleDelete = useCallback(() => onDelete({ user }), [user, onDelete]);
   const [showConfirmModal, hideConfirmModal] = useModal(() => (
     <ConfirmModal
       title="Delete user?"
       confirmLabel="Delete user"
-      onConfirm={handleDelete}
+      onConfirm={() => onDelete({ user })}
       onCancel={hideConfirmModal}
     >
       Do you really want to delete {user.name}?

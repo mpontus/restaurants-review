@@ -118,6 +118,7 @@ const BasePlaceListProvider = ({
   loadingPlaceholder = null,
   emptyPlaceholder = null
 }: Props) => {
+  // Load places on mount
   useEffect(
     () => {
       onLoadPlaces(

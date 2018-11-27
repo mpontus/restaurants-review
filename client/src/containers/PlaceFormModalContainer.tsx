@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { createPlace, updatePlace } from "../actions/placeListActions";
@@ -95,15 +95,13 @@ const BasePlaceFormModalContainer = ({
   onCreate,
   onCancel
 }: Props) => {
+  // Ignore request state which may have been left by previous modal
   const requestStatus = useSubsequent(currentRequestStatus, {
     loading: false,
     success: false
   });
-  const handleUpdate = useCallback(
-    place ? (data: SavePlaceDto) => onUpdate({ place, data }) : () => undefined,
-    [place, onUpdate]
-  );
 
+  // Self-close the modal after successful request
   useEffect(
     () => {
       if (requestStatus.success) {
@@ -125,17 +123,13 @@ const BasePlaceFormModalContainer = ({
       autoFocus={place === undefined}
       title={place ? "Edit Restaurant" : "Add Restaurant"}
       subtitle={
-        place ? (
-          <>Change {place.title} details.</>
-        ) : (
-          <>Enter new restaurant details.</>
-        )
+        place ? `Change ${place.title} details` : `Enter new restaurant details`
       }
       submitLabel="Save Restaurant"
       initialValues={initialValues}
       loading={requestStatus.loading}
       error={requestStatus.error}
-      onSubmit={place ? handleUpdate : onCreate}
+      onSubmit={data => (place ? onUpdate({ place, data }) : onCreate(data))}
       onCancel={onCancel}
     />
   );

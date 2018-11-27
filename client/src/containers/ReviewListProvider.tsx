@@ -119,6 +119,7 @@ const BaseReviewListProvider = ({
   loadingPlaceholder = null,
   emptyPlaceholder = null
 }: Props) => {
+  // Load reviews on mount
   useEffect(
     () => {
       onLoadReviews({ pending, place, page: currentPage });

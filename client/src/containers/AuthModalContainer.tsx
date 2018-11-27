@@ -66,7 +66,7 @@ const enhance = connect(
 /**
  * Auth Modal Container
  *
- * Displays authentication modal.
+ * Displays modal window for authentication.
  */
 const BaseAuthModalContainer = ({
   isAuthenticated,

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { deleteReview } from "../actions/reviewListActions";
@@ -97,16 +97,11 @@ export const BaseReviewContainer = ({
     return null;
   }
 
-  const handleDelete = useCallback(() => onDelete({ review }), [
-    onDelete,
-    review
-  ]);
-
   const [showConfirmModal, hideConfirmModal] = useModal(() => (
     <ConfirmModal
       title="Delete review?"
       confirmLabel="Delete Review"
-      onConfirm={handleDelete}
+      onConfirm={() => onDelete({ review })}
       onCancel={hideConfirmModal}
     >
       Do you really want to delete review from{" "}

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { createReview } from "../actions/reviewListActions";
@@ -8,9 +8,7 @@ import { CreateReviewDto } from "../models/CreateReviewDto";
 import { Place } from "../models/Place";
 import { RequestStatus } from "../models/RequestStatus";
 import { State } from "../reducers";
-import {
-  makeGetReviewUpdateRequestStatus
-} from "../selectors/reviewSelectors";
+import { makeGetReviewUpdateRequestStatus } from "../selectors/reviewSelectors";
 
 /**
  * External Props
@@ -86,15 +84,14 @@ const BaseCreateReviewModalContainer = ({
   onCreate,
   onCancel
 }: Props) => {
+  // Ignore initial request state which may have been left from
+  // previous modal.
   const requestStatus = useSubsequent(currentRequestStatus, {
     loading: false,
     success: false
   });
-  const handleCreate = useCallback(
-    (data: CreateReviewDto) => onCreate({ place, data }),
-    [place, onCreate]
-  );
 
+  // Self-close the modal after success
   useEffect(
     () => {
       if (requestStatus.success) {
@@ -109,7 +106,7 @@ const BaseCreateReviewModalContainer = ({
       autoFocus={true}
       loading={requestStatus.loading}
       error={requestStatus.error}
-      onSubmit={handleCreate}
+      onSubmit={data => onCreate({ place, data })}
       onCancel={onCancel}
     />
   );
