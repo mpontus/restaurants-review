@@ -126,7 +126,7 @@ const BasePlaceListProvider = ({
           : { rating: ratingFilter, page: currentPage }
       );
     },
-    [currentPage]
+    [own, ratingFilter, currentPage]
   );
 
   if (page === undefined) {

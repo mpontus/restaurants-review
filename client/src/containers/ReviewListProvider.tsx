@@ -123,7 +123,7 @@ const BaseReviewListProvider = ({
     () => {
       onLoadReviews({ pending, place, page: currentPage });
     },
-    [currentPage]
+    [pending, place, currentPage]
   );
 
   if (page === undefined) {
