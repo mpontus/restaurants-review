@@ -2,7 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { Principal } from 'common/model/principal.model';
 import { objectRemoveUndefined } from 'common/utils/object-remove-undefined';
-import { Between, DeepPartial, EntityManager, FindConditions } from 'typeorm';
+import {
+  Between,
+  DeepPartial,
+  EntityManager,
+  FindConditions,
+  SelectQueryBuilder,
+} from 'typeorm';
 import uuid from 'uuid';
 import { PlaceEntity } from './entity/place.entity';
 import { FindPlacesCriteria } from './model/find-places-criteria.model';
@@ -19,11 +25,21 @@ export class PlaceRepository {
 
   /**
    * Count all existing places matching criteria
+   *
+   * Skip query builder for lighter query.
    */
   public async count(criteria: FindPlacesCriteria): Promise<number> {
-    return this.manager.count(PlaceEntity, {
-      where: this.createWhereClause(criteria),
-    });
+    const conditions: FindConditions<PlaceEntity> = {};
+
+    if (criteria.rating !== undefined) {
+      conditions.rating = Between(criteria.minRating(), criteria.maxRating());
+    }
+
+    if (criteria.ownerId !== undefined) {
+      conditions.ownerId = criteria.ownerId;
+    }
+
+    return this.manager.count(PlaceEntity, conditions);
   }
 
   /**
@@ -33,19 +49,8 @@ export class PlaceRepository {
     actor: Principal | undefined,
     criteria: FindPlacesCriteria,
   ): Promise<Place[]> {
-    const items = await this.manager.find(PlaceEntity, {
-      order:
-        criteria.order === 'rating' ? { rating: 'DESC' } : { title: 'ASC' },
-      where: this.createWhereClause(criteria),
-      relations: [
-        'bestReview',
-        'bestReview.author',
-        'worstReview',
-        'worstReview.author',
-      ],
-      take: criteria.take,
-      skip: criteria.skip,
-    });
+    const queryBuilder = this.createQueryBuilder(actor, criteria);
+    const items = await queryBuilder.getMany();
 
     return items.map(item => item.toModel(actor));
   }
@@ -57,28 +62,7 @@ export class PlaceRepository {
     actor: Principal | undefined,
     id: string,
   ): Promise<Place | undefined> {
-    const queryBuilder = this.manager
-      .createQueryBuilder(PlaceEntity, 'place')
-      .where({ id })
-      // Include relations for best review and worst review
-      .leftJoinAndSelect('place.bestReview', 'bestReview')
-      .leftJoinAndSelect('bestReview.author', 'bestReview_author')
-      .leftJoinAndSelect('place.worstReview', 'worstReview')
-      .leftJoinAndSelect('worstReview.author', 'worstReview_author');
-
-    // Include user's own review when the request is made by
-    // authenticated user.
-    if (actor !== undefined) {
-      queryBuilder
-        .leftJoinAndSelect(
-          'place.ownReview',
-          'ownReview',
-          'ownReview.author = :id',
-          { id: actor.id },
-        )
-        .leftJoinAndSelect('ownReview.author', 'ownReview_author');
-    }
-
+    const queryBuilder = this.createQueryBuilder(actor, id);
     const placeEntity = await queryBuilder.getOne();
 
     if (placeEntity === undefined) {
@@ -146,19 +130,63 @@ export class PlaceRepository {
   /**
    * Create WHERE clause according to listing criteria
    */
-  private createWhereClause(
-    criteria: FindPlacesCriteria,
-  ): FindConditions<PlaceEntity> {
-    const where: FindConditions<PlaceEntity> = {};
+  private createQueryBuilder(
+    actor: Principal | undefined,
+    criteria: string | FindPlacesCriteria,
+  ): SelectQueryBuilder<PlaceEntity> {
+    const queryBuilder = this.manager.createQueryBuilder(PlaceEntity, 'place');
 
-    if (criteria.rating !== undefined) {
-      where.rating = Between(criteria.minRating(), criteria.maxRating());
+    // Find place by id
+    if (typeof criteria === 'string') {
+      queryBuilder.where('place.id = :id', {
+        id: criteria,
+      });
+    } else {
+      // Filter by owner
+      if (criteria.ownerId !== undefined) {
+        queryBuilder.where('place.ownerId = :id', {
+          id: criteria.ownerId,
+        });
+      }
+
+      // Filter by rating
+      if (criteria.rating !== undefined) {
+        queryBuilder.where('place.rating BETWEEN :min AND :max', {
+          min: criteria.minRating(),
+          max: criteria.maxRating(),
+        });
+      }
+
+      // Apply ordering
+      if (criteria.order === 'name') {
+        queryBuilder.orderBy({ 'place.title': 'ASC' });
+      } else if (criteria.order === 'rating') {
+        queryBuilder.orderBy({ 'place.rating': 'DESC' });
+      }
+
+      // Apply offset and limit
+      queryBuilder.offset(criteria.skip).limit(criteria.take);
     }
 
-    if (criteria.ownerId !== undefined) {
-      where.ownerId = criteria.ownerId;
+    // Embed best and worst reviews
+    queryBuilder
+      .leftJoinAndSelect('place.bestReview', 'bestReview')
+      .leftJoinAndSelect('bestReview.author', 'bestReview_author')
+      .leftJoinAndSelect('place.worstReview', 'worstReview')
+      .leftJoinAndSelect('worstReview.author', 'worstReview_author');
+
+    // Embed user's own review
+    if (actor !== undefined) {
+      queryBuilder
+        .leftJoinAndSelect(
+          'place.ownReview',
+          'ownReview',
+          'ownReview.author = :userId',
+          { userId: actor.id },
+        )
+        .leftJoinAndSelect('ownReview.author', 'ownReview_author');
     }
 
-    return where;
+    return queryBuilder;
   }
 }
