@@ -16,9 +16,10 @@ import { createStructuredSelector } from "reselect";
 import { deleteUser } from "../actions/userListActions";
 import { ConfirmModal } from "../components/ConfirmModal";
 import { IconMenu } from "../components/IconMenu";
+import { UserBadge } from "../components/UserBadge";
 import { useModal } from "../hooks/useModal";
 import { RequestStatus } from "../models/RequestStatus";
-import { User } from "../models/User";
+import { isAdmin, isOwner, User } from "../models/User";
 import { State } from "../reducers";
 import {
   makeGetUserById,
@@ -117,11 +118,18 @@ export const BaseUserListItemContainer = ({
 
   return (
     <ListItem
-      key={user.id}
+      button={true}
+      onClick={showEditModal}
       ContainerProps={{ "aria-labelledby": `user-item-${user.id}` }}
     >
       <ListItemText
-        primary={<span id={`user-item-${user.id}`}>{user.name}</span>}
+        primary={
+          <React.Fragment>
+            <span id={`user-item-${user.id}`}>{user.name}</span>
+            {isOwner(user) && <UserBadge variant="owner">Owner</UserBadge>}
+            {isAdmin(user) && <UserBadge variant="admin">Admin</UserBadge>}
+          </React.Fragment>
+        }
         secondary={user.email}
       />
       {(user.canEdit || user.canDelete) && (
