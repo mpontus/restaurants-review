@@ -43,7 +43,7 @@ export const FrontpageScreen = () => {
             <Pagination
               items={ids}
               renderItem={placeId => (
-                <PlaceContainer key={placeId} id={placeId} />
+                <PlaceContainer showRating={true} key={placeId} id={placeId} />
               )}
               hasNext={hasNextPage}
               hasPrev={hasNextPage}

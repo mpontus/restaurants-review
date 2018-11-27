@@ -108,7 +108,7 @@ class BaseRatingInput extends React.PureComponent<Props> {
   public renderRow: React.SFC = ({ children }) => (
     <RadioGroup
       row={true}
-      className={this.props.classes.root}
+      className={this.props.classes.row}
       id={this.props.id}
       name={this.props.name}
       onChange={this.props.onChange}

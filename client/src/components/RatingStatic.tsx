@@ -1,8 +1,4 @@
-import {
-  Typography,
-  withStyles,
-  WithStyles
-} from "@material-ui/core";
+import { Typography, withStyles, WithStyles } from "@material-ui/core";
 import {
   Star as StarIcon,
   StarBorder as StarBorderIcon,
@@ -74,9 +70,11 @@ interface Props extends WithStyles<ClassKey> {
  */
 const enhance = withStyles<ClassKey>(theme => ({
   root: {
+    display: "inline-block",
     padding: theme.spacing.unit
   },
   row: {
+    display: "flex",
     flexWrap: "nowrap"
   },
   star: {

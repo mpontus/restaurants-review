@@ -36,10 +36,12 @@ export const PlaceDetailsScreen = ({ match }: Props) => {
         <DocumentTitle title={place.title}>
           <Heading>{place.title}</Heading>
           <Subheading>{place.address}</Subheading>
-          <RatingStatic
-            value={place.rating}
-            caption={`Rating: ${place.rating.toFixed(2)}`}
-          />
+          <div>
+            <RatingStatic
+              value={place.rating}
+              caption={`Rating: ${place.rating.toFixed(2)}`}
+            />
+          </div>
           <AuthGuard rule={user => canReview(place, user)}>
             <Action onClick={onReview}>Submit Review</Action>
           </AuthGuard>
