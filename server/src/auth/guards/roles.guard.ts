@@ -26,7 +26,7 @@ export class RolesGuard implements CanActivate {
   }
 
   /**
-   * Match given role against roles specified in the constrctor
+   * Match given role against roles specified in the constrictor
    */
   private matchRole(role: string): boolean {
     return this.anyRole.includes(role);

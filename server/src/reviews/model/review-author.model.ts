@@ -10,7 +10,7 @@ export class ReviewAuthor {
   /**
    * User ID
    *
-   * Exluded from the serialized object.
+   * Excluded from the serialized object.
    */
   @Exclude()
   public id: string;

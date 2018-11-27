@@ -10,7 +10,7 @@ import { ConfigService } from 'nestjs-config';
  */
 @Injectable()
 export class CryptoService {
-  constructor(private readonly configSerivce: ConfigService) {}
+  constructor(private readonly configService: ConfigService) {}
 
   /**
    * Generate random secure token
@@ -25,7 +25,7 @@ export class CryptoService {
   public async hashPassword(password: string): Promise<string> {
     return await bcrypt.hash(
       password,
-      this.configSerivce.get('security.salt_rounds'),
+      this.configService.get('security.salt_rounds'),
     );
   }
 

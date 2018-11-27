@@ -70,7 +70,7 @@ export class ReviewEntity {
   /**
    * References a user for whom the review is pending
    *
-   * Auxilary column to speed up pending review retrieval. Is set to
+   * Auxiliary column to speed up pending review retrieval. Is set to
    * NULL after reply.
    */
   @Column({ type: 'uuid', nullable: true })

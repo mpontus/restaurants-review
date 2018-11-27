@@ -12,7 +12,7 @@ import { ReviewService } from './review.service';
 /**
  * Review Module
  *
- * Reposible for managing review reviews.
+ * Responsible for managing review reviews.
  */
 @Module({
   controllers: [ReviewController],

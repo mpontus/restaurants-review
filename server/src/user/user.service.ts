@@ -94,7 +94,7 @@ export class UserService {
   }
 
   /**
-   * Helper function to recocile existing user roles with update
+   * Helper function to update user roles according to the request
    */
   private updateRoles(user: User, update: UpdateUserDto): string[] {
     const hasOwner =

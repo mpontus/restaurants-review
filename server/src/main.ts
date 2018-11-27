@@ -7,7 +7,7 @@ import * as path from 'path';
 import { AppModule } from './app.module';
 
 /**
- * Entyr point to the applicaiton.
+ * Entry point of the application
  *
  * Launches HTTP server and queue listeners.
  */

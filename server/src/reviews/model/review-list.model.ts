@@ -7,7 +7,7 @@ import { Review } from './review.model';
  */
 export class ReviewList implements IPagination<Review> {
   /**
-   * Total number of available reviews matchign criteria
+   * Total number of available reviews matching criteria
    */
   @ApiModelProperty()
   public readonly total: number;

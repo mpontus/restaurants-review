@@ -21,7 +21,7 @@ import { SignupDto } from './model/signup-dto.model';
 /**
  * Auth Controller
  *
- * Repsonsible for providing API endpoints for authentication management
+ * Responsible for providing API endpoints for authentication management
  */
 @Controller('auth')
 @UsePipes(new ValidationPipe({ transform: true }))

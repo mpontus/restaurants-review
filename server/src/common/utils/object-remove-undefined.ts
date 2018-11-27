@@ -1,5 +1,5 @@
 /**
- * Remove undefiend values from an object
+ * Remove undefined values from an object
  */
 export const objectRemoveUndefined = <T>(
   // tslint:disable-next-line:no-any

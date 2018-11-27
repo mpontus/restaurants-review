@@ -24,7 +24,7 @@ import { ReviewRepository } from './review.repository';
 /**
  * Review Service
  *
- * Reponsible for managing place reviews.
+ * Responsible for managing place reviews.
  */
 @Injectable()
 export class ReviewService {
