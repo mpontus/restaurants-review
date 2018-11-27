@@ -52,7 +52,7 @@ export const PlaceDetailsScreen = ({ match }: Props) => {
             <Action onClick={onDelete}>Delete Restaurant</Action>
           </AuthGuard>
           {place.bestReview && (
-            <Section title="Best Review">
+            <Section title="Highest Review" id="best-review">
               <ReviewContainer
                 key={place.bestReview.id}
                 id={place.bestReview.id}
@@ -60,7 +60,7 @@ export const PlaceDetailsScreen = ({ match }: Props) => {
             </Section>
           )}
           {place.worstReview && (
-            <Section title="Worst Review">
+            <Section title="Lowest Review" id="worst-review">
               <ReviewContainer
                 key={place.worstReview.id}
                 id={place.worstReview.id}
@@ -80,7 +80,14 @@ export const PlaceDetailsScreen = ({ match }: Props) => {
             }
           >
             {({ ids, hasNextPage, hasPrevPage }) => (
-              <Section title="Other Reviews">
+              <Section
+                title={
+                  place.bestReview || place.worstReview
+                    ? "Other Reviews"
+                    : "Reviews"
+                }
+                id="other-reviews"
+              >
                 <Pagination
                   items={ids}
                   renderItem={reviewId => (
