@@ -2,6 +2,7 @@ import React, { useCallback } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { deleteReview } from "../actions/reviewListActions";
+import { Button } from "../components/Button";
 import { ConfirmModal } from "../components/ConfirmModal";
 import { Review as ReviewComponent } from "../components/Review";
 import { useModal } from "../hooks/useModal";
@@ -123,17 +124,28 @@ export const BaseReviewContainer = ({
 
   return (
     <ReviewComponent
-      canReply={review.canReply}
-      canEdit={review.canEdit}
-      canDelete={review.canDelete}
-      date={review.dateVisitted}
-      author={review.author.name}
-      rating={review.rating}
-      comment={review.comment}
-      reply={review.reply}
-      onReply={showReplyModal}
-      onEdit={showEditModal}
-      onDelete={showConfirmModal}
+      review={review}
+      actions={
+        (review.canReply || review.canEdit || review.canDelete) && (
+          <React.Fragment>
+            {review.canReply && (
+              <Button color="primary" onClick={showReplyModal}>
+                Reply
+              </Button>
+            )}
+            {review.canEdit && (
+              <Button color="primary" onClick={showEditModal}>
+                Edit
+              </Button>
+            )}
+            {review.canDelete && (
+              <Button color="primary" onClick={showConfirmModal}>
+                Delete
+              </Button>
+            )}
+          </React.Fragment>
+        )
+      }
     />
   );
 };

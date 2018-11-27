@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
@@ -11,8 +10,12 @@ import {
 import classnames from "classnames";
 import dayjs from "dayjs";
 import React from "react";
+import { Review as ReviewModel } from "../models/Review";
 import { RatingStatic } from "./RatingStatic";
 
+/**
+ * Custom class names
+ */
 type ClassKey =
   | "root"
   | "header"
@@ -21,20 +24,24 @@ type ClassKey =
   | "negative"
   | "neutral";
 
+/**
+ * Component props
+ */
 interface Props extends WithStyles<ClassKey> {
-  canReply?: boolean;
-  canEdit?: boolean;
-  canDelete?: boolean;
-  date: string;
-  author: string;
-  rating: number;
-  comment: string;
-  reply?: string;
-  onReply?: () => void;
-  onEdit?: () => void;
-  onDelete?: () => void;
+  /**
+   * Review object
+   */
+  review: ReviewModel;
+
+  /**
+   * Action buttons to interact with the review
+   */
+  actions?: React.ReactNode;
 }
 
+/**
+ * Component enhancer to apply custom styles
+ */
 const enhance = withStyles<ClassKey>(theme => ({
   root: {
     marginTop: theme.spacing.unit,
@@ -58,69 +65,50 @@ const enhance = withStyles<ClassKey>(theme => ({
   }
 }));
 
-export const BaseReview = (props: Props) => {
-  const {
-    classes,
-    canReply = false,
-    canEdit = false,
-    canDelete = false,
-    date,
-    author,
-    rating,
-    comment,
-    reply,
-    onReply,
-    onEdit,
-    onDelete
-  } = props;
-
+/**
+ * Review Component
+ *
+ * Displays single review as a Card.
+ */
+export const BaseReview = ({ classes, review, actions }: Props) => {
   return (
     <Card className={classes.root}>
       <CardHeader
         disableTypography={true}
-        className={classnames(props.classes.header, {
-          [props.classes.positive]: props.rating > 3,
-          [props.classes.negative]: props.rating < 3,
-          [props.classes.neutral]: props.rating === 3
+        className={classnames(classes.header, {
+          [classes.positive]: review.rating > 3,
+          [classes.negative]: review.rating < 3,
+          [classes.neutral]: review.rating === 3
         })}
-        action={<RatingStatic value={rating} caption={`Rating: ${rating}`} />}
+        action={
+          <RatingStatic
+            value={review.rating}
+            caption={`Rating: ${review.rating}`}
+          />
+        }
         title={
           <Typography component="span" variant="body2">
-            {author}
+            {review.author.name}
           </Typography>
         }
         subheader={
           <Typography component="span" variant="body2" color="textSecondary">
-            {dayjs(date).format("DD/MM/YYYY")}
+            {dayjs(review.dateVisitted).format("DD/MM/YYYY")}
           </Typography>
         }
       />
       <CardContent>
-        <Typography component="p">{comment}</Typography>
+        <Typography component="p">{review.comment}</Typography>
       </CardContent>
-      {reply && (
+      {review.reply && (
         <CardContent>
           <Typography variant="subtitle2">Owner Replied:</Typography>
-          <Typography component="p">{reply}</Typography>
+          <Typography component="p">{review.reply}</Typography>
         </CardContent>
       )}
-      {(canReply || canEdit || canDelete) && (
+      {actions && (
         <CardActions disableActionSpacing={true} className={classes.actions}>
-          {canReply && (
-            <Button color="primary" onClick={onReply}>
-              Reply
-            </Button>
-          )}
-          {canEdit && (
-            <Button color="primary" onClick={onEdit}>
-              Edit
-            </Button>
-          )}
-          {canDelete && (
-            <Button color="primary" onClick={onDelete}>
-              Delete
-            </Button>
-          )}
+          {actions}
         </CardActions>
       )}
     </Card>
@@ -128,6 +116,6 @@ export const BaseReview = (props: Props) => {
 };
 
 /**
- * Review Component with injected classes
+ * Export enhanced component
  */
 export const Review = enhance(BaseReview);
