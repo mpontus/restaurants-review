@@ -1,8 +1,9 @@
 import React from "react";
-import { Action } from "../components/Action";
+import { Button } from "../components/Button";
 import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
+import { PageActions } from "../components/PageActions";
 import { Pagination } from "../components/Pagination";
 import { Subheading } from "../components/Subheading";
 import { PlaceContainer } from "../containers/PlaceContainer";
@@ -21,7 +22,6 @@ export const OwnPlacesScreen = () => {
   const [showCreateModal, hideCreateModal] = useModal(() => (
     <PlaceFormModalContainer onCancel={hideCreateModal} />
   ));
-
   return (
     <DocumentTitle title="Restaurant Management">
       <Heading>Restaurant Management</Heading>
@@ -29,7 +29,11 @@ export const OwnPlacesScreen = () => {
         This page lists your own restaurants. You can create new restaurants
         from this page.
       </Subheading>
-      <Action onClick={showCreateModal}>Create Restaurant</Action>
+      <PageActions>
+        <Button color="primary" onClick={showCreateModal}>
+          Create Restaurant
+        </Button>
+      </PageActions>
       <PlaceListProvider
         own={true}
         currentPage={currentPage}

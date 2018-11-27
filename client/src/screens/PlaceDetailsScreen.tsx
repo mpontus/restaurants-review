@@ -1,9 +1,10 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
-import { Action } from "../components/Action";
+import { Button } from "../components/Button";
 import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
+import { PageActions } from "../components/PageActions";
 import { Pagination } from "../components/Pagination";
 import { PlaceDetailsHeader } from "../components/PlaceDetailsHeader";
 import { Section } from "../components/Section";
@@ -41,15 +42,23 @@ export const PlaceDetailsScreen = ({ match }: Props) => {
             <Heading>{place.title}</Heading>
             <Subheading>{place.address}</Subheading>
           </PlaceDetailsHeader>
-          <AuthGuard rule={user => canReview(place, user)}>
-            <Action onClick={onReview}>Submit Review</Action>
-          </AuthGuard>
-          <AuthGuard rule={user => canEdit(place, user)}>
-            <Action onClick={onEdit}>Edit Restaurant</Action>
-          </AuthGuard>
-          <AuthGuard rule={user => canDelete(place, user)}>
-            <Action onClick={onDelete}>Delete Restaurant</Action>
-          </AuthGuard>
+          <PageActions>
+            <AuthGuard rule={user => canEdit(place, user)}>
+              <Button color="primary" onClick={onEdit}>
+                Edit Restaurant
+              </Button>
+            </AuthGuard>
+            <AuthGuard rule={user => canDelete(place, user)}>
+              <Button color="primary" onClick={onDelete}>
+                Delete Restaurant
+              </Button>
+            </AuthGuard>
+            <AuthGuard rule={user => canReview(place, user)}>
+              <Button color="primary" onClick={onReview}>
+                Submit Review
+              </Button>
+            </AuthGuard>
+          </PageActions>
           {place.bestReview && (
             <Section title="Highest Review" id="best-review">
               <ReviewContainer

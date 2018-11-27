@@ -1,5 +1,6 @@
 import React from "react";
-import { Action } from "../components/Action";
+import { Button } from "../components/Button";
+import { PageActions } from "../components/PageActions";
 import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
@@ -29,7 +30,11 @@ export const UserListScreen = () => {
         Here you can manage your website users: create users, assign privileges,
         modify, and delete users.
       </Subheading>
-      <Action onClick={showCreateModal}>Create User</Action>
+      <PageActions>
+        <Button color="primary" onClick={showCreateModal}>
+          Create User
+        </Button>
+      </PageActions>
       <UserListProvider
         currentPage={currentPage}
         loadingPlaceholder={<Loading />}
