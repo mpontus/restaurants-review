@@ -10,6 +10,8 @@ Object {
       "id": "56a8809b-3fc0-5400-8bbd-512e242cc91d",
       "name": "Joshua Wood",
       "roles": Array [
+        "user",
+        "owner",
         "admin",
       ],
     },
@@ -161,6 +163,8 @@ Object {
       "id": "56a8809b-3fc0-5400-8bbd-512e242cc91d",
       "name": "Joshua Wood",
       "roles": Array [
+        "user",
+        "owner",
         "admin",
       ],
     },

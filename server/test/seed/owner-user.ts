@@ -144,7 +144,7 @@ export const run = async (nestApp: NestApplication) => {
     .createQueryBuilder()
     .insert()
     .into(UserEntity)
-    .values({ id, name, email, passwordHash, roles: ['owner'] })
+    .values({ id, name, email, passwordHash, roles: ['user', 'owner'] })
     .execute();
 
   await nestApp

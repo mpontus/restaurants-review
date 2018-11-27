@@ -14,7 +14,7 @@ export const refreshToken = '422cd5815f0f3315c54bb65e6969f650';
 export const accessToken = jwt.sign(
   {
     sub: id,
-    roles: ['admin'],
+    roles: ['user', 'owner', 'admin'],
   },
   process.env.JWT_SECRET || '',
 );
@@ -32,7 +32,9 @@ export const run = async (nestApp: NestApplication) => {
       .createQueryBuilder()
       .insert()
       .into(UserEntity)
-      .values([{ id, name, email, passwordHash, roles: ['admin'] }])
+      .values([
+        { id, name, email, passwordHash, roles: ['user', 'owner', 'admin'] },
+      ])
       .execute(),
     nestApp.get(Redis).hmset(`access_tokens:${accessToken}`, sessionData),
     nestApp.get(Redis).hmset(`refresh_tokens:${refreshToken}`, sessionData),
