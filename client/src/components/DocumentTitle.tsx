@@ -1,5 +1,5 @@
-import * as React from "react";
-import Helmet from "react-helmet";
+import React from "react";
+import ReactDocumentTitle from "react-document-title";
 
 /**
  * Component Props
@@ -19,13 +19,9 @@ interface Props {
  * Updates document title when rendered
  */
 export const DocumentTitle: React.SFC<Props> = ({ title, children }) => (
-  <React.Fragment>
-    <Helmet
-      defaultTitle="Restaurant Reviews"
-      titleTemplate="%s | Restaurant Reviews"
-    >
-      {title && <title>{title}</title>}
-    </Helmet>
-    {children}
-  </React.Fragment>
+  <ReactDocumentTitle
+    title={title ? `${title} | Restaurant Reviews` : "Restaurant Reviews"}
+  >
+    <React.Fragment>{children}</React.Fragment>
+  </ReactDocumentTitle>
 );
