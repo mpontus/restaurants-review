@@ -25,6 +25,10 @@ export class UpdateMarginReviews implements IEventHandler<{ review: Review }> {
       place,
     );
 
-    await this.placeRepository.update(place, { worstReview, bestReview });
+    await this.placeRepository.updateMarginReviews(
+      place,
+      worstReview,
+      bestReview,
+    );
   }
 }

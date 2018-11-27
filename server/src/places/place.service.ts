@@ -96,10 +96,12 @@ export class PlaceService {
     place: Place,
     update: UpdatePlaceDto,
   ): Promise<Place> {
-    return this.placeRepository.update(place, {
-      title: update.title,
-      address: update.address,
+    Object.assign(place, {
+      title: update.title || place.title,
+      address: update.address || place.address,
     });
+
+    return this.placeRepository.update(place);
   }
 
   /**

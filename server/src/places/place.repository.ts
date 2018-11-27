@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectEntityManager } from '@nestjs/typeorm';
 import { Principal } from 'common/model/principal.model';
-import { objectRemoveUndefined } from 'common/utils/object-remove-undefined';
+import { Review } from 'reviews/model/review.model';
 import {
   Between,
-  DeepPartial,
   EntityManager,
   FindConditions,
   SelectQueryBuilder,
@@ -94,30 +93,41 @@ export class PlaceRepository {
   /**
    * Update place details
    */
-  public async update(place: Place, diff: Partial<Place>): Promise<Place> {
-    // Remove undefined non-nullable fields
-    const update: DeepPartial<PlaceEntity> = objectRemoveUndefined({
-      title: diff.title,
-      address: diff.address,
-      rating: diff.rating,
-      reviewCount: diff.reviewCount,
+  public async update(place: Place): Promise<Place> {
+    await this.manager.update(PlaceEntity, place.id, {
+      title: place.title,
+      address: place.address,
     });
 
-    // Allow resetting bestReview
-    if ('bestReview' in diff) {
-      update.bestReview = diff.bestReview ? { id: diff.bestReview.id } : null;
-    }
+    return place;
+  }
 
-    // Allow resetting worst review
-    if ('worstReview' in diff) {
-      update.worstReview = diff.worstReview
-        ? { id: diff.worstReview.id }
-        : null;
-    }
+  /**
+   * Update place rating
+   */
+  public async updateRating(
+    place: Place,
+    rating: number,
+    reviewCount: number,
+  ): Promise<void> {
+    await this.manager.update(PlaceEntity, place.id, {
+      rating: rating,
+      reviewCount: reviewCount,
+    });
+  }
 
-    await this.manager.update(PlaceEntity, place.id, update);
-
-    return Object.assign(place, objectRemoveUndefined(diff));
+  /**
+   * Update place margin reviews
+   */
+  public async updateMarginReviews(
+    place: Place,
+    worstReview: Review | undefined,
+    bestReview: Review | undefined,
+  ): Promise<void> {
+    await this.manager.update(PlaceEntity, place.id, {
+      bestReview: bestReview ? { id: bestReview.id } : null,
+      worstReview: worstReview ? { id: worstReview.id } : null,
+    });
   }
 
   /**
