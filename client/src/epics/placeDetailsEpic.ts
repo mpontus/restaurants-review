@@ -17,7 +17,6 @@ import {
   updateReview
 } from "../actions/reviewListActions";
 import { getPlace } from "../api/method/getPlace";
-import { Review } from "../models/Review";
 import { State } from "../reducers";
 import { makeGetCurrentUser } from "../selectors/authSelectors";
 import { Dependencies } from "../store";
@@ -62,18 +61,7 @@ export const placeDetailsEpic: Epic<Action, Action, State, Dependencies> = (
         map(place =>
           loadPlace.success({
             id: action.payload.id,
-            place: {
-              ...place,
-              bestReview: place.bestReview
-                ? ({ ...place.bestReview, place } as Review)
-                : undefined,
-              worstReview: place.worstReview
-                ? ({ ...place.worstReview, place } as Review)
-                : undefined,
-              ownReview: place.ownReview
-                ? ({ ...place.ownReview, place } as Review)
-                : undefined
-            }
+            place
           })
         ),
         handleApiError(error =>

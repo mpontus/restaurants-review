@@ -4,6 +4,9 @@ import { Action } from "../actions";
 import { deleteUser, loadUsers, updateUser } from "../actions/userListActions";
 import { User } from "../models/User";
 
+/**
+ * State shape
+ */
 type State = { [id in string]?: User };
 
 /**

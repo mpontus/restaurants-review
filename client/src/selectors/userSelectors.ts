@@ -11,11 +11,6 @@ interface ItemProps {
 }
 
 /**
- * Default request status
- */
-const defaultRequestStatus = { loading: false, success: false };
-
-/**
  * Return single user by id
  */
 export const makeGetUserById = () => (
@@ -25,15 +20,16 @@ export const makeGetUserById = () => (
   ownProps.id ? state.userEntity[ownProps.id] : undefined;
 
 /**
- * Get request status for user listing
+ * Get request status for user updates
  */
-export const makeGetUserUpdateRequestStatus = () => (
-  state: State,
-  ownProps: ItemProps
-): RequestStatus<SaveUserDto> => {
-  if (!ownProps.id) {
-    return state.userCreateRequest;
-  }
+export const makeGetUserUpdateRequestStatus = () => {
+  const defaultRequestStatus = { loading: false, success: false };
 
-  return state.userUpdateRequest[ownProps.id] || defaultRequestStatus;
+  return (state: State, ownProps: ItemProps): RequestStatus<SaveUserDto> => {
+    if (!ownProps.id) {
+      return state.userCreateRequest;
+    }
+
+    return state.userUpdateRequest[ownProps.id] || defaultRequestStatus;
+  };
 };

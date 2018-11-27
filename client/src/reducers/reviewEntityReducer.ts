@@ -5,15 +5,13 @@ import { Action } from "../actions";
 import { loadPlace } from "../actions/placeDetailsActions";
 import { loadReviews, updateReview } from "../actions/reviewListActions";
 import { Review } from "../models/Review";
-import { placeSchema, reviewSchema } from "../schemas";
+import { placeSchema } from "../schemas/placeSchema";
+import { reviewSchema } from "../schemas/reviewSchema";
 
-type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-
-export interface NormalizedReview extends Omit<Review, "place"> {
-  place: string;
-}
-
-type State = { [id in string]?: NormalizedReview };
+/**
+ * State shape
+ */
+type State = { [id in string]?: Review };
 
 /**
  * Stores review entities by their ids

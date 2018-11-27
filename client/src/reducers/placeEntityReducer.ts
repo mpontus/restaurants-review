@@ -3,13 +3,15 @@ import { Reducer } from "redux";
 import { getType } from "typesafe-actions";
 import { Action } from "../actions";
 import { loadPlace } from "../actions/placeDetailsActions";
-import {
-  loadPlaces,
-  updatePlace
-} from "../actions/placeListActions";
+import { loadPlaces, updatePlace } from "../actions/placeListActions";
 import { Place } from "../models/Place";
-import { placeSchema } from "../schemas";
+import { placeSchema } from "../schemas/placeSchema";
 
+/**
+ * Normalized place shape
+ *
+ * Replaces embedded reviews with ID references
+ */
 export interface NormalizedPlace
   extends Omit<Place, "bestReview" | "worstReview" | "ownReview"> {
   bestReview?: string;
@@ -17,6 +19,9 @@ export interface NormalizedPlace
   ownReview?: string;
 }
 
+/**
+ * State shape
+ */
 type State = { [id in string]?: NormalizedPlace };
 
 /**

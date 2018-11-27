@@ -1,4 +1,3 @@
-import { Place } from "./Place";
 
 /**
  * Review Model
@@ -20,11 +19,6 @@ export interface Review {
      */
     name: string;
   };
-
-  /**
-   * Place for which review was submitted
-   */
-  place?: Place;
 
   /**
    * Review rating
