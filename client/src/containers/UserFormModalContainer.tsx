@@ -116,7 +116,6 @@ const BaseUserFormModalContainer = ({
         name: user.name,
         email: user.email || "",
         password: "",
-        isUser: isUser(user),
         isOwner: isOwner(user),
         isAdmin: isAdmin(user)
       }

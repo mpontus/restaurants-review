@@ -1,8 +1,8 @@
 describe("user update", () => {
   beforeEach(() => {
-    cy.seed("multiple-users,admin-user")
-      .then(([userSeed, authSeed]) => ({
-        users: userSeed.users,
+    cy.seed("owner-user,admin-user")
+      .then(([ownerSeed, authSeed]) => ({
+        user: ownerSeed,
         auth: authSeed
       }))
       .as("seed");
@@ -13,7 +13,7 @@ describe("user update", () => {
   });
 
   beforeEach(function() {
-    cy.getByLabelText(this.seed.users[0].name).within(() => {
+    cy.getByLabelText(this.seed.user.name).within(() => {
       cy.getByLabelText("More Actions").click();
     });
 
@@ -22,17 +22,13 @@ describe("user update", () => {
 
   it("should allow admin to update user details", function() {
     // Form contains current details
-    cy.getByLabelText("Display Name").should(
-      "have.value",
-      this.seed.users[0].name
-    );
+    cy.getByLabelText("Display Name").should("have.value", this.seed.user.name);
     cy.getByLabelText("Email Address").should(
       "have.value",
-      this.seed.users[0].email
+      this.seed.user.email
     );
     cy.getByLabelText("Password").should("have.value", "");
-    cy.getByLabelText("User").should("be.checked", "");
-    cy.getByLabelText("Owner").should("not.be.checked", "");
+    cy.getByLabelText("Owner").should("be.checked", "");
     cy.getByLabelText("Admin").should("not.be.checked", "");
 
     // Change some details

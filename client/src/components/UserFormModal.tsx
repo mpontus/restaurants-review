@@ -78,7 +78,6 @@ const validationSchema = yup.object<SaveUserDto>().shape({
     .email()
     .required(),
   password: yup.string().min(6),
-  isUser: yup.boolean(),
   isOwner: yup.boolean(),
   isAdmin: yup.boolean()
 });
@@ -90,7 +89,6 @@ const defaultValues = {
   name: "",
   email: "",
   password: "",
-  isUser: false,
   isOwner: false,
   isAdmin: false
 };
@@ -125,7 +123,6 @@ export const UserFormModal: React.SFC<Props> = ({
         <FormControl component="fieldset" margin="normal">
           <FormLabel component="legend">Roles</FormLabel>
           <FormGroup row={true}>
-            <Field component={Switch} id="isUser" name="isUser" label="User" />
             <Field
               component={Switch}
               id="isOwner"

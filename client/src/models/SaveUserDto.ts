@@ -18,11 +18,6 @@ export interface SaveUserDto {
   password: string;
 
   /**
-   * Grant user privileges
-   */
-  isUser: boolean;
-
-  /**
    * Grant owner privileges
    */
   isOwner: boolean;
