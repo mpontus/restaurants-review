@@ -7,10 +7,7 @@ import orange from "@material-ui/core/colors/orange";
 export const theme = createMuiTheme({
   palette: {
     type: "light",
-    secondary: orange,
-    background: {
-      default: "#fff"
-    }
+    secondary: orange
   },
   typography: {
     useNextVariants: true

@@ -31,7 +31,10 @@ export const PlaceDetailsScreen = ({ match }: Props) => {
   const [currentPage, onPrevPage, onNextPage] = usePagination(0);
 
   return (
-    <PlaceDetailsProvider id={match.params.id} placeholder={<Loading />}>
+    <PlaceDetailsProvider
+      id={match.params.id}
+      placeholder={<Loading header={true} />}
+    >
       {({ place, onReview, onEdit, onDelete }) => (
         <DocumentTitle title={place.title}>
           <PlaceDetailsHeader rating={place.rating}>
