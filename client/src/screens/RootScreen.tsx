@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router";
-import { Layout } from "../components/Layout";
 import { Responsive } from "../components/Responsive";
+import { SingleColumnLayout } from "../components/SingleColumnLayout";
 import { AuthGuard } from "../containers/AuthGuard";
 import { MobileNavigationContainer } from "../containers/MobileNavigationContainer";
 import { NavbarContainer } from "../containers/NavbarContainer";
@@ -19,7 +19,7 @@ const redirectHome = <Redirect to={routes.HOME} />;
 export const RootScreen = () => (
   <div>
     <NavbarContainer />
-    <Layout>
+    <SingleColumnLayout>
       <Switch>
         <Route exact={true} path={routes.HOME} component={FrontpageScreen} />
         <Route path={routes.PLACE_DETAILS} component={PlaceDetailsScreen} />
@@ -46,7 +46,7 @@ export const RootScreen = () => (
         </Route>
         {redirectHome}
       </Switch>
-    </Layout>
+    </SingleColumnLayout>
     <Responsive hideOnDesktop={true}>
       <MobileNavigationContainer />
     </Responsive>
