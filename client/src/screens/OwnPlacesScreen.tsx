@@ -38,6 +38,9 @@ export const OwnPlacesScreen = () => {
         own={true}
         currentPage={currentPage}
         loadingPlaceholder={<Loading />}
+        emptyPlaceholder={
+          <Subheading>Your restaurant list is empty</Subheading>
+        }
       >
         {({ ids, hasNextPage, hasPrevPage }) => (
           <Pagination

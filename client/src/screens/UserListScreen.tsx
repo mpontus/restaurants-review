@@ -38,6 +38,9 @@ export const UserListScreen = () => {
       <UserListProvider
         currentPage={currentPage}
         loadingPlaceholder={<Loading />}
+        emptyPlaceholder={
+          <Subheading>There are no users on this website</Subheading>
+        }
       >
         {({ ids, hasNextPage, hasPrevPage }) => (
           <Pagination
