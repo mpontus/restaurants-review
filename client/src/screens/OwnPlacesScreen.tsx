@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Action } from "../components/Action";
 import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
@@ -9,6 +9,7 @@ import { PlaceContainer } from "../containers/PlaceContainer";
 import { PlaceFormModalContainer } from "../containers/PlaceFormModalContainer";
 import { PlaceListProvider } from "../containers/PlaceListProvider";
 import { useModal } from "../hooks/useModal";
+import { usePagination } from "../hooks/usePagination";
 
 /**
  * Own Places Screen
@@ -16,7 +17,7 @@ import { useModal } from "../hooks/useModal";
  * Displays a list of user's own restaurants.
  */
 export const OwnPlacesScreen = () => {
-  const [currentPage, setPage] = useState(0);
+  const [currentPage, onPrevPage, onNextPage] = usePagination(0);
   const [showCreateModal, hideCreateModal] = useModal(() => (
     <PlaceFormModalContainer onCancel={hideCreateModal} />
   ));
@@ -41,9 +42,9 @@ export const OwnPlacesScreen = () => {
               <PlaceContainer key={id} showActions={true} id={id} />
             )}
             hasNext={hasNextPage}
-            hasPrev={hasNextPage}
-            onNext={() => setPage(currentPage + 1)}
-            onPrev={() => setPage(currentPage + 1)}
+            hasPrev={hasPrevPage}
+            onNext={onNextPage}
+            onPrev={onPrevPage}
           />
         )}
       </PlaceListProvider>

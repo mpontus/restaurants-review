@@ -35,7 +35,7 @@ export const PendingReviewsScreen = () => {
               <ReviewContainer key={reviewId} id={reviewId} />
             )}
             hasNext={hasNextPage}
-            hasPrev={hasNextPage}
+            hasPrev={hasPrevPage}
             onNext={onNextPage}
             onPrev={onPrevPage}
           />

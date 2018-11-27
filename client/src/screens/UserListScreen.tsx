@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Action } from "../components/Action";
 import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
@@ -9,6 +9,7 @@ import { UserContainer } from "../containers/UserContainer";
 import { UserFormModalContainer } from "../containers/UserFormModalContainer";
 import { UserListProvider } from "../containers/UserListProvider";
 import { useModal } from "../hooks/useModal";
+import { usePagination } from "../hooks/usePagination";
 
 /**
  * User List Screen
@@ -16,7 +17,7 @@ import { useModal } from "../hooks/useModal";
  * Displays a list of website users
  */
 export const UserListScreen = () => {
-  const [currentPage, setPage] = useState(0);
+  const [currentPage, onPrevPage, onNextPage] = usePagination(0);
   const [showCreateModal, hideCreateModal] = useModal(() => (
     <UserFormModalContainer onCancel={hideCreateModal} />
   ));
@@ -38,9 +39,9 @@ export const UserListScreen = () => {
             items={ids}
             renderItem={id => <UserContainer key={id} id={id} />}
             hasNext={hasNextPage}
-            hasPrev={hasNextPage}
-            onNext={() => setPage(currentPage + 1)}
-            onPrev={() => setPage(currentPage + 1)}
+            hasPrev={hasPrevPage}
+            onNext={onNextPage}
+            onPrev={onPrevPage}
           />
         )}
       </UserListProvider>

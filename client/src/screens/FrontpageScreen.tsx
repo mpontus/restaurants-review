@@ -46,7 +46,7 @@ export const FrontpageScreen = () => {
                 <PlaceContainer showRating={true} key={placeId} id={placeId} />
               )}
               hasNext={hasNextPage}
-              hasPrev={hasNextPage}
+              hasPrev={hasPrevPage}
               onNext={onNextPage}
               onPrev={onPrevPage}
             />
