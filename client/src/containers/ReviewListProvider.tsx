@@ -119,9 +119,12 @@ const BaseReviewListProvider = ({
   loadingPlaceholder = null,
   emptyPlaceholder = null
 }: Props) => {
-  useEffect(() => onLoadReviews({ pending, place, page: currentPage }), [
-    currentPage
-  ]);
+  useEffect(
+    () => {
+      onLoadReviews({ pending, place, page: currentPage });
+    },
+    [currentPage]
+  );
 
   if (page === undefined) {
     return loadingPlaceholder;

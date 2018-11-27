@@ -123,7 +123,9 @@ export const BasePlaceDetailsProvider = ({
   children,
   placeholder = null
 }: Props) => {
-  useEffect(() => onLoadPlace({ id }), []);
+  useEffect(() => {
+    onLoadPlace({ id });
+  }, []);
 
   if (place === undefined) {
     return placeholder;

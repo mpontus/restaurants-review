@@ -119,12 +119,13 @@ const BasePlaceListProvider = ({
   emptyPlaceholder = null
 }: Props) => {
   useEffect(
-    () =>
+    () => {
       onLoadPlaces(
         own
           ? { own: true, page: currentPage }
           : { rating: ratingFilter, page: currentPage }
-      ),
+      );
+    },
     [currentPage]
   );
 

@@ -106,7 +106,12 @@ const BaseUserListProvider = ({
   loadingPlaceholder = null,
   emptyPlaceholder = null
 }: Props) => {
-  useEffect(() => onLoadUsers({ page: currentPage }), [currentPage]);
+  useEffect(
+    () => {
+      onLoadUsers({ page: currentPage });
+    },
+    [currentPage]
+  );
 
   if (page === undefined) {
     return loadingPlaceholder;
