@@ -6,7 +6,7 @@ Object {
     "name": "Ryan Gallagher",
   },
   "comment": "Have heart cover analysis carry.",
-  "dateVisitted": Any<String>,
+  "dateVisited": Any<String>,
   "id": Any<String>,
   "place": Object {
     "address": "1467 Huzwas Highway",

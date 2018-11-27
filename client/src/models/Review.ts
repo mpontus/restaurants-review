@@ -28,7 +28,7 @@ export interface Review {
   /**
    * Date of the visit
    */
-  dateVisitted: string;
+  dateVisited: string;
 
   /**
    * Review comment

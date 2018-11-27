@@ -20,7 +20,7 @@ interface Params {
   /**
    * Updated date of the visit
    */
-  dateVisitted?: string;
+  dateVisited?: string;
 
   /**
    * Review Comment

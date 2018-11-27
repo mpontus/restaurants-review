@@ -93,7 +93,7 @@ export const BaseReview = ({ classes, review, actions }: Props) => {
         }
         subheader={
           <Typography component="span" variant="body2" color="textSecondary">
-            {dayjs(review.dateVisitted).format("DD/MM/YYYY")}
+            {dayjs(review.dateVisited).format("DD/MM/YYYY")}
           </Typography>
         }
       />

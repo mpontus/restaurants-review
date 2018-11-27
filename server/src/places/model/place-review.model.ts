@@ -30,7 +30,7 @@ export class PlaceReview {
    * Date of the visit
    */
   @ApiResponseModelProperty()
-  public dateVisitted: string;
+  public dateVisited: string;
 
   /**
    * Review comment text
@@ -76,7 +76,7 @@ export class PlaceReview {
       id: review.id,
       author: review.author,
       rating: review.rating,
-      dateVisitted: review.dateVisitted,
+      dateVisited: review.dateVisited,
       comment: review.comment,
       reply: review.reply,
       canReply: review.canReply,

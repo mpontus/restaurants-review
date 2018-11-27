@@ -103,7 +103,7 @@ export class ReviewRepository {
     await this.manager.save(ReviewEntity, reviewEntity);
 
     // Transfer generated date from database entity to model
-    review.dateVisitted = reviewEntity.toModel(actor).dateVisitted;
+    review.dateVisited = reviewEntity.toModel(actor).dateVisited;
 
     return review;
   }

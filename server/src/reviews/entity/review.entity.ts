@@ -93,7 +93,7 @@ export class ReviewEntity {
       comment: this.comment,
       reply: this.reply || undefined,
       pendingFor: this.pendingFor || undefined,
-      dateVisitted: moment(this.createdAt).format('YYYY-MM-DD'),
+      dateVisited: moment(this.createdAt).format('YYYY-MM-DD'),
     });
   }
 }

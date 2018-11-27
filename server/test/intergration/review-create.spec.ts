@@ -34,7 +34,7 @@ describe('Create review', () => {
 
       expect(response.body).toMatchSnapshot({
         id: expect.any(String),
-        dateVisitted: expect.any(String),
+        dateVisited: expect.any(String),
       });
     });
 

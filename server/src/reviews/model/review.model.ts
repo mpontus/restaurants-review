@@ -40,7 +40,7 @@ export class Review {
    * Date of the visit
    */
   @ApiResponseModelProperty()
-  public dateVisitted: string;
+  public dateVisited: string;
 
   /**
    * Review comment text

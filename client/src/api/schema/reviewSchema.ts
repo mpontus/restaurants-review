@@ -27,7 +27,7 @@ export const reviewSchema = t.type({
   /**
    * Date of the visit
    */
-  dateVisitted: t.string,
+  dateVisited: t.string,
 
   /**
    * Review comment
