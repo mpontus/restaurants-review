@@ -19,6 +19,7 @@ import { ApiBearerAuth, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'auth/guards/auth.guard';
 import { RolesGuard } from 'auth/guards/roles.guard';
 import { IAuthRequest } from 'common/interfaces/auth-request.interface';
+import { UUIDValidationPipe } from 'common/pipes/uuid-validation.pipe';
 import { CreateReviewDto } from 'reviews/model/create-review-dto.model';
 import { ListPlaceReviewsCriteria } from 'reviews/model/list-place-reviews-criteria.model';
 import { ReviewList } from 'reviews/model/review-list.model';
@@ -31,7 +32,6 @@ import { PlaceList } from './model/place-list.model';
 import { Place } from './model/place.model';
 import { UpdatePlaceDto } from './model/update-place-dto.model';
 import { PlaceService } from './place.service';
-import { UUIDValidationPipe } from 'common/pipes/uuid-validation.pipe';
 
 /**
  * Places Controller

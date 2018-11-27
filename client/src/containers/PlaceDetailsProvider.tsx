@@ -6,7 +6,6 @@ import { deletePlace } from "../actions/placeListActions";
 import { ConfirmModal } from "../components/ConfirmModal";
 import { useModal } from "../hooks/useModal";
 import { Place } from "../models/Place";
-import { RequestStatus } from "../models/RequestStatus";
 import { State } from "../reducers";
 import { makeGetPlaceById } from "../selectors/placeSelectors";
 import { CreateReviewModalContainer } from "./CreateReviewModalContainer";

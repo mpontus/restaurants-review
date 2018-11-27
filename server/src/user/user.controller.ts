@@ -18,13 +18,13 @@ import { ApiBearerAuth, ApiOkResponse, ApiResponse } from '@nestjs/swagger';
 import { AuthGuard } from 'auth/guards/auth.guard';
 import { RolesGuard } from 'auth/guards/roles.guard';
 import { IAuthRequest } from 'common/interfaces/auth-request.interface';
+import { UUIDValidationPipe } from 'common/pipes/uuid-validation.pipe';
 import { CreateUserDto } from './model/create-user-dto.model';
 import { ListUsersCriteria } from './model/list-users-criteria.model';
 import { UpdateUserDto } from './model/update-user-dto.model';
 import { UserList } from './model/user-list.model';
 import { User } from './model/user.model';
 import { UserService } from './user.service';
-import { UUIDValidationPipe } from 'common/pipes/uuid-validation.pipe';
 
 /**
  * Users Controller

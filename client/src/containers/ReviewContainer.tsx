@@ -3,7 +3,6 @@ import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import { deleteReview } from "../actions/reviewListActions";
 import { ConfirmModal } from "../components/ConfirmModal";
-import { Loading } from "../components/Loading";
 import { Review as ReviewComponent } from "../components/Review";
 import { useModal } from "../hooks/useModal";
 import { RequestStatus } from "../models/RequestStatus";
