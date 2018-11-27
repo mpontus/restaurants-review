@@ -53,12 +53,18 @@ export const PlaceDetailsScreen = ({ match }: Props) => {
           </AuthGuard>
           {place.bestReview && (
             <Section title="Best Review">
-              <ReviewContainer id={place.bestReview.id} />
+              <ReviewContainer
+                key={place.bestReview.id}
+                id={place.bestReview.id}
+              />
             </Section>
           )}
           {place.worstReview && (
             <Section title="Worst Review">
-              <ReviewContainer id={place.worstReview.id} />
+              <ReviewContainer
+                key={place.worstReview.id}
+                id={place.worstReview.id}
+              />
             </Section>
           )}
           <ReviewListProvider
