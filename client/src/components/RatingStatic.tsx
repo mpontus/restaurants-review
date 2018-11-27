@@ -71,7 +71,7 @@ interface Props extends WithStyles<ClassKey> {
 const enhance = withStyles<ClassKey>(theme => ({
   root: {
     display: "inline-block",
-    padding: theme.spacing.unit
+    padding: `${theme.spacing.unit}px 0`
   },
   row: {
     display: "flex",
@@ -158,13 +158,15 @@ class BaseRatingStatic extends React.PureComponent<Props> {
             children={this.getIcon(5)}
           />
         </RowComponent>
-        <CaptionComponent
-          variant="caption"
-          align="center"
-          className={classes.caption}
-        >
-          {caption}
-        </CaptionComponent>
+        {caption && (
+          <CaptionComponent
+            variant="caption"
+            align="center"
+            className={classes.caption}
+          >
+            {caption}
+          </CaptionComponent>
+        )}
       </ContainerComponent>
     );
   }

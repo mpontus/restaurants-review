@@ -59,7 +59,7 @@ interface Props extends WithStyles<ClassKey> {
  */
 const enhance = withStyles<ClassKey>(theme => ({
   root: {
-    padding: theme.spacing.unit
+    padding: `${theme.spacing.unit}px 0`
   },
   row: {
     flexWrap: "nowrap"
