@@ -1,9 +1,10 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router";
 import { Layout } from "../components/Layout";
+import { Responsive } from "../components/Responsive";
 import { AuthGuard } from "../containers/AuthGuard";
-import { HeaderContainer } from "../containers/HeaderContainer";
 import { MobileNavigationContainer } from "../containers/MobileNavigationContainer";
+import { NavbarContainer } from "../containers/NavbarContainer";
 import NotificationContainer from "../containers/NotificationContainer";
 import { isAdmin, isOwner } from "../models/User";
 import * as routes from "../routes";
@@ -17,7 +18,7 @@ const redirectHome = <Redirect to={routes.HOME} />;
 
 export const RootScreen = () => (
   <div>
-    <HeaderContainer />
+    <NavbarContainer />
     <Layout>
       <Switch>
         <Route exact={true} path={routes.HOME} component={FrontpageScreen} />
@@ -46,7 +47,9 @@ export const RootScreen = () => (
         {redirectHome}
       </Switch>
     </Layout>
-    <MobileNavigationContainer />
+    <Responsive hideOnDesktop={true}>
+      <MobileNavigationContainer />
+    </Responsive>
     <NotificationContainer />
   </div>
 );

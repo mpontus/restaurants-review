@@ -9,9 +9,7 @@ describe("Navigation", () => {
     beforeEach(function() {
       cy.login(this.seed.admin.email, this.seed.admin.password);
 
-      cy.getByText("Home").click();
-
-      cy.url().should("be", "/");
+      cy.visit("/");
     });
 
     it("should contain link to user management", () => {
@@ -27,9 +25,7 @@ describe("Navigation", () => {
     beforeEach(function() {
       cy.login(this.seed.owner.email, this.seed.owner.password);
 
-      cy.getByText("Home").click();
-
-      cy.url().should("be", "/");
+      cy.visit("/");
     });
 
     it("should contain link to place management", () => {
