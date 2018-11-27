@@ -27,7 +27,9 @@ interface Props extends WithStyles<ClassKey> {
  */
 const enhance = withStyles<ClassKey>(theme => ({
   root: {
-    display: "flex"
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "flex-end"
   },
   content: {
     flex: 1
