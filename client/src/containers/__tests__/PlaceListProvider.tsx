@@ -36,14 +36,12 @@ describe("PlaceListProvider", () => {
       );
     });
 
-    it("provides own places", () => {
+    it("provides details about requested page", () => {
+      const mock = jest.fn(() => null);
+
       renderWithProviders(
         <PlaceListProvider own={true} currentPage={4}>
-          {({ ids }) => {
-            expect(ids).toEqual(["6", "7", "9"]);
-
-            return null;
-          }}
+          {mock}
         </PlaceListProvider>,
         {
           state: {
@@ -60,19 +58,19 @@ describe("PlaceListProvider", () => {
         }
       );
 
-      expect.assertions(1);
+      expect(mock.mock.calls[0][0].ids).toEqual(["6", "7", "9"]);
+      expect(mock.mock.calls[0][0].hasPrevPage).toBe(false);
+      expect(mock.mock.calls[0][0].hasNextPage).toBe(true);
     });
   });
 
   describe("when places filtered by rating are requested", () => {
     it("provides places filtered by rating", () => {
+      const mock = jest.fn(() => null);
+
       renderWithProviders(
         <PlaceListProvider ratingFilter={2} currentPage={3}>
-          {({ ids }) => {
-            expect(ids).toEqual(["1", "2", "3"]);
-
-            return null;
-          }}
+          {mock}
         </PlaceListProvider>,
         {
           state: {
@@ -91,7 +89,7 @@ describe("PlaceListProvider", () => {
         }
       );
 
-      expect.assertions(1);
+      expect(mock.mock.calls[0][0].ids).toEqual(["1", "2", "3"]);
     });
 
     it("dispatches load action on mount", () => {
