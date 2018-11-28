@@ -1,13 +1,13 @@
 import React from "react";
 import {
+  fireEvent,
   flushEffects,
-  renderWithProviders,
-  fireEvent
+  renderWithProviders
 } from "../../../test/test-utils";
-import { loadPlaces, deletePlace } from "../../actions/placeListActions";
-import { PlaceDetailsProvider } from "../PlaceDetailsProvider";
 import { loadPlace } from "../../actions/placeDetailsActions";
+import { deletePlace } from "../../actions/placeListActions";
 import { State } from "../../reducers";
+import { PlaceDetailsProvider } from "../PlaceDetailsProvider";
 
 describe("PlaceDetailsProvider", () => {
   it("displays placeholder while the place is loading", () => {

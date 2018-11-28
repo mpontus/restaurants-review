@@ -2,7 +2,8 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  Typography
 } from "@material-ui/core";
 import { DialogProps } from "@material-ui/core/Dialog";
 import React from "react";
@@ -95,8 +96,13 @@ export const ReplyFormModal: React.SFC<Props> = ({
       initialValues={initialValues}
       validationSchema={validationSchema}
       errors={error && error.details}
+      aria-labelledby="form-dialog-title"
     >
-      <DialogTitle id="form-dialog-title">Reply to a review</DialogTitle>
+      <DialogTitle disableTypography={true}>
+        <Typography variant="h6" id="form-dialog-title">
+          Reply to a review
+        </Typography>
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>{subtitle}</DialogContentText>
         <Field

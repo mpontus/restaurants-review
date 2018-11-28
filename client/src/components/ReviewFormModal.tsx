@@ -3,7 +3,8 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
-  FormLabel
+  FormLabel,
+  Typography
 } from "@material-ui/core";
 import { DialogProps } from "@material-ui/core/Dialog";
 import React from "react";
@@ -99,8 +100,13 @@ export const ReviewFormModal: React.SFC<Props> = ({
         initialValues={initialValues}
         validationSchema={validationSchema}
         errors={error && error.details}
+        aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Edit Review</DialogTitle>
+        <DialogTitle disableTypography={true}>
+          <Typography variant="h6" id="form-dialog-title">
+            Edit Review
+          </Typography>
+        </DialogTitle>
         <DialogContent>
           <FormControl component="fieldset" margin="normal">
             <FormLabel htmlFor="rating">Rating</FormLabel>

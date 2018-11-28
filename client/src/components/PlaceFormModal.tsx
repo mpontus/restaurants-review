@@ -2,7 +2,8 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle
+  DialogTitle,
+  Typography
 } from "@material-ui/core";
 import { DialogProps } from "@material-ui/core/Dialog";
 import React from "react";
@@ -111,8 +112,13 @@ export const PlaceFormModal: React.SFC<Props> = ({
       initialValues={initialValues}
       validationSchema={validationSchema}
       errors={error && error.details}
+      aria-labelledby="form-dialog-title"
     >
-      <DialogTitle id="form-dialog-title">{title}</DialogTitle>
+      <DialogTitle disableTypography={true}>
+        <Typography variant="h6" id="form-dialog-title">
+          {title}
+        </Typography>
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>{subtitle}</DialogContentText>
         <Field
@@ -124,7 +130,6 @@ export const PlaceFormModal: React.SFC<Props> = ({
         />
         <Field
           component={Input}
-          type="address"
           id="address"
           name="address"
           label="Restaurant Address"

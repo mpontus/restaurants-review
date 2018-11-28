@@ -1,11 +1,10 @@
 import React from "react";
 import {
   fireEvent,
-  flushEffects,
   renderWithProviders
 } from "../../../test/test-utils";
-import { PlaceContainer } from "../PlaceContainer";
 import { deletePlace } from "../../actions/placeListActions";
+import { PlaceContainer } from "../PlaceContainer";
 
 describe("PlaceContainer", () => {
   it("renders place details", () => {

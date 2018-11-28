@@ -5,7 +5,8 @@ import {
   DialogTitle,
   FormControl,
   FormGroup,
-  FormLabel
+  FormLabel,
+  Typography
 } from "@material-ui/core";
 import { DialogProps } from "@material-ui/core/Dialog";
 import React from "react";
@@ -23,6 +24,11 @@ import { Switch } from "./Switch";
  * User Form Modal Props
  */
 interface Props extends Pick<DialogProps, "open" | "onExited"> {
+  /**
+   * Remove unchanged values before submission
+   */
+  onlyChanged?: boolean;
+
   /**
    * Auto focus on the first field
    */
@@ -104,6 +110,7 @@ const defaultValues = {
  */
 export const UserFormModal: React.SFC<Props> = ({
   open,
+  onlyChanged,
   autoFocus,
   loading,
   title,
@@ -117,13 +124,18 @@ export const UserFormModal: React.SFC<Props> = ({
 }) => (
   <AdaptiveModal open={open} onExited={onExited} onClose={onCancel}>
     <Form
-      onlyChanged={true}
+      onlyChanged={onlyChanged}
       onSubmit={onSubmit}
       initialValues={initialValues}
       validationSchema={validationSchema}
       errors={error && error.details}
+      aria-labelledby="form-dialog-title"
     >
-      <DialogTitle id="form-dialog-title">{title}</DialogTitle>
+      <DialogTitle disableTypography={true}>
+        <Typography variant="h6" id="form-dialog-title">
+          {title}
+        </Typography>
+      </DialogTitle>
       <DialogContent>
         <DialogContentText>{subtitle}</DialogContentText>
         <FormControl component="fieldset" margin="normal">

@@ -127,14 +127,11 @@ const BaseUserFormModalContainer = ({
   return (
     <UserFormModal
       open={open}
+      onlyChanged={user !== undefined}
       autoFocus={user === undefined}
       title={user ? "Update User" : "Create User"}
       subtitle={
-        user ? (
-          <>Change {user.name} account details</>
-        ) : (
-          <>Enter new user details.</>
-        )
+        user ? `Change ${user.name} account details` : "Enter new user details"
       }
       submitLabel="Save User"
       initialValues={initialValues}
