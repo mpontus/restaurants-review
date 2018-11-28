@@ -16,10 +16,14 @@
         "classes": "all",
         "methods": "all",
         "properties": "all",
-        "functions": "all",
         "interfaces": "all",
         "types": "all",
-        "variables": "all"
+        "functions": {
+          "visibilities": "exported"
+        },
+        "variables": {
+          "visibilities": "exported"
+        }
       }
     ],
 
