@@ -1,9 +1,10 @@
 import React from "react";
+import { RouteComponentProps } from "react-router";
 import { Button } from "../components/Button";
-import { PageActions } from "../components/PageActions";
 import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
+import { PageActions } from "../components/PageActions";
 import { Pagination } from "../components/Pagination";
 import { Subheading } from "../components/Subheading";
 import { UserContainer } from "../containers/UserContainer";
@@ -17,8 +18,8 @@ import { usePagination } from "../hooks/usePagination";
  *
  * Displays a list of website users
  */
-export const UserListScreen = () => {
-  const [currentPage, onPrevPage, onNextPage] = usePagination(0);
+export const UserListScreen = ({ history }: RouteComponentProps) => {
+  const [currentPage, onPrevPage, onNextPage] = usePagination(history);
   const [showCreateModal, hideCreateModal] = useModal(() => (
     <UserFormModalContainer onCancel={hideCreateModal} />
   ));

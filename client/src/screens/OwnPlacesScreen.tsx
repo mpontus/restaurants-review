@@ -1,4 +1,5 @@
 import React from "react";
+import { RouteComponentProps } from "react-router";
 import { Button } from "../components/Button";
 import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
@@ -17,11 +18,12 @@ import { usePagination } from "../hooks/usePagination";
  *
  * Displays a list of user's own restaurants.
  */
-export const OwnPlacesScreen = () => {
-  const [currentPage, onPrevPage, onNextPage] = usePagination(0);
+export const OwnPlacesScreen = ({ history }: RouteComponentProps) => {
+  const [currentPage, onPrevPage, onNextPage] = usePagination(history);
   const [showCreateModal, hideCreateModal] = useModal(() => (
     <PlaceFormModalContainer onCancel={hideCreateModal} />
   ));
+
   return (
     <DocumentTitle title="Restaurant Management">
       <Heading>Restaurant Management</Heading>

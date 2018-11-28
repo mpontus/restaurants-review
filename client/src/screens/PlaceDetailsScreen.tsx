@@ -28,8 +28,8 @@ interface Props extends RouteComponentProps<{ id: string }> {}
  *
  * Displays detailed information about a place
  */
-export const PlaceDetailsScreen = ({ match }: Props) => {
-  const [currentPage, onPrevPage, onNextPage] = usePagination(0);
+export const PlaceDetailsScreen = ({ match, history }: Props) => {
+  const [currentPage, onPrevPage, onNextPage] = usePagination(history);
 
   return (
     <PlaceDetailsProvider

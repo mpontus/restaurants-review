@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback } from "react";
+import { RouteComponentProps } from "react-router";
 import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
@@ -8,18 +9,25 @@ import { Subheading } from "../components/Subheading";
 import { PlaceContainer } from "../containers/PlaceContainer";
 import { PlaceListProvider } from "../containers/PlaceListProvider";
 import { usePagination } from "../hooks/usePagination";
+import { useRatingFilter } from "../hooks/useRatingFilter";
 
 /**
  * Frontpage Screen
  *
  * Displays a list of restaurants.
  */
-export const FrontpageScreen = () => {
-  const [ratingFilter, setRatingFilter] = useState(0);
-  const [currentPage, onPrevPage, onNextPage, setPage] = usePagination(0);
+export const FrontpageScreen = ({ history }: RouteComponentProps) => {
+  const [ratingFilter, setRatingFilter] = useRatingFilter(history);
+  const [currentPage, onPrevPage, onNextPage, setPage] = usePagination(history);
 
   // Reset page when rating filter changes
-  useEffect(() => setPage(0), [ratingFilter]);
+  const onRatingFilterChange = useCallback(
+    nextRating => {
+      setPage(0);
+      setRatingFilter(nextRating);
+    },
+    [setPage, setRatingFilter]
+  );
 
   return (
     <DocumentTitle>
@@ -28,6 +36,10 @@ export const FrontpageScreen = () => {
         This is a website for restaurant reviews. You can find the best
         restaurants and read reviews left by our users.
       </Subheading>
+      <RatingFilterControl
+        value={ratingFilter}
+        onChange={onRatingFilterChange}
+      />
       <PlaceListProvider
         ratingFilter={ratingFilter}
         currentPage={currentPage}
@@ -35,22 +47,16 @@ export const FrontpageScreen = () => {
         emptyPlaceholder={<Subheading>There are no places yet.</Subheading>}
       >
         {({ ids, hasNextPage, hasPrevPage }) => (
-          <React.Fragment>
-            <RatingFilterControl
-              value={ratingFilter}
-              onChange={setRatingFilter}
-            />
-            <Pagination
-              items={ids}
-              renderItem={placeId => (
-                <PlaceContainer showRating={true} key={placeId} id={placeId} />
-              )}
-              hasNext={hasNextPage}
-              hasPrev={hasPrevPage}
-              onNext={onNextPage}
-              onPrev={onPrevPage}
-            />
-          </React.Fragment>
+          <Pagination
+            items={ids}
+            renderItem={placeId => (
+              <PlaceContainer showRating={true} key={placeId} id={placeId} />
+            )}
+            hasNext={hasNextPage}
+            hasPrev={hasPrevPage}
+            onNext={onNextPage}
+            onPrev={onPrevPage}
+          />
         )}
       </PlaceListProvider>
     </DocumentTitle>

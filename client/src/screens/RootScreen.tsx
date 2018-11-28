@@ -30,23 +30,23 @@ export const RootScreen = () => {
           <Route exact={true} path={routes.HOME} component={FrontpageScreen} />
           <Route path={routes.PLACE_DETAILS} component={PlaceDetailsScreen} />
           <Route path={routes.PLACES_OWN}>
-            {() => (
+            {props => (
               <AuthGuard rule={isOwner} placeholder={redirectHome}>
-                <OwnPlacesScreen />
+                <OwnPlacesScreen {...props} />
               </AuthGuard>
             )}
           </Route>
           <Route path={routes.REVIEWS_PENDING}>
-            {() => (
+            {props => (
               <AuthGuard rule={isOwner} placeholder={redirectHome}>
-                <PendingReviewsScreen />
+                <PendingReviewsScreen {...props} />
               </AuthGuard>
             )}
           </Route>
           <Route path={routes.USERS}>
-            {() => (
+            {props => (
               <AuthGuard rule={isAdmin} placeholder={redirectHome}>
-                <UserListScreen />
+                <UserListScreen {...props} />
               </AuthGuard>
             )}
           </Route>

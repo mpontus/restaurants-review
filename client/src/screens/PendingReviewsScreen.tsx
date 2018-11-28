@@ -1,4 +1,5 @@
 import React from "react";
+import { RouteComponentProps } from "react-router";
 import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
 import { Loading } from "../components/Loading";
@@ -13,8 +14,8 @@ import { usePagination } from "../hooks/usePagination";
  *
  * Displays a list of reviews pending for the user's reply
  */
-export const PendingReviewsScreen = () => {
-  const [currentPage, onPrevPage, onNextPage] = usePagination(0);
+export const PendingReviewsScreen = ({ history }: RouteComponentProps) => {
+  const [currentPage, onPrevPage, onNextPage] = usePagination(history);
 
   return (
     <DocumentTitle title="Pending Reviews">
