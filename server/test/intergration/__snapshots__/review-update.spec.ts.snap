@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Update review when user is an admin should reset reply 1`] = `
+Object {
+  "author": Object {
+    "name": "Trenton Kessler",
+  },
+  "canDelete": true,
+  "canEdit": true,
+  "comment": "Field return long bed after.",
+  "dateVisited": "2012-05-22",
+  "id": "d8320717-05e2-5fd0-83ee-0c36d13b55e1",
+  "place": Object {
+    "address": "262 Franecki Courts",
+    "canDelete": true,
+    "canEdit": true,
+    "canReview": true,
+    "id": "05bd7b00-f274-5b91-9c48-08bfa24cb9bd",
+    "rating": 0,
+    "reviewCount": 0,
+    "title": "Nicolas - Satterfield",
+  },
+  "rating": 4,
+}
+`;
+
 exports[`Update review when user is an admin should update comment 1`] = `
 Object {
   "author": Object {

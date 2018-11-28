@@ -155,7 +155,11 @@ export class ReviewService {
     Object.assign(review, {
       rating: data.rating || review.rating,
       comment: data.comment || review.comment,
-      reply: data.reply || review.reply,
+
+      // Reset reply when its an empty string, otherwise update the reply
+      reply: data.reply === '' ? undefined : data.reply || review.reply,
+
+      // Remove pendingFor the first time reply is populated
       pendingFor: data.reply ? undefined : review.pendingFor,
     });
 

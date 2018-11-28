@@ -53,6 +53,23 @@ describe('Update review', () => {
       expect(response.body).toMatchSnapshot();
     });
 
+    it('should reset reply', async () => {
+      // Seed review with reply
+      const ownerSeed = require('../seed/owner-user');
+
+      await ownerSeed.run(nestApp);
+
+      const response = await supertest(nestApp.getHttpServer())
+        .patch(`/reviews/${ownerSeed.answeredReviews[0].id}`)
+        .send({
+          reply: '',
+        })
+        .set('Authorization', `Bearer ${authSeed.accessToken}`)
+        .expect(200);
+
+      expect(response.body).toMatchSnapshot();
+    });
+
     it('should update reply', async () => {
       const response = await supertest(nestApp.getHttpServer())
         .patch(`/reviews/${seed.reviews[0].id}`)

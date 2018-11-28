@@ -115,7 +115,7 @@ export class ReviewRepository {
     await this.manager.update(ReviewEntity, review.id, {
       rating: review.rating,
       comment: review.comment,
-      reply: review.reply,
+      reply: review.reply || null,
       pendingFor: review.pendingFor,
     });
 

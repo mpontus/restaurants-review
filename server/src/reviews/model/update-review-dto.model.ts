@@ -41,10 +41,11 @@ export class UpdateReviewDto {
 
   /**
    * Updated text of the review reply
+   *
+   * Can be empty, which will be treated as reply removal.
    */
   @IsOptional()
   @IsString()
-  @IsNotEmpty()
   @MaxLength(400)
   @ApiModelProperty({
     type: 'string',
