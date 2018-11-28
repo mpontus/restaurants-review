@@ -1,5 +1,5 @@
-import React from "react";
 import { withStyles, WithStyles } from "@material-ui/core";
+import React from "react";
 
 /**
  * Component Props

@@ -6,7 +6,7 @@ import { UserFormModal } from "../components/UserFormModal";
 import { useSubsequent } from "../hooks/useSubsequentValue";
 import { RequestStatus } from "../models/RequestStatus";
 import { SaveUserDto } from "../models/SaveUserDto";
-import { isAdmin, isOwner, isUser, User } from "../models/User";
+import { isAdmin, isOwner, User } from "../models/User";
 import { State } from "../reducers";
 import {
   makeGetUserById,
