@@ -116,8 +116,8 @@ export const AuthModal: React.SFC<Props> = ({
         value={tabIndex}
         onChange={handleChange}
       >
-        <Tab label="Login" />
-        <Tab label="Sign Up" />
+        <Tab label={<span id="auth-tab-login">Log In</span>} />
+        <Tab label={<span id="auth-tab-signup">Sign Up</span>} />
       </Tabs>
       <SwipeableViews index={tabIndex} onChangeIndex={setTabIndex}>
         <Form
@@ -125,6 +125,7 @@ export const AuthModal: React.SFC<Props> = ({
           validationSchema={loginSchema}
           errors={loginError && loginError.details}
           onSubmit={onLogin}
+          aria-labelledby="auth-tab-login"
         >
           <DialogContent>
             <DialogContentText>Log in with existing account</DialogContentText>
@@ -155,6 +156,7 @@ export const AuthModal: React.SFC<Props> = ({
           validationSchema={signupSchema}
           errors={signupError && signupError.details}
           onSubmit={onSignup}
+          aria-labelledby="auth-tab-signup"
         >
           <DialogContent>
             <DialogContentText>Sign up with a new account</DialogContentText>
