@@ -68,8 +68,14 @@ interface Props {
  * Place form validation schema
  */
 const validationSchema = yup.object<SavePlaceDto>().shape({
-  title: yup.string().required(),
-  address: yup.string().required()
+  title: yup
+    .string()
+    .required()
+    .trim(),
+  address: yup
+    .string()
+    .required()
+    .trim()
 });
 
 /**

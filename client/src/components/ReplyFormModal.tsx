@@ -58,7 +58,10 @@ interface Props {
  * Review form validation schema
  */
 const validationSchema = yup.object<ReplyDto>().shape({
-  comment: yup.string().required()
+  comment: yup
+    .string()
+    .required()
+    .trim()
 });
 
 /**

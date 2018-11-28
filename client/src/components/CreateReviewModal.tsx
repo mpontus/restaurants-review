@@ -60,7 +60,10 @@ const validationSchema = yup.object<CreateReviewDto>().shape({
     .min(1)
     .max(5)
     .required(),
-  comment: yup.string().required()
+  comment: yup
+    .string()
+    .required()
+    .trim()
 });
 
 /**

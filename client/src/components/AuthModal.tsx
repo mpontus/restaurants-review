@@ -72,7 +72,10 @@ const loginSchema = yup.object<LoginDto>().shape({
  * Validation schema for signup form
  */
 const signupSchema = yup.object<SignupDto>().shape({
-  name: yup.string().required(),
+  name: yup
+    .string()
+    .required()
+    .trim(),
   email: yup.string().required(),
   password: yup
     .string()

@@ -72,7 +72,10 @@ interface Props {
  * User form validation schema
  */
 const validationSchema = yup.object<SaveUserDto>().shape({
-  name: yup.string().required(),
+  name: yup
+    .string()
+    .required()
+    .trim(),
   email: yup
     .string()
     .email()
