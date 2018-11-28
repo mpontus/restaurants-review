@@ -1,29 +1,18 @@
 import React from "react";
-import { Provider } from "react-redux";
-import { flushEffects, render } from "react-testing-library";
-import "react-testing-library/cleanup-after-each";
-import configureStore from "redux-mock-store";
+import { flushEffects, renderWithProviders } from "../../../test/test-utils";
 import { loadPlaces } from "../../actions/placeListActions";
-import { rootReducer, State } from "../../reducers";
 import { PlaceListProvider } from "../PlaceListProvider";
-
-const mockStore = configureStore<State>();
-const initialState = rootReducer(undefined, {} as any);
 
 describe("PlaceListProvider", () => {
   it("renders placeholder while items are loading", () => {
-    const store = mockStore(initialState);
-
-    const { getByText } = render(
-      <Provider store={store}>
-        <PlaceListProvider
-          loadingPlaceholder={<span>Placeholder</span>}
-          ratingFilter={2}
-          currentPage={3}
-        >
-          {() => null}
-        </PlaceListProvider>
-      </Provider>
+    const { getByText } = renderWithProviders(
+      <PlaceListProvider
+        loadingPlaceholder={<span>Placeholder</span>}
+        ratingFilter={2}
+        currentPage={3}
+      >
+        {() => null}
+      </PlaceListProvider>
     );
 
     expect(getByText("Placeholder")).toBeTruthy();
@@ -31,14 +20,10 @@ describe("PlaceListProvider", () => {
 
   describe("when own places are requested", () => {
     it("dispatches load action on mount", () => {
-      const store = mockStore(initialState);
-
-      const { getByText } = render(
-        <Provider store={store}>
-          <PlaceListProvider ratingFilter={2} currentPage={3}>
-            {() => null}
-          </PlaceListProvider>
-        </Provider>
+      const { store } = renderWithProviders(
+        <PlaceListProvider ratingFilter={2} currentPage={3}>
+          {() => null}
+        </PlaceListProvider>
       );
 
       flushEffects();
@@ -52,29 +37,27 @@ describe("PlaceListProvider", () => {
     });
 
     it("provides own places", () => {
-      const store = mockStore({
-        ...initialState,
-        ownPlaceList: {
-          4: {
-            offset: 90,
-            total: 100,
-            nextPageExists: true,
-            prevPageExists: false,
-            items: ["6", "7", "9"]
+      renderWithProviders(
+        <PlaceListProvider own={true} currentPage={4}>
+          {({ ids }) => {
+            expect(ids).toEqual(["6", "7", "9"]);
+
+            return null;
+          }}
+        </PlaceListProvider>,
+        {
+          state: {
+            ownPlaceList: {
+              4: {
+                offset: 90,
+                total: 100,
+                nextPageExists: true,
+                prevPageExists: false,
+                items: ["6", "7", "9"]
+              }
+            }
           }
         }
-      });
-
-      const { getByText } = render(
-        <Provider store={store}>
-          <PlaceListProvider own={true} currentPage={4}>
-            {({ ids }) => {
-              expect(ids).toEqual(["6", "7", "9"]);
-
-              return null;
-            }}
-          </PlaceListProvider>
-        </Provider>
       );
 
       expect.assertions(1);
@@ -83,45 +66,39 @@ describe("PlaceListProvider", () => {
 
   describe("when places filtered by rating are requested", () => {
     it("provides places filtered by rating", () => {
-      const store = mockStore({
-        ...initialState,
-        placeList: {
-          2: {
-            3: {
-              offset: 90,
-              total: 100,
-              nextPageExists: true,
-              prevPageExists: false,
-              items: ["1", "2", "3"]
+      renderWithProviders(
+        <PlaceListProvider ratingFilter={2} currentPage={3}>
+          {({ ids }) => {
+            expect(ids).toEqual(["1", "2", "3"]);
+
+            return null;
+          }}
+        </PlaceListProvider>,
+        {
+          state: {
+            placeList: {
+              2: {
+                3: {
+                  offset: 90,
+                  total: 100,
+                  nextPageExists: true,
+                  prevPageExists: false,
+                  items: ["1", "2", "3"]
+                }
+              }
             }
           }
         }
-      });
-
-      const { getByText } = render(
-        <Provider store={store}>
-          <PlaceListProvider ratingFilter={2} currentPage={3}>
-            {({ ids }) => {
-              expect(ids).toEqual(["1", "2", "3"]);
-
-              return null;
-            }}
-          </PlaceListProvider>
-        </Provider>
       );
 
       expect.assertions(1);
     });
 
     it("dispatches load action on mount", () => {
-      const store = mockStore(initialState);
-
-      const { getByText } = render(
-        <Provider store={store}>
-          <PlaceListProvider own={true} currentPage={3}>
-            {() => null}
-          </PlaceListProvider>
-        </Provider>
+      const { store } = renderWithProviders(
+        <PlaceListProvider own={true} currentPage={3}>
+          {() => null}
+        </PlaceListProvider>
       );
 
       flushEffects();
