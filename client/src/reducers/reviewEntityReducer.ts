@@ -3,6 +3,7 @@ import { Reducer } from "redux";
 import { getType } from "typesafe-actions";
 import { Action } from "../actions";
 import { loadPlace } from "../actions/placeDetailsActions";
+import { loadPlaces } from "../actions/placeListActions";
 import { loadReviews, updateReview } from "../actions/reviewListActions";
 import { Review } from "../models/Review";
 import { placeSchema } from "../schemas/placeSchema";
@@ -38,6 +39,17 @@ export const reviewEntityReducer: Reducer<State, Action> = (
         {},
         state,
         normalize(review, reviewSchema).entities.review
+      );
+    }
+
+    // Extract reviews from place list
+    case getType(loadPlaces.success): {
+      const { items } = action.payload.page;
+
+      return Object.assign(
+        {},
+        state,
+        normalize(items, [placeSchema]).entities.review
       );
     }
 
