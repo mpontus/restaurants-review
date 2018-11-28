@@ -1,70 +1,69 @@
 import React from "react";
 import { fireEvent, renderWithProviders } from "../../../test/test-utils";
-import { deletePlace } from "../../actions/placeListActions";
-import { PlaceContainer } from "../PlaceContainer";
+import { deleteUser } from "../../actions/userListActions";
+import { UserContainer } from "../UserContainer";
 
-describe("PlaceContainer", () => {
+describe("UserContainer", () => {
   const state = {
-    placeEntity: {
+    userEntity: {
       "4": {
         id: "4",
-        title: "Place Title Stub",
-        address: "Place Address Stub",
-        rating: 3.749999,
+        name: "User Name Stub",
+        email: "user@example.org",
+        roles: ["user", "owner"],
         canEdit: true,
         canDelete: true
       }
     }
   };
 
-  it("renders place details", () => {
-    const { getByText } = renderWithProviders(
-      <PlaceContainer id="4" showRating={true} />,
-      { state }
-    );
+  it("renders user details", () => {
+    const { getByText } = renderWithProviders(<UserContainer id="4" />, {
+      state
+    });
 
-    expect(getByText("Place Title Stub")).toBeTruthy();
-    expect(getByText("Place Address Stub")).toBeTruthy();
-    expect(getByText("Rating: 3.75")).toBeTruthy();
+    expect(getByText("User Name Stub")).toBeTruthy();
+    expect(getByText("user@example.org")).toBeTruthy();
+    expect(getByText("Owner")).toBeTruthy();
   });
 
   it("opens edit dialog when Edit button is pressed", () => {
     const { getByLabelText, getByText } = renderWithProviders(
-      <PlaceContainer id="4" showActions={true} />,
+      <UserContainer id="4" />,
       { state }
     );
 
     fireEvent.click(getByLabelText("More Actions"));
     fireEvent.click(getByText("Edit"));
 
-    expect(getByText("Edit Restaurant")).toBeTruthy();
+    expect(getByText("Update User")).toBeTruthy();
   });
 
   it("opens delete dialog when Delete button is pressed", () => {
     const { getByLabelText, getByText } = renderWithProviders(
-      <PlaceContainer id="4" showActions={true} />,
+      <UserContainer id="4" />,
       { state }
     );
 
     fireEvent.click(getByLabelText("More Actions"));
     fireEvent.click(getByText("Delete"));
 
-    expect(getByText("Delete restaurant?")).toBeTruthy();
+    expect(getByText("Delete user?")).toBeTruthy();
   });
 
   it("dispatches delete action when deletion is confirmed", () => {
     const { store, getByLabelText, getByText } = renderWithProviders(
-      <PlaceContainer id="4" showActions={true} />,
+      <UserContainer id="4" />,
       { state }
     );
 
     fireEvent.click(getByLabelText("More Actions"));
     fireEvent.click(getByText("Delete"));
-    fireEvent.click(getByText("Delete Restaurant"));
+    fireEvent.click(getByText("Delete user"));
 
     expect(store.getActions()).toContainEqual(
-      deletePlace.request({
-        place: expect.objectContaining({ id: "4" })
+      deleteUser.request({
+        user: expect.objectContaining({ id: "4" })
       })
     );
   });
