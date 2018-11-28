@@ -13,7 +13,8 @@ describe("Navigation", () => {
     });
 
     it("should contain link to user management", () => {
-      cy.getByText("Users").click();
+      cy.getByText("Users").should("be.visible");
+      cy.getByText("Users").click({ force: true });
 
       cy.url().should("be", "/users");
 
@@ -29,7 +30,8 @@ describe("Navigation", () => {
     });
 
     it("should contain link to place management", () => {
-      cy.getByText("Restaurants").click();
+      cy.getByText("Restaurants").should("be.visible");
+      cy.getByText("Restaurants").click({ force: true });
 
       cy.url().should("be", "/places");
 
@@ -37,7 +39,8 @@ describe("Navigation", () => {
     });
 
     it("should contain link to pending reviews", () => {
-      cy.getByText("Reviews").click();
+      cy.getByText("Reviews").should("be.visible");
+      cy.getByText("Reviews").click({ force: true });
 
       cy.url().should("be", "/reviews");
 
