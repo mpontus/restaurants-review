@@ -41,7 +41,5 @@ export const useQueryParam = (
     [params]
   );
 
-  console.log({ [name]: params[name] });
-
   return [params[name], setParam];
 };
