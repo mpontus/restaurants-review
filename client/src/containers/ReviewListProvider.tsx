@@ -122,7 +122,9 @@ const BaseReviewListProvider = ({
   // Load reviews on mount
   useEffect(
     () => {
-      onLoadReviews({ pending, place, page: currentPage });
+      onLoadReviews(
+        place ? { place, page: currentPage } : { pending, page: currentPage }
+      );
     },
     [pending, place, currentPage]
   );
