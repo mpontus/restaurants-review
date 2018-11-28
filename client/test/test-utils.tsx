@@ -50,4 +50,4 @@ export const renderWithProviders = (
   };
 };
 
-export { flushEffects } from "react-testing-library";
+export * from "react-testing-library";
