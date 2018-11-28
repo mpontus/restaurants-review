@@ -136,7 +136,9 @@ class BaseRatingInput extends React.PureComponent<Props> {
         name={this.props.name}
         value={value}
         icon={children}
-        aria-label={`${value} stars`}
+        inputProps={{
+          "aria-label": `${value} stars`
+        }}
       />
     );
   };

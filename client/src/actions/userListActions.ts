@@ -43,7 +43,7 @@ export const updateUser = createAsyncAction(
 )<
   {
     user: User;
-    data: SaveUserDto;
+    data: Partial<SaveUserDto>;
   },
   { user: User },
   {

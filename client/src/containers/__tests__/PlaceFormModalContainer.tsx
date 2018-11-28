@@ -5,10 +5,10 @@ import { PlaceFormModalContainer } from "../PlaceFormModalContainer";
 
 const noop = () => undefined;
 
-describe("PlaceFormContainer", () => {
+describe("PlaceFormModalContainer", () => {
   it("self-closes when cancel button is pressed", () => {
     const onCancel = jest.fn();
-    const { store, getByText } = renderWithProviders(
+    const { getByText } = renderWithProviders(
       <PlaceFormModalContainer onCancel={onCancel} />
     );
 
@@ -44,7 +44,7 @@ describe("PlaceFormContainer", () => {
   });
 
   describe("when id is provided", () => {
-    it.only("dispatches update event when form is submitted", async () => {
+    it("dispatches update event when form is submitted", async () => {
       const { store, getByLabelText } = renderWithProviders(
         <PlaceFormModalContainer onCancel={noop} id="5" />,
         {
@@ -63,13 +63,11 @@ describe("PlaceFormContainer", () => {
 
       fireEvent.change(getByLabelText("Restaurant Name"), {
         target: {
-          name: "title",
           value: "Another Place Name"
         }
       });
       fireEvent.change(getByLabelText("Restaurant Address"), {
         target: {
-          name: "address",
           value: "Another Place Address"
         }
       });

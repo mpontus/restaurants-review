@@ -6,7 +6,8 @@ import { Schema } from "yup";
 /**
  * Outer props
  */
-export interface FormProps<V> {
+export interface FormProps<V>
+  extends React.FormHTMLAttributes<HTMLFormElement> {
   /**
    * Omit unchanged values from submission
    */
@@ -72,6 +73,16 @@ export class Form<T extends object> extends React.Component<FormProps<T>> {
    * Render
    */
   public render() {
+    const {
+      onlyChanged,
+      initialValues,
+      errors,
+      onSubmit,
+      validationSchema,
+      children,
+      ...rest
+    } = this.props;
+
     return (
       <Formik<T>
         initialValues={this.props.initialValues}
@@ -79,7 +90,7 @@ export class Form<T extends object> extends React.Component<FormProps<T>> {
         onSubmit={this.handleSubmit}
         ref={this.formikRef}
       >
-        <FormikForm>{this.props.children}</FormikForm>
+        <FormikForm {...rest}>{this.props.children}</FormikForm>
       </Formik>
     );
   }
