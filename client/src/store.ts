@@ -1,5 +1,5 @@
 import { History } from "history";
-import { applyMiddleware, compose, createStore } from "redux";
+import { applyMiddleware, compose, createStore, Middleware } from "redux";
 import logger from "redux-logger";
 import { createEpicMiddleware } from "redux-observable";
 import { persistStore } from "redux-persist";
@@ -52,7 +52,13 @@ export const configureStore = (
   >({
     dependencies
   });
-  const middlewareEnhancer = applyMiddleware(epicMiddleware, logger);
+  const middlewares: Middleware[] = [epicMiddleware];
+
+  if (process.env.NODE_ENV !== "production") {
+    middlewares.push(logger);
+  }
+
+  const middlewareEnhancer = applyMiddleware(...middlewares);
   const store = createStore(
     rootReducer,
     preloadedState,
