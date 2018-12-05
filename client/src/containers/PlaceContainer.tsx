@@ -11,15 +11,16 @@ import {
   MoreVert as MoreVertIcon
 } from "@material-ui/icons";
 import React from "react";
+import { useModal } from "react-modal-hook";
 import { connect, Selector } from "react-redux";
 import { Link } from "react-router-dom";
 import { formatRoute } from "react-router-named-routes";
+import { TransitionProps } from "react-transition-group/Transition";
 import { createStructuredSelector } from "reselect";
 import { deletePlace } from "../actions/placeListActions";
 import { ConfirmModal } from "../components/ConfirmModal";
 import { IconMenu } from "../components/IconMenu";
 import { RatingStatic } from "../components/RatingStatic";
-import { useModal } from "../hooks/useModal";
 import { Place } from "../models/Place";
 import { RequestStatus } from "../models/RequestStatus";
 import { State } from "../reducers";
@@ -116,20 +117,31 @@ export const BasePlaceListItemContainer = ({
     return null;
   }
 
-  const [showConfirmModal, hideConfirmModal] = useModal(() => (
-    <ConfirmModal
-      title="Delete restaurant?"
-      confirmLabel="Delete Restaurant"
-      onConfirm={() => onDelete({ place })}
-      onCancel={hideConfirmModal}
-    >
-      Do you really want to delete {place.title}?
-    </ConfirmModal>
-  ));
+  const [showConfirmModal, hideConfirmModal] = useModal(
+    ({ in: open = true, onExited }: TransitionProps) => (
+      <ConfirmModal
+        open={open}
+        onExited={onExited}
+        title="Delete restaurant?"
+        confirmLabel="Delete Restaurant"
+        onConfirm={() => onDelete({ place })}
+        onCancel={hideConfirmModal}
+      >
+        Do you really want to delete {place.title}?
+      </ConfirmModal>
+    )
+  );
 
-  const [showEditModal, hideEditModal] = useModal(() => (
-    <PlaceFormModalContainer id={place.id} onCancel={hideEditModal} />
-  ));
+  const [showEditModal, hideEditModal] = useModal(
+    ({ in: open = true, onExited }: TransitionProps) => (
+      <PlaceFormModalContainer
+        open={open}
+        onExited={onExited}
+        id={place.id}
+        onCancel={hideEditModal}
+      />
+    )
+  );
 
   return (
     <ListItem

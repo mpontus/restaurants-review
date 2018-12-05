@@ -4,6 +4,7 @@ import {
   DialogContentText,
   DialogTitle
 } from "@material-ui/core";
+import { DialogProps } from "@material-ui/core/Dialog";
 import React from "react";
 import * as yup from "yup";
 import { ReplyDto } from "../models/ReplyDto";
@@ -17,7 +18,7 @@ import { Textarea } from "./Textarea";
 /**
  * Review Form Modal Props
  */
-interface Props {
+interface Props extends Omit<DialogProps, "onSubmit"> {
   /**
    * Auto focus on the first field
    */
@@ -78,15 +79,17 @@ const defaultValues = {
  */
 
 export const ReplyFormModal: React.SFC<Props> = ({
+  open,
   autoFocus = false,
   subtitle,
   initialValues = defaultValues,
   loading,
   error,
   onSubmit,
-  onCancel
+  onCancel,
+  onExited
 }) => (
-  <AdaptiveModal open={true} onClose={onCancel}>
+  <AdaptiveModal open={open} onClose={onCancel} onExited={onExited}>
     <Form
       onSubmit={onSubmit}
       initialValues={initialValues}

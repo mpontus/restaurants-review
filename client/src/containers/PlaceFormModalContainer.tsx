@@ -1,3 +1,4 @@
+import { DialogProps } from "@material-ui/core/Dialog";
 import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -16,7 +17,7 @@ import {
 /**
  * External Props
  */
-interface OwnProps {
+interface OwnProps extends DialogProps {
   /**
    * Place id
    */
@@ -89,11 +90,13 @@ const enhance = connect<StateProps, DispatchProps, OwnProps, State>(
  * Displays modal window for place creation and modification.
  */
 const BasePlaceFormModalContainer = ({
+  open,
   place,
   requestStatus: currentRequestStatus,
   onUpdate,
   onCreate,
-  onCancel
+  onCancel,
+  onExited
 }: Props) => {
   // Ignore request state which may have been left by previous modal
   const requestStatus = useSubsequent(currentRequestStatus, {
@@ -120,6 +123,7 @@ const BasePlaceFormModalContainer = ({
 
   return (
     <PlaceFormModal
+      open={open}
       autoFocus={place === undefined}
       title={place ? "Edit Restaurant" : "Add Restaurant"}
       subtitle={
@@ -131,6 +135,7 @@ const BasePlaceFormModalContainer = ({
       error={requestStatus.error}
       onSubmit={data => (place ? onUpdate({ place, data }) : onCreate(data))}
       onCancel={onCancel}
+      onExited={onExited}
     />
   );
 };

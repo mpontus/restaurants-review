@@ -5,6 +5,7 @@ import {
   FormControl,
   FormLabel
 } from "@material-ui/core";
+import { DialogProps } from "@material-ui/core/Dialog";
 import React from "react";
 import * as yup from "yup";
 import { RequestError } from "../models/RequestError";
@@ -19,7 +20,7 @@ import { Textarea } from "./Textarea";
 /**
  * Review Form Modal Props
  */
-interface Props {
+interface Props extends Pick<DialogProps, "open" | "onExited"> {
   /**
    * Auto focus on the first field
    */
@@ -82,15 +83,17 @@ const defaultValues = {
  * Displays a dialog for creating or editing a review.
  */
 export const ReviewFormModal: React.SFC<Props> = ({
+  open,
   autoFocus,
   loading,
   error,
   onSubmit,
   onCancel,
+  onExited,
   initialValues = defaultValues
 }) => {
   return (
-    <AdaptiveModal open={true} onClose={onCancel}>
+    <AdaptiveModal open={open} onExited={onExited} onClose={onCancel}>
       <Form
         onSubmit={onSubmit}
         initialValues={initialValues}

@@ -7,6 +7,7 @@ import {
   FormGroup,
   FormLabel
 } from "@material-ui/core";
+import { DialogProps } from "@material-ui/core/Dialog";
 import React from "react";
 import * as yup from "yup";
 import { RequestError } from "../models/RequestError";
@@ -21,7 +22,7 @@ import { Switch } from "./Switch";
 /**
  * User Form Modal Props
  */
-interface Props {
+interface Props extends Pick<DialogProps, "open" | "onExited"> {
   /**
    * Auto focus on the first field
    */
@@ -102,6 +103,7 @@ const defaultValues = {
  * Displays a dialog for creating or editing a user.
  */
 export const UserFormModal: React.SFC<Props> = ({
+  open,
   autoFocus,
   loading,
   title,
@@ -110,9 +112,10 @@ export const UserFormModal: React.SFC<Props> = ({
   error,
   onSubmit,
   onCancel,
+  onExited,
   initialValues = defaultValues
 }) => (
-  <AdaptiveModal open={true} onClose={onCancel}>
+  <AdaptiveModal open={open} onExited={onExited} onClose={onCancel}>
     <Form
       onlyChanged={true}
       onSubmit={onSubmit}

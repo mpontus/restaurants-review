@@ -4,11 +4,12 @@ import axios from "axios";
 import createBrowserHistory from "history/createBrowserHistory";
 import React from "react";
 import ReactDOM from "react-dom";
+import { ModalProvider } from "react-modal-hook";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
+import { TransitionGroup } from "react-transition-group";
 import { PersistGate } from "redux-persist/integration/react";
 import { ApiGateway } from "./api/ApiGateway";
-import { ModalProvider, ModalRoot } from "./components/ModalRoot";
 import { config } from "./config";
 import { RootScreen } from "./screens/RootScreen";
 import * as serviceWorker from "./serviceWorker";
@@ -46,9 +47,8 @@ ReactDOM.render(
     <PersistGate persistor={persistor}>
       <Router history={history}>
         <MuiThemeProvider theme={theme}>
-          <ModalProvider>
-            <ModalRoot />
-            <CssBaseline />
+          <CssBaseline />
+          <ModalProvider container={TransitionGroup}>
             <RootScreen />
           </ModalProvider>
         </MuiThemeProvider>

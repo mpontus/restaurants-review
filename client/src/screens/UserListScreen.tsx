@@ -1,5 +1,7 @@
 import React from "react";
+import { useModal } from "react-modal-hook";
 import { RouteComponentProps } from "react-router";
+import { TransitionProps } from "react-transition-group/Transition";
 import { Button } from "../components/Button";
 import { DocumentTitle } from "../components/DocumentTitle";
 import { Heading } from "../components/Heading";
@@ -10,7 +12,6 @@ import { Subheading } from "../components/Subheading";
 import { UserContainer } from "../containers/UserContainer";
 import { UserFormModalContainer } from "../containers/UserFormModalContainer";
 import { UserListProvider } from "../containers/UserListProvider";
-import { useModal } from "../hooks/useModal";
 import { usePagination } from "../hooks/usePagination";
 
 /**
@@ -20,9 +21,15 @@ import { usePagination } from "../hooks/usePagination";
  */
 export const UserListScreen = ({ history }: RouteComponentProps) => {
   const [currentPage, onPrevPage, onNextPage] = usePagination(history);
-  const [showCreateModal, hideCreateModal] = useModal(() => (
-    <UserFormModalContainer onCancel={hideCreateModal} />
-  ));
+  const [showCreateModal, hideCreateModal] = useModal(
+    ({ in: open = false, onExited }: TransitionProps) => (
+      <UserFormModalContainer
+        open={open}
+        onCancel={hideCreateModal}
+        onExited={onExited}
+      />
+    )
+  );
 
   return (
     <DocumentTitle title="User Management">

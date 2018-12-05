@@ -1,3 +1,4 @@
+import { DialogProps } from "@material-ui/core/Dialog";
 import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -13,7 +14,7 @@ import { makeGetReviewUpdateRequestStatus } from "../selectors/reviewSelectors";
 /**
  * External Props
  */
-interface OwnProps {
+interface OwnProps extends DialogProps {
   /**
    * Needed to bypass selector typings.
    */
@@ -79,10 +80,12 @@ const enhance = connect<StateProps, DispatchProps, OwnProps, State>(
  * Displays modal window for review creation.
  */
 const BaseCreateReviewModalContainer = ({
+  open,
   place,
   requestStatus: currentRequestStatus,
   onCreate,
-  onCancel
+  onCancel,
+  onExited
 }: Props) => {
   // Ignore initial request state which may have been left from
   // previous modal.
@@ -103,11 +106,13 @@ const BaseCreateReviewModalContainer = ({
 
   return (
     <CreateReviewModal
+      open={open}
       autoFocus={true}
       loading={requestStatus.loading}
       error={requestStatus.error}
       onSubmit={data => onCreate({ place, data })}
       onCancel={onCancel}
+      onExited={onExited}
     />
   );
 };

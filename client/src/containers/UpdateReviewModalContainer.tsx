@@ -1,3 +1,4 @@
+import { DialogProps } from "@material-ui/core/Dialog";
 import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -16,7 +17,7 @@ import {
 /**
  * External Props
  */
-interface OwnProps {
+interface OwnProps extends DialogProps {
   /**
    * Review id
    */
@@ -83,10 +84,12 @@ const enhance = connect<StateProps, DispatchProps, OwnProps, State>(
  * Displays modal window for review modification.
  */
 const BaseUpdateReviewModalContainer = ({
+  open,
   review,
   requestStatus: currentRequestStatus,
   onUpdate,
-  onCancel
+  onCancel,
+  onExited
 }: Props) => {
   if (review === undefined) {
     return null;
@@ -110,6 +113,7 @@ const BaseUpdateReviewModalContainer = ({
 
   return (
     <ReviewFormModal
+      open={open}
       initialValues={{
         rating: review.rating,
         comment: review.comment,
@@ -119,6 +123,7 @@ const BaseUpdateReviewModalContainer = ({
       error={requestStatus.error}
       onSubmit={data => onUpdate({ review, data })}
       onCancel={onCancel}
+      onExited={onExited}
     />
   );
 };

@@ -5,6 +5,7 @@ import {
   Tab,
   Tabs
 } from "@material-ui/core";
+import { DialogProps } from "@material-ui/core/Dialog";
 import React, { useCallback, useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import * as yup from "yup";
@@ -20,7 +21,7 @@ import { Input } from "./Input";
 /**
  * Auth Modal Props
  */
-interface Props {
+interface Props extends DialogProps {
   /**
    * Whether login request is in progress
    */
@@ -90,13 +91,15 @@ const signupSchema = yup.object<SignupDto>().shape({
  * sign up with a new account.
  */
 export const AuthModal: React.SFC<Props> = ({
+  open,
   loginLoading,
   signupLoading,
   loginError,
   signupError,
   onLogin,
   onSignup,
-  onCancel
+  onCancel,
+  onExited
 }) => {
   const [tabIndex, setTabIndex] = useState(0);
   const handleChange = useCallback(
@@ -105,7 +108,7 @@ export const AuthModal: React.SFC<Props> = ({
   );
 
   return (
-    <AdaptiveModal open={true} onClose={onCancel}>
+    <AdaptiveModal open={open} onExited={onExited} onClose={onCancel}>
       <Tabs
         fullWidth={true}
         indicatorColor="primary"

@@ -1,4 +1,5 @@
 import React from "react";
+import { useModal } from "react-modal-hook";
 import { RouteComponentProps } from "react-router";
 import { Button } from "../components/Button";
 import { DocumentTitle } from "../components/DocumentTitle";
@@ -10,7 +11,6 @@ import { Subheading } from "../components/Subheading";
 import { PlaceContainer } from "../containers/PlaceContainer";
 import { PlaceFormModalContainer } from "../containers/PlaceFormModalContainer";
 import { PlaceListProvider } from "../containers/PlaceListProvider";
-import { useModal } from "../hooks/useModal";
 import { usePagination } from "../hooks/usePagination";
 
 /**
@@ -20,9 +20,15 @@ import { usePagination } from "../hooks/usePagination";
  */
 export const OwnPlacesScreen = ({ history }: RouteComponentProps) => {
   const [currentPage, onPrevPage, onNextPage] = usePagination(history);
-  const [showCreateModal, hideCreateModal] = useModal(() => (
-    <PlaceFormModalContainer onCancel={hideCreateModal} />
-  ));
+  const [showCreateModal, hideCreateModal] = useModal(
+    ({ in: open = true, onExited }) => (
+      <PlaceFormModalContainer
+        open={open}
+        onExited={onExited}
+        onCancel={hideCreateModal}
+      />
+    )
+  );
 
   return (
     <DocumentTitle title="Restaurant Management">

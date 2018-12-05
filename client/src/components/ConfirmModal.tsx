@@ -4,6 +4,7 @@ import {
   DialogContentText,
   DialogTitle
 } from "@material-ui/core";
+import { DialogProps } from "@material-ui/core/Dialog";
 import React from "react";
 import { RequestError } from "../models/RequestError";
 import { AdaptiveModal } from "./AdaptiveModal";
@@ -12,7 +13,7 @@ import { Button } from "./Button";
 /**
  * Confirm Modal Props
  */
-interface Props {
+interface Props extends Pick<DialogProps, "open" | "onExited"> {
   /**
    * Dialog title
    */
@@ -50,16 +51,19 @@ interface Props {
  * Displays yes or no question as a modal.
  */
 export const ConfirmModal: React.SFC<Props> = ({
+  open,
   title,
   confirmLabel,
   loading,
   error,
   onConfirm,
   onCancel,
+  onExited,
   children
 }) => (
   <AdaptiveModal
-    open={true}
+    open={open}
+    onExited={onExited}
     fullScreen={false}
     onClose={onCancel}
     aria-labelledby="confirm-dialog-title"

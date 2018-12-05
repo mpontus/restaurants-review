@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
+import { useModal } from "react-modal-hook";
 import { connect, Selector } from "react-redux";
+import { TransitionProps } from "react-transition-group/Transition";
 import { createStructuredSelector } from "reselect";
 import { loadPlace } from "../actions/placeDetailsActions";
 import { deletePlace } from "../actions/placeListActions";
 import { ConfirmModal } from "../components/ConfirmModal";
-import { useModal } from "../hooks/useModal";
 import { Place } from "../models/Place";
 import { State } from "../reducers";
 import { makeGetPlaceById } from "../selectors/placeSelectors";
@@ -131,22 +132,40 @@ export const BasePlaceDetailsProvider = ({
     return placeholder;
   }
 
-  const [showReviewModal, hideReviewModal] = useModal(() => (
-    <CreateReviewModalContainer place={place} onCancel={hideReviewModal} />
-  ));
-  const [showEditModal, hideEditModal] = useModal(() => (
-    <PlaceFormModalContainer id={place.id} onCancel={hideEditModal} />
-  ));
-  const [showDeleteModal, hideDeleteModal] = useModal(() => (
-    <ConfirmModal
-      title="Delete restaurant?"
-      confirmLabel="Delete Restaurant"
-      onConfirm={() => onDelete({ place, fromDetails: true })}
-      onCancel={hideDeleteModal}
-    >
-      Do you really want to delete {place.title}?
-    </ConfirmModal>
-  ));
+  const [showReviewModal, hideReviewModal] = useModal(
+    ({ in: open = true, onExited }: TransitionProps) => (
+      <CreateReviewModalContainer
+        open={open}
+        place={place}
+        onCancel={hideReviewModal}
+        onExited={onExited}
+      />
+    )
+  );
+  const [showEditModal, hideEditModal] = useModal(
+    ({ in: open = true, onExited }: TransitionProps) => (
+      <PlaceFormModalContainer
+        open={open}
+        id={place.id}
+        onCancel={hideEditModal}
+        onExited={onExited}
+      />
+    )
+  );
+  const [showDeleteModal, hideDeleteModal] = useModal(
+    ({ in: open = true, onExited }: TransitionProps) => (
+      <ConfirmModal
+        open={open}
+        title="Delete restaurant?"
+        confirmLabel="Delete Restaurant"
+        onConfirm={() => onDelete({ place, fromDetails: true })}
+        onCancel={hideDeleteModal}
+        onExited={onExited}
+      >
+        Do you really want to delete {place.title}?
+      </ConfirmModal>
+    )
+  );
 
   return children({
     place,

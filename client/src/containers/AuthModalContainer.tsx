@@ -1,3 +1,4 @@
+import { DialogProps } from "@material-ui/core/Dialog";
 import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -16,7 +17,7 @@ import {
 /**
  * External Props
  */
-interface OwnProps {
+interface OwnProps extends DialogProps {
   onCancel: () => void;
 }
 
@@ -69,12 +70,14 @@ const enhance = connect(
  * Displays modal window for authentication.
  */
 const BaseAuthModalContainer = ({
+  open,
   isAuthenticated,
   loginRequest,
   signupRequest,
   onLogin,
   onSignup,
-  onCancel
+  onCancel,
+  onExited
 }: Props) => {
   useEffect(
     () => {
@@ -87,6 +90,8 @@ const BaseAuthModalContainer = ({
 
   return (
     <AuthModal
+      open={open}
+      onExited={onExited}
       loginLoading={loginRequest.loading}
       signupLoading={signupRequest.loading}
       loginError={loginRequest.error}

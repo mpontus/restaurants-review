@@ -1,9 +1,10 @@
 import React from "react";
+import { useModal } from "react-modal-hook";
+import { TransitionProps } from "react-transition-group/Transition";
 import { Button } from "../components/Button";
 import { Navbar } from "../components/Navbar";
 import { NavbarLink } from "../components/NavbarLink";
 import { Responsive } from "../components/Responsive";
-import { useModal } from "../hooks/useModal";
 import { isAdmin, isOwner } from "../models/User";
 import * as routes from "../routes";
 import { AuthModalContainer } from "./AuthModalContainer";
@@ -15,9 +16,15 @@ import { CurrentUserProvider } from "./CurrentUserProvider";
  * Displays application navbar connected to the store.
  */
 export const NavbarContainer = () => {
-  const [showAuthModal, hideAuthModal] = useModal(() => (
-    <AuthModalContainer onCancel={hideAuthModal} />
-  ));
+  const [showAuthModal, hideAuthModal] = useModal(
+    ({ in: open = true, onExited }: TransitionProps) => (
+      <AuthModalContainer
+        open={open}
+        onExited={onExited}
+        onCancel={hideAuthModal}
+      />
+    )
+  );
 
   return (
     <CurrentUserProvider>

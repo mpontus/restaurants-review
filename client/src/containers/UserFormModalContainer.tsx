@@ -1,3 +1,4 @@
+import { DialogProps } from "@material-ui/core/Dialog";
 import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -16,7 +17,7 @@ import {
 /**
  * External Props
  */
-interface OwnProps {
+interface OwnProps extends DialogProps {
   /**
    * User id
    */
@@ -89,11 +90,13 @@ const enhance = connect<StateProps, DispatchProps, OwnProps, State>(
  * Displays modal window for user creation and modification.
  */
 const BaseUserFormModalContainer = ({
+  open,
   user,
   requestStatus: currentRequestStatus,
   onUpdate,
   onCreate,
-  onCancel
+  onCancel,
+  onExited
 }: Props) => {
   // Skip initial request status which may have been left by previous modal
   const requestStatus = useSubsequent(currentRequestStatus, {
@@ -123,6 +126,7 @@ const BaseUserFormModalContainer = ({
 
   return (
     <UserFormModal
+      open={open}
       autoFocus={user === undefined}
       title={user ? "Update User" : "Create User"}
       subtitle={
@@ -138,6 +142,7 @@ const BaseUserFormModalContainer = ({
       error={requestStatus.error}
       onSubmit={data => (user ? onUpdate({ user, data }) : onCreate(data))}
       onCancel={onCancel}
+      onExited={onExited}
     />
   );
 };

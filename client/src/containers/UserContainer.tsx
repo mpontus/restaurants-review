@@ -11,13 +11,14 @@ import {
   MoreVert as MoreVertIcon
 } from "@material-ui/icons";
 import React from "react";
+import { useModal } from "react-modal-hook";
 import { connect, Selector } from "react-redux";
+import { TransitionProps } from "react-transition-group/Transition";
 import { createStructuredSelector } from "reselect";
 import { deleteUser } from "../actions/userListActions";
 import { ConfirmModal } from "../components/ConfirmModal";
 import { IconMenu } from "../components/IconMenu";
 import { UserBadge } from "../components/UserBadge";
-import { useModal } from "../hooks/useModal";
 import { RequestStatus } from "../models/RequestStatus";
 import { isAdmin, isOwner, User } from "../models/User";
 import { State } from "../reducers";
@@ -101,20 +102,31 @@ export const BaseUserListItemContainer = ({
     return null;
   }
 
-  const [showConfirmModal, hideConfirmModal] = useModal(() => (
-    <ConfirmModal
-      title="Delete user?"
-      confirmLabel="Delete user"
-      onConfirm={() => onDelete({ user })}
-      onCancel={hideConfirmModal}
-    >
-      Do you really want to delete {user.name}?
-    </ConfirmModal>
-  ));
+  const [showConfirmModal, hideConfirmModal] = useModal(
+    ({ in: open = false, onExited }: TransitionProps) => (
+      <ConfirmModal
+        open={open}
+        title="Delete user?"
+        confirmLabel="Delete user"
+        onConfirm={() => onDelete({ user })}
+        onCancel={hideConfirmModal}
+        onExited={onExited}
+      >
+        Do you really want to delete {user.name}?
+      </ConfirmModal>
+    )
+  );
 
-  const [showEditModal, hideEditModal] = useModal(() => (
-    <UserFormModalContainer id={user.id} onCancel={hideEditModal} />
-  ));
+  const [showEditModal, hideEditModal] = useModal(
+    ({ in: open = false, onExited }: TransitionProps) => (
+      <UserFormModalContainer
+        open={open}
+        id={user.id}
+        onCancel={hideEditModal}
+        onExited={onExited}
+      />
+    )
+  );
 
   return (
     <ListItem

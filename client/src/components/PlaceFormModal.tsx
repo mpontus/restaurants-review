@@ -4,6 +4,7 @@ import {
   DialogContentText,
   DialogTitle
 } from "@material-ui/core";
+import { DialogProps } from "@material-ui/core/Dialog";
 import React from "react";
 import * as yup from "yup";
 import { RequestError } from "../models/RequestError";
@@ -17,7 +18,7 @@ import { Input } from "./Input";
 /**
  * Place Form Modal Props
  */
-interface Props {
+interface Props extends Pick<DialogProps, "open" | "onExited"> {
   /**
    * Auto focus on the first field
    */
@@ -92,6 +93,7 @@ const defaultValues = {
  * Displays a dialog for creating or editing a place.
  */
 export const PlaceFormModal: React.SFC<Props> = ({
+  open,
   autoFocus,
   loading,
   error,
@@ -100,9 +102,10 @@ export const PlaceFormModal: React.SFC<Props> = ({
   submitLabel,
   onSubmit,
   onCancel,
+  onExited,
   initialValues = defaultValues
 }) => (
-  <AdaptiveModal open={true} onClose={onCancel}>
+  <AdaptiveModal open={open} onExited={onExited} onClose={onCancel}>
     <Form
       onSubmit={onSubmit}
       initialValues={initialValues}

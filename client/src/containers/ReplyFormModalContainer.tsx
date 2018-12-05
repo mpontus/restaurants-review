@@ -1,4 +1,5 @@
 import { Typography } from "@material-ui/core";
+import { DialogProps } from "@material-ui/core/Dialog";
 import React, { useEffect } from "react";
 import { connect, Selector } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -17,7 +18,7 @@ import {
 /**
  * External Props
  */
-interface OwnProps {
+interface OwnProps extends DialogProps {
   /**
    * Review id
    */
@@ -84,10 +85,12 @@ const enhance = connect<StateProps, DispatchProps, OwnProps, State>(
  * Displays a review reply form.
  */
 const BaseReplyFormModalContainer = ({
+  open,
   review,
   requestStatus: currentRequestStatus,
   onReply,
-  onCancel
+  onCancel,
+  onExited
 }: Props) => {
   if (review === undefined) {
     return null;
@@ -111,6 +114,7 @@ const BaseReplyFormModalContainer = ({
 
   return (
     <ReplyFormModal
+      open={open}
       autoFocus={true}
       subtitle={
         <React.Fragment>
@@ -124,6 +128,7 @@ const BaseReplyFormModalContainer = ({
       error={requestStatus.error}
       onSubmit={data => onReply({ review, data })}
       onCancel={onCancel}
+      onExited={onExited}
     />
   );
 };
