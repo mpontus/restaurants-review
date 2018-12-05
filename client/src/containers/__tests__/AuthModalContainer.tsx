@@ -8,7 +8,7 @@ const noop = () => undefined;
 describe("AuthModalContainer", () => {
   it("dispatches login action when login form is submitted", async () => {
     const { store, getByLabelText } = renderWithProviders(
-      <AuthModalContainer onCancel={noop} />
+      <AuthModalContainer open={true} onCancel={noop} />
     );
 
     fireEvent.change(getByLabelText("Email Address"), {
@@ -33,7 +33,7 @@ describe("AuthModalContainer", () => {
 
   it("dispatches signup action when signup form is submitted", async () => {
     const { store, getByText, getByLabelText } = renderWithProviders(
-      <AuthModalContainer onCancel={noop} />
+      <AuthModalContainer open={true} onCancel={noop} />
     );
 
     fireEvent.click(getByText("Sign Up"));
@@ -66,20 +66,23 @@ describe("AuthModalContainer", () => {
   it("self-closes after successful request", () => {
     const onCancel = jest.fn();
 
-    renderWithProviders(<AuthModalContainer onCancel={onCancel} />, {
-      state: {
-        auth: {
-          accessToken: "foo",
-          refreshToken: "bar",
-          user: {
-            id: "55",
-            name: "Example User Name",
-            email: "user@example.com",
-            roles: ["user"]
+    renderWithProviders(
+      <AuthModalContainer open={true} onCancel={onCancel} />,
+      {
+        state: {
+          auth: {
+            accessToken: "foo",
+            refreshToken: "bar",
+            user: {
+              id: "55",
+              name: "Example User Name",
+              email: "user@example.com",
+              roles: ["user"]
+            }
           }
         }
       }
-    });
+    );
 
     expect(onCancel).toHaveBeenCalled();
   });

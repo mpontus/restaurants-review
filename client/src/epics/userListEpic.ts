@@ -104,11 +104,15 @@ export const updateUserEpic: Epic<Action, Action, State, Dependencies> = (
 ) => {
   return action$.pipe(
     filter(isActionOf(actions.updateUser.request)),
-    switchMap(action =>
-      from(
+    switchMap(action => {
+      const { data } = action.payload;
+
+      return from(
         updateUser(api, {
           id: action.payload.user.id,
-          ...action.payload.data
+          name: data.name,
+          email: data.email,
+          password: data.password
         })
       ).pipe(
         map(user => actions.updateUser.success({ user })),
@@ -118,8 +122,8 @@ export const updateUserEpic: Epic<Action, Action, State, Dependencies> = (
             error
           })
         )
-      )
-    )
+      );
+    })
   );
 };
 

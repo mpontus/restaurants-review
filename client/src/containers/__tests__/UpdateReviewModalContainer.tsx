@@ -26,7 +26,7 @@ describe("UpdateReviewModalContainer", () => {
   it("self-closes when cancel button is pressed", () => {
     const onCancel = jest.fn();
     const { getByText } = renderWithProviders(
-      <UpdateReviewModalContainer id="3" onCancel={onCancel} />,
+      <UpdateReviewModalContainer open={true} id="3" onCancel={onCancel} />,
       { state }
     );
 
@@ -38,7 +38,7 @@ describe("UpdateReviewModalContainer", () => {
   it("self-closes when request succeeds", () => {
     const onCancel = jest.fn();
     const { getByText } = renderWithProviders(
-      <UpdateReviewModalContainer id="3" onCancel={onCancel} />,
+      <UpdateReviewModalContainer open={true} id="3" onCancel={onCancel} />,
       { state }
     );
 
@@ -49,7 +49,7 @@ describe("UpdateReviewModalContainer", () => {
 
   it("dispatches create event when form is submitted", async () => {
     const { store, getByLabelText } = renderWithProviders(
-      <UpdateReviewModalContainer id="3" onCancel={noop} />,
+      <UpdateReviewModalContainer open={true} id="3" onCancel={noop} />,
       { state }
     );
 

@@ -16,7 +16,11 @@ describe("CreateReviewContainer", () => {
   it("self-closes when cancel button is pressed", () => {
     const onCancel = jest.fn();
     const { getByText } = renderWithProviders(
-      <CreateReviewModalContainer place={place} onCancel={onCancel} />
+      <CreateReviewModalContainer
+        open={true}
+        place={place}
+        onCancel={onCancel}
+      />
     );
 
     fireEvent.click(getByText("Cancel"));
@@ -27,7 +31,11 @@ describe("CreateReviewContainer", () => {
   it("self-closes when request succeeds", () => {
     const onCancel = jest.fn();
     const { getByText } = renderWithProviders(
-      <CreateReviewModalContainer place={place} onCancel={onCancel} />
+      <CreateReviewModalContainer
+        open={true}
+        place={place}
+        onCancel={onCancel}
+      />
     );
 
     fireEvent.click(getByText("Cancel"));
@@ -37,7 +45,7 @@ describe("CreateReviewContainer", () => {
 
   it("dispatches create event when form is submitted", async () => {
     const { store, getByLabelText } = renderWithProviders(
-      <CreateReviewModalContainer place={place} onCancel={noop} />
+      <CreateReviewModalContainer open={true} place={place} onCancel={noop} />
     );
 
     fireEvent.change(getByLabelText("Comment"), {

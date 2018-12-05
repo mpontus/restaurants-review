@@ -9,7 +9,7 @@ describe("PlaceFormModalContainer", () => {
   it("self-closes when cancel button is pressed", () => {
     const onCancel = jest.fn();
     const { getByText } = renderWithProviders(
-      <PlaceFormModalContainer onCancel={onCancel} />
+      <PlaceFormModalContainer open={true} onCancel={onCancel} />
     );
 
     fireEvent.click(getByText("Cancel"));
@@ -20,7 +20,7 @@ describe("PlaceFormModalContainer", () => {
   describe("when id is not provided", () => {
     it("dispatches create event when form is submitted", async () => {
       const { store, getByLabelText } = renderWithProviders(
-        <PlaceFormModalContainer onCancel={noop} />
+        <PlaceFormModalContainer open={true} onCancel={noop} />
       );
 
       fireEvent.change(getByLabelText("Restaurant Name"), {
@@ -46,7 +46,7 @@ describe("PlaceFormModalContainer", () => {
   describe("when id is provided", () => {
     it("dispatches update event when form is submitted", async () => {
       const { store, getByLabelText } = renderWithProviders(
-        <PlaceFormModalContainer onCancel={noop} id="5" />,
+        <PlaceFormModalContainer open={true} onCancel={noop} id="5" />,
         {
           state: {
             placeEntity: {

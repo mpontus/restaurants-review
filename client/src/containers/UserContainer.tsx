@@ -103,7 +103,7 @@ export const BaseUserListItemContainer = ({
   }
 
   const [showConfirmModal, hideConfirmModal] = useModal(
-    ({ in: open = false, onExited }: TransitionProps) => (
+    ({ in: open = true, onExited }: TransitionProps) => (
       <ConfirmModal
         open={open}
         title="Delete user?"
@@ -118,7 +118,7 @@ export const BaseUserListItemContainer = ({
   );
 
   const [showEditModal, hideEditModal] = useModal(
-    ({ in: open = false, onExited }: TransitionProps) => (
+    ({ in: open = true, onExited }: TransitionProps) => (
       <UserFormModalContainer
         open={open}
         id={user.id}

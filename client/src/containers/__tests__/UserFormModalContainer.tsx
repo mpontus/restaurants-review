@@ -9,7 +9,7 @@ describe("UserFormContainer", () => {
   it("self-closes when cancel button is pressed", () => {
     const onCancel = jest.fn();
     const { getByText } = renderWithProviders(
-      <UserFormModalContainer onCancel={onCancel} />
+      <UserFormModalContainer open={true} onCancel={onCancel} />
     );
 
     fireEvent.click(getByText("Cancel"));
@@ -20,7 +20,7 @@ describe("UserFormContainer", () => {
   describe("when id is not provided", () => {
     it("dispatches create event when form is submitted", async () => {
       const { store, getByLabelText } = renderWithProviders(
-        <UserFormModalContainer onCancel={noop} />
+        <UserFormModalContainer open={true} onCancel={noop} />
       );
 
       fireEvent.change(getByLabelText("Display Name"), {
@@ -53,7 +53,7 @@ describe("UserFormContainer", () => {
   describe("when id is provided", () => {
     it("dispatches update event when form is submitted", async () => {
       const { store, getByLabelText } = renderWithProviders(
-        <UserFormModalContainer onCancel={noop} id="5" />,
+        <UserFormModalContainer open={true} onCancel={noop} id="5" />,
         {
           state: {
             userEntity: {

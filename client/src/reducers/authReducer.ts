@@ -1,3 +1,4 @@
+import { Reducer } from "redux";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { getType } from "typesafe-actions";
@@ -37,7 +38,7 @@ const initialState: State = {};
  */
 export const authReducer = persistReducer(
   { key: "auth", storage },
-  (state: State = {}, action: Action) => {
+  (state = {}, action) => {
     switch (action.type) {
       case getType(actions.login.success):
       case getType(actions.signup.success):
@@ -54,4 +55,4 @@ export const authReducer = persistReducer(
         return state;
     }
   }
-);
+) as Reducer<State, Action>;

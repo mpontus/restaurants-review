@@ -6,8 +6,7 @@ import { Schema } from "yup";
 /**
  * Outer props
  */
-export interface FormProps<V>
-  extends React.FormHTMLAttributes<HTMLFormElement> {
+export interface FormProps<V> {
   /**
    * Omit unchanged values from submission
    */

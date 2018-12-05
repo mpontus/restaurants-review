@@ -25,7 +25,7 @@ describe("ReplyFormModalContainer", () => {
   it("self-closes when cancel button is pressed", () => {
     const onCancel = jest.fn();
     const { getByText } = renderWithProviders(
-      <ReplyFormModalContainer id="3" onCancel={onCancel} />,
+      <ReplyFormModalContainer open={true} id="3" onCancel={onCancel} />,
       { state }
     );
 
@@ -37,7 +37,7 @@ describe("ReplyFormModalContainer", () => {
   it("self-closes when request succeeds", () => {
     const onCancel = jest.fn();
     const { getByText } = renderWithProviders(
-      <ReplyFormModalContainer id="3" onCancel={onCancel} />,
+      <ReplyFormModalContainer open={true} id="3" onCancel={onCancel} />,
       { state }
     );
 
@@ -48,7 +48,7 @@ describe("ReplyFormModalContainer", () => {
 
   it("dispatches create event when form is submitted", async () => {
     const { store, getByLabelText } = renderWithProviders(
-      <ReplyFormModalContainer id="3" onCancel={noop} />,
+      <ReplyFormModalContainer open={true} id="3" onCancel={noop} />,
       { state }
     );
 
