@@ -23,6 +23,7 @@ const initialState = rootReducer(undefined, {} as any);
 interface RenderWithProvidersOptions {
   state?: Partial<State>;
   store?: MockStoreEnhanced;
+  container?: HTMLElement;
 }
 
 /**
@@ -35,7 +36,8 @@ export const renderWithProviders = (
     store = mockStore({
       ...initialState,
       ...state
-    })
+    }),
+    container
   }: RenderWithProvidersOptions = {}
 ) => {
   return {
@@ -45,7 +47,8 @@ export const renderWithProviders = (
         <MemoryRouter>
           <ModalProvider>{ui}</ModalProvider>
         </MemoryRouter>
-      </Provider>
+      </Provider>,
+      container ? { container } : undefined
     )
   };
 };
