@@ -39,8 +39,7 @@ interface Props extends StateProps, DispatchProps {}
  */
 interface ComponentState {
   /**
-   * Gives us unique incremental notification key which is needed for
-   * snackbar animations.
+   * Unique notification key for snackbar animation
    */
   counter: number;
 
@@ -50,7 +49,7 @@ interface ComponentState {
   notification?: Notification;
 
   /**
-   * Whether the shown notification is currently exiting
+   * Whether the shown notification is currently being hidden
    */
   exiting: boolean;
 }
@@ -74,10 +73,40 @@ const enhance = connect(
 /**
  * Notification Container
  *
- * Displays top notification retrieved from the state, when its
- * dismissed, shows next notification.
+ * Displays last notification from the state as a snackbar. Holds on
+ * to notification for the duration of snackbar exit transition.
  */
 class NotificationContainer extends React.Component<Props, ComponentState> {
+  /**
+   * Update state in response to the change of the top notification
+   *
+   * When notification is dismissed, top notification will change instantly to
+   * the next pending notification, or to undefined if there are no pending
+   * notifications, and we need to hold on to the previous notificaiton for the
+   * duration of exit transition.
+   *
+   * If no notification was shown previously shown, than we can simply transfer
+   * notification from props to the state.
+   */
+  public static getDerivedStateFromProps(props: Props, state: ComponentState) {
+    // Update notification immediately when no notification is currently shown.
+    if (state.notification === undefined) {
+      return {
+        counter: state.counter + 1,
+        notification: props.notification
+      };
+    }
+
+    // Begin exit transition on current notification
+    if (state.notification !== props.notification) {
+      return {
+        exiting: true
+      };
+    }
+
+    return null;
+  }
+
   /**
    * Component state
    */
@@ -88,21 +117,9 @@ class NotificationContainer extends React.Component<Props, ComponentState> {
   };
 
   /**
-   * Update pending notification
-   */
-  public componentWillReceiveProps(nextProps: Props) {
-    if (this.state.notification === undefined) {
-      this.setState(state => ({
-        counter: state.counter + 1,
-        notification: nextProps.notification
-      }));
-    } else if (this.state.notification !== nextProps.notification) {
-      this.setState({ exiting: true });
-    }
-  }
-
-  /**
    * Handle exit animation finish
+   *
+   * Takes pending notification from props and puts it into state.
    */
   public handleExit = () => {
     this.setState(state => ({
@@ -115,7 +132,7 @@ class NotificationContainer extends React.Component<Props, ComponentState> {
   /**
    * Handle notification dismissal.
    *
-   * Invoked either explicitly or by timeout.
+   * Invoked either by click or timeout.
    */
   public handleDismiss = () => {
     this.props.onDismiss();
