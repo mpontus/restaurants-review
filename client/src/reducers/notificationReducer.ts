@@ -21,7 +21,7 @@ const addInfo = (
   state: State,
   message: string,
   duration: number = 4000
-): State => [{ type: "info", message, duration }, ...state];
+): State => [...state, { type: "info", message, duration }];
 
 /**
  * Add success notification
@@ -30,7 +30,7 @@ const addSuccess = (
   state: State,
   message: string,
   duration: number = 4000
-): State => [{ type: "success", message, duration }, ...state];
+): State => [...state, { type: "success", message, duration }];
 
 /**
  * Add error notification
@@ -39,7 +39,7 @@ const addError = (
   state: State,
   message: string,
   duration: number = 4000
-): State => [{ type: "error", message, duration }, ...state];
+): State => [...state, { type: "error", message, duration }];
 
 /**
  * Dismiss top notification
