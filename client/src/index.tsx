@@ -15,6 +15,8 @@ import { RootScreen } from "./screens/RootScreen";
 import * as serviceWorker from "./serviceWorker";
 import { configureStore } from "./store";
 import { theme } from "./theme";
+import { I18nProvider } from "@lingui/react";
+import catalogRu from "./locales/ru/messages";
 
 /**
  * Create History instance to be injected in redux middleware
@@ -39,6 +41,8 @@ const { store, persistor } = configureStore(undefined, {
   history
 });
 
+const catalogs = { ru: catalogRu };
+
 /**
  * Render the application
  */
@@ -46,12 +50,14 @@ ReactDOM.render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>
       <Router history={history}>
-        <MuiThemeProvider theme={theme}>
-          <CssBaseline />
-          <ModalProvider container={TransitionGroup}>
-            <RootScreen />
-          </ModalProvider>
-        </MuiThemeProvider>
+        <I18nProvider language="ru" catalogs={catalogs}>
+          <MuiThemeProvider theme={theme}>
+            <CssBaseline />
+            <ModalProvider container={TransitionGroup}>
+              <RootScreen />
+            </ModalProvider>
+          </MuiThemeProvider>
+        </I18nProvider>
       </Router>
     </PersistGate>
   </Provider>,

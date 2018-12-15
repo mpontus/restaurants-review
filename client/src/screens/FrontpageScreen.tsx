@@ -10,6 +10,7 @@ import { PlaceContainer } from "../containers/PlaceContainer";
 import { PlaceListProvider } from "../containers/PlaceListProvider";
 import { usePagination } from "../hooks/usePagination";
 import { useRatingFilter } from "../hooks/useRatingFilter";
+import { Trans } from "@lingui/macro";
 
 /**
  * Frontpage Screen
@@ -31,10 +32,14 @@ export const FrontpageScreen = ({ history }: RouteComponentProps) => {
 
   return (
     <DocumentTitle>
-      <Heading>Restaurant Reviews</Heading>
+      <Heading>
+        <Trans>Restaurant Reviews</Trans>
+      </Heading>
       <Subheading>
-        This is a website for restaurant reviews. You can find the best
-        restaurants and read reviews left by our users.
+        <Trans>
+          This is a website for restaurant reviews. You can find the best
+          restaurants and read reviews left by our users.
+        </Trans>
       </Subheading>
       <RatingFilterControl
         value={ratingFilter}
@@ -44,7 +49,11 @@ export const FrontpageScreen = ({ history }: RouteComponentProps) => {
         ratingFilter={ratingFilter}
         currentPage={currentPage}
         loadingPlaceholder={<Loading />}
-        emptyPlaceholder={<Subheading>There are no places yet.</Subheading>}
+        emptyPlaceholder={
+          <Subheading>
+            <Trans>There are no places yet.</Trans>
+          </Subheading>
+        }
       >
         {({ ids, hasNextPage, hasPrevPage }) => (
           <Pagination
