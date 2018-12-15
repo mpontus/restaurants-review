@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import React, { useCallback } from "react";
 import { RouteComponentProps } from "react-router";
 import { DocumentTitle } from "../components/DocumentTitle";
@@ -10,7 +11,6 @@ import { PlaceContainer } from "../containers/PlaceContainer";
 import { PlaceListProvider } from "../containers/PlaceListProvider";
 import { usePagination } from "../hooks/usePagination";
 import { useRatingFilter } from "../hooks/useRatingFilter";
-import { Trans } from "@lingui/macro";
 
 /**
  * Frontpage Screen

@@ -1,3 +1,4 @@
+import { I18nProvider } from "@lingui/react";
 import { CssBaseline } from "@material-ui/core";
 import { MuiThemeProvider } from "@material-ui/core";
 import axios from "axios";
@@ -11,12 +12,11 @@ import { TransitionGroup } from "react-transition-group";
 import { PersistGate } from "redux-persist/integration/react";
 import { ApiGateway } from "./api/ApiGateway";
 import { config } from "./config";
+import catalogRu from "./locales/ru/messages";
 import { RootScreen } from "./screens/RootScreen";
 import * as serviceWorker from "./serviceWorker";
 import { configureStore } from "./store";
 import { theme } from "./theme";
-import { I18nProvider } from "@lingui/react";
-import catalogRu from "./locales/ru/messages";
 
 /**
  * Create History instance to be injected in redux middleware
