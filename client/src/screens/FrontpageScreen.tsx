@@ -33,10 +33,10 @@ export const FrontpageScreen = ({ history }: RouteComponentProps) => {
   return (
     <DocumentTitle>
       <Heading>
-        <Trans>Restaurant Reviews</Trans>
+        <Trans description="Frontpage Title">Restaurant Reviews</Trans>
       </Heading>
       <Subheading>
-        <Trans>
+        <Trans description="Frontpage Subtitle">
           This is a website for restaurant reviews. You can find the best
           restaurants and read reviews left by our users.
         </Trans>
@@ -51,7 +51,9 @@ export const FrontpageScreen = ({ history }: RouteComponentProps) => {
         loadingPlaceholder={<Loading />}
         emptyPlaceholder={
           <Subheading>
-            <Trans>There are no places yet.</Trans>
+            <Trans description="Placeholder text for empty place list">
+              There are no places yet.
+            </Trans>
           </Subheading>
         }
       >

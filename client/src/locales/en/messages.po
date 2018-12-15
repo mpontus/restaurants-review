@@ -6,16 +6,24 @@ msgstr ""
 "X-Generator: POEditor.com\n"
 "Project-Id-Version: Restaurant Reviews\n"
 "Language: en\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Plural-Forms: \n"
 
+#. Frontpage Title
 #: src/screens/FrontpageScreen.tsx:28
 msgid "Restaurant Reviews"
 msgstr "Restaurant Reviews"
 
+#. Placeholder text for empty place list
 #: src/screens/FrontpageScreen.tsx:38
 msgid "There are no places yet."
 msgstr "There are no places yet."
 
+#. Frontpage Subtitle
 #: src/screens/FrontpageScreen.tsx:31
 msgid "This is a website for restaurant reviews. You can find the best restaurants and read reviews left by our users."
 msgstr "This is a website for restaurant reviews. You can find the best restaurants and read reviews left by our users."
-
