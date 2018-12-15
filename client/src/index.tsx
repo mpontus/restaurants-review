@@ -12,6 +12,7 @@ import { TransitionGroup } from "react-transition-group";
 import { PersistGate } from "redux-persist/integration/react";
 import { ApiGateway } from "./api/ApiGateway";
 import { config } from "./config";
+import catalogEn from "./locales/en/messages";
 import catalogRu from "./locales/ru/messages";
 import { RootScreen } from "./screens/RootScreen";
 import * as serviceWorker from "./serviceWorker";
@@ -41,7 +42,7 @@ const { store, persistor } = configureStore(undefined, {
   history
 });
 
-const catalogs = { ru: catalogRu };
+const catalogs = { en: catalogEn, ru: catalogRu };
 
 /**
  * Render the application
@@ -50,7 +51,7 @@ ReactDOM.render(
   <Provider store={store}>
     <PersistGate persistor={persistor}>
       <Router history={history}>
-        <I18nProvider language="ru" catalogs={catalogs}>
+        <I18nProvider language="en" catalogs={catalogs}>
           <MuiThemeProvider theme={theme}>
             <CssBaseline />
             <ModalProvider container={TransitionGroup}>
