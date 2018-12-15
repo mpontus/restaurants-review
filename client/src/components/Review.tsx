@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import React from "react";
 import { Review as ReviewModel } from "../models/Review";
 import { RatingStatic } from "./RatingStatic";
+import { DateFormat } from "@lingui/macro";
 
 /**
  * Custom class names
@@ -93,7 +94,7 @@ export const BaseReview = ({ classes, review, actions }: Props) => {
         }
         subheader={
           <Typography component="span" variant="body2" color="textSecondary">
-            {dayjs(review.dateVisited).format("DD/MM/YYYY")}
+            <DateFormat value={dayjs(review.dateVisited).toDate()} />
           </Typography>
         }
       />

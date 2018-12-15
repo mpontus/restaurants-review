@@ -1,3 +1,4 @@
+import { Trans } from "@lingui/macro";
 import React, { useCallback } from "react";
 import { RouteComponentProps } from "react-router";
 import { DocumentTitle } from "../components/DocumentTitle";
@@ -31,10 +32,14 @@ export const FrontpageScreen = ({ history }: RouteComponentProps) => {
 
   return (
     <DocumentTitle>
-      <Heading>Restaurant Reviews</Heading>
+      <Heading>
+        <Trans description="Frontpage Title">Restaurant Reviews</Trans>
+      </Heading>
       <Subheading>
-        This is a website for restaurant reviews. You can find the best
-        restaurants and read reviews left by our users.
+        <Trans description="Frontpage Subtitle">
+          This is a website for restaurant reviews. You can find the best
+          restaurants and read reviews left by our users.
+        </Trans>
       </Subheading>
       <RatingFilterControl
         value={ratingFilter}
@@ -44,7 +49,13 @@ export const FrontpageScreen = ({ history }: RouteComponentProps) => {
         ratingFilter={ratingFilter}
         currentPage={currentPage}
         loadingPlaceholder={<Loading />}
-        emptyPlaceholder={<Subheading>There are no places yet.</Subheading>}
+        emptyPlaceholder={
+          <Subheading>
+            <Trans description="Placeholder text for empty place list">
+              There are no places yet.
+            </Trans>
+          </Subheading>
+        }
       >
         {({ ids, hasNextPage, hasPrevPage }) => (
           <Pagination
