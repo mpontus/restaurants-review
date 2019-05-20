@@ -111,9 +111,7 @@ jobs:
       - run:
           name: Build client
           command: |
-            cd client
-            PUBLIC_URL=http://client:5000 REACT_APP_API_URL=http://server:5000 yarn build 
-            docker build -t client .
+            docker build -t client --build-arg PUBLIC_URL=http://client:5000 --build-arg API_URL=http://server:5000 client
 
       - run:
           name: Build server
