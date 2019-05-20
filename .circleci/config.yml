@@ -48,7 +48,7 @@ jobs:
       - run:
           name: Lint
           command: yarn lint
-          
+
   build_server:
     <<: *server_defaults
     steps:
@@ -99,6 +99,54 @@ jobs:
           root: .
           paths: .
 
+  test_client:
+    working_directory: ~/repo
+    docker:
+      - image: cypress/base:8
+        environment:
+          ## this enables colors in the output
+          TERM: xterm
+    steps:
+      - setup_remote_docker
+      - attach_workspace:
+          at: ~/repo
+
+      - run:
+          name: Build client
+          command: |
+            cd client
+            PUBLIC_URL=http://client:5000 REACT_APP_API_URL=http://server:5000 yarn build 
+            docker build -t client .
+
+      - run:
+          name: Build server
+          command: |
+            docker build -t server server 
+
+      - run:
+          name: Start PostgreSQL server
+          command: docker run -d --name postgres --network=reviews postgres
+          background: true
+
+      - run:
+          name: Start Redis server
+          command: docker run -d --name redis --network=reviews redis
+          background: true
+
+      - run:
+          name: Start API server
+          command: docker run -d --name server --network=reviews -e SEED_MODULE=true -e DATABASE_URL=pg://postgres@postgres:5432 -e REDIS_URL=redis://redis:6379 -e JWT_SECRET=secret -e PORT=5000 -p 5000:5000 server
+          background: true
+
+      - run:
+          name: Start client server
+          command: docker run -d --name client --network=reviews -e REACT_APP_API_URL=pg://server:5000 -e PORT=5000 client
+          background: true
+
+      - run:
+          name: Run Cypress
+          command: docker run --rm -it --name cypress --network=reviews -v $PWD:/e2e -w /e2e/client -e CYPRESS_BASE_URL=http://client:5000 -e CYPRESS_API_URL=http://server:5000 cypress/included:3.2.0
+
 workflows:
   version: 2
   build:
@@ -117,5 +165,8 @@ workflows:
           requires:
             - checkout_code
       - lint_client:
+          requires:
+            - checkout_code
+      - test_client:
           requires:
             - checkout_code
