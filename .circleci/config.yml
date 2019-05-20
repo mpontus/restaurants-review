@@ -119,6 +119,10 @@ jobs:
             docker build -t server server 
 
       - run:
+          name: Create docker network
+          command: docker network create reviews
+
+      - run:
           name: Start PostgreSQL server
           command: docker run -d --name postgres --network=reviews postgres
           background: true
