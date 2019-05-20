@@ -102,10 +102,7 @@ jobs:
   test_client:
     working_directory: ~/repo
     docker:
-      - image: cypress/base:8
-        environment:
-          ## this enables colors in the output
-          TERM: xterm
+      - image: docker:stable
     steps:
       - setup_remote_docker
       - attach_workspace:
