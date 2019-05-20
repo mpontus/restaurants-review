@@ -100,11 +100,9 @@ jobs:
           paths: .
 
   test_client:
+    machine: true
     working_directory: ~/repo
-    docker:
-      - image: docker:stable
     steps:
-      - setup_remote_docker
       - attach_workspace:
           at: ~/repo
 
